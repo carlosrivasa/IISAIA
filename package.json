@@ -1,0 +1,12 @@
+{
+  "name": "intro-desarrollo-asistido-ia",
+  "version": "1.0.0",
+  "description": "Course presentations for Intro to AI-Assisted Software Development",
+  "scripts": {
+    "start": "npx serve . -l 3000"
+  },
+  "devDependencies": {
+    "reveal.js": "^5.2.1",
+    "serve": "^14.2.4"
+  }
+}
