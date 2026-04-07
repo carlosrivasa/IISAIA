@@ -28,17 +28,119 @@
           <h2>Pretraining</h2>
         </section>
 
-        <!-- Internet Dataset -->
+        <!-- Internet Dataset (vertical stack) -->
+
+        <!-- CommonCrawl -->
         <section>
           <h2>Dataset de Internet</h2>
+          <h3>CommonCrawl</h3>
           <ul>
-            <li class="fragment fade-in">15 billones de tokens (44 TB) extraidos de la web</li>
-            <li class="fragment fade-in">Filtrado y curado para maximizar calidad</li>
-            <li class="fragment fade-in"><a href="https://huggingface.co/spaces/HuggingFaceFW/blogpost-fineweb-v1" target="_blank">HuggingFace FineWeb</a></li>
+            <li><a href="https://commoncrawl.org/" target="_blank">commoncrawl.org</a></li>
+            <li>Organizacion sin fines de lucro que rastrea la web desde 2008</li>
+            <li>Publica snapshots mensuales de paginas web completas (HTML, metadata, texto)</li>
+            <li>Mas de <strong>250 mil millones de paginas</strong> acumuladas</li>
+            <li>Datos abiertos y gratuitos, almacenados en Amazon S3</li>
           </ul>
-          <img src="../img/image01.png" alt="FineWeb dataset page" style="max-height: 50vh">
+          <p class="fragment fade-in" style="font-size: 0.8em; margin-top: var(--spacing-md);">Es la materia prima de practicamente todos los datasets de entrenamiento de LLMs: C4 (Google), RefinedWeb (Falcon), Dolma (AI2), FineWeb (HuggingFace)</p>
           <aside class="notes">
-            FineWeb es un conjunto de datos masivo, refinado y de alta calidad, compuesto por 15 billones de tokens (44 TB) extraidos de la web y filtrados meticulosamente para entrenar modelos de lenguaje. Incluye muchas explicaciones y graficos interactivos acerca de como se obtienen y filtran los datos. Mostrar la pagina en vivo.
+            CommonCrawl es una organizacion sin fines de lucro que rastrea la web de forma masiva desde 2008. Cada mes publica un snapshot con miles de millones de paginas. Es completamente abierto y gratuito. Lo importante es que nadie entrena directamente con los datos crudos de CommonCrawl — son demasiado sucios. Cada laboratorio de IA toma estos datos crudos y les aplica su propio pipeline de filtrado y limpieza para obtener un dataset de calidad. FineWeb es uno de esos datasets derivados. Mostrar la pagina de CommonCrawl brevemente.
+          </aside>
+        </section>
+
+        <!-- FineWeb -->
+        <section>
+          <h2>Dataset de Internet</h2>
+          <h3>FineWeb: CommonCrawl filtrado</h3>
+          <style>
+            .pipeline-box {
+              background: var(--bg-secondary);
+              border: 1px solid var(--text-muted);
+              border-radius: 8px;
+              padding: 6px 12px;
+              position: relative;
+              cursor: default;
+              transition: border-color 0.2s, color 0.2s;
+            }
+            .pipeline-box:hover {
+              border-color: var(--accent);
+              color: var(--accent);
+            }
+            .pipeline-box .tooltip {
+              display: none;
+              position: absolute;
+              bottom: calc(100% + 10px);
+              left: 50%;
+              transform: translateX(-50%);
+              background: var(--bg-code);
+              border: 1px solid var(--accent);
+              border-radius: 8px;
+              padding: 10px 14px;
+              font-size: 0.85em;
+              color: var(--text-primary);
+              white-space: nowrap;
+              z-index: 10;
+              box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+            }
+            .pipeline-box .tooltip::after {
+              content: '';
+              position: absolute;
+              top: 100%;
+              left: 50%;
+              transform: translateX(-50%);
+              border: 6px solid transparent;
+              border-top-color: var(--accent);
+            }
+            .pipeline-box:hover .tooltip { display: block; }
+            .pipeline-accent { border-color: var(--accent); color: var(--accent); }
+            .pipeline-arrow {
+              display: inline-flex;
+              align-items: center;
+              padding: 0 4px;
+            }
+            .pipeline-arrow svg {
+              width: 24px;
+              height: 14px;
+            }
+          </style>
+          <div style="display: flex; align-items: baseline; gap: var(--spacing-lg); margin-bottom: var(--spacing-md);">
+            <div style="flex: 1;">
+              <ul style="font-size: 0.85em;">
+                <li><a href="https://huggingface.co/spaces/HuggingFaceFW/blogpost-fineweb-v1" target="_blank">HuggingFace FineWeb</a></li>
+                <li><strong>15 billones de tokens</strong> (44 TB)</li>
+                <li>96 snapshots de CommonCrawl (2013-2024)</li>
+                <li>Supera a C4, RefinedWeb y Dolma en benchmarks</li>
+              </ul>
+            </div>
+            <div style="flex: 0 0 auto; text-align: right; font-size: 0.65em; color: var(--text-muted); line-height: 1.8;">
+              <div>Paginas crudas: <span style="color: var(--text-primary);">~200B</span></div>
+              <div>Post-filtrado: <span style="color: var(--accent);">~15B tokens</span></div>
+              <div>Se descarta: <span style="color: var(--accent-secondary);">~93%</span></div>
+            </div>
+          </div>
+          <!-- FineWeb Pipeline Diagram -->
+          <div style="display: flex; flex-direction: column; align-items: center; gap: 6px; font-size: 0.4em; margin-top: var(--spacing-sm);" class="fragment fade-in">
+            <div style="display: flex; justify-content: center; align-items: center; gap: 0;">
+              <span class="pipeline-box">Filtrado de URLs<span class="tooltip">Eliminar spam, duplicados y URLs maliciosas</span></span>
+              <span class="pipeline-arrow"><svg viewBox="0 0 24 14"><path d="M2 7h16m0 0l-5-5m5 5l-5 5" stroke="#8892b0" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+              <span class="pipeline-box">Extraccion de texto<span class="tooltip">trafilatura: extraer texto limpio del HTML crudo</span></span>
+              <span class="pipeline-arrow"><svg viewBox="0 0 24 14"><path d="M2 7h16m0 0l-5-5m5 5l-5 5" stroke="#8892b0" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+              <span class="pipeline-box">Filtrado por idioma<span class="tooltip">fastText: clasificador de idioma, score > 0.65</span></span>
+              <span class="pipeline-arrow"><svg viewBox="0 0 24 14"><path d="M2 7h16m0 0l-5-5m5 5l-5 5" stroke="#8892b0" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+              <span class="pipeline-box">Filtros Gopher<span class="tooltip">Heuristicas de calidad del paper de DeepMind (largo, repeticion, etc.)</span></span>
+            </div>
+            <svg width="24" height="28" style="align-self: flex-end; margin-right: calc(50% - 250px);"><path d="M12 2v20m0 0l-5-5m5 5l5-5" stroke="#8892b0" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <div style="display: flex; justify-content: center; align-items: center; gap: 0;">
+              <span class="pipeline-box">Remocion de PII<span class="tooltip">Eliminar emails, telefonos, direcciones IP</span></span>
+              <span class="pipeline-arrow"><svg viewBox="0 0 24 14"><path d="M22 7H6m0 0l5-5M6 7l5 5" stroke="#8892b0" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+              <span class="pipeline-box">Filtros custom<span class="tooltip">Reglas propias de FineWeb: lineas cortas, headers repetidos, etc.</span></span>
+              <span class="pipeline-arrow"><svg viewBox="0 0 24 14"><path d="M22 7H6m0 0l5-5M6 7l5 5" stroke="#8892b0" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+              <span class="pipeline-box">Filtros C4<span class="tooltip">Filtros del dataset C4 de Google (puntuacion, largo de oraciones, etc.)</span></span>
+              <span class="pipeline-arrow"><svg viewBox="0 0 24 14"><path d="M22 7H6m0 0l5-5M6 7l5 5" stroke="#8892b0" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+              <span class="pipeline-box">Dedup MinHash<span class="tooltip">Eliminar documentos casi-duplicados usando hashing local + global</span></span>
+            </div>
+          </div>
+          <aside class="notes">
+            FineWeb es un conjunto de datos de HuggingFace, masivo y de alta calidad, compuesto por 15 billones de tokens extraidos de 96 snapshots de CommonCrawl (2013-2024). Empieza con aproximadamente 200 mil millones de paginas crudas y despues de todo el pipeline de filtrado se queda con solo el 7% — o sea, se descarta el 93% del contenido por baja calidad. Supera consistentemente a otros datasets publicos como C4 (Google), RefinedWeb (Falcon) y Dolma (AI2) en benchmarks de evaluacion de modelos de lenguaje. Mostrar la pagina en vivo, que tiene graficos interactivos explicando cada paso del filtrado.
           </aside>
         </section>
 
