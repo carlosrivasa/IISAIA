@@ -13,8 +13,12 @@ function initBaseModelChat(opts) {
   var container = document.getElementById(containerId);
   if (!container) return;
 
+  var modelId = opts.model || 'meta-llama/Llama-3.1-70B';
+
   // State
   var endpointUrl = '';
+  var maxTokens = opts.maxTokens != null ? opts.maxTokens : 256;
+  var temperature = opts.temperature != null ? opts.temperature : 0.7;
   var rawSegments = []; // { text, type: 'user'|'model'|'special' }
   var chatMessages = []; // { text, role: 'user'|'model' }
   var showSpecialTokens = false;
@@ -69,6 +73,18 @@ function initBaseModelChat(opts) {
 
     // Error area
     html += '<div id="bmc-error" style="display: none; padding: 4px 12px; color: #ff6b6b; font-size: 0.9em;"></div>';
+
+    // Settings row (max_tokens + temperature)
+    html += '<div style="padding: 6px 12px; display: flex; gap: 14px; align-items: center; font-size: 0.85em; color: var(--text-muted); border-top: 1px solid var(--text-muted);">';
+    html += '<label style="display: flex; align-items: center; gap: 6px;">max_tokens';
+    html += '<input type="number" id="bmc-max-tokens" min="1" max="2048" step="1" value="' + maxTokens + '" '
+      + 'style="width: 64px; background: var(--bg-code); border: 1px solid var(--text-muted); border-radius: 3px; padding: 2px 6px; color: var(--text-primary); font-family: var(--font-mono); font-size: 1em;" />';
+    html += '</label>';
+    html += '<label style="display: flex; align-items: center; gap: 6px;">temperature';
+    html += '<input type="number" id="bmc-temperature" min="0" max="2" step="0.1" value="' + temperature + '" '
+      + 'style="width: 56px; background: var(--bg-code); border: 1px solid var(--text-muted); border-radius: 3px; padding: 2px 6px; color: var(--text-primary); font-family: var(--font-mono); font-size: 1em;" />';
+    html += '</label>';
+    html += '</div>';
 
     // Input area
     html += '<div style="padding: 8px 12px; border-top: 1px solid var(--text-muted); display: flex; gap: 8px;">';
@@ -200,6 +216,24 @@ function initBaseModelChat(opts) {
         render();
       });
     }
+
+    var maxTokensInput = document.getElementById('bmc-max-tokens');
+    if (maxTokensInput) {
+      maxTokensInput.addEventListener('change', function() {
+        var val = parseInt(this.value, 10);
+        if (!isNaN(val) && val > 0) maxTokens = val;
+      });
+      maxTokensInput.addEventListener('keydown', function(e) { e.stopPropagation(); });
+    }
+
+    var temperatureInput = document.getElementById('bmc-temperature');
+    if (temperatureInput) {
+      temperatureInput.addEventListener('change', function() {
+        var val = parseFloat(this.value);
+        if (!isNaN(val) && val >= 0) temperature = val;
+      });
+      temperatureInput.addEventListener('keydown', function(e) { e.stopPropagation(); });
+    }
   }
 
   function showError(msg) {
@@ -245,9 +279,10 @@ function initBaseModelChat(opts) {
     abortController = new AbortController();
 
     var body = {
+      model: modelId,
       prompt: prompt,
-      max_tokens: 256,
-      temperature: 0.7,
+      max_tokens: maxTokens,
+      temperature: temperature,
       stream: true,
       skip_special_tokens: !showSpecialTokens
     };
