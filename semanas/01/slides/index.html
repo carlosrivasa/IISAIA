@@ -1824,9 +1824,49 @@
       <section>
 
         <section class="section-divider">
-          <h2>Alucinaciónes y Uso de Herramientas</h2>
+          <h2>Alucinaciones y Uso de Herramientas</h2>
           <aside class="notes">
-            Ahora entramos en lo que Karpathy llama "psicologia de LLMs" — los efectos cognitivos emergentes del pipeline de entrenamiento. El primero y más importante: las alucinaciones.
+            Ahora entramos en lo que Karpathy llama "psicología de LLMs" — los efectos cognitivos emergentes del pipeline de entrenamiento. El primero y más importante: las alucinaciones.
+          </aside>
+        </section>
+
+        <!-- Bridge from SFT punchline to hallucinations -->
+        <section>
+          <h2>El asistente confiado tiene un problema</h2>
+          <p style="font-size: 0.8em; color: var(--text-muted);">SFT entrenó al modelo a imitar al labeler &mdash; incluyendo su tono confiado.</p>
+
+          <div style="display: flex; align-items: stretch; gap: 14px; margin-top: 18px; font-size: 0.7em;">
+
+            <div style="flex: 1; background: var(--bg-secondary); border-radius: 8px; padding: 14px; border-left: 3px solid var(--accent-secondary);">
+              <div style="color: var(--accent-secondary); font-weight: bold; margin-bottom: 8px; font-size: 1.1em;">El labeler</div>
+              <ul style="list-style: none; padding: 0; margin: 0; line-height: 1.75; color: var(--text-muted);">
+                <li><span style="color: var(--accent);">&check;</span> Sabe la respuesta, o la investiga antes de escribir</li>
+                <li><span style="color: var(--accent);">&check;</span> Siempre escribe con tono seguro</li>
+                <li><span style="color: #e8508b;">&times;</span> Nunca escribe "no sé"</li>
+              </ul>
+            </div>
+
+            <div style="display: flex; align-items: center; flex-shrink: 0;">
+              <svg width="28" height="14" viewBox="0 0 24 14"><path d="M2 7h16m0 0l-5-5m5 5l-5 5" stroke="var(--accent)" stroke-width="2" fill="none" stroke-linecap="round"/></svg>
+            </div>
+
+            <div style="flex: 1; background: var(--bg-secondary); border-radius: 8px; padding: 14px; border: 1px solid var(--accent);" class="fragment fade-in">
+              <div style="color: var(--accent); font-weight: bold; margin-bottom: 8px; font-size: 1.1em;">El modelo aprende</div>
+              <ul style="list-style: none; padding: 0; margin: 0; line-height: 1.75; color: var(--text-muted);">
+                <li><span style="color: var(--accent);">&check;</span> "Cuando me preguntan, respondo con seguridad"</li>
+                <li><span style="color: #e8508b;">&times;</span> Pero no tiene un patrón de "no sé" para imitar</li>
+                <li><span style="color: #e8508b;">&times;</span> Resultado: inventa cuando no sabe</li>
+              </ul>
+            </div>
+
+          </div>
+
+          <p class="fragment fade-in" style="font-size: 0.95em; margin-top: 18px; text-align: center; color: var(--accent);">
+            Esa es la receta de las alucinaciones.
+          </p>
+
+          <aside class="notes">
+            Conexión directa con el punchline anterior. El SFT entrena al modelo a imitar al labeler. El labeler, cuando escribe respuestas en el dataset, siempre las escribe con confianza — porque sabe la respuesta o la investigó antes. Nunca escribe "no sé". Como el modelo aprende a imitar al labeler, hereda ese patrón: cuando le preguntan algo, responde con confianza. El problema es cuando le preguntan algo que no está en sus parámetros — no tiene un patrón de "no sé" para imitar, así que inventa con el mismo tono confiado. La siguiente slide muestra el mecanismo en detalle.
           </aside>
         </section>
 
@@ -1853,61 +1893,210 @@
 
         <!-- Mitigation 1: teach "I don't know" -->
         <section>
-          <h2>Mitigación: ensenar a decir "no se"</h2>
-          <div style="font-size: 0.75em;">
-            <ol>
-              <li class="fragment fade-in">Tomar documentos del dataset, generar preguntas con un LLM</li>
-              <li class="fragment fade-in">Interrogar al modelo 3 veces sobre cada pregunta</li>
-              <li class="fragment fade-in">Si no sabe &#8594; agregar al dataset: "No tengo esa información"</li>
-              <li class="fragment fade-in">Fine-tunear con esos ejemplos</li>
-            </ol>
-          </div>
-          <p class="fragment fade-in"><a href="https://arxiv.org/pdf/2407.21783" target="_blank">Llama 3 paper (Meta, 2024)</a> — sección "Factuality"</p>
+          <h2>Mitigación: enseñar a decir "no sé"</h2>
+          <p style="font-size: 0.8em; color: var(--text-muted);">El proceso que Meta usó en Llama 3 para reducir alucinaciones factuales &mdash; click en cada caja para ver un ejemplo</p>
+
+          <div id="mitigation-steps"></div>
+          <script src="clickable-steps.js"></script>
+          <script>
+            initClickableSteps({
+              containerId: 'mitigation-steps',
+              steps: [
+                {
+                  title: '1. Documento',
+                  summary: 'Tomar un fragmento del corpus de entrenamiento',
+                  color: 'var(--text-primary)',
+                  borderColor: 'var(--text-muted)',
+                  example: '<div style="color: var(--text-muted); margin-bottom: 8px;">Fragmento de Wikipedia (corpus de entrenamiento):</div>'
+                    + '<div style="font-style: italic; line-height: 1.6;">"Manuel Belgrano (1770&ndash;1820) fue un abogado, periodista y militar argentino. Cre&oacute; la bandera de Argentina y particip&oacute; en las guerras de independencia. Estudi&oacute; derecho en Espa&ntilde;a y volvi&oacute; a Buenos Aires en 1794, donde sirvi&oacute; como secretario del Consulado&hellip;"</div>'
+                },
+                {
+                  title: '2. Generar preguntas',
+                  summary: 'Otro LLM inventa preguntas sobre ese texto',
+                  color: 'var(--accent-secondary)',
+                  borderColor: 'var(--accent-secondary)',
+                  example: '<div style="color: var(--text-muted); margin-bottom: 8px;">Prompt al LLM auxiliar: <em>"Genera 3 preguntas sobre este texto"</em></div>'
+                    + '<div style="line-height: 1.7;">'
+                    + '&rarr; &iquest;En qu&eacute; a&ntilde;o naci&oacute; Manuel Belgrano?<br>'
+                    + '&rarr; &iquest;Qu&eacute; cre&oacute; Belgrano?<br>'
+                    + '&rarr; &iquest;D&oacute;nde estudi&oacute; derecho?'
+                    + '</div>'
+                },
+                {
+                  title: '3. Interrogar al modelo',
+                  summary: '3 veces por pregunta. Comparar con la respuesta correcta.',
+                  color: 'var(--accent)',
+                  borderColor: 'var(--accent)',
+                  example: '<div style="color: var(--text-muted); margin-bottom: 6px;">Caso A &mdash; el modelo SAB&Iacute;A:</div>'
+                    + '<div style="margin-bottom: 4px;">Pregunta: <em>&iquest;En qu&eacute; a&ntilde;o naci&oacute;?</em></div>'
+                    + '<div style="margin-left: 12px; line-height: 1.6;">'
+                    + 'Intento 1 &rarr; <span style="color: #27ae60;">"En 1770."</span><br>'
+                    + 'Intento 2 &rarr; <span style="color: #27ae60;">"Naci&oacute; en 1770 en Buenos Aires."</span><br>'
+                    + 'Intento 3 &rarr; <span style="color: #27ae60;">"Belgrano naci&oacute; en 1770."</span>'
+                    + '</div>'
+                    + '<div style="color: var(--accent); margin-top: 4px;">&check; Consistente con el documento &rarr; no agregamos nada.</div>'
+                    + '<div style="border-top: 1px dashed var(--text-muted); margin: 10px 0;"></div>'
+                    + '<div style="color: var(--text-muted); margin-bottom: 6px;">Caso B &mdash; pregunta sobre algo que NO est&aacute; en el documento:</div>'
+                    + '<div style="margin-bottom: 4px;">Pregunta: <em>&iquest;En qu&eacute; barrio de Buenos Aires naci&oacute;?</em></div>'
+                    + '<div style="margin-left: 12px; line-height: 1.6;">'
+                    + 'Intento 1 &rarr; <span style="color: #e74c3c;">"En San Telmo."</span><br>'
+                    + 'Intento 2 &rarr; <span style="color: #e74c3c;">"En La Boca."</span><br>'
+                    + 'Intento 3 &rarr; <span style="color: #e74c3c;">"En Monserrat."</span>'
+                    + '</div>'
+                    + '<div style="color: #e74c3c; margin-top: 4px;">&times; Inconsistentes &rarr; no sabe &rarr; pasa al paso 4.</div>'
+                },
+                {
+                  title: '4. Si falla &rarr; "no sé"',
+                  summary: 'Agregar al dataset un ejemplo con respuesta "No tengo esa información"',
+                  color: 'var(--accent)',
+                  borderColor: 'var(--accent)',
+                  borderFull: true,
+                  example: '<div style="color: var(--text-muted); margin-bottom: 8px;">Nuevo ejemplo agregado al dataset SFT:</div>'
+                    + '<div style="background: var(--bg-secondary); padding: 8px 12px; border-radius: 4px; line-height: 1.6;">'
+                    + '<div><span style="color: var(--accent-secondary);">User:</span> &iquest;En qu&eacute; barrio de Buenos Aires naci&oacute; Manuel Belgrano?</div>'
+                    + '<div style="margin-top: 6px;"><span style="color: var(--accent);">Assistant:</span> No tengo informaci&oacute;n precisa sobre el barrio exacto donde naci&oacute; Belgrano. S&eacute; que naci&oacute; en Buenos Aires en 1770, pero el barrio espec&iacute;fico no est&aacute; en mi conocimiento.</div>'
+                    + '</div>'
+                    + '<div style="color: var(--text-muted); margin-top: 8px;">Despu&eacute;s de fine-tunear con miles de ejemplos como este, el modelo aprende a expresar incertidumbre cuando no sabe.</div>'
+                }
+              ]
+            });
+          </script>
+
+          <p class="fragment fade-in" style="font-size: 0.9em; margin-top: 14px; text-align: center; color: var(--accent);">
+            Le damos al modelo el patrón que le faltaba: "Cuando no sé, lo digo".
+          </p>
+
+          <p class="fragment fade-in" style="font-size: 0.7em; color: var(--text-muted); margin-top: 8px; text-align: center;">
+            Más detalle: <a href="https://arxiv.org/pdf/2407.21783" target="_blank">Llama 3 paper</a>, sección "Factuality"
+          </p>
+
           <aside class="notes">
-            Meta explicó en el paper de Llama 3 como atacaron las alucinaciones. El procedimiento: 1) Tomar documentos del dataset de entrenamiento. 2) Usar un LLM para generar preguntas sobre esos documentos. 3) Interrogar al modelo 3 veces con cada pregunta y comparar con la respuesta correcta. 4) Si el modelo no sabe, crear una conversación donde la respuesta correcta es "No tengo esa información" o "No estoy seguro." 5) Agregar esas conversaciones al dataset de fine-tuning. La clave: probablemente hay una neurona interna que se activa cuando el modelo no tiene certeza. Pero esa neurona NO estaba conectada a la salida de texto. Al agregar ejemplos de "no se" al dataset, le damos al modelo la oportunidad de aprender esa conexion. Es como cablear la neurona de incertidumbre a la capacidad de decir "no se" en palabras.
+            Meta explicó en el paper de Llama 3 cómo atacaron las alucinaciones. Cuatro pasos. Uno: tomar documentos del corpus. Dos: usar otro LLM para generar preguntas sobre esos documentos. Tres: interrogar al modelo 3 veces con cada pregunta y comparar con la respuesta correcta. Cuatro: si el modelo no sabe, crear una conversación donde la respuesta es "No tengo esa información" y agregarla al dataset de fine-tuning. Click en cada caja para ver un ejemplo concreto del paso — usa el caso de Manuel Belgrano para mostrar tanto cuando el modelo sabe (consistente entre 3 intentos) como cuando no sabe (respuestas inconsistentes que disparan el paso 4). La clave conceptual: probablemente hay una neurona interna que se activa cuando el modelo no tiene certeza. Pero esa neurona NO estaba conectada a la salida verbal — porque ningún labeler le mostró nunca cómo expresarla. Al agregar ejemplos de "no sé" al dataset, le damos al modelo la oportunidad de aprender esa conexión. Es como cablear la neurona de incertidumbre a la capacidad de decir "no sé" en palabras.
           </aside>
         </section>
 
-        <!-- Tool use: web search flow -->
+        <!-- Parametric vs context knowledge (the conceptual frame, just before tools) -->
         <section>
-          <h2>Uso de herramientas: busqueda web</h2>
+          <h2>Conocimiento en parámetros vs contexto</h2>
+          <p style="font-size: 0.8em; color: var(--text-muted);">Dos formas de "saber" &mdash; muy distintas en calidad</p>
+
+          <div style="display: flex; gap: var(--spacing-lg); margin-top: 14px; font-size: 0.7em;">
+            <div style="flex: 1; background: var(--bg-secondary); border-radius: 8px; padding: 12px; border-left: 3px solid var(--text-muted);">
+              <h3 style="font-size: 1.15em; margin-bottom: 6px; color: var(--text-primary);">Parámetros</h3>
+              <p style="color: var(--accent); margin-bottom: 4px;">"Vago recuerdo"</p>
+              <p style="color: var(--text-muted); margin: 0; line-height: 1.5;">Lo que leíste hace un mes &mdash; impreciso para cosas que el modelo vio pocas veces.</p>
+            </div>
+            <div style="flex: 1; background: var(--bg-secondary); border-radius: 8px; padding: 12px; border: 1px solid var(--accent);">
+              <h3 style="font-size: 1.15em; margin-bottom: 6px; color: var(--text-primary);">Ventana de contexto</h3>
+              <p style="color: var(--accent); margin-bottom: 4px;">"Memoria de trabajo"</p>
+              <p style="color: var(--text-muted); margin: 0; line-height: 1.5;">Lo que tenés frente a los ojos &mdash; acceso directo y preciso.</p>
+            </div>
+          </div>
+
+          <div class="fragment fade-in" style="margin-top: 14px; font-size: 0.65em;">
+            <p style="color: var(--text-muted); text-align: center; margin-bottom: 8px;">Tarea: <span style="color: var(--text-primary); font-style: italic;">"Resumir el capítulo 1 de Pride and Prejudice"</span></p>
+
+            <div style="display: flex; gap: 10px;">
+              <div style="flex: 1; background: var(--bg-code); border-radius: 6px; padding: 8px 12px;">
+                <div style="color: var(--text-muted); margin-bottom: 4px;">Sin contexto (de memoria):</div>
+                <div style="color: var(--text-primary); line-height: 1.5;">"Es la historia de las hermanas Bennet. Su madre quiere casarlas. Llega un vecino rico&hellip;"</div>
+                <div style="color: #e74c3c; margin-top: 4px; font-size: 0.95em;">&rarr; vago, mezcla con detalles de otras adaptaciones</div>
+              </div>
+              <div style="flex: 1; background: var(--bg-code); border-radius: 6px; padding: 8px 12px; border: 1px solid var(--accent);">
+                <div style="color: var(--text-muted); margin-bottom: 4px;">Con el capítulo pegado en el prompt:</div>
+                <div style="color: var(--text-primary); line-height: 1.5;">"Empieza con la frase '<em>It is a truth universally acknowledged&hellip;</em>'. Mrs. Bennet anuncia que Netherfield Park fue alquilado por Mr. Bingley y le insiste a su marido para que lo visite."</div>
+                <div style="color: var(--accent); margin-top: 4px; font-size: 0.95em;">&rarr; preciso, cita el texto, detalles concretos</div>
+              </div>
+            </div>
+          </div>
+
+          <p class="fragment fade-in" style="font-size: 0.85em; margin-top: 14px; text-align: center; color: var(--accent);">
+            Igual que vos: producirías un mejor resumen si acabás de releer el capítulo.
+          </p>
+
+          <aside class="notes">
+            Distinción fundamental. El conocimiento en los parámetros es como un recuerdo vago — algo que leíste hace un mes. Puede ser correcto para cosas que el modelo vio muchas veces (como datos de Wikipedia), pero impreciso para cosas que vio pocas veces. El contexto window es como la memoria de trabajo — datos que tenés directamente frente a los ojos. Acceso directo, preciso. La implicación práctica está en el ejemplo: si le pedís al modelo que resuma el capítulo 1 de Pride and Prejudice "de memoria", vas a obtener algo vago — la historia general, posiblemente mezclada con detalles de adaptaciones de cine. Si le pegás el texto del capítulo en el prompt, vas a obtener un resumen preciso, fiel al original, con citas. Es la diferencia entre escribir un resumen de memoria de algo que leíste hace meses, vs escribirlo después de releerlo. Tomarse el trabajo de poner el contexto correcto en el prompt es uno de los hábitos más rentables de un usuario competente de LLMs. La próxima slide hace este principio en vivo con el playground de OpenAI.
+          </aside>
+        </section>
+
+        <!-- Live playground demo: same question with and without context -->
+        <section>
+          <h2>Demo: probemos el principio en vivo</h2>
+          <p style="font-size: 0.8em; color: var(--text-muted);">Misma pregunta a GPT-3.5 &mdash; primero sin contexto, después con</p>
+
+          <div style="display: flex; align-items: stretch; gap: 10px; margin-top: 18px; font-size: 0.7em;">
+
+            <div style="flex: 1; background: var(--bg-secondary); border-radius: 8px; padding: 12px; border-left: 3px solid var(--text-muted);">
+              <div style="color: var(--text-muted); font-weight: bold; margin-bottom: 8px; font-size: 1.1em;">1. Sin contexto</div>
+              <div style="background: var(--bg-code); border-radius: 4px; padding: 8px 12px; font-family: var(--font-mono); font-size: 0.85em; line-height: 1.5; margin-bottom: 8px;">¿Cómo empieza la quinta estrofa de "Cambalache" (Discépolo, 1934)?</div>
+              <div style="color: #e74c3c; line-height: 1.5;">&rarr; GPT-3.5 conoce la canción, pero identificar la estrofa exacta es otra cosa. Inventa o mezcla versos.</div>
+            </div>
+
+            <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; flex-shrink: 0; gap: 4px;">
+              <div style="color: var(--accent); font-size: 0.85em; font-weight: bold;">+ contexto</div>
+              <svg width="40" height="14" viewBox="0 0 40 14"><path d="M2 7h32m0 0l-5-5m5 5l-5 5" stroke="var(--accent)" stroke-width="2" fill="none" stroke-linecap="round"/></svg>
+            </div>
+
+            <div style="flex: 1; background: var(--bg-secondary); border-radius: 8px; padding: 12px; border: 1px solid var(--accent);" class="fragment fade-in">
+              <div style="color: var(--accent); font-weight: bold; margin-bottom: 8px; font-size: 1.1em;">2. Con contexto</div>
+              <div style="background: var(--bg-code); border-radius: 4px; padding: 8px 12px; font-family: var(--font-mono); font-size: 0.85em; line-height: 1.5; margin-bottom: 8px;">[pegar la letra completa]<br><br>¿Cómo empieza la quinta estrofa?</div>
+              <div style="color: var(--accent); line-height: 1.5;">&rarr; Cita exacta del verso correcto. El mismo modelo, con la letra a la vista.</div>
+            </div>
+
+          </div>
+
+          <p class="fragment fade-in" style="font-size: 0.85em; margin-top: 16px; text-align: center; color: var(--accent);">
+            El mismo modelo, la misma pregunta &mdash; solo cambia lo que tiene a la vista.
+          </p>
+
+          <p class="fragment fade-in" style="font-size: 0.75em; color: var(--text-muted); margin-top: 10px; text-align: center;">
+            <a href="https://platform.openai.com/chat/edit?models=gpt-3.5-turbo" target="_blank" style="display: inline-block; background: var(--accent); color: var(--bg-primary); padding: 6px 14px; border-radius: 6px; font-weight: bold; text-decoration: none;">Abrir el playground de OpenAI &rarr;</a>
+            <span style="margin: 0 10px; color: var(--text-muted);">&middot;</span>
+            <a href="cambalache.md" target="_blank" style="color: var(--accent-secondary); text-decoration: underline;">Ver letra de Cambalache</a>
+          </p>
+
+          <p class="fragment fade-in" style="font-size: 0.9em; margin-top: 18px; text-align: center;">
+            Pegar contexto a mano funciona, pero no escala. <span style="color: var(--accent);">Por eso los modelos modernos pueden traer su propio contexto</span> &mdash; usando herramientas.
+          </p>
+
+          <aside class="notes">
+            Hagamos la prueba en vivo. Abrir el playground de OpenAI con GPT-3.5-turbo. Vamos a probar con la letra de Cambalache (tango de Enrique Santos Discépolo, 1934) — una canción que el modelo conoce, pero recordar exactamente cómo empieza una estrofa específica es algo distinto a tener una idea general de la canción. Paso 1: preguntarle "¿Cómo empieza la quinta estrofa de Cambalache?". Lo más probable es que mezcle versos de distintas estrofas o invente algo que suena Discépolo pero no es la quinta. Paso 2: abrir el archivo `semanas/01/slides/cambalache.md` que está en el repo, copiar la letra completa, abrir nueva conversación, pegar la letra y volver a preguntar lo mismo. Ahora la respuesta va a ser exactamente correcta — el modelo cuenta las estrofas y cita el primer verso. El punto: el mismo modelo, la misma pregunta — la única diferencia es que en el segundo caso la letra está en el contexto, no en sus parámetros. Vago recuerdo vs memoria de trabajo, en vivo. Cualquier letra de canción famosa con varias estrofas sirve para esta prueba.
+          </aside>
+        </section>
+
+        <!-- Tool use: web search flow (framed as dynamic context injection) -->
+        <section>
+          <h2>Uso de herramientas: búsqueda web</h2>
+          <p style="font-size: 0.8em; color: var(--text-muted);">Otra forma de meter contexto fresco al modelo &mdash; ahora dinámicamente</p>
           <div style="display: flex; flex-direction: column; gap: 8px; font-size: 0.7em; margin-top: 12px;">
             <div style="display: flex; align-items: center; gap: 8px;">
-              <div class="flow-step" style="flex: 1;">Usuario: "Quien gano el Nobel de Fisica 2024?"</div>
+              <div class="flow-step" style="flex: 1;">Usuario: "¿Quién ganó el Nobel de Física 2024?"</div>
             </div>
             <div class="fragment fade-in" style="display: flex; align-items: center; gap: 8px;">
               <div class="flow-step active" style="flex: 1;">Modelo emite: <code style="color: var(--accent);">&lt;search_start&gt;</code> Nobel Physics 2024 winner <code style="color: var(--accent);">&lt;search_end&gt;</code></div>
             </div>
             <div class="fragment fade-in" style="display: flex; align-items: center; gap: 8px;">
-              <div class="flow-step" style="flex: 1; border-color: var(--accent-secondary);">Sistema pausa la generación &#8594; ejecuta busqueda en Bing/Google &#8594; pega resultados en el contexto</div>
+              <div class="flow-step" style="flex: 1; border-color: var(--accent-secondary);">Sistema pausa la generación &#8594; ejecuta búsqueda en Bing/Google &#8594; <strong style="color: var(--accent);">pega los resultados como contexto</strong></div>
             </div>
             <div class="fragment fade-in" style="display: flex; align-items: center; gap: 8px;">
-              <div class="flow-step active" style="flex: 1;">Modelo continua generando con la información fresca en su contexto</div>
+              <div class="flow-step active" style="flex: 1;">Modelo continúa generando, ahora con la información fresca en su <strong style="color: var(--accent);">memoria de trabajo</strong></div>
             </div>
           </div>
-          <aside class="notes">
-            En vez de solo decir "no se," podemos darle herramientas. La más importante: busqueda web. El mecanismo: se agregan tokens especiales al vocabulario (search_start, search_end). Cuando el modelo emite search_start, el sistema de inferencia pausa la generación, toma la query entre los dos tokens especiales, la ejecuta contra un buscador (Bing en el caso de OpenAI), y pega los resultados como texto en la ventana de contexto. Ahora esa información esta directamente disponible para el modelo — no es un recuerdo vago, es datos frescos en su memoria de trabajo. El modelo aprende a usar herramientas con unos miles de ejemplos en el dataset de SFT. Gracias al conocimiento del pre-training, ya "sabe" que es una busqueda web y que tipo de queries funcionan bien. Web search es solo una herramienta — también puede usar Python (code interpreter), DALL-E, etc.
-          </aside>
-        </section>
+          <p class="fragment fade-in" style="font-size: 0.85em; margin-top: 14px; text-align: center; color: var(--accent);">
+            La idea anterior, en acción: el modelo deja de adivinar de memoria y responde con texto que tiene frente a los ojos.
+          </p>
 
-        <!-- Parametric vs context knowledge -->
-        <section>
-          <h2>Conocimiento en parámetros vs contexto</h2>
-          <div style="display: flex; gap: var(--spacing-lg); margin-top: 12px; font-size: 0.75em;">
-            <div style="flex: 1; background: var(--bg-secondary); border-radius: 8px; padding: 14px; text-align: center;">
-              <h3 style="font-size: 1em; margin-bottom: 8px;">Parametros</h3>
-              <p>"Vago recuerdo"</p>
-              <p style="color: var(--text-muted); font-size: 0.9em;">Lo que leiste hace un mes</p>
-            </div>
-            <div style="flex: 1; background: var(--bg-secondary); border-radius: 8px; padding: 14px; text-align: center; border: 1px solid var(--accent);">
-              <h3 style="font-size: 1em; margin-bottom: 8px;">Ventana de contexto</h3>
-              <p>"Memoria de trabajo"</p>
-              <p style="color: var(--text-muted); font-size: 0.9em;">Lo que tenes frente a los ojos</p>
-            </div>
+          <div class="fragment fade-in" style="margin-top: 14px; font-size: 0.7em;">
+            <p style="color: var(--text-muted); margin-bottom: 6px;">Otras herramientas que un modelo puede usar:</p>
+            <ul style="margin: 0; padding-left: 22px; line-height: 1.7;">
+              <li><strong style="color: var(--text-primary);">Python (code interpreter)</strong> &mdash; ejecutar cálculos, analizar datos, generar gráficos</li>
+              <li><strong style="color: var(--text-primary);">Consultar APIs externas</strong> &mdash; el clima de una ciudad, el precio de una acción, el horario de un colectivo</li>
+              <li><strong style="color: var(--text-primary);">Lectura de archivos</strong> &mdash; parsear PDFs, hojas de cálculo, documentos subidos por el usuario</li>
+            </ul>
           </div>
-          <p class="fragment fade-in" style="font-size: 0.8em; margin-top: 16px;">Siempre que sea posible, copiar la información relevante al contexto en vez de confiar en la memoria del modelo</p>
+
           <aside class="notes">
-            Distinción fundamental. El conocimiento en los parámetros es como un recuerdo vago — algo que leiste hace un mes. Puede ser correcto para cosas que vio muchas veces (como datos de Wikipedia), pero impreciso para cosas que vio pocas veces. El contexto window es como la memoria de trabajo — datos que tenes directamente frente a los ojos. Acceso directo, preciso. Implicación práctica: para resumir el capítulo 1 de Pride and Prejudice, es MUCHO mejor pegar el texto del capítulo en el prompt que pedirle al modelo que lo recuerde. El modelo produce un resumen de mucha más calidad con el texto en el contexto que de memoria. Igual que vos: producirias un mejor resumen si acabas de releer el capítulo.
+            Esta slide es la idea de la slide anterior, en acción. En vez de confiar en parámetros (recuerdo vago), el modelo trae el contexto que necesita. Mecanismo: se agregan tokens especiales al vocabulario (search_start, search_end). Cuando el modelo emite search_start, el sistema de inferencia pausa la generación, toma la query entre los dos tokens, la ejecuta contra un buscador (Bing en el caso de OpenAI), y pega los resultados como texto en la ventana de contexto. Ahora esa información está directamente disponible para el modelo — no es un recuerdo vago, es datos frescos en su memoria de trabajo. El modelo aprende a usar la herramienta con unos miles de ejemplos en el dataset de SFT. Gracias al conocimiento del pre-training, ya "sabe" qué es una búsqueda web y qué tipo de queries funcionan bien. Web search es solo una herramienta — también puede usar Python (code interpreter), DALL-E, etc. La intuición universal: cualquier herramienta que un LLM usa funciona bajo el mismo principio — devuelve texto que se vuelve contexto que el modelo puede leer y usar con confianza.
           </aside>
         </section>
 
