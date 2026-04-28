@@ -2233,229 +2233,127 @@
 
         <section class="section-divider">
           <h2>Reinforcement Learning</h2>
-          <p class="muted">La tercera etapa del pipeline</p>
+          <p class="muted">Dejar que el modelo aprenda por su cuenta</p>
           <aside class="notes">
-            Hemos cubierto dos etapas: pre-training (conocimiento de internet) y SFT (comportamiento de asistente). La tercera y última etapa es reinforcement learning — y es la que está cambiando todo en este momento.
+            Acabamos de ver que los modelos necesitan tokens para pensar — que distribuir el razonamiento en muchos tokens intermedios da mejores resultados. Pero en SFT, son los humanos los que escriben esas soluciones paso a paso. ¿Y si los humanos no saben cuál es la mejor forma de razonar para el modelo? Ahí es donde entra reinforcement learning.
           </aside>
         </section>
 
-        <!-- School analogy -->
+        <!-- From imitation to practice -->
         <section>
-          <h2>Analogia con la escuela</h2>
-          <div style="display: flex; gap: var(--spacing-md); margin-top: 16px; font-size: 0.7em;">
-            <div class="stage-box">
-              <h3 style="font-size: 1em;">Pre-training</h3>
-              <p>Leer la exposición del libro</p>
-              <p style="color: var(--text-muted); font-size: 0.85em;">Adquirir conocimiento base</p>
+          <h2>Del libro de texto a la práctica</h2>
+
+          <div style="display: flex; gap: 12px; margin-top: 16px; font-size: 0.55em;">
+
+            <!-- Pre-training: textbook page -->
+            <div style="flex: 1; cursor: pointer;" onclick="this.querySelector('.llm-part').style.display='block'">
+              <div style="background: #e8e0d0; color: #2a2a2a; border-radius: 2px 8px 8px 2px; padding: 14px 16px; min-height: 170px; box-shadow: -3px 0 0 #c4b99a, 2px 2px 8px rgba(0,0,0,0.3); position: relative;">
+                <div style="font-family: var(--font-mono); font-size: 0.75em; color: #888; margin-bottom: 8px;">Cap. 3 &mdash; Redes Neuronales</div>
+                <div style="line-height: 1.6; font-size: 1.05em;">
+                  Una red neuronal es una función matemática compuesta por capas de transformaciones lineales seguidas de funciones de activación no lineales. Los parámetros se ajustan mediante...
+                </div>
+              </div>
+              <div style="text-align: center; margin-top: 10px;">
+                <div style="color: var(--text-primary); font-weight: bold; font-size: 1.15em;">Leer la teoría</div>
+                <div style="color: var(--text-muted); font-size: 0.9em;">Absorber conocimiento</div>
+              </div>
+              <div class="llm-part" style="display: none; text-align: center; margin-top: 8px; background: var(--bg-code); border-radius: 6px; padding: 8px; line-height: 1.6;">
+                <span style="color: var(--accent);">Pre-training:</span> imitar texto de internet<br>
+                <span style="color: var(--text-muted); font-size: 0.9em;">No sabe parar &mdash; genera tokens hasta que lo cortás</span>
+              </div>
             </div>
-            <div class="stage-box">
-              <h3 style="font-size: 1em;">SFT</h3>
-              <p>Estudiar ejercicios resueltos</p>
-              <p style="color: var(--text-muted); font-size: 0.85em;">Imitar al experto</p>
+
+            <!-- SFT: solved exercise -->
+            <div style="flex: 1; cursor: pointer;" onclick="this.querySelector('.llm-part').style.display='block'">
+              <div style="background: #e8e0d0; color: #2a2a2a; border-radius: 2px 8px 8px 2px; padding: 14px 16px; min-height: 170px; box-shadow: -3px 0 0 #c4b99a, 2px 2px 8px rgba(0,0,0,0.3); position: relative;">
+                <div style="font-family: var(--font-mono); font-size: 0.75em; color: #888; margin-bottom: 8px;">Ejercicio resuelto 3.1</div>
+                <div style="line-height: 1.6; font-size: 1.05em;">
+                  <span style="color: #555;">P:</span> ¿Qué es una derivada?<br>
+                  <span style="color: #2255aa;">R: La tasa de cambio instantánea de una función. &check;</span><br>
+                  <span style="color: #555;">P:</span> ¿Cómo se aplica la regla de la cadena?<br>
+                  <span style="color: #2255aa;">R: Se multiplican las derivadas de... &check;</span>
+                </div>
+              </div>
+              <div style="text-align: center; margin-top: 10px;">
+                <div style="color: var(--text-primary); font-weight: bold; font-size: 1.15em;">Estudiar ejercicios resueltos</div>
+                <div style="color: var(--text-muted); font-size: 0.9em;">Imitar al experto</div>
+              </div>
+              <div class="llm-part" style="display: none; text-align: center; margin-top: 8px; background: var(--bg-code); border-radius: 6px; padding: 8px; line-height: 1.6;">
+                <span style="color: var(--accent);">SFT:</span> imitar a labelers humanos<br>
+                <span style="color: var(--text-muted); font-size: 0.9em;">Aprende a emitir un token de fin de turno</span>
+              </div>
             </div>
-            <div class="stage-box highlight">
-              <h3 style="font-size: 1em;">RL</h3>
-              <p>Hacer ejercicios de práctica</p>
-              <p style="color: var(--text-muted); font-size: 0.85em;">Descubrir como resolver</p>
+
+            <!-- RL: practice problem -->
+            <div style="flex: 1; cursor: pointer;" class="fragment fade-in" onclick="this.querySelector('.llm-part').style.display='block'">
+              <div style="background: #e8e0d0; color: #2a2a2a; border-radius: 2px 8px 8px 2px; padding: 14px 16px; min-height: 170px; box-shadow: -3px 0 0 #c4b99a, 2px 2px 8px rgba(0,0,0,0.3); position: relative; border: 2px solid var(--accent);">
+                <div style="font-family: var(--font-mono); font-size: 0.75em; color: #888; margin-bottom: 8px;">Ejercicio 3.7</div>
+                <div style="line-height: 1.6; font-size: 1.05em;">
+                  Si 8 obreros construyen un muro en 10 horas, ¿cuántas horas tardan 5 obreros en construir 3 muros?
+                </div>
+                <div style="position: absolute; bottom: 10px; right: 14px; font-size: 0.85em; color: #888; font-style: italic; transform: rotate(-2deg);">
+                  Rta: 48 h
+                </div>
+              </div>
+              <div style="text-align: center; margin-top: 10px;">
+                <div style="color: var(--accent); font-weight: bold; font-size: 1.15em;">Hacer ejercicios de práctica</div>
+                <div style="color: var(--text-muted); font-size: 0.9em;">Descubrir cómo resolver</div>
+              </div>
+              <div class="llm-part" style="display: none; text-align: center; margin-top: 8px; background: var(--bg-code); border-radius: 6px; padding: 8px; line-height: 1.6;">
+                <span style="color: var(--accent);">RL verificable:</span> practicar y descubrir qué funciona<br>
+                <span style="color: var(--text-muted); font-size: 0.9em;">Aprende cuánto pensar antes de responder</span>
+              </div>
             </div>
+
           </div>
-          <p class="fragment fade-in" style="font-size: 0.8em; margin-top: 16px;">En RL no hay solución de referencia — solo la respuesta final. El modelo descubre el camino.</p>
+
+          <p class="fragment fade-in" style="font-size: 0.8em; margin-top: 14px;">El ejercicio de práctica solo dice "Rta: 48 h" &mdash; el camino para llegar ahí tiene que ser encontrado.</p>
           <aside class="notes">
-            Para motivar el RL, pensemos en como funciona la escuela. Hay tres tipos de información en un libro de texto: 1) Exposición: texto de fondo, conocimiento. Esto es el equivalente del pre-training. 2) Ejercicios resueltos: un experto muestra la solución paso a paso. Esto es SFT — imitas al experto. 3) Ejercicios de práctica: te dan el problema y la respuesta final, pero no la solución. Tenes que descubrir como llegar. Esto es RL. Los ejercicios de práctica son fundamentales para aprender de verdad, porque te obligan a descubrir tus propias estrategias. El RL hace lo mismo con los LLMs.
+            Ahora que entendemos RLHF y sus limitaciones, pensemos en el RL verificable con una analogía que todos conocemos: la escuela. Hay tres formas de aprender en un libro de texto. Leer la teoría: absorber conocimiento (pre-training). Estudiar ejercicios resueltos: imitar al experto (SFT). Hacer ejercicios de práctica: solo tenés el problema y la respuesta final en la clave — tenés que descubrir el camino vos solo (RL verificable). Click en cada "página" para ver qué equivale en el LLM. Notar que el ejercicio de práctica — a diferencia de RLHF — tiene una respuesta correcta objetiva. No hace falta un reward model gameable. La señal es limpia: ¿llegaste a 48 o no?
           </aside>
         </section>
 
         <!-- Why SFT isn't enough -->
         <section>
           <h2>Por qué SFT no alcanza</h2>
+          <p style="font-size: 0.75em; color: var(--text-muted);">Vimos que distribuir el razonamiento en tokens intermedios ayuda. Pero ¿quién escribe esos pasos?</p>
           <div style="display: flex; gap: var(--spacing-sm); font-size: 0.6em; margin-top: 12px;">
-            <div class="rl-attempt" style="flex: 1;">Solución A:<br>2*$2=$4<br>$13-$4=$9<br>$9/3=<strong>$3</strong></div>
-            <div class="rl-attempt" style="flex: 1;">Solución B:<br>Sea x el precio<br>3x+4=13<br>x=<strong>$3</strong></div>
-            <div class="rl-attempt" style="flex: 1;">Solución C:<br>Naranjas=$4<br>Manzanas=$9<br>Cada una=<strong>$3</strong></div>
-            <div class="rl-attempt" style="flex: 1;">Solución D:<br>13-4=9, 9/3=<strong>$3</strong></div>
+            <div class="rl-attempt" style="flex: 1;">Solución A:<br>Primero pensemos cuánto trabajo es un muro. Si 8 obreros tardan 10 horas, eso son 80 obrero-horas por muro. Tres muros son 240. Dividido 5 obreros: <strong>48 h</strong></div>
+            <div class="rl-attempt" style="flex: 1;">Solución B:<br>Menos obreros = más tiempo (inversa). Más muros = más tiempo (directa). 10 × (8/5) × 3 = <strong>48 h</strong></div>
+            <div class="rl-attempt" style="flex: 1;">Solución C:<br>8 obreros → 1 muro → 10h. 1 obrero → 1 muro → 80h. 1 obrero → 3 muros → 240h. 5 obreros → 3 muros → <strong>48 h</strong></div>
+            <div class="rl-attempt" style="flex: 1;">Solución D:<br>80×3/5 = <strong>48 h</strong></div>
           </div>
           <div class="fragment fade-in" style="background: var(--bg-code); border-radius: 8px; padding: 10px 14px; font-size: 0.75em; margin-top: 14px; display: flex; align-items: baseline; gap: 8px;">
             <span style="color: var(--accent); font-weight: bold; flex-shrink: 0;">Problema:</span>
-            <span>las 4 llegan a $3, pero ¿cuál es mejor <em>para el modelo</em>? Lo que es fácil para un humano puede ser difícil para el LLM, y viceversa.</span>
+            <span>las 4 llegan a 48 h, pero ¿cuál distribuye mejor el razonamiento en tokens que el modelo pueda procesar? Lo que es un paso trivial para un humano puede ser demasiado para un solo token.</span>
           </div>
           <p class="fragment fade-in" style="font-size: 0.85em; margin-top: 12px; text-align: center; color: var(--accent);">
             El modelo necesita descubrir qué secuencias de tokens le funcionan a él.
           </p>
           <aside class="notes">
-            Ejemplo concreto de por qué SFT no es suficiente. Para el problema de las manzanas, hay muchas soluciones correctas. Un humano labeler podría escribir cualquiera de estas cuatro. Pero no sabemos cuál es óptima para el LLM. Algunas usan ecuaciones (quizá triviales para el modelo), otras hablan en lenguaje natural (quizá más difícil de seguir para el modelo). Lo que es un salto mental trivial para un humano puede ser imposible para el LLM en un solo token. Lo que un humano explicaría con muchas palabras puede ser obvio para el modelo. No estamos en posición de escribir las secuencias de tokens ideales para el LLM. Necesitamos que el propio modelo las descubra.
+            Conexión directa con lo que acabamos de ver. Mostramos que distribuir el razonamiento en muchos tokens intermedios es fundamental. Pero en SFT, las soluciones las escriben labelers humanos. Un humano labeler podría escribir cualquiera de estas cuatro — y no sabemos cuál es la distribución óptima de tokens para el LLM. Lo que es un salto mental trivial para un humano puede ser imposible para el LLM en un solo token. Lo que un humano explicaría con muchas palabras puede ser obvio para el modelo. La cognición del modelo es diferente a la nuestra. No estamos en posición de escribir las secuencias de tokens ideales para el LLM. Necesitamos que el propio modelo las descubra — y eso es exactamente lo que hace el RL verificable.
           </aside>
         </section>
 
-        <!-- How RL works -->
+        <!-- How RL works (animated) -->
         <section>
-          <h2>Reinforcement Learning: prueba y error</h2>
-          <div style="font-size: 0.7em; margin-top: 12px;">
-            <div style="display: flex; gap: var(--spacing-sm); flex-wrap: wrap;">
-              <div class="rl-attempt fragment fade-in correct" style="flex: 1 1 45%;">Intento 1: "2*2=4, 13-4=9, 9/3=3" &#10003;</div>
-              <div class="rl-attempt fragment fade-in wrong" style="flex: 1 1 45%;">Intento 2: "La respuesta es 4" &#10007;</div>
-              <div class="rl-attempt fragment fade-in wrong" style="flex: 1 1 45%;">Intento 3: "Cada manzana cuesta $5" &#10007;</div>
-              <div class="rl-attempt fragment fade-in correct" style="flex: 1 1 45%;">Intento 4: "x = (13-4)/3 = 3" &#10003;</div>
-            </div>
-          </div>
-          <div class="fragment fade-in" style="display: flex; align-items: center; gap: 8px; font-size: 0.7em; margin-top: 14px; justify-content: center;">
-            <div class="flow-step">Miles de intentos por problema</div>
-            <span style="color: var(--text-muted);">&#8594;</span>
-            <div class="flow-step">Miles de problemas distintos</div>
-            <span style="color: var(--text-muted);">&#8594;</span>
-            <div class="flow-step active">Reforzar tokens que llevan a respuestas correctas</div>
-          </div>
-          <p class="fragment fade-in" style="font-size: 0.85em; margin-top: 12px; text-align: center; color: var(--accent);">
-            El modelo no imita a un humano &mdash; descubre sus propias estrategias.
-          </p>
+          <h2>RL verificable: prueba y error</h2>
+          <div id="rl-anim-demo"></div>
+          <script src="rl-anim.js"></script>
+          <script>initRlAnim({ containerId: 'rl-anim-demo' });</script>
           <aside class="notes">
-            El proceso de RL es simple conceptualmente. Para un problema dado: 1) Generar miles de intentos de solución (recordar que el modelo es estocástico, cada intento es diferente). 2) Verificar cuáles llegan a la respuesta correcta. 3) Las soluciones correctas (verdes) se usan para entrenar — reforzar esos caminos de tokens. Las incorrectas (rojas) se descartan. 4) Repetir con miles de problemas diferentes. En la práctica, se pueden generar millones de soluciones. Es como un estudiante que practica miles de problemas, revisa cuáles hizo bien, y aprende de esos. La diferencia clave con SFT: las soluciones no vienen de un humano experto — vienen del propio modelo. El modelo descubre por sí mismo qué secuencias de tokens lo llevan a respuestas correctas.
+            Animación interactiva del loop de RL verificable. A diferencia de RLHF, acá la señal no es un reward model gameable — es la respuesta correcta. Avanzar con el botón. Paso 1: un LLM generador crea problemas con respuesta verificable. Paso 2: el modelo que estamos entrenando genera miles de intentos de solución (es estocástico — cada intento es diferente). Paso 3: un verificador evalúa cada intento contra la respuesta correcta. Paso 4: las soluciones correctas se usan para actualizar los parámetros — reforzar los caminos de tokens que llevaron a respuestas correctas. Y después: nuevo problema, repetir. Miles de problemas, miles de intentos por problema. A diferencia de RLHF, esto se puede correr indefinidamente porque la señal no se puede hackear. Todo el loop puede ser automático — no necesita humanos en el loop.
           </aside>
         </section>
 
-        <!-- DeepSeek R1 -->
+        <!-- DeepSeek R1 (animated) -->
         <section>
-          <h2>DeepSeek R1: emergen cadenas de pensamiento</h2>
-          <p style="font-size: 0.75em; color: var(--text-muted);"><a href="https://arxiv.org/pdf/2501.12948" target="_blank">Paper (enero 2025)</a> &mdash; primera explicación abierta de RL para LLMs</p>
-
-          <div style="display: flex; gap: 14px; margin-top: 14px; font-size: 0.65em; align-items: stretch;">
-
-            <div style="flex: 1; background: var(--bg-secondary); border-radius: 8px; padding: 12px; border-left: 3px solid var(--text-muted);">
-              <div style="color: var(--text-muted); font-weight: bold; margin-bottom: 8px;">Modelo SFT (antes del RL)</div>
-              <div style="background: var(--bg-code); border-radius: 4px; padding: 8px 12px; font-family: var(--font-mono); line-height: 1.6;">
-                2 × $2 = $4<br>
-                $13 − $4 = $9<br>
-                $9 / 3 = <strong>$3</strong>
-              </div>
-              <div style="color: var(--text-muted); margin-top: 8px;">Respuesta directa, corta</div>
-            </div>
-
-            <div style="display: flex; align-items: center; flex-shrink: 0;">
-              <svg width="28" height="14" viewBox="0 0 24 14"><path d="M2 7h16m0 0l-5-5m5 5l-5 5" stroke="var(--accent)" stroke-width="2" fill="none" stroke-linecap="round"/></svg>
-            </div>
-
-            <div style="flex: 1.2; background: var(--bg-secondary); border-radius: 8px; padding: 12px; border: 1px solid var(--accent);" class="fragment fade-in">
-              <div style="color: var(--accent); font-weight: bold; margin-bottom: 8px;">Modelo RL (después)</div>
-              <div style="background: var(--bg-code); border-radius: 4px; padding: 8px 12px; font-family: var(--font-mono); line-height: 1.6;">
-                <span style="color: var(--text-muted);">...wait wait wait, that's not right.</span><br>
-                <span style="color: var(--accent);">Let me re-evaluate step by step...</span><br>
-                <span style="color: var(--text-muted);">Actually, approaching differently...</span><br>
-                <span style="color: var(--accent);">Verify: 3×$3 + 2×$2 = $13 &#10003;</span>
-              </div>
-              <div style="color: var(--text-muted); margin-top: 8px;">Reevalúa, reformula, verifica &mdash; nadie programó esto</div>
-            </div>
-
-          </div>
-
-          <p class="fragment fade-in" style="font-size: 0.85em; margin-top: 14px; text-align: center; color: var(--accent);">
-            El modelo descubrió cómo pensar. Propiedad emergente de la optimización.
-          </p>
+          <h2>Modelos de razonamiento</h2>
+          <div id="deepseek-anim-demo"></div>
+          <script src="deepseek-anim.js"></script>
+          <script>initDeepSeekAnim({ containerId: 'deepseek-anim-demo' });</script>
           <aside class="notes">
-            El paper de DeepSeek R1 de enero 2025 fue revolucionario porque explicó públicamente cómo hacer RL para LLMs. Lo más increíble no son los números sino lo cualitativo. A medida que el RL avanza, el modelo genera soluciones cada vez más largas. ¿Por qué? Porque descubrió que pensar más le da mejores resultados. El modelo aprende a hacer cosas como: "wait wait wait, that's not right. Let me re-evaluate..." — reevaluar pasos, probar desde diferentes perspectivas, hacer backtracking. Estas son estrategias cognitivas que emergen del RL sin que nadie las programe. Ningún humano podría hardcodear esto en un dataset de SFT. Es una propiedad emergente de la optimización. El modelo descubre cómo pensar.
-          </aside>
-        </section>
-
-        <!-- AlphaGo -->
-        <section>
-          <h2>AlphaGo: precedente del poder del RL</h2>
-          <div style="display: flex; gap: 14px; margin-top: 16px; font-size: 0.7em; align-items: stretch;">
-
-            <div style="flex: 1; background: var(--bg-secondary); border-radius: 8px; padding: 14px; border-left: 3px solid var(--text-muted);">
-              <div style="color: var(--text-muted); font-weight: bold; margin-bottom: 8px; font-size: 1.1em;">Supervised Learning</div>
-              <div style="color: var(--text-primary); line-height: 1.6; margin-bottom: 12px;">Imita a los mejores jugadores humanos de Go</div>
-              <div style="background: var(--bg-code); border-radius: 4px; padding: 8px 12px;">
-                <div style="display: flex; align-items: center; gap: 8px;">
-                  <div style="flex: 1; height: 6px; background: linear-gradient(to right, var(--text-muted) 75%, transparent 75%); border-radius: 3px;"></div>
-                </div>
-                <div style="color: var(--text-muted); font-size: 0.9em; margin-top: 6px;">Techo: nivel de los mejores humanos</div>
-              </div>
-            </div>
-
-            <div style="flex: 1; background: var(--bg-secondary); border-radius: 8px; padding: 14px; border: 1px solid var(--accent);" class="fragment fade-in">
-              <div style="color: var(--accent); font-weight: bold; margin-bottom: 8px; font-size: 1.1em;">Reinforcement Learning</div>
-              <div style="color: var(--text-primary); line-height: 1.6; margin-bottom: 12px;">Juega contra sí mismo, descubre qué movimientos ganan</div>
-              <div style="background: var(--bg-code); border-radius: 4px; padding: 8px 12px;">
-                <div style="display: flex; align-items: center; gap: 8px;">
-                  <div style="flex: 1; height: 6px; background: var(--accent); border-radius: 3px;"></div>
-                </div>
-                <div style="color: var(--accent); font-size: 0.9em; margin-top: 6px;">Sin techo &mdash; supera a todos los humanos</div>
-              </div>
-            </div>
-
-          </div>
-          <div class="fragment fade-in" style="background: var(--bg-code); border-radius: 8px; padding: 10px 14px; font-size: 0.75em; margin-top: 14px; display: flex; align-items: baseline; gap: 8px;">
-            <span style="color: var(--accent); font-weight: bold; flex-shrink: 0;">"Move 37":</span>
-            <span>jugada con probabilidad 1/10,000 de ser humana, pero brillante. RL descubrió una estrategia desconocida para la humanidad.</span>
-          </div>
-          <aside class="notes">
-            El poder del RL no es nuevo en IA. AlphaGo de DeepMind lo demostró en el juego de Go. Primero entrenaron imitando a jugadores expertos (supervised learning) — llegó a ser muy bueno pero nunca superó a los mejores. Después usaron RL: el sistema juega contra sí mismo y aprende qué movimientos llevan a ganar. El RL superó dramáticamente al supervised learning y venció a Lee Sedol, el mejor jugador del mundo. El famoso "Move 37" fue una jugada que ningún experto humano habría hecho — probabilidad 1/10,000 de ser jugada por un humano. Pero fue brillante. AlphaGo descubrió una estrategia desconocida para la humanidad. En principio, lo mismo puede pasar con LLMs: descubrir formas de razonar que no se nos ocurrirían.
-          </aside>
-        </section>
-
-        <!-- RLHF -->
-        <section>
-          <h2>RLHF: RL en dominios no verificables</h2>
-          <p style="font-size: 0.75em; color: var(--text-muted);">Matemática y código tienen respuesta correcta. Pero "escribí un chiste sobre pelícanos"...</p>
-
-          <div style="display: flex; flex-direction: column; gap: 8px; font-size: 0.7em; margin-top: 14px;">
-            <div style="display: flex; align-items: center; gap: 8px;">
-              <div class="flow-step" style="flex: 1;">Humanos ordenan respuestas de mejor a peor</div>
-            </div>
-            <div class="fragment fade-in" style="display: flex; align-items: center; gap: 8px;">
-              <div class="flow-step" style="flex: 1; border-color: var(--accent-secondary);">Se entrena un <strong style="color: var(--accent-secondary);">reward model</strong> (red neuronal separada) que imita esas preferencias</div>
-            </div>
-            <div class="fragment fade-in" style="display: flex; align-items: center; gap: 8px;">
-              <div class="flow-step active" style="flex: 1;">RL contra el reward model en vez de contra una respuesta correcta</div>
-            </div>
-          </div>
-
-          <p class="fragment fade-in" style="font-size: 0.8em; margin-top: 14px; color: var(--text-muted);">
-            En vez de preguntar a un humano cada vez (imposible a escala), le preguntamos a un <strong style="color: var(--accent);">simulador de humanos</strong>.
-          </p>
-          <aside class="notes">
-            Todo lo que vimos de RL funciona en dominios verificables: matemática, código, Go — donde hay una respuesta correcta clara. Pero ¿qué pasa con tareas como escritura creativa, resumen, chistes? No hay respuesta correcta objetiva. La solución se llama RLHF (Reinforcement Learning from Human Feedback). El truco: entrenar una red neuronal separada (reward model) que simule las preferencias humanas. Le mostramos pares de respuestas a humanos, les pedimos que ordenen de mejor a peor. Con esos datos entrenamos el reward model para dar puntajes. Luego hacemos RL contra el reward model en vez de contra una respuesta correcta. Es un nivel de indirección: en vez de preguntar a un humano cada vez (imposible con miles de evaluaciones), le preguntamos a un simulador de humanos.
-          </aside>
-        </section>
-
-        <!-- RLHF limitations -->
-        <section>
-          <h2>Limitaciones de RLHF</h2>
-          <div style="display: flex; gap: 14px; margin-top: 14px; font-size: 0.65em; align-items: stretch;">
-
-            <div style="flex: 1; background: var(--bg-secondary); border-radius: 8px; padding: 12px; border: 1px solid #27ae60;">
-              <div style="color: #27ae60; font-weight: bold; margin-bottom: 8px;">Primeros ~200 updates</div>
-              <div style="background: var(--bg-code); border-radius: 4px; padding: 8px 12px; line-height: 1.6;">
-                "Why did the pelican go to the restaurant? Because he had a big bill!"
-              </div>
-              <div style="color: var(--text-muted); margin-top: 6px;">Los chistes mejoran genuinamente</div>
-            </div>
-
-            <div style="display: flex; align-items: center; flex-shrink: 0;">
-              <svg width="28" height="14" viewBox="0 0 24 14"><path d="M2 7h16m0 0l-5-5m5 5l-5 5" stroke="var(--text-muted)" stroke-width="2" fill="none" stroke-linecap="round"/></svg>
-            </div>
-
-            <div style="flex: 1; background: var(--bg-secondary); border-radius: 8px; padding: 12px; border: 1px solid #e74c3c;" class="fragment fade-in">
-              <div style="color: #e74c3c; font-weight: bold; margin-bottom: 8px;">Después de muchos updates</div>
-              <div style="background: var(--bg-code); border-radius: 4px; padding: 8px 12px; line-height: 1.6;">
-                <div style="color: #e74c3c; font-size: 1.2em; font-family: var(--font-mono);">"the the the the the the"</div>
-                <div style="color: var(--text-muted); margin-top: 4px;">Reward model score: <span style="color: #e74c3c; font-weight: bold;">1.0</span></div>
-              </div>
-              <div style="color: var(--text-muted); margin-top: 6px;">RL encontró un adversarial example que engaña al reward model</div>
-            </div>
-
-          </div>
-
-          <div class="fragment fade-in" style="display: flex; gap: 12px; margin-top: 14px; font-size: 0.7em;">
-            <div style="flex: 1; background: var(--bg-code); border-radius: 8px; padding: 10px 14px; display: flex; align-items: baseline; gap: 8px;">
-              <span style="color: var(--accent); font-weight: bold; flex-shrink: 0;">RL verificable:</span>
-              <span>se puede correr indefinidamente, descubrir estrategias (AlphaGo)</span>
-            </div>
-            <div style="flex: 1; background: var(--bg-code); border-radius: 8px; padding: 10px 14px; display: flex; align-items: baseline; gap: 8px;">
-              <span style="color: #e74c3c; font-weight: bold; flex-shrink: 0;">RLHF:</span>
-              <span>fine-tuning limitado, no mejora indefinida &mdash; el reward model es gameable</span>
-            </div>
-          </div>
-          <aside class="notes">
-            RLHF tiene un problema grave: el reward model es gameable. Recordar que el reward model es una red neuronal con miles de millones de parámetros. RL es EXTREMADAMENTE bueno en encontrar inputs que obtienen puntajes altos pero de forma falsa — adversarial examples. Si corrés RLHF por mucho tiempo: las primeras ~200 actualizaciones, los chistes sobre pelícanos mejoran. Después de eso, colapsan completamente. El mejor "chiste" se convierte en algo como "the the the the" con puntaje 1.0. Es nonsense que engaña al reward model. Por eso RLHF se corre por pocos cientos de steps y se corta. No se puede ejecutar indefinidamente como el RL de AlphaGo (donde ganar un juego no se puede hackear). Karpathy dice: "RLHF no es RL de verdad" — es un fine-tuning marginal, no la mejora mágica e indefinida del RL en dominios verificables.
+            Animación de 5 pasos sobre DeepSeek R1. Paso 0 (contexto): OpenAI o1 salió en septiembre 2024 — primera prueba de que RL mejora razonamiento, pero no publicaron nada. Cuatro meses después DeepSeek publicó todo. Los números son del paper directamente. Paso 1 (dinámica): dos gráficos simplificados de las Figuras 2 y 3 del paper. A medida que avanza el RL, la precisión en AIME sube de 15.6% a 71% y la longitud de las respuestas crece. El modelo descubre solo que necesita más tokens. Paso 2 (aha moment): ejemplo textual del paper (Table 3) donde el modelo se detiene, dice "wait wait wait, that's an aha moment" y reinicia su approach. Comportamientos emergentes que nadie programó. Paso 3 (benchmarks): tabla con datos del paper comparando GPT-4o, Claude 3.5, o1, y R1. Los modelos SFT quedan muy atrás en razonamiento. R1 es comparable a o1 con todo publicado. Paso 4 (conclusión): cuatro puntos clave — no hacen falta datos humanos de razonamiento, las cadenas de pensamiento emergen solas, más tokens = mejor razonamiento, la señal verificable no se puede hackear. La capacidad de razonar estaba latente — el RL solo le dio el incentivo.
           </aside>
         </section>
 
