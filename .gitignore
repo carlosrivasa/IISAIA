@@ -1,5 +1,6 @@
 node_modules/
-.claude/
+.claude/*
+!.claude/commands/
 programa.md
 semana_1.md
 .env
