@@ -745,7 +745,9 @@
           </div>
           <p class="fragment fade-in" style="font-size: 0.75em; color: var(--text-muted); margin-top: 16px;">Esto permite entrenar con billones de ejemplos sin anotar nada a mano</p>
           <aside class="notes">
-            Antes de ver como funciona el entrenamiento, aclaremos algo clave. En aprendizaje supervisado clasico (como clasificar imágenes de gatos vs perros con una CNN), humanos tienen que etiquetar cada imagen manualmente. Esto es caro y lento — ImageNet necesito miles de personas para etiquetar 14 millones de imágenes. El truco de los LLMs es que usan aprendizaje auto-supervisado: la "etiqueta" es simplemente el siguiente token en la secuencia. Si el texto dice "el gato se sento", podemos tomar "el gato se" como entrada y "sento" como la respuesta correcta. Nadie tuvo que etiquetar nada — las etiquetas son gratis porque vienen del propio texto. Esto es lo que permite escalar a billones de ejemplos de entrenamiento.
+            <p><strong>Click para revelar la columna auto-supervisado.</strong></p>
+            <p><u>Supervisado vs auto-supervisado. El truco que permite escalar.</u></p>
+            <p><em>"Antes de ver cómo funciona el entrenamiento, aclaremos algo clave. En aprendizaje supervisado clásico, como clasificar imágenes de gatos vs perros con una CNN, humanos tienen que etiquetar cada imagen manualmente. Esto es caro y lento: ImageNet necesitó miles de personas para etiquetar 14 millones de imágenes. El truco de los LLMs es que usan aprendizaje auto-supervisado: la etiqueta es simplemente el siguiente token en la secuencia. Si el texto dice 'el gato se sentó', podemos tomar 'el gato se' como entrada y 'sentó' como la respuesta correcta. Nadie tuvo que etiquetar nada: las etiquetas son gratis porque vienen del propio texto. Esto es lo que permite escalar a billones de ejemplos."</em></p>
           </aside>
         </section>
 
@@ -826,7 +828,9 @@
           });
           </script>
           <aside class="notes">
-            Asi funciona el entrenamiento: tomamos una ventana de tokens del dataset (puede ser de 0 a 8000 tokens), la pasamos por la red neuronal, y obtenemos una distribución de probabilidad sobre todos los tokens del vocabulario. La red dice: "creo que el siguiente token es 'single' con 12% de probabilidad, 'post' con 3%, etc." Sabemos cual es el token correcto porque lo sacamos del dataset. Si el token correcto tenía poca probabilidad, ajustamos los parámetros de la red para que le de más probabilidad. Al avanzar se ve la animación: "single" sube de 12% a 18%, las demás bajan. Esto se repite millones de veces con diferentes ventanas.
+            <p><strong>Avanzar fragmentos. Último click: las barras se actualizan animadamente.</strong></p>
+            <p><u>Predicción del siguiente token. Distribución sobre 100k tokens.</u></p>
+            <p><em>"Así funciona el entrenamiento: tomamos una ventana de tokens del dataset, puede ser de 0 a 8000 tokens, la pasamos por la red, y obtenemos una distribución de probabilidad sobre todos los tokens del vocabulario. La red dice: 'creo que el siguiente token es en con 12%, sobre con 3%, junto con 2%'. Sabemos cuál es el correcto porque lo sacamos del dataset. Si el token correcto tenía poca probabilidad, ajustamos los parámetros para que tenga más. Vean cómo en sube de 12 a 18%, las demás bajan. Esto se repite millones de veces con diferentes ventanas."</em></p>
           </aside>
         </section>
 
@@ -878,7 +882,9 @@
             </div>
           </div>
           <aside class="notes">
-            La red neuronal que hace la predicción tiene millones o miles de millones de números ajustables llamados parámetros. Piensen en ellos como perillas: al inicio están en posiciones aleatorias y las predicciones son basura. Con cada paso de entrenamiento se ajustan un poquito y las predicciones mejoran. Al final del entrenamiento, esos parámetros contienen una compresión estadística de todo el dataset — los patrones de como los tokens se siguen unos a otros. GPT-2 tenía 1.600 millones de parámetros; Llama 3 tiene 405.000 millones. Misma idea fundamental, 250 veces más grande. La arquitectura específica se llama Transformer, introducida en 2017. Lo importante: es stateless (sin memoria). No recuerda conversaciones anteriores. Misma entrada produce la misma distribución de salida. Abrir bbycroft.net para que vean como fluye la información de tokens a predicciones a través de las capas.
+            <p><strong>Avanzar fragmentos. Al final, abrir bbycroft.net en otra pestaña para mostrar el flujo de capas.</strong></p>
+            <p><u>Parámetros, escala (GPT-2 vs Llama 3), arquitectura Transformer, stateless.</u></p>
+            <p><em>"La red tiene millones o miles de millones de números ajustables llamados parámetros. Piensen en ellos como perillas: al inicio están en posiciones aleatorias y las predicciones son basura. Con cada paso se ajustan un poquito y mejoran. Al final, esos parámetros contienen una compresión estadística de todo el dataset: los patrones de cómo los tokens se siguen unos a otros. GPT-2 tenía 1.600 millones de parámetros; Llama 3 tiene 405.000 millones. Misma idea fundamental, 250 veces más grande. La arquitectura se llama Transformer, introducida en 2017. Y algo importante: es stateless. No tiene memoria, no recuerda conversaciones anteriores. Misma entrada produce la misma distribución de salida."</em></p>
           </aside>
         </section>
 
@@ -994,7 +1000,9 @@
             <p style="color: var(--text-muted); margin-top: 8px; text-align: center;">Con cada bloque, los tokens acumulan más contexto. Después de N bloques, cada token "sabe" sobre toda la secuencia anterior. <a href="https://bbycroft.net/llm" target="_blank">Ver en vivo</a></p>
           </div>
           <aside class="notes">
-            La clave del Transformer son estos dos bloques que se repiten. Primero, atención: cada token mira a los tokens anteriores y decide cuales son relevantes — esto es causal self-attention, donde cada token solo puede ver hacia atrás porque al generar el futuro no existe todavia. Segundo, el MLP: cada token pasa por una red feed-forward que transforma su representación individualmente. Estos dos pasos se apilan N veces (GPT-2 tiene 48 capas, modelos modernos 80-128). Lo importante es que con cada bloque, la representación de cada token se enriquece. Después de la primera capa, "sento" sabe un poco sobre "el gato se". Después de la segunda capa, sabe más. Al final de las N capas, el último token tiene una representación que integra información de toda la secuencia. Abrir bbycroft.net para ver como las representaciones cambian capa por capa.
+            <p><strong>Avanzar fragmentos para mostrar las flechas de atención. Después abrir bbycroft.net y mostrar cómo cambian las representaciones capa por capa.</strong></p>
+            <p><u>Atención + MLP = Transformer block. Causal self-attention.</u></p>
+            <p><em>"La clave del Transformer son estos dos bloques que se repiten. Primero, atención: cada token mira a los tokens anteriores y decide cuáles son relevantes. Es causal self-attention: cada token solo puede ver hacia atrás, porque cuando generamos el futuro todavía no existe. Segundo, el MLP: cada token pasa por una red feed-forward que transforma su representación individualmente. Estos dos pasos se apilan N veces. GPT-2 tiene 48 capas, los modelos modernos entre 80 y 128. Con cada bloque, la representación de cada token se enriquece. Después de la primera capa, sentó sabe un poco sobre 'el gato se'. Después de la segunda, sabe más. Al final, el último token tiene una representación que integra información de toda la secuencia."</em></p>
           </aside>
         </section>
 
@@ -1007,7 +1015,9 @@
             initTrainingAnim({ containerId: 'training-demo' });
           </script>
           <aside class="notes">
-            Esta animación muestra como se ve entrenar un modelo en la práctica. Se avanza paso a paso: cada step procesa un millon de tokens y ajusta los parámetros. El loss baja con cada paso — loss bajo significa mejores predicciones. A la vez, mostramos texto generado por el modelo en cada punto. Al inicio (step 0) los parámetros son aleatorios y sale basura total. A step 100 ya aprende las palabras más frecuentes. A step 420 (~1% del entrenamiento, ~15 minutos en 8x H100) hay coherencia local pero no global. A mitad del entrenamiento el texto es fluido. Al final, el texto es indistinguible de páginas de internet reales. Esto es GPT-2 como referencia: 32,000 steps, ~7 seg/step en 8x H100. Modelos modernos entrenan por mucho más tiempo con muchos más datos y GPUs.
+            <p><strong>Dejar correr la animación paso a paso. Mostrar cómo cambia el texto generado en cada milestone.</strong></p>
+            <p><u>Animación de entrenamiento: loss bajando + texto generado en cada step. GPT-2 como referencia.</u></p>
+            <p><em>"Esta animación muestra cómo se ve entrenar un modelo en la práctica. Cada step procesa un millón de tokens y ajusta los parámetros. El loss baja con cada paso: loss bajo significa mejores predicciones. A la vez, vemos texto generado por el modelo en cada punto. Al inicio, step 0, los parámetros son aleatorios y sale basura total. A step 100 ya aprende las palabras más frecuentes. A step 420, alrededor del 1% del entrenamiento, unos 15 minutos en 8 GPUs H100, hay coherencia local pero no global. A mitad del entrenamiento el texto es fluido. Al final, indistinguible de páginas de internet reales. Esto es GPT-2: 32 mil steps, 7 segundos por step en 8 H100. Los modelos modernos entrenan mucho más."</em></p>
           </aside>
         </section>
 
@@ -1022,7 +1032,9 @@
           </script>
           <p style="font-size: 0.75em; color: var(--text-muted); margin-top: 12px;">El sistema es <strong style="color: var(--text-primary);">estocástico</strong>: en cada paso se tira una moneda cargada. Mismo prefijo, distinto resultado cada vez. Por eso el boton "regenerar" de ChatGPT da respuestas diferentes.</p>
           <aside class="notes">
-            Inferencia es generar texto nuevo del modelo. Empezamos con un prefijo de tokens, lo pasamos por la red, obtenemos probabilidades para el siguiente token, y muestreamos. El token muestreado se agrega al contexto y repetimos. El sistema es estocástico: en cada paso tiramos una moneda cargada. Los tokens con alta probabilidad salen más seguido, pero no siempre. Esto significa que cada vez que ejecutamos la inferencia, obtenemos un texto diferente. Demostrar con la animación: generar una oración, luego regenerar y mostrar que sale otra cosa. Esto no es un bug, es una propiedad fundamental del sistema.
+            <p><strong>Correr la animación. Regenerar para mostrar que sale algo diferente.</strong></p>
+            <p><u>Inferencia: muestrear token por token. Sistema estocástico.</u></p>
+            <p><em>"Inferencia es generar texto nuevo del modelo. Empezamos con un prefijo de tokens, lo pasamos por la red, obtenemos probabilidades para el siguiente token, y muestreamos. El token muestreado se agrega al contexto y repetimos. El sistema es estocástico: en cada paso tiramos una moneda cargada. Los tokens con alta probabilidad salen más seguido, pero no siempre. Esto significa que cada vez que ejecutamos la inferencia, obtenemos un texto diferente. Esto no es un bug, es una propiedad fundamental del sistema. Por eso el botón de regenerar en ChatGPT da respuestas distintas."</em></p>
           </aside>
         </section>
 
@@ -1034,7 +1046,8 @@
         <section class="section-divider">
           <h2>Computo y Modelos Base</h2>
           <aside class="notes">
-            Ya vimos como funciona el entrenamiento de redes neuronales. Ahora vamos a hablar de la escala: cuánto cuesta entrenar un modelo real, que hardware se usa, y que obtenemos al final. Lo que sale del pre-training tiene capacidades sorprendentes, pero también limitaciones claras que motivan la siguiente etapa.
+            <p><u>Divisor de sección. Cómputo y modelos base.</u></p>
+            <p><em>"Ya vimos cómo funciona el entrenamiento de redes neuronales. Ahora vamos a hablar de la escala: cuánto cuesta entrenar un modelo real, qué hardware se usa, y qué obtenemos al final. Lo que sale del pre-training tiene capacidades sorprendentes, pero también limitaciones claras que motivan la siguiente etapa."</em></p>
           </aside>
         </section>
 
@@ -1073,7 +1086,9 @@
             Fuentes: <a href="https://openai.com/index/better-language-models/" target="_blank">GPT-2 (OpenAI 2019)</a> &middot; <a href="https://github.com/karpathy/llm.c/discussions/677" target="_blank">llm.c reproduction (Karpathy)</a> &middot; <a href="https://arxiv.org/pdf/2407.21783" target="_blank">Llama 3 paper (Meta 2024)</a>
           </p>
           <aside class="notes">
-            GPT-2 fue publicado en 2019 y es el primer modelo con un stack reconocible por estándares modernos — mismo tipo de red (Transformer), misma idea de pre-training. La diferencia con modelos actuales es solo de escala. GPT-2 tenía 1.6 mil millones de parámetros; Llama 3.1 405B de Meta tiene 405 mil millones — 250 veces más. El contexto pasó de 1,024 a 128,000 tokens. Y los datos de entrenamiento pasaron de ~100 mil millones de tokens a 15 billones — 150 veces más. En términos de computo, entrenar Llama 3.1 405B consumió 30.84 millones de GPU-horas en H100s. Para dimensionar: si tuvieras una sola GPU, tardarias 3,500 años. Karpathy reprodujo GPT-2 por ~$600 en un día con hardware moderno. Pero Llama 3.1 405B es otra escala completamente distinta.
+            <p><strong>Click para revelar la columna de Llama 3.1.</strong></p>
+            <p><u>Tabla comparativa GPT-2 vs Llama 3.1 405B. Mismo stack, otra escala.</u></p>
+            <p><em>"GPT-2 fue publicado en 2019 y es el primer modelo con un stack reconocible por estándares modernos. Mismo tipo de red, Transformer, misma idea de pre-training. La diferencia con los modelos actuales es solo de escala. GPT-2 tenía 1.600 millones de parámetros; Llama 3.1 405B tiene 405 mil millones, 250 veces más. El contexto pasó de 1.024 a 128.000 tokens. Y los datos de entrenamiento pasaron de 100 mil millones de tokens a 15 billones, 150 veces más. Entrenar Llama 3.1 405B consumió 30 millones de GPU-horas en H100. Si tuvieras una sola GPU, tardarías 3.500 años. Karpathy reprodujo GPT-2 por 600 dólares en un día con hardware moderno. Pero el 405B es otra escala completamente distinta."</em></p>
           </aside>
         </section>
 
@@ -1101,7 +1116,9 @@
             </div>
           </div>
           <aside class="notes">
-            Es importante distinguir estas dos fases. El entrenamiento es el proceso caro y largo que vimos: procesar billones de tokens, ajustar parámetros, reducir el loss. Se hace una vez y tarda meses en miles de GPUs. El resultado son los parámetros — los miles de millones de números que definen el modelo. La inferencia es lo que pasa cuando un usuario interactua con el modelo. Los parámetros están congelados — no se aprende nada nuevo. El modelo simplemente recibe tokens, los pasa por la red, y predice el siguiente token. Cuando hablas con ChatGPT, ese modelo fue entrenado por OpenAI hace meses. Cada mensaje tuyo es solo inferencia: parámetros fijos generando tokens. Esta distinción importa para lo que viene: el post-training (SFT) es una segunda ronda de entrenamiento, mucho más corta y barata, pero el principio es el mismo.
+            <p><strong>Click para revelar la columna inferencia.</strong></p>
+            <p><u>Distinción crítica para entender post-training. Entrenamiento = caro/único. Inferencia = barato/repetido.</u></p>
+            <p><em>"Es importante distinguir estas dos fases. El entrenamiento es el proceso caro y largo que vimos: procesar billones de tokens, ajustar parámetros, reducir el loss. Se hace una vez y tarda meses en miles de GPUs. El resultado son los parámetros: los miles de millones de números que definen el modelo. La inferencia es lo que pasa cuando un usuario interactúa con el modelo. Los parámetros están congelados, no se aprende nada nuevo. El modelo simplemente recibe tokens y predice el siguiente. Cuando hablás con ChatGPT, ese modelo fue entrenado hace meses. Cada mensaje tuyo es solo inferencia. Esta distinción importa para lo que viene: el post-training es una segunda ronda de entrenamiento, mucho más corta y barata, pero el principio es el mismo."</em></p>
           </aside>
         </section>
 
@@ -1159,7 +1176,9 @@
           <p class="fragment fade-in" style="font-size: 0.75em; color: var(--text-muted); margin-top: 16px;">Llama 3.1 405B: 30.84M GPU-horas en H100. Emisiones: 8,930 toneladas de CO2eq. <a href="https://www.runpod.io/pricing" target="_blank">RunPod pricing</a></p>
           <p class="fragment fade-in" style="font-size: 0.8em; color: var(--accent); margin-top: 8px;">Pero correr el modelo entrenado (inferencia) requiere muchisimo menos &mdash; ya lo vamos a ver.</p>
           <aside class="notes">
-            El entrenamiento no corre en una laptop — corre en GPUs especializadas. La H100 de NVIDIA es la GPU dominante, con 80GB de memoria de alta velocidad. Las GPUs son ideales porque el entrenamiento es masivamente paralelizable. Se apilan 8 en un nodo, y miles de nodos en un datacenter. Se pueden alquilar: un nodo de 8x H100 sale ~$24/hora. Para dimensionar: Meta publicó que entrenar Llama 3.1 405B consumió 30.84 millones de GPU-horas en H100. Si alquilaras esas GPUs a $3/hora, el costo seria más de $90 millones solo en computo. Y generaron 8,930 toneladas de CO2 equivalente — como manejar un auto 2,000 veces alrededor de la Tierra. Las grandes empresas tienen sus propios datacenters con decenas de miles de GPUs. Nvidia se convirtió en una de las empresas más valiosas del mundo porque todas las big tech necesitan estas GPUs. Importante destacar: esta es la escala del pre-training. Para inferencia (correr el modelo ya entrenado) alcanza con una fracción de eso, como vamos a ver en las próximas slides.
+            <p><strong>Avanzar fragmentos: 1 GPU → 8 GPUs/nodo → datacenter.</strong></p>
+            <p><u>Hardware del pre-training. H100, nodos, datacenters. Costo y emisiones de Llama 3.1.</u></p>
+            <p><em>"El entrenamiento no corre en una laptop, corre en GPUs especializadas. La H100 de NVIDIA es la GPU dominante, con 80 GB de memoria de alta velocidad. Las GPUs son ideales porque el entrenamiento es masivamente paralelizable. Se apilan 8 en un nodo, y miles de nodos en un datacenter. Se pueden alquilar: un nodo de 8 H100 sale 24 dólares la hora. Entrenar Llama 3.1 405B consumió 30 millones de GPU-horas. Si alquilaras esas GPUs a 3 dólares la hora, el costo sería más de 90 millones de dólares solo en cómputo. Y generaron casi 9 mil toneladas de CO2 equivalente, como manejar un auto 2 mil veces alrededor de la Tierra. Por eso Nvidia se convirtió en una de las empresas más valiosas del mundo. Pero ojo: esta es la escala del pre-training. La inferencia requiere muchísimo menos."</em></p>
           </aside>
         </section>
 
@@ -1179,7 +1198,9 @@
           </div>
           <p class="fragment fade-in" style="font-size: 0.8em; margin-top: 16px;">Los 405 mil millones de parámetros de Llama 3.1 capturan los <strong style="color: var(--accent);">patrones estadísticos</strong> de 15 billones de tokens en 8 idiomas &mdash; no el texto original (compresión lossy, como JPEG o MP3). Formato: BF16 (2 bytes por parámetro), ~800GB en disco.</p>
           <aside class="notes">
-            Lo que sale del pre-training se llama "modelo base". Para publicarlo se necesitan dos cosas. Primero, el código: unas pocas cientos de líneas de Python que describen la arquitectura de la red — la secuencia exacta de operaciones del forward pass. Esto es código estándar. Segundo, los parámetros: miles de millones de números, el resultado de todo ese entrenamiento. Llama 3.1 de Meta tiene 405 mil millones de parámetros almacenados en formato BF16 (Brain Float 16), ocupando unos 800GB en disco. Para correr inferencia necesitas al menos 8 GPUs de 80GB cada una — más de 600GB de VRAM solo para cargar los parámetros. El valor no esta en el código, que es relativamente simple — esta en los parámetros, que representan meses de computo en miles de H100s procesando 15 billones de tokens de internet en 8 idiomas. Son como un archivo zip de internet, pero con compresión lossy: la esencia de los patrones estadísticos, no una copia exacta.
+            <p><strong>Click para revelar parámetros y luego la métáfora del JPEG.</strong></p>
+            <p><u>Qué sale del pre-training. Dos cosas: código + parámetros. Métáfora: zip lossy.</u></p>
+            <p><em>"Lo que sale del pre-training se llama modelo base. Para publicarlo se necesitan dos cosas. Primero, el código: unas pocas cientos de líneas de Python que describen la arquitectura de la red. Esto es código estándar. Segundo, los parámetros: miles de millones de números, el resultado de todo ese entrenamiento. Llama 3.1 tiene 405 mil millones de parámetros almacenados en formato BF16, ocupando unos 800 GB en disco. El valor no está en el código, que es relativamente simple, está en los parámetros. Son como un archivo zip de internet, pero con compresión lossy: la esencia de los patrones estadísticos, no una copia exacta. Como un JPEG o un MP3 pero del lenguaje."</em></p>
           </aside>
         </section>
 
@@ -1231,7 +1252,9 @@
           </div>
           <p class="fragment fade-in" style="font-size: 0.75em; color: var(--text-muted); margin-top: 12px;">Cuantizar (BF16 &rarr; FP8) corta la memoria a la mitad. Asi es como Meta hace caber 405B en 8 H100s con la versión FP8 oficial.</p>
           <aside class="notes">
-            Cada parámetro del modelo necesita estar en la memoria de la GPU para hacer inferencia. En formato BF16 (el formato nativo de entrenamiento), cada parámetro ocupa 2 bytes. La cuenta es directa: 70 mil millones de parámetros por 2 bytes = 140 GB de VRAM; 405 mil millones por 2 bytes = 810 GB. Una GPU H100 tiene 80 GB, así que para 70B en BF16 hacen falta 2 GPUs (tensor parallelism reparte el modelo entre ellas), y para 405B en BF16 ni siquiera 8 H100s alcanzan. Por eso cuantizar es tan importante: en FP8 cada parámetro ocupa 1 byte en vez de 2, reduciendo la memoria a la mitad. Es así como Meta hace caber el 405B en 8 H100s con la versión FP8 oficial — pasamos de 810 GB a 405 GB, y entra en 640 GB de VRAM con margen para el KV cache. Perdemos un poco de precisión numérica pero en la práctica la calidad es casi identica. Los modelos más chicos caben en hardware mucho más accesible: el 8B entra en una GPU gaming común, y el 3B puede correr hasta en un celular moderno.
+            <p><strong>Avanzar filas de la tabla. Al final, revelar la nota sobre cuantización.</strong></p>
+            <p><u>Tabla de VRAM por modelo. Cuantización BF16 → FP8 reduce memoria a la mitad.</u></p>
+            <p><em>"Cada parámetro necesita estar en la memoria de la GPU para hacer inferencia. En BF16, el formato nativo de entrenamiento, cada parámetro ocupa 2 bytes. La cuenta es directa: 70 mil millones por 2 bytes da 140 GB de VRAM; 405 mil millones por 2 bytes da 810 GB. Una H100 tiene 80 GB, así que para 70B en BF16 hacen falta 2 GPUs, y para 405B en BF16 ni siquiera 8 H100 alcanzan. Por eso cuantizar es importante: en FP8 cada parámetro ocupa 1 byte en vez de 2, mitad de memoria. Así es como Meta hace caber el 405B en 8 H100 con la versión FP8 oficial. Perdemos un poco de precisión numérica pero la calidad es casi idéntica. Los modelos más chicos caben en hardware mucho más accesible: el 8B en una GPU gaming, el 3B hasta en un celular moderno."</em></p>
           </aside>
         </section>
 
