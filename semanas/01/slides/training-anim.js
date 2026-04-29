@@ -159,7 +159,7 @@ function initTrainingAnim(opts) {
     var isLast = milestoneIdx >= milestones.length - 1;
 
     // Loss curve SVG
-    var svg = '<svg viewBox="0 0 400 170" style="width: 100%; max-height: 20vh;">';
+    var svg = '<svg viewBox="0 0 400 170" style="width: 100%; max-height: 14vh;">';
     svg += '<line x1="40" y1="15" x2="40" y2="160" stroke="#8892b0" stroke-width="1"/>';
     svg += '<line x1="40" y1="160" x2="385" y2="160" stroke="#8892b0" stroke-width="1"/>';
     svg += '<text x="10" y="90" fill="#8892b0" font-size="10" text-anchor="middle" transform="rotate(-90, 10, 90)" font-family="Inter, sans-serif">Loss</text>';
@@ -183,14 +183,14 @@ function initTrainingAnim(opts) {
     info += '</div>';
 
     // Sample text
-    var sample = '<div style="margin-top: 8px;">';
-    sample += '<div style="color: var(--text-muted); font-size: 0.7em; margin-bottom: 4px;">Dado un prefijo aleatorio del dataset, el modelo lo continua asi:</div>';
-    sample += '<div style="background: var(--bg-secondary); border-radius: 6px; padding: 8px 12px; font-size: 0.8em; line-height: 1.6; color: var(--text-primary); border-left: 3px solid var(--accent);">' + escHtmlTr(m.sample) + '</div>';
-    sample += '<div style="color: var(--text-muted); font-size: 0.7em; margin-top: 4px;">' + m.label + '</div>';
+    var sample = '<div style="margin-top: 6px;">';
+    sample += '<div style="color: var(--text-muted); font-size: 0.65em; margin-bottom: 3px;">Dado un prefijo aleatorio, el modelo lo continua asi:</div>';
+    sample += '<div style="background: var(--bg-secondary); border-radius: 6px; padding: 6px 10px; font-size: 0.65em; line-height: 1.5; color: var(--text-primary); border-left: 3px solid var(--accent);">' + escHtmlTr(m.sample) + '</div>';
+    sample += '<div style="color: var(--text-muted); font-size: 0.65em; margin-top: 3px;">' + m.label + '</div>';
     sample += '</div>';
 
     // Buttons
-    var btns = '<div style="display: flex; justify-content: center; gap: 12px; margin-top: 8px;">';
+    var btns = '<div style="display: flex; justify-content: center; gap: 12px; margin-top: 6px;">';
     btns += '<button id="train-prev" style="background: var(--bg-secondary); border: 1px solid var(--text-muted); border-radius: 6px; padding: 5px 16px; color: var(--text-primary); font-family: var(--font-body); font-size: 0.8em; cursor: pointer;">&#8592; Anterior</button>';
     if (!isLast) {
       btns += '<button id="train-next" style="background: var(--accent); color: var(--bg-primary); border: none; border-radius: 6px; padding: 5px 16px; font-family: var(--font-body); font-size: 0.8em; cursor: pointer; font-weight: bold;">Mas entrenamiento &#8594;</button>';

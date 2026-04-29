@@ -119,16 +119,12 @@ function buildAnimation(text, containerId, titleId, conceptsId) {
         html += '<div style="color: var(--text-muted); font-size: 0.8em;">Cada caracter se mapea a un numero. Pero usar uno por caracter es ineficiente.</div>';
         var uniqueCount = Object.keys(usedCodes).length;
         html += '<div style="color: var(--accent); font-size: 0.8em; margin-top: 4px;">' + displayChars.length + ' caracteres, ' + uniqueCount + ' unicos (de 256 valores posibles en UTF-8)</div>';
-        // Show sequence as list of UTF-8 codes
-        var codeList = displayChars.slice(0, 20).map(function(c) { return c.code; });
-        html += '<div style="color: var(--text-muted); font-size: 0.75em; margin-top: 8px;">El texto como secuencia de numeros:</div>';
-        html += '<div style="color: var(--accent-secondary); font-family: var(--font-mono); font-size: 0.75em; margin-top: 2px;">[' + codeList.join(', ') + ', ...]</div>';
         html += '</div>';
 
         // Right: mini ASCII table (relative sizing)
         html += '<div style="flex: 0 0 30%;">';
         html += '<div style="color: var(--text-muted); font-size: 0.6em; margin-bottom: 0.3em; text-align: center;">Tabla ASCII (fragmento)</div>';
-        html += '<div style="display: grid; grid-template-columns: repeat(8, 1fr); gap: 1px; font-size: 0.7em; background: var(--bg-secondary); border-radius: 0.4em; padding: 0.3em;">';
+        html += '<div style="display: grid; grid-template-columns: repeat(12, 1fr); gap: 1px; font-size: 0.65em; background: var(--bg-secondary); border-radius: 0.4em; padding: 0.3em;">';
         for (var code = 32; code < 128; code++) {
           var ch = code === 32 ? 'SP' : code === 127 ? 'DEL' : String.fromCharCode(code);
           var isUsed = usedCodes[code];

@@ -956,53 +956,62 @@
               <li>Modelos modernos: 80-128 bloques</li>
             </ul>
           </div>
-          <!-- Token representation before/after -->
-          <div class="fragment fade-in" style="margin-top: 14px; font-size: 0.55em;">
+          <aside class="notes">
+            <p><strong>Avanzar fragmentos para mostrar las flechas de atención.</strong></p>
+            <p><u>Atención + MLP = Transformer block. Causal self-attention.</u></p>
+            <p><em>"La clave del Transformer son estos dos bloques que se repiten. Primero, atención: cada token mira a los tokens anteriores y decide cuáles son relevantes. Es causal self-attention: cada token solo puede ver hacia atrás, porque cuando generamos el futuro todavía no existe. Segundo, el MLP: cada token pasa por una red feed-forward que transforma su representación individualmente. Estos dos pasos se apilan N veces. GPT-2 tiene 48 capas, los modelos modernos entre 80 y 128."</em></p>
+          </aside>
+        </section>
+
+        <!-- Token representation before/after (own slide so it doesn't get cropped) -->
+        <section>
+          <h2>Tokens enriqueciéndose capa por capa</h2>
+          <div style="margin-top: 20px; font-size: 0.7em;">
             <div style="display: flex; gap: var(--spacing-md); align-items: stretch;">
-              <div style="flex: 1; background: var(--bg-secondary); border-radius: 8px; padding: 10px 12px;">
-                <div style="color: var(--text-muted); font-weight: bold; margin-bottom: 6px;">Antes del bloque</div>
-                <div style="display: flex; gap: 6px;">
-                  <div style="flex: 1; background: var(--bg-code); border-radius: 4px; padding: 6px; text-align: center;">
+              <div style="flex: 1; background: var(--bg-secondary); border-radius: 8px; padding: 12px 14px;">
+                <div style="color: var(--text-muted); font-weight: bold; margin-bottom: 8px;">Antes del bloque</div>
+                <div style="display: flex; gap: 8px;">
+                  <div style="flex: 1; background: var(--bg-code); border-radius: 4px; padding: 8px; text-align: center;">
                     <div style="color: #4dc9f6; font-weight: bold;">el</div>
                     <div style="color: var(--text-muted); font-size: 0.85em;">solo sabe de si mismo</div>
                   </div>
-                  <div style="flex: 1; background: var(--bg-code); border-radius: 4px; padding: 6px; text-align: center;">
+                  <div style="flex: 1; background: var(--bg-code); border-radius: 4px; padding: 8px; text-align: center;">
                     <div style="color: #f67019; font-weight: bold;">gato</div>
                     <div style="color: var(--text-muted); font-size: 0.85em;">solo sabe de si mismo</div>
                   </div>
-                  <div style="flex: 1; background: var(--bg-code); border-radius: 4px; padding: 6px; text-align: center;">
+                  <div style="flex: 1; background: var(--bg-code); border-radius: 4px; padding: 8px; text-align: center;">
                     <div style="color: #e8508b; font-weight: bold;">sento</div>
                     <div style="color: var(--text-muted); font-size: 0.85em;">solo sabe de si mismo</div>
                   </div>
                 </div>
               </div>
               <div style="display: flex; align-items: center;">
-                <svg width="28" height="14" viewBox="0 0 24 14"><path d="M2 7h16m0 0l-5-5m5 5l-5 5" stroke="var(--accent)" stroke-width="2" fill="none" stroke-linecap="round"/></svg>
+                <svg width="32" height="16" viewBox="0 0 24 14"><path d="M2 7h16m0 0l-5-5m5 5l-5 5" stroke="var(--accent)" stroke-width="2" fill="none" stroke-linecap="round"/></svg>
               </div>
-              <div style="flex: 1; background: var(--bg-secondary); border: 1px solid var(--accent); border-radius: 8px; padding: 10px 12px;">
-                <div style="color: var(--accent); font-weight: bold; margin-bottom: 6px;">Después del bloque</div>
-                <div style="display: flex; gap: 6px;">
-                  <div style="flex: 1; background: var(--bg-code); border-radius: 4px; padding: 6px; text-align: center;">
+              <div style="flex: 1; background: var(--bg-secondary); border: 1px solid var(--accent); border-radius: 8px; padding: 12px 14px;">
+                <div style="color: var(--accent); font-weight: bold; margin-bottom: 8px;">Después del bloque</div>
+                <div style="display: flex; gap: 8px;">
+                  <div style="flex: 1; background: var(--bg-code); border-radius: 4px; padding: 8px; text-align: center;">
                     <div style="color: #4dc9f6; font-weight: bold;">el</div>
                     <div style="color: var(--text-muted); font-size: 0.85em;">sin cambios (nada antes)</div>
                   </div>
-                  <div style="flex: 1; background: var(--bg-code); border-radius: 4px; padding: 6px; text-align: center;">
+                  <div style="flex: 1; background: var(--bg-code); border-radius: 4px; padding: 8px; text-align: center;">
                     <div style="color: #f67019; font-weight: bold;">gato</div>
                     <div style="color: var(--text-muted); font-size: 0.85em;">+ contexto de <span style="color: #4dc9f6;">el</span></div>
                   </div>
-                  <div style="flex: 1; background: var(--bg-code); border-radius: 4px; padding: 6px; text-align: center;">
+                  <div style="flex: 1; background: var(--bg-code); border-radius: 4px; padding: 8px; text-align: center;">
                     <div style="color: #e8508b; font-weight: bold;">sento</div>
                     <div style="color: var(--text-muted); font-size: 0.85em;">+ contexto de <span style="color: #4dc9f6;">el</span> <span style="color: #f67019;">gato</span> <span style="color: #acc236;">se</span></div>
                   </div>
                 </div>
               </div>
             </div>
-            <p style="color: var(--text-muted); margin-top: 8px; text-align: center;">Con cada bloque, los tokens acumulan más contexto. Después de N bloques, cada token "sabe" sobre toda la secuencia anterior. <a href="https://bbycroft.net/llm" target="_blank">Ver en vivo</a></p>
+            <p style="color: var(--text-muted); margin-top: 16px; text-align: center; font-size: 0.9em;">Con cada bloque, los tokens acumulan más contexto. Después de N bloques, cada token "sabe" sobre toda la secuencia anterior. <a href="https://bbycroft.net/llm" target="_blank">Ver en vivo</a></p>
           </div>
           <aside class="notes">
-            <p><strong>Avanzar fragmentos para mostrar las flechas de atención. Después abrir bbycroft.net y mostrar cómo cambian las representaciones capa por capa.</strong></p>
-            <p><u>Atención + MLP = Transformer block. Causal self-attention.</u></p>
-            <p><em>"La clave del Transformer son estos dos bloques que se repiten. Primero, atención: cada token mira a los tokens anteriores y decide cuáles son relevantes. Es causal self-attention: cada token solo puede ver hacia atrás, porque cuando generamos el futuro todavía no existe. Segundo, el MLP: cada token pasa por una red feed-forward que transforma su representación individualmente. Estos dos pasos se apilan N veces. GPT-2 tiene 48 capas, los modelos modernos entre 80 y 128. Con cada bloque, la representación de cada token se enriquece. Después de la primera capa, sentó sabe un poco sobre 'el gato se'. Después de la segunda, sabe más. Al final, el último token tiene una representación que integra información de toda la secuencia."</em></p>
+            <p><strong>Mostrar el contraste antes/después con los tres tokens. Después abrir bbycroft.net y mostrar cómo cambian las representaciones capa por capa.</strong></p>
+            <p><u>Cómo se enriquecen las representaciones capa por capa.</u></p>
+            <p><em>"Con cada bloque, la representación de cada token se enriquece. Antes del bloque, cada token solo sabe de sí mismo. Después del bloque, cada token tiene contexto de los anteriores. Después de la primera capa, sentó sabe un poco sobre 'el gato se'. Después de la segunda, sabe más. Al final, el último token tiene una representación que integra información de toda la secuencia."</em></p>
           </aside>
         </section>
 
@@ -1025,12 +1034,12 @@
         <section>
           <h2>Inferencia: generar texto nuevo</h2>
           <p style="font-size: 0.7em; color: var(--text-muted);">Entrenamiento listo. Ahora, a generar texto token por token.</p>
-          <div id="inference-demo" style="background: var(--bg-code); border-radius: 8px; padding: 14px 18px; font-family: var(--font-mono); min-height: 200px;"></div>
+          <div id="inference-demo" style="background: var(--bg-code); border-radius: 8px; padding: 10px 14px; font-family: var(--font-mono); min-height: 200px;"></div>
           <script src="inference-anim.js"></script>
           <script>
             initInferenceAnim({ containerId: 'inference-demo' });
           </script>
-          <p style="font-size: 0.75em; color: var(--text-muted); margin-top: 12px;">El sistema es <strong style="color: var(--text-primary);">estocástico</strong>: en cada paso se tira una moneda cargada. Mismo prefijo, distinto resultado cada vez. Por eso el boton "regenerar" de ChatGPT da respuestas diferentes.</p>
+          <p style="font-size: 0.65em; color: var(--text-muted); margin-top: 8px;">El sistema es <strong style="color: var(--text-primary);">estocástico</strong>: en cada paso se tira una moneda cargada. Mismo prefijo, distinto resultado cada vez. Por eso el boton "regenerar" de ChatGPT da respuestas diferentes.</p>
           <aside class="notes">
             <p><strong>Correr la animación. Regenerar para mostrar que sale algo diferente.</strong></p>
             <p><u>Inferencia: muestrear token por token. Sistema estocástico.</u></p>
@@ -1196,7 +1205,7 @@
               <p>Miles de millones de números: el ajuste preciso de cada "perilla" de la red. Aca esta el valor.</p>
             </div>
           </div>
-          <p class="fragment fade-in" style="font-size: 0.8em; margin-top: 16px;">Los 405 mil millones de parámetros de Llama 3.1 capturan los <strong style="color: var(--accent);">patrones estadísticos</strong> de 15 billones de tokens en 8 idiomas &mdash; no el texto original (compresión lossy, como JPEG o MP3). Formato: BF16 (2 bytes por parámetro), ~800GB en disco.</p>
+          <p class="fragment fade-in" style="font-size: 0.8em; margin-top: 16px;">Los 405 mil millones de parámetros de Llama 3.1 capturan los <strong style="color: var(--accent);">patrones estadísticos</strong> de 15 billones de tokens en 8 idiomas.</p>
           <aside class="notes">
             <p><strong>Click para revelar parámetros y luego la métáfora del JPEG.</strong></p>
             <p><u>Qué sale del pre-training. Dos cosas: código + parámetros. Métáfora: zip lossy.</u></p>

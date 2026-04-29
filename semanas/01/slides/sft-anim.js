@@ -168,7 +168,7 @@ function initSftAnim(opts) {
     var isLast = milestoneIdx >= milestones.length - 1;
 
     // Loss curve
-    var svg = '<svg viewBox="0 0 400 160" style="width: 100%; max-height: 18vh;">';
+    var svg = '<svg viewBox="0 0 400 160" style="width: 100%; max-height: 10vh;">';
     svg += '<line x1="40" y1="15" x2="40" y2="150" stroke="#8892b0" stroke-width="1"/>';
     svg += '<line x1="40" y1="150" x2="385" y2="150" stroke="#8892b0" stroke-width="1"/>';
     svg += '<text x="10" y="85" fill="#8892b0" font-size="10" text-anchor="middle" transform="rotate(-90, 10, 85)" font-family="Inter, sans-serif">Loss</text>';
@@ -184,20 +184,20 @@ function initSftAnim(opts) {
     svg += '</svg>';
 
     // Info bar
-    var info = '<div style="display: flex; justify-content: space-between; align-items: center; font-size: 0.8em;">';
+    var info = '<div style="display: flex; justify-content: space-between; align-items: center; font-size: 0.7em;">';
     info += '<div><span style="color: var(--text-muted);">Step </span><span style="color: var(--accent); font-weight: bold;">' + m.step.toLocaleString() + '</span><span style="color: var(--text-muted);"> / ' + m.total.toLocaleString() + '</span></div>';
     info += '<div><span style="color: var(--text-muted);">Loss: </span><span style="color: var(--accent); font-weight: bold;">' + m.loss.toFixed(2) + '</span></div>';
     info += '<div><span style="color: var(--text-muted);">Progreso: </span><span style="color: var(--accent); font-weight: bold;">' + pct + '%</span></div>';
     info += '</div>';
 
     // Prompt + sample
-    var sample = '<div style="margin-top: 8px;">';
-    sample += '<div style="color: var(--text-muted); font-size: 0.7em; margin-bottom: 4px;">Prompt: <span style="color: var(--accent-secondary); font-style: italic;">"' + escHtmlSft(prompt) + '"</span></div>';
-    sample += '<div style="background: var(--bg-secondary); border-radius: 6px; padding: 8px 12px; font-size: 0.8em; line-height: 1.55; color: var(--text-primary); border-left: 3px solid var(--accent); white-space: pre-wrap;">' + escHtmlSft(m.sample) + '</div>';
-    sample += '<div style="color: var(--text-muted); font-size: 0.7em; margin-top: 4px;">' + m.label + '</div>';
+    var sample = '<div style="margin-top: 6px;">';
+    sample += '<div style="color: var(--text-muted); font-size: 0.65em; margin-bottom: 3px;">Prompt: <span style="color: var(--accent-secondary); font-style: italic;">"' + escHtmlSft(prompt) + '"</span></div>';
+    sample += '<div style="background: var(--bg-secondary); border-radius: 6px; padding: 5px 9px; font-size: 0.55em; line-height: 1.4; color: var(--text-primary); border-left: 3px solid var(--accent); white-space: pre-wrap;">' + escHtmlSft(m.sample) + '</div>';
+    sample += '<div style="color: var(--text-muted); font-size: 0.65em; margin-top: 3px;">' + m.label + '</div>';
     sample += '</div>';
 
-    var btns = '<div style="display: flex; justify-content: center; gap: 12px; margin-top: 8px;">';
+    var btns = '<div style="display: flex; justify-content: center; gap: 12px; margin-top: 6px;">';
     btns += '<button id="sft-prev" style="background: var(--bg-secondary); border: 1px solid var(--text-muted); border-radius: 6px; padding: 5px 16px; color: var(--text-primary); font-family: var(--font-body); font-size: 0.8em; cursor: pointer;">&#8592; Anterior</button>';
     if (!isLast) {
       btns += '<button id="sft-next" style="background: var(--accent); color: var(--bg-primary); border: none; border-radius: 6px; padding: 5px 16px; font-family: var(--font-body); font-size: 0.8em; cursor: pointer; font-weight: bold;">Más entrenamiento &#8594;</button>';
