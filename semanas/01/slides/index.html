@@ -1280,7 +1280,8 @@
             <span>el conocimiento es una reconstrucción estadística, no una base de datos. Lo frecuente en internet se recuerda bien. Lo raro se puede reconstruir mal.</span>
           </div>
           <aside class="notes">
-            El modelo base NO es un asistente. No responde preguntas — simplemente continua secuencias de tokens, genera "remixes" de internet. Pero aca esta lo interesante: para poder predecir bien el siguiente token, el modelo tuvo que aprender una enorme cantidad sobre el mundo. Llama 3.1 70B base saca 79.3 en MMLU (un examen de conocimiento general con preguntas de 57 materias), 92.9 en ARC-Challenge (razonamiento científico), y 89.7 en TriviaQA. El 405B saca un poco más(85.2, 96.1, 91.8), pero el 70B ya es muy capaz. Sabe de geografía, historia, ciencia, idiomas, código — todo eso esta codificado en los parámetros. Se puede extraer ese conocimiento con los prompts adecuados. Si le damos "Top 10 landmarks in Paris:" el modelo genera una lista razonable porque ha visto miles de artículos turísticos sobre Paris. Pero es una reconstrucción estadística, no una base de datos. Lo frecuente en internet se recuerda bien. Lo raro se puede reconstruir mal. Vamos a ver esto en acción con el modelo real en unos minutos.
+            <p><u>Capacidad del modelo base: autocompletar bien, pero no responde preguntas. Conocimiento codificado en parámetros.</u></p>
+            <p><em>"El modelo base no es un asistente. No responde preguntas, simplemente continúa secuencias de tokens, genera remixes de internet. Pero acá está lo interesante: para poder predecir bien el siguiente token, el modelo tuvo que aprender una enorme cantidad sobre el mundo. Llama 3.1 70B base saca 79 en MMLU, un examen de conocimiento general con 57 materias. Sabe de geografía, historia, ciencia, idiomas, código. Todo eso está codificado en los parámetros. Si le damos 'Top 10 landmarks in Paris', genera una lista razonable porque vio miles de artículos turísticos sobre París. Pero es una reconstrucción estadística, no una base de datos. Lo frecuente en internet se recuerda bien. Lo raro se puede reconstruir mal."</em></p>
           </aside>
         </section>
 
@@ -1307,7 +1308,9 @@
             </div>
           </div>
           <aside class="notes">
-            El modelo base exhibe dos comportamientos interesantes que son las dos caras de la misma moneda. Memorización: documentos de alta calidad como Wikipedia probablemente fueron vistos 10+ veces durante el entrenamiento (se les da más peso por ser fuentes confiables). El modelo puede recitarlos casi de memoria — le das el primer párrafo del artículo de cebras y continua con una copia casi perfecta. Esto se llama regurgitación y generalmente no es deseable. Alucinación: Llama 3.1 tiene un cutoff de conocimiento de diciembre 2023. Todo lo que pasó después de esa fecha no existe en sus parámetros. Pero el modelo no dice "no se" — inventa. Si le preguntas sobre las elecciones de 2025, cada generación es un "universo paralelo" diferente. Karpathy demostró esto con un modelo anterior: una vez dijo que Mike Pence era running mate, otra vez dijo Ron DeSantis. El modelo toma su mejor guess estadístico basado en lo que sabe, pero no tiene forma de distinguir lo que sabe de lo que inventa. Esto lo vamos a poder probar en vivo en unos minutos.
+            <p><strong>Click para revelar el panel de alucinación.</strong></p>
+            <p><u>Dos caras de la misma moneda: regurgitación vs alucinación. Cutoff de conocimiento.</u></p>
+            <p><em>"El modelo base exhibe dos comportamientos que son las dos caras de la misma moneda. Memorización: documentos de alta calidad como Wikipedia probablemente fueron vistos 10 o más veces durante el entrenamiento. El modelo puede recitarlos casi de memoria. Le das el primer párrafo del artículo de cebras y continúa con una copia casi perfecta. Esto se llama regurgitación y generalmente no es deseable. Alucinación: Llama 3.1 tiene un cutoff de conocimiento de diciembre de 2023. Todo lo que pasó después no existe en sus parámetros. Pero el modelo no dice 'no sé', inventa. Si le preguntás sobre las elecciones de 2025, cada generación es un universo paralelo diferente. Karpathy mostró esto: una vez dijo que Mike Pence era running mate, otra vez Ron DeSantis. El modelo toma su mejor guess estadístico, pero no tiene forma de distinguir lo que sabe de lo que inventa."</em></p>
           </aside>
         </section>
 
@@ -1319,7 +1322,9 @@
           <script src="base-model-chat.js"></script>
           <script>initBaseModelChat({ containerId: 'base-model-demo' });</script>
           <aside class="notes">
-            Aca vamos a interactuar con un primo cercano del modelo que venimos describiendo — Llama 3.1 70B de Meta, el modelo base puro (no la versión instruct). 70 mil millones de parámetros entrenados con 7 millones de GPU-horas en 15 billones de tokens, mismo cutoff de diciembre 2023 que el 405B. Solo sabe autocompletar texto. A la izquierda tenemos una interfaz tipo chat, pero es una ilusión — a la derecha pueden ver lo que realmente esta pasando: todo es una cadena de texto continua. El modelo no tiene concepto de "turnos" ni "conversación". Simplemente recibe texto y genera la continuación más probable. Recuerden el cutoff de diciembre 2023 — cualquier cosa posterior a eso la va a inventar. Noten que esta corriendo en 2 GPUs H100 de 80GB cada una — 160 GB de VRAM, suficiente para los 140 GB del modelo en BF16. Usamos 70B y no 405B por costo: 2 H100 sale ~$5/h vs ~$24/h para 8 H100. Si activan "Mostrar tokens especiales" pueden ver el token de inicio de secuencia que Llama usa internamente.
+            <p><strong>Demo en vivo. Probar con prompts: "Top 10 landmarks in Paris", regurgitación de Wikipedia, pregunta sobre 2025. Activar "Mostrar tokens especiales" para mostrar el BOS.</strong></p>
+            <p><u>Demo de Llama 3.1 70B base en RunPod. Chat es ilusión: todo es texto continuo.</u></p>
+            <p><em>"Acá vamos a interactuar con un primo cercano del modelo que venimos describiendo: Llama 3.1 70B de Meta, el modelo base puro, no la versión instruct. 70 mil millones de parámetros, mismo cutoff de diciembre de 2023. Solo sabe autocompletar texto. A la izquierda tenemos una interfaz tipo chat, pero es una ilusión. A la derecha pueden ver lo que realmente está pasando: todo es una cadena de texto continua. El modelo no tiene concepto de turnos ni de conversación. Simplemente recibe texto y genera la continuación más probable. Recuerden el cutoff: cualquier cosa posterior a diciembre del 23 la va a inventar. Está corriendo en 2 H100 de 80 GB. Usamos 70B y no 405B por costo: 2 H100 sale 5 dólares la hora versus 24 para las 8 que necesita el 405B."</em></p>
           </aside>
         </section>
 
@@ -1347,7 +1352,9 @@
           </div>
           <p class="fragment fade-in" style="font-size: 0.85em; margin-top: 16px;"><strong>El conocimiento esta en los parámetros. El comportamiento de asistente, no.</strong></p>
           <aside class="notes">
-            Si probaron en la demo anterior a darle un prompt tipo "Human: ... Assistant: ...", puede que el modelo haya seguido el patrón. Eso es in-context learning: el modelo reconoce el patrón algorítmico en el contexto y lo continua. El few-shot prompting es darle ejemplos del patrón que queres que siga y dejarlo completar. A la izquierda, un ejemplo simple de traducción. A la derecha, algo más ambicioso: simular un asistente completo armando un prompt que parece una conversación. El modelo toma ese rol porque esta continuando el patrón. Pero es frágil, incomodo, y limitado. El punto clave: todo el conocimiento del mundo ya esta en los parámetros gracias al pre-training — Llama 3.1 70B saca 79 en MMLU (y el 405B 85) solo con completado de texto. Lo que falta es darle el comportamiento de asistente — que responda preguntas, sea útil, rechace pedidos peligrosos. Eso es exactamente lo que hace el post-training.
+            <p><strong>Click para revelar el ejemplo de simulación de asistente.</strong></p>
+            <p><u>Few-shot prompting / in-context learning. Bridge al post-training.</u></p>
+            <p><em>"Si probaron en la demo anterior a darle un prompt tipo Human-Assistant, capaz el modelo siguió el patrón. Eso es in-context learning: el modelo reconoce el patrón algorítmico en el contexto y lo continúa. El few-shot prompting es darle ejemplos del patrón que querés que siga y dejarlo completar. A la izquierda, un traductor instantáneo. A la derecha, algo más ambicioso: simular un asistente completo armando un prompt que parece una conversación. El modelo toma ese rol porque está continuando el patrón. Pero es frágil, incómodo, limitado. El punto clave: todo el conocimiento del mundo ya está en los parámetros. Lo que falta es darle el comportamiento de asistente: que responda preguntas, sea útil, rechace pedidos peligrosos. Eso es exactamente lo que hace el post-training."</em></p>
           </aside>
         </section>
 
@@ -1360,7 +1367,8 @@
           <h2>Post-Training: SFT</h2>
           <p class="muted">Supervised Fine-Tuning</p>
           <aside class="notes">
-            Cerramos el pre-training y abrimos la segunda etapa: el post-training. La técnica principal se llama Supervised Fine-Tuning (SFT).
+            <p><u>Divisor de sección. Post-training, SFT.</u></p>
+            <p><em>"Cerramos el pre-training y abrimos la segunda etapa: el post-training. La técnica principal se llama Supervised Fine-Tuning, SFT."</em></p>
           </aside>
         </section>
 
@@ -1411,7 +1419,9 @@
           </p>
 
           <aside class="notes">
-            Recap rápido para abrir la sección. El pre-training nos dio un modelo base — el Llama 3.1 70B que acabamos de ver en acción. Es esencialmente un simulador de texto de internet: buenisimo para autocompletar, pero no responde preguntas ni tiene concepto de "turnos" en una conversación. Lo que queremos es un asistente: algo que responda preguntas, siga instrucciones, conversa multi-turno, y rechace pedidos peligrosos cuando corresponda. La forma de conseguirlo es el post-training. Y aca esta lo elegante: no cambia ni la arquitectura ni el algoritmo de entrenamiento. Es la misma red neuronal, el mismo gradient descent, las mismas operaciones. Lo único que cambia es el dataset: en vez de internet, le damos conversaciones humano-asistente. Y además es muchisimo más barato en computo — pre-training tarda meses en miles de GPUs; post-training tarda unas pocas horas, porque el dataset de conversaciones es comparativamente chiquito.
+            <p><strong>Click para revelar la columna del asistente y el punchline.</strong></p>
+            <p><u>Bridge: del modelo base al asistente. Misma red, distinto dataset.</u></p>
+            <p><em>"Recap rápido para abrir la sección. El pre-training nos dio un modelo base, el Llama 3.1 70B que acabamos de ver en acción. Es esencialmente un simulador de texto de internet: buenísimo para autocompletar, pero no responde preguntas ni tiene concepto de turnos. Lo que queremos es un asistente: que responda, siga instrucciones, converse multi-turno, y rechace pedidos peligrosos cuando corresponda. La forma de conseguirlo es el post-training. Y acá está lo elegante: no cambia ni la arquitectura ni el algoritmo. Es la misma red, el mismo gradient descent, las mismas operaciones. Lo único que cambia es el dataset: en vez de internet, le damos conversaciones humano-asistente. Y además es muchísimo más barato. Pre-training tarda meses en miles de GPUs; post-training, unas pocas horas."</em></p>
           </aside>
         </section>
 
@@ -1441,7 +1451,8 @@
           <p class="fragment fade-in" style="font-size: 0.8em; margin-top: 12px;">Se reemplaza el dataset de internet por un dataset de conversaciones y se sigue entrenando</p>
           <p class="fragment fade-in" style="font-size: 0.7em; color: var(--text-muted); margin-top: 6px;">Ver ejemplos reales: <a href="https://huggingface.co/datasets/OpenAssistant/oasst1/viewer" target="_blank">OpenAssistant/oasst1</a> &middot; ~84K mensajes de entrenamiento en conversaciones multi-turno aportadas por la comunidad</p>
           <aside class="notes">
-            La idea es simple: tomamos el modelo base y le cambiamos el dataset. En vez de internet, le damos conversaciones de ejemplo entre humano y asistente. Estas conversaciones cubren todo tipo de temas: matemática, escritura creativa, código, recetas, y también negaciones (cosas que el modelo no deberia ayudar a hacer). Se usa el mismo algoritmo de entrenamiento, la misma red — solo cambia el dataset. El modelo se ajusta rapidamente para imitar el patrón de estas conversaciones. Pre-training puede tomar 3 meses en miles de GPUs. Post-training toma unas 3 horas, porque el dataset de conversaciones es mucho más chico.
+            <p><u>Tres ejemplos de conversaciones SFT: matemática, receta, refusal.</u></p>
+            <p><em>"La idea es simple: tomamos el modelo base y le cambiamos el dataset. En vez de internet, le damos conversaciones de ejemplo entre humano y asistente. Cubren todo tipo de temas: matemática, escritura creativa, código, recetas, y también negaciones, cosas que el modelo no debería ayudar a hacer. Mismo algoritmo, misma red. Solo cambia el dataset. El modelo se ajusta rápidamente para imitar el patrón de estas conversaciones. Pre-training puede tomar 3 meses en miles de GPUs. Post-training, unas 3 horas, porque el dataset es mucho más chico."</em></p>
           </aside>
         </section>
 
@@ -1497,7 +1508,9 @@
             Contratados via Upwork, Scale AI &middot; Primer paper público: <a href="https://arxiv.org/pdf/2203.02155" target="_blank">InstructGPT (OpenAI, 2022)</a>
           </p>
           <aside class="notes">
-            Los datos de conversaciones no aparecen mágicamente. OpenAI, en su paper InstructGPT de 2022, explicó el proceso en detalle. Hay tres pasos básicos. Primero, la empresa que entrena el modelo escribe instrucciones detalladas — las "labeling instructions" — de cientos de páginas, que dicen como debe comportarse el asistente en cada situación. En alto nivel: helpful, truthful, harmless. Segundo, contratan humanos profesionales (via Upwork, Scale AI, etc.) que estudian esas instrucciones y luego inventan prompts plausibles: "list five ideas for how to regain enthusiasm for my career", o traducciones, o pedidos de código, o cosas que el modelo no deberia ayudar a hacer (refusals). Tercero, el mismo labeler escribe la respuesta ideal — la que cumple con todas las reglas. Esa respuesta es lo que el modelo aprende a imitar. La calidad del modelo final depende directamente de la calidad de los labelers y de las instrucciones que les dan.
+            <p><strong>Avanzar fragmentos: 1 → 2 → 3.</strong></p>
+            <p><u>Tres pasos del labeling humano. InstructGPT (OpenAI, 2022).</u></p>
+            <p><em>"Los datos de conversaciones no aparecen mágicamente. OpenAI, en su paper InstructGPT de 2022, explicó el proceso. Tres pasos básicos. Primero, la empresa escribe instrucciones detalladas, las labeling instructions, de cientos de páginas, que dicen cómo debe comportarse el asistente. En alto nivel: helpful, truthful, harmless. Segundo, contratan humanos profesionales, vía Upwork o Scale AI, que estudian esas instrucciones y luego inventan prompts plausibles: una pregunta de carrera, una traducción, un pedido de código, o cosas que el modelo no debería ayudar a hacer. Tercero, el mismo labeler escribe la respuesta ideal, la que cumple con todas las reglas. Esa respuesta es lo que el modelo aprende a imitar. La calidad del modelo final depende directamente de la calidad de los labelers."</em></p>
           </aside>
         </section>
 
@@ -1547,7 +1560,8 @@
           </p>
 
           <aside class="notes">
-            Con todas las piezas anteriores podemos describir el SFT clásico — la técnica que hizo posible que OpenAI lanzara la primera versión de ChatGPT en noviembre de 2022. Era sorprendentemente simple. Cuatro pasos. Uno: humanos profesionales escriben pares (prompt, respuesta ideal) siguiendo las labeling instructions que vimos. Dos: esos pares forman el dataset de SFT — InstructGPT (el paper que lo introdujo) usaba alrededor de 13.000 ejemplos. Tres: se toma el modelo base de pre-training y se sigue entrenando con la misma red y el mismo algoritmo, pero con dos cambios — el dataset son estos pares humanos, y el loss solo cuenta los tokens del asistente (loss masking). Cuatro: sale el asistente. La elegancia es que es la misma maquinaria del pre-training, con dos pequeños cambios. Y eso fue suficiente para que ChatGPT cambiara la historia. La animación a continuación muestra ese proceso desde adentro: cómo se tokeniza la conversación, qué hace la máscara de loss, y cómo cambia el comportamiento del modelo durante el entrenamiento.
+            <p><u>Diagrama de 4 pasos del SFT clásico: anotador → dataset → train → asistente. Técnica detrás del primer ChatGPT.</u></p>
+            <p><em>"Con todas las piezas anteriores podemos describir el SFT clásico, la técnica que hizo posible que OpenAI lanzara la primera versión de ChatGPT en noviembre de 2022. Era sorprendentemente simple. Cuatro pasos. Uno: humanos profesionales escriben pares prompt-respuesta ideal siguiendo las labeling instructions. Dos: esos pares forman el dataset de SFT. InstructGPT, el paper que lo introdujo, usaba alrededor de 13 mil ejemplos. Tres: se toma el modelo base y se sigue entrenando con la misma red y el mismo algoritmo, pero con dos cambios: el dataset son estos pares humanos, y el loss solo cuenta los tokens del asistente. Cuatro: sale el asistente. La elegancia es que es la misma maquinaria del pre-training, con dos pequeños cambios. Y eso fue suficiente para que ChatGPT cambiara la historia."</em></p>
           </aside>
         </section>
 
@@ -1558,7 +1572,9 @@
           <script src="sft-anim.js"></script>
           <script>initSftAnim({ containerId: 'sft-anim-demo' });</script>
           <aside class="notes">
-            Animación en dos fases. Fase 1, tres pasos de explicación: (1) cómo se serializa una conversación con tokens especiales nuevos que se agregan al vocabulario en post-training, (2) la máscara de loss — el truco clave: el modelo ve toda la conversación pero el gradiente solo cuenta los tokens del asistente, así aprende a ser el asistente y no el usuario, (3) el grafo del paso de entrenamiento — batch de conversaciones, predicción, loss, ajustar parámetros. Fase 2: el comportamiento del modelo durante el entrenamiento, con el mismo prompt en cada checkpoint. Es el paralelo de la animación del modelo base, pero ahora vemos cómo aprende a ser asistente, no a continuar internet. El prompt usado (cómo abrir una cerradura) muestra como el modelo pasa de autocompletar al estilo de Wikipedia, a refusar de forma tosca, y eventualmente a refusar con matiz y ofrecer alternativas legítimas.
+            <p><strong>Correr la animación en dos fases. Mostrar especialmente la máscara de loss y la evolución del modelo en cada checkpoint.</strong></p>
+            <p><u>Animación SFT: serialización con tokens especiales, loss masking, evolución del modelo. Paralelo a la del pre-training.</u></p>
+            <p><em>"Animación en dos fases. Primera, tres pasos de explicación: cómo se serializa una conversación con tokens especiales nuevos que se agregan al vocabulario en post-training; la máscara de loss, el truco clave, donde el modelo ve toda la conversación pero el gradiente solo cuenta los tokens del asistente, así aprende a ser el asistente y no el usuario; y el grafo del paso de entrenamiento. Segunda fase: el comportamiento del modelo durante el entrenamiento, con el mismo prompt en cada checkpoint. Es el paralelo de la animación del modelo base, pero ahora vemos cómo aprende a ser asistente, no a continuar internet. Vean cómo pasa de autocompletar al estilo de Wikipedia, a un refusal tosco, y eventualmente a refusar con matiz y ofrecer alternativas legítimas."</em></p>
           </aside>
         </section>
 
@@ -1618,7 +1634,9 @@
           </p>
 
           <aside class="notes">
-            Desmitifiquemos esto. Cuando le hablas a ChatGPT, lo que recibes es estadísticamente consistente con lo que habría en el dataset de entrenamiento. Y ese dataset tiene su origen en humanos siguiendo instrucciones de etiquetado. Por eso la respuesta no viene de una IA mágica — viene de una simulación de un labeler humano. Ese labeler no es cualquier persona de internet: es un experto contratado, que leyó cientos de páginas de instrucciones (helpful, truthful, harmless), y que para temas técnicos está domain-matched (un labeler de código es probablemente un software engineer; un labeler de medicina, un MD). Entonces cuando le pregunto a ChatGPT, lo que obtengo es la "respuesta promedio" que ese tipo de experto daría, simulada en un instante. La calidad del modelo final está directamente acotada por la calidad del labeler simulado. Esto también explica los límites: si los labelers no saben algo, el modelo tampoco. Si las instrucciones tienen un sesgo, el modelo lo absorbe.
+            <p><strong>Click para revelar el panel de "de dónde viene" y el punchline.</strong></p>
+            <p><u>Punchline de SFT: hablás con una simulación estadística de un labeler experto.</u></p>
+            <p><em>"Desmitifiquemos esto. Cuando le hablás a ChatGPT, lo que recibís es estadísticamente consistente con lo que habría en el dataset de entrenamiento. Y ese dataset tiene su origen en humanos siguiendo instrucciones de etiquetado. Por eso la respuesta no viene de una IA mágica, viene de una simulación de un labeler humano. Ese labeler no es cualquier persona de internet: es un experto contratado, que leyó cientos de páginas de instrucciones (helpful, truthful, harmless), y que para temas técnicos está domain-matched. Un labeler de código es probablemente un software engineer; uno de medicina, un MD. Entonces cuando le pregunto a ChatGPT, lo que obtengo es la respuesta promedio que ese tipo de experto daría, simulada en un instante. La calidad del modelo está acotada por la calidad del labeler. Si los labelers no saben algo, el modelo tampoco."</em></p>
           </aside>
         </section>
 
