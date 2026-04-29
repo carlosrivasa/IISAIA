@@ -20,7 +20,8 @@
         <p class="subtitle">Lo bueno, lo malo y las limitaciones</p>
         <p class="muted">Introducción al desarrollo de software asistido por IA</p>
         <aside class="notes">
-          Clase basada en "Deep Dive into How LLMs Work" de Andrej Karpathy (~3.5h). Vamos a recorrer todo el pipeline de como se construye algo como ChatGPT: desde los datos crudos de internet hasta los modelos de razonamiento. La idea es generar modelos mentales para entender que es esta herramienta, que hace bien, que hace mal, y cuales son sus limitaciones.
+          <p><u>Slide de portada. Basada en "Deep Dive into How LLMs Work" de Karpathy (~3.5h).</u></p>
+          <p><em>"Vamos a recorrer todo el pipeline de cómo se construye algo como ChatGPT: desde los datos crudos de internet hasta los modelos de razonamiento. La idea es generar modelos mentales para entender qué es esta herramienta, qué hace bien, qué hace mal, y cuáles son sus limitaciones."</em></p>
         </aside>
       </section>
 
@@ -172,7 +173,9 @@
           </script>
 
           <aside class="notes">
-            Ir avanzando con flechas o tap. Cada paso enciende el siguiente nodo del pipeline. Contar la historia: "Empezamos descargando internet. Filtramos el 93%. Tokenizamos. Entrenamos prediciendo el siguiente token. Sale un modelo base. Le ensenamos a conversar con SFT. Investigamos las alucinaciones y le damos herramientas. Y con RL aprende a pensar." Al final, dos clicks más: primero se ilumina la fila de arriba como "Pre-training" (la parte cara, meses, miles de GPUs). Después la fila de abajo como "Post-training" (más barato pero igual de importante). Esas dos fases son la estructura del resto de la clase.
+            <p><strong>Avanzar paso a paso. Cada click enciende un nodo. Al final, 2 clicks más para iluminar Pre-training y luego Post-training.</strong></p>
+            <p><u>Roadmap de la clase. Pipeline completo de construcción de un LLM.</u></p>
+            <p><em>"Empezamos descargando internet. Filtramos el 93%. Tokenizamos. Entrenamos prediciendo el siguiente token. Sale un modelo base. Le enseñamos a conversar con SFT. Investigamos las alucinaciones y le damos herramientas. Y con RL aprende a pensar. Toda la fila de arriba es Pre-training: la parte cara, meses, miles de GPUs. La fila de abajo es Post-training: más barato pero igual de importante. Esas dos fases son la estructura del resto de la clase."</em></p>
           </aside>
         </section>
 
@@ -184,7 +187,8 @@
         <section class="section-divider">
           <h2>Datos de Pre-entrenamiento</h2>
           <aside class="notes">
-            El primer paso para construir algo como ChatGPT es el pre-entrenamiento. Y el primer paso del pre-entrenamiento es descargar y procesar internet. Vamos a ver como se hace eso.
+            <p><u>Divisor de sección. Primer bloque: datos crudos.</u></p>
+            <p><em>"El primer paso para construir algo como ChatGPT es el pre-entrenamiento. Y el primer paso del pre-entrenamiento es descargar y procesar internet. Vamos a ver cómo se hace eso."</em></p>
           </aside>
         </section>
 
@@ -383,7 +387,9 @@
           </script>
 
           <aside class="notes">
-            La animación muestra como funciona un crawler: empieza con 3 páginas semilla (nodos verdes), sigue los links de cada página (líneas), y va descubriendo páginas nuevas (nodos azules). Cada nodo es una página indexada. En la realidad esto pasa a una escala de miles de millones. Common Crawl es una organización sin fines de lucro que hace esto desde 2007. Tiene crawlers corriendo constantemente, indexando páginas y siguiendo links. A 2024, han indexado 2.7 mil millones de páginas web. Los datos son completamente abiertos y gratuitos, almacenados en Amazon S3. Lo que guardan es el HTML crudo y completo de cada página. Ningun laboratorio de IA entrena directamente con estos datos crudos — son demasiado sucios. Cada empresa toma esto como punto de partida y aplica su propio pipeline de filtrado.
+            <p><strong>Dejar correr la animación del crawler.</strong></p>
+            <p><u>Animación de crawling. Common Crawl como punto de partida de todos los datasets.</u></p>
+            <p><em>"Esta animación muestra cómo funciona un crawler: empieza con 3 páginas semilla, sigue los links de cada página, y va descubriendo páginas nuevas. Cada nodo es una página indexada. En la realidad esto pasa a escala de miles de millones. Common Crawl es una organización sin fines de lucro que hace esto desde 2007. A 2024, han indexado 2.7 mil millones de páginas. Los datos son abiertos y gratuitos, almacenados en Amazon S3. Lo que guardan es el HTML crudo y completo. Ningún laboratorio de IA entrena directamente con estos datos crudos — son demasiado sucios. Cada empresa los toma como punto de partida y aplica su propio pipeline de filtrado."</em></p>
           </aside>
         </section>
 
@@ -455,7 +461,9 @@
           </script>
 
           <aside class="notes">
-            Esto es lo que Common Crawl guarda: un header en formato WARC (Web ARChive, un estándar ISO para archivar contenido web) con metadata, y el HTML crudo completo. Al principio todo se ve igual — es un bloque de HTML sin distinción. Dejar que los estudiantes lo miren un momento. Cuando avanzo, se ve el contraste: la mayoria es ruido (scripts, CSS, navegación, ads, cookies, footer) y se tacha. El texto útiles una fracción minima. Sin filtrado, le dariamos a la red neuronal mayormente basura. Esto motiva el pipeline de FineWeb.
+            <p><strong>Dejar mirar el HTML unos segundos. Click para tachar el ruido.</strong></p>
+            <p><u>WARC + HTML crudo. Motivación del pipeline de filtrado.</u></p>
+            <p><em>"Esto es lo que Common Crawl guarda: un header en formato WARC, un estándar ISO para archivar contenido web, con metadata, y el HTML crudo completo. Al principio todo se ve igual: un bloque de HTML sin distinción. Pero cuando lo miramos bien, vemos el contraste: la mayoría es ruido. Scripts, CSS, navegación, ads, cookies, footer. El texto útil es una fracción mínima. Sin filtrado, le daríamos a la red neuronal mayormente basura. Por eso existe FineWeb."</em></p>
           </aside>
         </section>
 
@@ -499,7 +507,9 @@
             </div>
           </div>
           <aside class="notes">
-            FineWeb es un dataset de HuggingFace con 15 billones de tokens extraidos de 96 snapshots de Common Crawl. Empieza con ~200 mil millones de páginas y después de todo el pipeline de filtrado se queda con solo el 7%. Se descarta el 93%. Cada paso tiene su razón: URL filtering elimina spam y malware. Text extraction saca el texto limpio del HTML (usando trafilatura). Language filtering usa un clasificador fastText para quedarse con páginas que tienen >65% de un idioma. Los filtros de calidad (del paper Gopher de DeepMind) eliminan documentos demasiado cortos, repetitivos, etc. PII removal saca emails, telefonos, IPs. MinHash deduplication elimina documentos casi identicos. Mostrar la página de FineWeb en vivo.
+            <p><strong>Abrir la página de FineWeb en vivo. Hover sobre cada caja del pipeline para mostrar el tooltip.</strong></p>
+            <p><u>Pipeline de filtrado de FineWeb. 7 pasos. Se descarta el 93%.</u></p>
+            <p><em>"FineWeb es un dataset de HuggingFace con 15 billones de tokens extraídos de 96 snapshots de Common Crawl. Empieza con ~200 mil millones de páginas y después de todo el pipeline se queda con solo el 7%. Se descarta el 93%. Cada paso tiene su razón: URL filtering elimina spam y malware. Text extraction saca el texto limpio del HTML usando trafilatura. Language filtering usa un clasificador fastText para quedarse con páginas que tienen más del 65% de un idioma. Los filtros de calidad, del paper Gopher de DeepMind, eliminan documentos demasiado cortos o repetitivos. PII removal saca emails, teléfonos, IPs. MinHash deduplication elimina documentos casi idénticos."</em></p>
           </aside>
         </section>
 
@@ -559,7 +569,8 @@
             </div>
           </div>
           <aside class="notes">
-            Asi se ve un registro de FineWeb. A la izquierda, la página web como se ve en un navegador. Abajo, el HTML crudo con las partes descartadas tachadas (nav, sidebar, footer). A la derecha, el registro limpio que queda: solo texto con metadata. Esto es lo que la red neuronal va a ver durante el entrenamiento. Todo el contenido de internet se reduce a texto plano limpio. Mencionar: FineWeb tiene 15 billones de estos registros. Cada uno es un fragmento de alguna página web, filtrado y limpio.
+            <p><u>Comparativa visual: página renderizada → HTML con ruido tachado → registro limpio de FineWeb.</u></p>
+            <p><em>"Así se ve un registro de FineWeb. A la izquierda, la página web como se ve en un navegador. Abajo, el HTML crudo con las partes descartadas tachadas: nav, sidebar, footer. A la derecha, el registro limpio que queda: solo texto con metadata. Esto es lo que la red neuronal va a ver durante el entrenamiento. Todo el contenido de internet se reduce a texto plano limpio. FineWeb tiene 15 billones de estos registros. Cada uno es un fragmento de alguna página web, filtrado y limpio."</em></p>
           </aside>
         </section>
 
@@ -571,7 +582,8 @@
         <section class="section-divider">
           <h2>Tokenización</h2>
           <aside class="notes">
-            Antes de alimentar texto a una red neuronal, necesitamos convertirlo en números. Las redes neuronales esperan secuencias de simbolos de un conjunto finito. La tokenización es el proceso de convertir texto en esos simbolos.
+            <p><u>Divisor de sección. Tokenización.</u></p>
+            <p><em>"Antes de alimentar texto a una red neuronal, necesitamos convertirlo en números. Las redes neuronales esperan secuencias de símbolos de un conjunto finito. La tokenización es el proceso de convertir texto en esos símbolos."</em></p>
           </aside>
         </section>
 
@@ -609,7 +621,9 @@
           </script>
 
           <aside class="notes">
-            La animación arranca sin titulo para que los estudiantes vean el proceso antes de ponerle nombre. Primero muestra texto plano, luego cada carácter con su valor UTF-8, después como BPE agrupa bytes frecuentes en tokens. Al final revela que esto se llama tokenización. El vocabulario es fijo — GPT-4 usa 100,277 tokens. El dataset de FineWeb tiene 15 billones de tokens. Son los atomos de texto para la red neuronal. Usar Tiktokenizer en vivo para que experimenten: "hello world" son 2 tokens, pero "Hello World" son 3. Es case-sensitive. Probar con nombres en español.
+            <p><strong>Avanzar pasos con los botones. Al final, abrir Tiktokenizer en otra pestaña y probar "hello world" vs "Hello World". Probar nombres en español.</strong></p>
+            <p><u>Animación BPE: texto → UTF-8 → tokens. Sin título hasta el final.</u></p>
+            <p><em>"La animación arranca sin título para que vean el proceso antes de ponerle nombre. Primero texto plano, luego cada carácter con su valor UTF-8, después cómo BPE agrupa bytes frecuentes en tokens. Al final revela que esto se llama tokenización. El vocabulario es fijo: GPT-4 usa 100.277 tokens. El dataset de FineWeb tiene 15 billones de tokens. Son los átomos de texto para la red neuronal. Vamos a probar en vivo: 'hello world' son 2 tokens, pero 'Hello World' son 3. Es case-sensitive."</em></p>
           </aside>
         </section>
 
@@ -621,7 +635,8 @@
         <section class="section-divider">
           <h2>Entrenamiento de la Red Neuronal</h2>
           <aside class="notes">
-            Ahora que tenemos una secuencia gigante de tokens, vamos a entrenar una red neuronal para que aprenda los patrones estadísticos de como estos tokens se siguen unos a otros.
+            <p><u>Divisor de sección. Entrenamiento de la red neuronal.</u></p>
+            <p><em>"Ahora que tenemos una secuencia gigante de tokens, vamos a entrenar una red neuronal para que aprenda los patrones estadísticos de cómo estos tokens se siguen unos a otros."</em></p>
           </aside>
         </section>
 
@@ -674,7 +689,9 @@
           </div>
           <p class="fragment fade-in" style="font-size: 0.75em; color: var(--text-muted); margin-top: 16px;">La pregunta clave: <strong style="color: var(--text-primary);">de donde sacamos las respuestas correctas?</strong></p>
           <aside class="notes">
-            Antes de meternos en los detalles del entrenamiento de LLMs, necesitamos entender que se necesita para entrenar cualquier red neuronal. Tres ingredientes: 1) Una entrada — datos que la red va a procesar. 2) Una respuesta correcta (ground truth) — lo que queremos que la red aprenda a predecir. 3) Una medida de error (loss) — un número que dice que tan lejos estuvo la predicción de la respuesta correcta. El proceso de entrenamiento es un loop: pasar la entrada, obtener la predicción, compararla con la respuesta correcta, calcular el error, y ajustar los parámetros de la red para reducir ese error. Esto se repite millones de veces con diferentes datos. La pregunta clave para LLMs es: de donde sacamos millones de respuestas correctas?
+            <p><strong>Avanzar fragmentos para revelar comparación, error, y loop.</strong></p>
+            <p><u>Tres ingredientes del entrenamiento. Setup conceptual antes de meterse en LLMs.</u></p>
+            <p><em>"Antes de meternos en los detalles del entrenamiento de LLMs, necesitamos entender qué se necesita para entrenar cualquier red neuronal. Tres ingredientes: una entrada, datos que la red va a procesar; una respuesta correcta o ground truth, lo que queremos que la red aprenda a predecir; y una medida de error o loss, un número que dice qué tan lejos estuvo la predicción de la respuesta correcta. El entrenamiento es un loop: pasar la entrada, obtener la predicción, compararla con la respuesta correcta, calcular el error, y ajustar los parámetros para reducirlo. Se repite millones de veces. La pregunta clave para LLMs es: ¿de dónde sacamos millones de respuestas correctas?"</em></p>
           </aside>
         </section>
 
