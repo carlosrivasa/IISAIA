@@ -207,6 +207,86 @@
       margin-top: var(--space-sm);
       font-size: 0.9rem;
     }
+
+    /* === §3 Estado === */
+    .estado-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: var(--space-md);
+    }
+    .estado-demo {
+      background: var(--color-bg);
+      padding: var(--space-md);
+      border-radius: var(--radius-sm);
+    }
+    .estado-demo h3 { margin-top: 0; color: var(--color-text); }
+    .estado-state { color: var(--color-muted); font-size: 0.85rem; }
+    .estado-controls { display: flex; gap: var(--space-xs); flex-wrap: wrap; }
+    .counter-display {
+      font-size: 3rem;
+      font-weight: 700;
+      text-align: center;
+      color: var(--color-accent);
+      margin: var(--space-sm) 0;
+    }
+    .todo-form {
+      display: flex;
+      gap: var(--space-xs);
+      margin-bottom: var(--space-sm);
+    }
+    .todo-form input {
+      flex: 1;
+      background: var(--color-surface-2);
+      color: var(--color-text);
+      border: 1px solid var(--color-surface-2);
+      border-radius: var(--radius-sm);
+      padding: var(--space-xs) var(--space-sm);
+      font-family: inherit;
+    }
+    .todo-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      max-height: 140px;
+      overflow-y: auto;
+    }
+    .todo-list li {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: var(--space-xs) var(--space-sm);
+      background: var(--color-surface-2);
+      border-radius: var(--radius-sm);
+      margin-bottom: var(--space-xs);
+      font-size: 0.9rem;
+    }
+    .todo-list button {
+      background: transparent;
+      color: var(--color-muted);
+      padding: 0 var(--space-xs);
+    }
+    .todo-list button:hover { color: var(--color-warn); background: transparent; }
+    .event-target {
+      background: var(--color-accent-soft);
+      border: 1px dashed var(--color-accent);
+      border-radius: var(--radius-sm);
+      padding: var(--space-md);
+      text-align: center;
+      cursor: pointer;
+      user-select: none;
+      margin-bottom: var(--space-sm);
+    }
+    .event-log {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      max-height: 120px;
+      overflow-y: auto;
+      font-family: var(--font-mono);
+      font-size: 0.8rem;
+      color: var(--color-muted);
+    }
+    .event-log li { padding: 2px 0; border-bottom: 1px solid var(--color-surface); }
   </style>
 </head>
 <body>
@@ -268,7 +348,35 @@
     <section class="demo-section" id="estado">
       <h2>3. Estado y comportamiento</h2>
       <p class="lead">Estado es el dato detrás. DOM es lo que ves. Eventos son el puente.</p>
-      <!-- Task 12 fills this section -->
+      <div class="estado-grid">
+        <div class="estado-demo">
+          <h3>Contador</h3>
+          <p class="estado-state">estado: <code id="counter-state">count = 0</code></p>
+          <div class="counter-display" id="counter-display">0</div>
+          <div class="estado-controls">
+            <button id="counter-dec" class="secondary">−1</button>
+            <button id="counter-inc">+1</button>
+            <button id="counter-reset" class="secondary">reset</button>
+          </div>
+        </div>
+
+        <div class="estado-demo">
+          <h3>Todo list</h3>
+          <p class="estado-state">estado: <code id="todo-state">items = []</code></p>
+          <form id="todo-form" class="todo-form">
+            <input type="text" id="todo-input" placeholder="Nueva tarea..." required>
+            <button type="submit">+</button>
+          </form>
+          <ul class="todo-list" id="todo-list"></ul>
+        </div>
+
+        <div class="estado-demo">
+          <h3>Event log</h3>
+          <p class="estado-state">cualquier click se registra abajo</p>
+          <div class="event-target" id="event-target">Hacé click acá</div>
+          <ol class="event-log" id="event-log"></ol>
+        </div>
+      </div>
     </section>
 
     <section class="demo-section" id="dom">
@@ -384,7 +492,70 @@
       });
     }
     initEstilo();
-    // Task 12: initEstado()
+    // === §3 Estado ===
+    function initEstado() {
+      // Counter
+      let count = 0;
+      const counterDisplay = document.getElementById('counter-display');
+      const counterState = document.getElementById('counter-state');
+      function paintCounter() {
+        counterDisplay.textContent = count;
+        counterState.textContent = `count = ${count}`;
+      }
+      document.getElementById('counter-inc').addEventListener('click', () => { count++; paintCounter(); });
+      document.getElementById('counter-dec').addEventListener('click', () => { count--; paintCounter(); });
+      document.getElementById('counter-reset').addEventListener('click', () => { count = 0; paintCounter(); });
+      paintCounter();
+
+      // Todo list
+      let items = [];
+      const todoList = document.getElementById('todo-list');
+      const todoState = document.getElementById('todo-state');
+      const todoForm = document.getElementById('todo-form');
+      const todoInput = document.getElementById('todo-input');
+      function paintTodos() {
+        todoList.innerHTML = '';
+        items.forEach((item, idx) => {
+          const li = document.createElement('li');
+          const span = document.createElement('span');
+          span.textContent = item;
+          const btn = document.createElement('button');
+          btn.type = 'button';
+          btn.textContent = '×';
+          btn.addEventListener('click', () => {
+            items.splice(idx, 1);
+            paintTodos();
+          });
+          li.appendChild(span);
+          li.appendChild(btn);
+          todoList.appendChild(li);
+        });
+        todoState.textContent = `items = [${items.map(i => `'${i.slice(0, 8)}${i.length > 8 ? '…' : ''}'`).join(', ')}]`;
+      }
+      todoForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const value = todoInput.value.trim();
+        if (!value) return;
+        items.push(value);
+        todoInput.value = '';
+        paintTodos();
+      });
+      paintTodos();
+
+      // Event log
+      const target = document.getElementById('event-target');
+      const log = document.getElementById('event-log');
+      let eventCount = 0;
+      target.addEventListener('click', (e) => {
+        eventCount++;
+        const li = document.createElement('li');
+        const time = new Date().toLocaleTimeString();
+        li.textContent = `[${time}] click #${eventCount} en (${e.offsetX}, ${e.offsetY})`;
+        log.insertBefore(li, log.firstChild);
+        while (log.children.length > 8) log.removeChild(log.lastChild);
+      });
+    }
+    initEstado();
     // Task 13: initDOM()
     // Task 14: initSingleFile()
   </script>
