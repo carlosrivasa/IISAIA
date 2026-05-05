@@ -1067,22 +1067,7 @@ btn.addEventListener('click', () =&gt; {
             <p><em>"Primero: se actualiza el estado. Count pasa a uno. El dato cambió, pero la pantalla todavía muestra cero."</em></p>
             <p><em>"Segundo: se actualiza el DOM. Span.textContent pasa a uno. El árbol del documento ahora coincide con el dato."</em></p>
             <p><em>"Y recién al final el navegador re-renderiza ese nodo. El usuario ve uno."</em></p>
-            <p><em>"El estado y el DOM no son la misma cosa, aunque caminen en paralelo. Si tu listener actualiza solamente uno de los dos, la pantalla miente."</em></p>
-          </aside>
-        </section>
-
-        <!-- §4.5: Estado es la verdad, DOM es el reflejo -->
-        <section>
-          <p class="big-question" style="font-size: 1.4em;">
-            <span class="accent">El estado es la verdad.</span><br>
-            El DOM es el reflejo.
-            <span class="muted-q">Si te olvidás de actualizar uno, la pantalla miente.</span>
-          </p>
-          <aside class="notes">
-            <p><u>La frase ancla de §4. Repetir despacio, sin apuro.</u></p>
-            <p><em>"Quedate con esta frase, porque es la que va a hacer que pidas bien las cosas. El estado es la verdad. El DOM es el reflejo. Si te olvidás de actualizar uno de los dos, la pantalla miente."</em></p>
-            <p><em>"Es exactamente la misma relación que vimos en CSS: la regla manda, el render obedece. Cambiás la regla, cambia lo que el navegador dibuja, pero no al revés. Acá pasa lo mismo, en clave dinámica: el estado manda, el DOM obedece. Cambiás el estado, mutás el DOM, y el usuario ve el cambio. Pero si tocás solo el DOM y no el estado, la próxima vez que el código rendericé el dato, la pantalla vuelve a mentir."</em></p>
-            <p><em>"Cuando le pidas a la IA cualquier cosa interactiva, esta es la palabra que tenés que poner en el prompt: estado. Si nombrás el estado, la IA lo separa del DOM. Si no lo nombrás, lo confunde con el DOM, y eso te explota la primera vez que querés mostrar el mismo dato en dos lugares."</em></p>
+            <p><em>"El estado y el DOM no son la misma cosa, aunque caminen en paralelo. Si tu listener actualiza solamente uno de los dos, la pantalla miente. Quedate con esa idea: el estado es la verdad, el DOM es el reflejo. Es exactamente la misma relación que vimos en CSS — allá la regla manda y el render obedece; acá el estado manda y el DOM obedece. Si nombrás 'estado' en cualquier prompt interactivo, la IA separa el dato de su representación; si no lo nombrás, los confunde y eso te explota la primera vez que querés mostrar el mismo dato en dos lugares."</em></p>
           </aside>
         </section>
 
