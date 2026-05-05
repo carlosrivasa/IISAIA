@@ -42,6 +42,17 @@ CTAs and headings must be specific: "Ver tokenización en vivo", not "Empezar".
    Multiple variants on the same slide (different values producing different results) make the property's effect obvious. Hide the rendered result behind a fragment so the speaker can introduce the concept before the demo lands. Closing line ties the pattern to the prompt-engineering takeaway when relevant.
    Examples in semana 02: §3.2 box model (three buttons with different padding/border/margin), §3.3 flex/grid (HTML target + CSS + rendered layout), §3.4 typography/color (heading+body fonts; styled button), §3.5 CSS variables (one variable rendered with three values across three element trios).
 
+9. **Closing prompt-comparison slide: reframe around determinism, not "vague → bad code".** Every major topic section that teaches vocabulary (HTML structure, CSS, JavaScript state, etc.) ends with a "Cómo le pedís X a una IA" slide that contrasts two prompts expressing the *same* intent:
+   - **Prompt sin vocabulario**: plain language, no technical terms.
+   - **Prompt con vocabulario**: same length, names the section's primitivas/concepts.
+   Closing tagline: *"Vago = lotería. Específico = determinismo."* (Spanish; adjust for other languages.)
+   Speaker notes must:
+   1. Open by acknowledging the prompts have the same intent.
+   2. **Honestly disclose** that modern LLMs (Claude, ChatGPT, Gemini) often return decent code for vague prompts on textbook cases — *do not pretend vague always fails*.
+   3. Pivot to three reasons vocabulary still matters: **determinismo** (LLM defaults vary on less-common asks), **iteración** (next prompts need vocabulary to be cheap), **auditoría** (reading returned code requires the vocabulary).
+   4. Tie the right-card prompt to the section's primitivas explicitly (e.g., "esto nombra layout, tipografía, variables y modelo de caja").
+   Examples in semana 02: §2.5 (estructura), §3.7 (estilo), §4.7 (estado/DOM/eventos).
+
 ## Speaker notes structure
 
 Speaker notes go in `<aside class="notes">` blocks. **Three visual formats** separate three kinds of content:
