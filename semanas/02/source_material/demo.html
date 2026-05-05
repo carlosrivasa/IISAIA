@@ -123,6 +123,20 @@
       margin-bottom: 0;
     }
     .section-body[hidden] { display: none; }
+
+    /* §3 + §4 paired side-by-side: estado feeds the dom tree, so it
+       helps to see them together as the user clicks. */
+    .estado-dom-pair {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-md);
+      margin-bottom: var(--space-xl);
+    }
+    .estado-dom-pair > section.demo-section {
+      flex: 1 1 320px;
+      min-width: 0;
+      margin-bottom: 0;
+    }
     section.demo-section .lead {
       color: var(--color-muted);
       margin-bottom: var(--space-lg);
@@ -731,6 +745,7 @@
       </div>
     </section>
 
+    <div class="estado-dom-pair">
     <section class="demo-section" id="estado">
       <div class="section-header">
         <h2>3. Estado y comportamiento</h2>
@@ -783,6 +798,7 @@
         </div>
       </div>
     </section>
+    </div>
 
     <section class="demo-section" id="single-file">
       <div class="section-header">
