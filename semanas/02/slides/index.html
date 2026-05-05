@@ -895,11 +895,14 @@ p  { font-family: system-ui, sans-serif; }</code></pre>
             </div>
             <div class="bg-secondary-card" style="border-left: 4px solid var(--accent);">
               <h3 style="color: var(--accent); margin-bottom: 12px;">Prompt con vocabulario</h3>
-              <p style="font-style: italic; font-size: 0.74em; line-height: 1.55;">
-                "Convertí el <strong>&lt;main&gt;</strong> en un <strong>grid</strong> de 3 columnas con <strong>gap</strong> 24px. Definí variables: <code>--bg: #0f172a</code>, <code>--text: #e2e8f0</code>, <code>--accent: #f59e0b</code>. El <strong>&lt;button&gt;</strong> primario: <strong>padding</strong> 12px 20px, <strong>border-radius</strong> 8px, fondo <code>var(--accent)</code>."
+              <p style="font-style: italic; font-size: 0.72em; line-height: 1.6;">
+                "Convertí el <strong>&lt;main&gt;</strong> en un <strong>grid</strong> de 3 columnas con <strong>gap</strong> 24px.
+                <strong>Tipografía</strong>: heading en Georgia, body en system-ui.
+                Definí variables <code>--bg: #0f172a</code>, <code>--text: #e2e8f0</code>, <code>--accent: #f59e0b</code>.
+                <strong>Botón primario</strong>: padding 12px 20px, border-radius 8px, fondo <code>var(--accent)</code>."
               </p>
               <p style="font-size: 0.7em; color: var(--accent); margin-top: 12px;">
-                Layout, modelo de caja, color y variables — las cuatro primitivas nombradas.
+                Las cuatro primitivas nombradas: layout, tipografía, variables (color) y modelo de caja.
               </p>
             </div>
           </div>
@@ -911,6 +914,7 @@ p  { font-family: system-ui, sans-serif; }</code></pre>
             <p><em>"Misma estructura que el cierre de la sección anterior. Mirá los dos prompts: la intención es la misma, hacer que una página se vea bien."</em></p>
             <p><em>"Y el mismo descargo de honestidad: si vos hoy le pedís a Claude o a ChatGPT 'hacelo más moderno' sobre una página razonable, lo más probable es que te devuelva algo que no está mal. Va a usar flex, va a usar variables, va a elegir una paleta limpia. Los modelos vieron millones de páginas modernas; tienen un default decente."</em></p>
             <p><em>"Pero el vocabulario te paga por las mismas tres razones que vimos en estructura. Determinismo: el prompt vago es lotería — esta vez sale Indigo, la próxima sale verde, la próxima un gradiente lila que no querías. El prompt específico siempre te da los hex que pediste. Iteración: el segundo prompt va a ser 'cambiá el acento a verde'; si tenés variables, es una línea; si no, son veinte. Y auditoría: leer un CSS lleno de hex distintos es leer un mapa sin leyenda."</em></p>
+            <p><em>"Y notá una cosa concreta del prompt específico: nombra las cuatro primitivas que vimos en la sección. Layout — grid de 3 columnas con gap. Tipografía — Georgia para títulos, system-ui sans para cuerpo. Variables — los tres hex del sitio. Modelo de caja — padding y border-radius del botón. Cuatro primitivas, un solo prompt, cero ambigüedad."</em></p>
             <p><em>"Próxima capa: comportamiento y estado. Las páginas dejan de ser estáticas."</em></p>
           </aside>
         </section>
