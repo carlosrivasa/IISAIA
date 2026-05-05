@@ -1041,18 +1041,18 @@ btn.addEventListener('click', () =&gt; {
         <!-- §4.4: El ciclo de 5 pasos -->
         <section>
           <h2>El ciclo: evento → estado → DOM</h2>
-          <div style="display: flex; align-items: center; gap: 8px; justify-content: center; margin-top: 20px; flex-wrap: wrap;">
-            <div class="flow-step fragment fade-in" data-fragment-index="1">Estado inicial<br><code style="font-size: 0.8em;">count = 0</code></div>
-            <span class="flow-arrow fragment fade-in" data-fragment-index="2">→</span>
-            <div class="flow-step fragment fade-in" data-fragment-index="2">Click<br><span style="color: var(--text-muted); font-size: 0.85em;">evento</span></div>
-            <span class="flow-arrow fragment fade-in" data-fragment-index="3">→</span>
-            <div class="flow-step fragment fade-in" data-fragment-index="3">Listener<br><span style="color: var(--text-muted); font-size: 0.85em;">se activa</span></div>
-            <span class="flow-arrow fragment fade-in" data-fragment-index="4">→</span>
-            <div class="flow-step fragment fade-in active" data-fragment-index="4">Mutación de estado<br><code style="font-size: 0.8em;">count = 1</code></div>
-            <span class="flow-arrow fragment fade-in" data-fragment-index="5">→</span>
-            <div class="flow-step fragment fade-in active" data-fragment-index="5">Mutación de DOM<br><code style="font-size: 0.8em;">span.textContent = 1</code></div>
-            <span class="flow-arrow fragment fade-in" data-fragment-index="6">→</span>
-            <div class="flow-step fragment fade-in" data-fragment-index="6">Render<br><span style="color: var(--text-muted); font-size: 0.85em;">"1" en pantalla</span></div>
+          <div style="display: flex; align-items: center; gap: 4px; justify-content: center; margin-top: 20px; flex-wrap: nowrap;">
+            <div class="flow-step fragment fade-in" data-fragment-index="1" style="padding: 6px 10px; font-size: 0.65em;">Estado inicial<br><code style="font-size: 0.85em;">count = 0</code></div>
+            <span class="flow-arrow fragment fade-in" data-fragment-index="2" style="font-size: 0.85em;">→</span>
+            <div class="flow-step fragment fade-in" data-fragment-index="2" style="padding: 6px 10px; font-size: 0.65em;">Click<br><span style="color: var(--text-muted); font-size: 0.85em;">evento</span></div>
+            <span class="flow-arrow fragment fade-in" data-fragment-index="3" style="font-size: 0.85em;">→</span>
+            <div class="flow-step fragment fade-in" data-fragment-index="3" style="padding: 6px 10px; font-size: 0.65em;">Listener<br><span style="color: var(--text-muted); font-size: 0.85em;">se activa</span></div>
+            <span class="flow-arrow fragment fade-in" data-fragment-index="4" style="font-size: 0.85em;">→</span>
+            <div class="flow-step fragment fade-in active" data-fragment-index="4" style="padding: 6px 10px; font-size: 0.65em;">Mutar estado<br><code style="font-size: 0.85em;">count = 1</code></div>
+            <span class="flow-arrow fragment fade-in" data-fragment-index="5" style="font-size: 0.85em;">→</span>
+            <div class="flow-step fragment fade-in active" data-fragment-index="5" style="padding: 6px 10px; font-size: 0.65em;">Mutar DOM<br><code style="font-size: 0.85em;">span = "1"</code></div>
+            <span class="flow-arrow fragment fade-in" data-fragment-index="6" style="font-size: 0.85em;">→</span>
+            <div class="flow-step fragment fade-in" data-fragment-index="6" style="padding: 6px 10px; font-size: 0.65em;">Render<br><span style="color: var(--text-muted); font-size: 0.85em;">"1" en pantalla</span></div>
           </div>
           <p class="fragment fade-in" data-fragment-index="7" style="margin-top: 24px; font-size: 0.78em; color: var(--accent); text-align: center; max-width: 36em; margin-left: auto; margin-right: auto;">
             Los dos pasos centrales son los críticos: <strong>el estado y el DOM se mueven por separado</strong>. Si te olvidás de uno, la pantalla miente.
