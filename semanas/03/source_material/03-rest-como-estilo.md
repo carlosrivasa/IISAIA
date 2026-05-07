@@ -26,7 +26,7 @@ Convención: `/users`, no `/user`. `/projects`, no `/project`. La URL nombra una
 
 ### Jerarquía cuando hay relación
 
-`/projects/4/tasks` dice "las tareas del proyecto cuatro". Cuando un recurso solamente existe en el contexto de otro — una tarea no flota suelta, pertenece a un proyecto — anidás. Cuando puede vivir por sí mismo, mantenelo plano: si una tarea existe sin proyecto, dejá `/tasks` y filtrá por query (`/tasks?project=4`). Anidás cuando la pertenencia es estructural, no cuando es opcional.
+`/projects/4/tasks` dice "las tareas del proyecto cuatro". Cuando un recurso solamente existe en el contexto de otro (una tarea no flota suelta, pertenece a un proyecto), anidás. Cuando puede vivir por sí mismo, mantenelo plano: si una tarea existe sin proyecto, dejá `/tasks` y filtrá por query (`/tasks?project=4`). Anidás cuando la pertenencia es estructural, no cuando es opcional.
 
 ### Idempotencia
 
@@ -38,7 +38,7 @@ La consecuencia práctica aparece cuando un request falla y no sabés si llegó.
 
 REST es **stateless**: cada request lleva todo lo que el servidor necesita para atenderlo. El servidor no recuerda quién llamó hace un segundo ni guarda contexto entre pedidos. Si necesita saber quién sos, eso viaja en el request.
 
-Esa propiedad es lo que permite que un servidor REST escale: cualquier máquina del cluster atiende cualquier request, porque ninguna tiene historia. También es la razón por la que aparece, más adelante, el tema de los tokens de autenticación — si el servidor no recuerda quién sos, lo tenés que mandar cada vez. *Eso lo trabajamos en semana 7.*
+Esa propiedad es lo que permite que un servidor REST escale: cualquier máquina del cluster atiende cualquier request, porque ninguna tiene historia. También es la razón por la que aparece, más adelante, el tema de los tokens de autenticación: si el servidor no recuerda quién sos, lo tenés que mandar cada vez. *Eso lo trabajamos en semana 7.*
 
 ## Cómo cambia la forma de dictar a la IA
 
@@ -57,4 +57,4 @@ diseñá una API REST con dos recursos anidados:
 todas las respuestas en JSON. Las idempotentes (GET, DELETE) deben poder llamarse dos veces sin efectos diferentes.
 ```
 
-Los dos pueden producir código que arranca. La diferencia está en los tres ejes de siempre. Determinismo: el específico fija recursos, jerarquía y verbos, así que dos generaciones caen en estructuras casi idénticas; nunca es total — un LLM puede variar nombres entre corridas — pero el espacio de variación se achica mucho. Iteración: podés cambiar una pieza nombrada, agregar PATCH a tasks sin tocar el resto, en vez de regenerar todo. Auditoría: leés el código contra el contrato que escribiste; si falta DELETE en `/projects/{id}/tasks/{taskId}`, lo ves de una.
+Los dos pueden producir código que arranca. La diferencia está en los tres ejes de siempre. Determinismo: el específico fija recursos, jerarquía y verbos, así que dos generaciones caen en estructuras casi idénticas; nunca es total (un LLM puede variar nombres entre corridas), pero el espacio de variación se achica mucho. Iteración: podés cambiar una pieza nombrada, agregar PATCH a tasks sin tocar el resto, en vez de regenerar todo. Auditoría: leés el código contra el contrato que escribiste; si falta DELETE en `/projects/{id}/tasks/{taskId}`, lo ves de una.
