@@ -40,7 +40,7 @@ function initBackendFlow(opts) {
       key: 'rest',
       title: 'REST — el estilo',
       desc: 'REST (REpresentational State Transfer) es la convención que usa el servidor para entender la URL. La URL siempre nombra una cosa; el method dice qué hacer con ella. Acá: /projects/4/tasks apunta a "las tareas del proyecto 4" (la cosa), y POST significa "crear una nueva" (la acción).',
-      code: 'recurso : tasks\nparent  : projects/4\nformato : JSON'
+      code: 'URL:  /projects/4/tasks\n\nPieza por pieza:\n  /projects          → la colección de proyectos\n  /projects/4        → el proyecto con id 4\n  /projects/4/tasks  → las tareas de ese proyecto\n\ncosa     : tareas del proyecto 4\nacción   : POST = crear una nueva'
     },
     3: {
       key: 'endpoints',
