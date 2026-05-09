@@ -39,7 +39,7 @@ function initBackendFlow(opts) {
     2: {
       key: 'rest',
       title: 'REST — el estilo',
-      desc: 'REST (REpresentational State Transfer) modela recursos — cosas concretas como tareas, proyectos o usuarios — no verbos. Lee la URL y reconoce qué cosa estás tocando: tasks dentro de projects/4. La acción la lleva el method (POST = crear), no el path.',
+      desc: 'REST (REpresentational State Transfer) es la convención que usa el servidor para entender la URL. La URL siempre nombra una cosa; el method dice qué hacer con ella. Acá: /projects/4/tasks apunta a "las tareas del proyecto 4" (la cosa), y POST significa "crear una nueva" (la acción).',
       code: 'recurso : tasks\nparent  : projects/4\nformato : JSON'
     },
     3: {
@@ -96,7 +96,7 @@ function initBackendFlow(opts) {
           '<div class="s14-client" id="s14-client">' +
             '<i data-lucide="monitor" class="s14-client-icon"></i>' +
             '<div class="s14-client-label">Cliente</div>' +
-            '<div class="s14-client-sub">tu navegador</div>' +
+            '<div class="s14-client-sub">el que pide</div>' +
             '<div class="s14-client-payload" id="s14-client-payload">' +
               '<div class="s14-mono-mini">POST /projects/4/tasks</div>' +
               '<div class="s14-mono-mini">' + REQUEST_PAYLOAD + '</div>' +
