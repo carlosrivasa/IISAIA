@@ -700,8 +700,8 @@
     </p>
     <aside class="notes">
       <p><u>Cliente vs servidor como roles intercambiables. Lo importante es desarmar la idea de que cliente = navegador.</u></p>
-      <p><em>"Los dos protagonistas son simples. El cliente es quien pide. El servidor es quien responde. Esa es toda la asimetría: uno habla primero, el otro contesta. El servidor, importante, no manda cosas porque sí — espera que le pregunten."</em></p>
-      <p><em>"Y conviene desarmar una idea común: el cliente no es siempre un navegador. Cualquier cosa puede ser cliente. Una app de iPhone es un cliente. Un servidor que está consumiendo la API de otro servidor, en ese momento, es un cliente. Un curl en la terminal es un cliente. La palabra describe un rol, no un tipo de programa. Vas a ver durante el curso que la misma máquina puede ser cliente y servidor en momentos distintos, según con quién esté hablando."</em></p>
+      <p><em>"Si usaste internet alguna vez, esta dinámica ya la viste mil veces — solo que no le habías puesto nombre. Hay dos protagonistas, y son simples. El cliente es quien pide. El servidor es quien responde. Esa es toda la asimetría: uno habla primero, el otro contesta. El servidor no manda cosas porque sí — espera que le pregunten."</em></p>
+      <p><em>"Y acá conviene desarmar una idea común: el cliente no es siempre un navegador. Cualquier cosa puede ser cliente. Una app de iPhone es un cliente. Un servidor que está consumiendo la API de otro servidor, en ese momento, es un cliente. Un curl en la terminal es un cliente. La palabra describe un rol, no un tipo de programa. Vas a ver durante el curso que la misma máquina puede ser cliente y servidor en momentos distintos, según con quién esté hablando."</em></p>
       <p><em>"De hecho, la página que armaron en semana 02 ya era un cliente. No la nombramos así porque todavía no había con quién hablar — del otro lado no había nadie. Esta semana aparece la otra mitad. Y entre las dos hace falta un idioma común. Ese idioma es HTTP."</em></p>
     </aside>
   </section>
@@ -734,9 +734,9 @@ Content-Type: application/json
     <aside class="notes">
       <p><u>Anatomía concreta. Se lee el bloque línea por línea mientras está en pantalla, sin fragments.</u></p>
       <p><em>"Ese idioma común se llama HTTP, y es un protocolo de pedido y respuesta. El cliente arma un request, el servidor arma una response, y entre los dos cabe casi todo lo que hace internet hoy. Mirá un par concreto en pantalla."</em></p>
-      <p><em>"Arriba, el request, el pedido. Tiene cuatro partes. Primero el método: GET. Es el method, ya viene definido por el protocolo, no es una palabra que vos inventás. Después la URL: barra projects barra cuatro. Es a qué recurso le estás hablando — querés el proyecto número cuatro. Después HTTP barra uno punto uno, que es la versión del protocolo. Y abajo los headers: metadatos. Acá tenemos uno solo, Host, que dice a qué dominio le estoy pidiendo: api.example.com. Y este request en particular no lleva body — los GET típicamente no llevan, porque solo están pidiendo información, no mandando contenido."</em></p>
-      <p><em>"Abajo, la response. Tres partes. Primero el status code: doscientos OK. Eso quiere decir 'todo bien, acá tenés lo que pediste'. Después los headers: Content-Type application/json, que dice 'lo que te mando es JSON'. Y abajo el body: el contenido en sí, en este caso un objeto con id cuatro y nombre Tesis."</em></p>
-      <p><em>"Ese ida y vuelta, repetido millones de veces por segundo, es internet. Y el vocabulario para describirlo es exactamente lo que tenés en pantalla. Cuando le dictés un endpoint a la IA, vas a tener que nombrar estas piezas — el método, el path, qué headers esperás, qué viene en el body. Si no las nombrás, el modelo elige por vos."</em></p>
+      <p><em>"Arriba, el request, el pedido. Tiene cuatro partes. Primero el method: GET — uno de los cinco que importan, ya viene definido por el protocolo, no es una palabra que vos inventás. Después la URL: barra projects barra cuatro. Es a qué recurso le estás hablando — querés el proyecto número cuatro. Después HTTP barra uno punto uno, que es la versión del protocolo. Y abajo los headers (metadatos). Acá tenemos uno solo: Host, que dice a qué dominio le estoy pidiendo — api.example.com. Este request no lleva body, porque los GET típicamente no llevan: solo piden información, no mandan contenido."</em></p>
+      <p><em>"Abajo, la response. Tres partes. Primero el status code: doscientos OK. Eso quiere decir 'todo bien, acá tenés lo que pediste'. Después los headers: Content-Type application/json, que dice 'lo que te mando es JSON'. Y abajo el body — el contenido en sí, en este caso un objeto con id cuatro y nombre Tesis."</em></p>
+      <p><em>"Ese ida y vuelta — request, response — repetido millones de veces por segundo, es internet. Cada vez que abrís una página, cada vez que mandás un mensaje por Whatsapp Web, cada vez que refrescás un feed: pasa esto. Y el vocabulario para describirlo es exactamente lo que tenés en pantalla. Cuando le dictés un endpoint a la IA, vas a tener que nombrar estas piezas — el method, el path, qué headers esperás, qué viene en el body. Si no las nombrás, el modelo elige por vos."</em></p>
     </aside>
   </section>
 
@@ -1023,9 +1023,9 @@ Content-Type: application/json
     <aside class="notes">
       <p><strong>Mostrar la separación HTTP/REST. Click para revelar la nota sobre alternativas (GraphQL, RPC).</strong></p>
       <p><u>El mantra que separa transporte de convención. Importante para que después no confundan "no sigue REST" con "no funciona".</u></p>
-      <p><em>"Acá está la frase que conviene grabar. HTTP es el cómo: el transporte. Define los methods, los códigos, los headers, cómo se manda un body, cómo viene la respuesta. Es maquinaria. REST es el qué: una convención sobre qué se transporta encima de HTTP y cómo se nombra. Es estilo arquitectónico, no es protocolo."</em></p>
-      <p><em>"Por eso la opción B del hook anterior no estaba rota; estaba escrita en otro estilo. Funcionaba como HTTP. No calificaba como REST."</em></p>
-      <p><em>"Una aclaración honesta antes de seguir: REST no es la única convención. Existe GraphQL, donde toda la API vive en una sola path y el cliente declara qué campos quiere recibir. Existe RPC, que en lugar de modelar recursos expone funciones con nombre, como llamar métodos remotos. Las dos son legítimas. Pero la mayoría de las APIs públicas y de los proyectos en los que vas a dictar contrato hablan REST, así que el resto de esta clase lo asume."</em></p>
+      <p><em>"Acá está la frase que conviene grabar. HTTP es el cómo: el transporte. Define los methods, los status codes, los headers, cómo se manda un body, cómo viene la response. Es la maquinaria — la misma maquinaria que usás cada vez que un navegador le habla a un servidor. REST es el qué: una convención sobre qué se transporta encima de HTTP y cómo se nombra. Es estilo arquitectónico, no es protocolo."</em></p>
+      <p><em>"Por eso la opción B del hook anterior (POST barra borrar-tarea) no estaba rota; estaba escrita en otro estilo. Funcionaba como HTTP. No calificaba como REST."</em></p>
+      <p><em>"Una aclaración honesta antes de seguir: REST no es la única convención. Existe GraphQL, donde toda la API vive en un solo path y el cliente declara qué campos quiere recibir. Existe RPC, que en lugar de modelar recursos expone funciones con nombre — como llamar métodos remotos. Las dos son legítimas. Pero la mayoría de las APIs públicas y de los proyectos en los que vas a dictar contrato hablan REST, así que el resto de esta clase lo asume."</em></p>
     </aside>
   </section>
 
@@ -1033,7 +1033,7 @@ Content-Type: application/json
   <section>
     <h2>Todo es un recurso</h2>
     <p style="font-size: 0.78em; color: var(--text-muted); text-align: center; max-width: 38em; margin: 6px auto 18px;">
-      Todo lo que la API expone es un sustantivo. Las URLs nombran sustantivos, no acciones.
+      REST piensa en <strong>cosas</strong>, no en acciones. Todo lo que la API expone es un sustantivo.
     </p>
     <div style="display: flex; flex-direction: column; gap: 10px; max-width: 38em; margin: 0 auto;">
       <div class="bg-secondary-card" style="display: flex; align-items: center; gap: 18px; padding: 12px 18px;">
@@ -1055,9 +1055,9 @@ Content-Type: application/json
     <aside class="notes">
       <p><strong>Leer las tres formas de URL en pantalla. Click para revelar el mantra de cierre.</strong></p>
       <p><u>La idea central de REST. Tres formas de URL — colección, item, recurso anidado — y el mantra que separa method de URL.</u></p>
-      <p><em>"La idea central de REST se puede decir en una frase: todo lo que la API expone es un recurso, un sustantivo. Un proyecto, una tarea, un usuario, un mensaje. Las URLs nombran sustantivos, no acciones. Eso es lo que descarta barra borrar-tarea y deja barra tasks barra diecisiete."</em></p>
+      <p><em>"La idea central de REST cabe en una sola frase, y vale la pena aprenderla así: REST piensa en cosas, no en acciones. Todo lo que la API expone es un recurso — un sustantivo. Un proyecto, una tarea, un usuario, un mensaje. Las URLs nombran esos sustantivos. Eso es lo que descarta barra borrar-tarea (un verbo metido en la URL) y deja barra tasks barra diecisiete (un sustantivo, identificable, ubicable)."</em></p>
       <p><em>"Los recursos vienen en dos formas, más una variante. Una colección es el conjunto entero: barra projects significa 'todos los proyectos'. Un item es uno solo: barra projects barra cuatro es 'el proyecto cuatro'. Y si un recurso solamente tiene sentido dentro de otro, anidás: barra projects barra cuatro barra tasks barra diecisiete es 'la tarea diecisiete del proyecto cuatro'. Tres formas, mismo principio: la URL es un camino que nombra cosas."</em></p>
-      <p><em>"Y acá está la regla que conviene memorizar. El method dice qué hacer; la URL dice sobre qué. GET barra projects barra cuatro lee el proyecto cuatro. DELETE barra projects barra cuatro lo borra. PUT barra projects barra cuatro lo reemplaza. La URL no cambia según la acción. La acción viaja siempre en el method. Si te encontrás escribiendo una URL con un method adentro — borrar, crear, actualizar — algo está mal."</em></p>
+      <p><em>"Y acá está la regla que conviene memorizar. El method dice qué hacer; la URL dice sobre qué. GET barra projects barra cuatro lee el proyecto cuatro. DELETE barra projects barra cuatro lo borra. PUT barra projects barra cuatro lo reemplaza. La URL no cambia según la acción — el sustantivo es el mismo. La acción viaja siempre en el method. Si te encontrás escribiendo una URL con un verbo adentro (borrar, crear, actualizar), algo está mal."</em></p>
     </aside>
   </section>
 

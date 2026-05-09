@@ -33,37 +33,37 @@ function initBackendFlow(opts) {
     1: {
       key: 'http',
       title: 'HTTP — el protocolo',
-      desc: 'El servidor desempaca el pedido. Lee método (POST), path (/projects/4/tasks), headers y body. Es el idioma común con el que cliente y servidor se entienden.',
+      desc: 'Apenas la request llega, HTTP la desempaca: lee el method (POST), el path (/projects/4/tasks), los headers (metadatos) y el body (el contenido). Es lo mismo que pasa cuando entrás a una página web — solo que acá lo hace el servidor con tu pedido.',
       code: 'POST /projects/4/tasks  HTTP/1.1\nHost: api.example.com\nContent-Type: application/json\n\n{ "title": "Bibliografia" }'
     },
     2: {
       key: 'rest',
       title: 'REST — el estilo',
-      desc: 'A partir de la URL reconoce el recurso solicitado. Sustantivo en plural, jerarquía explícita: tasks pertenece a projects/4. La acción viaja en el method, no en el path.',
+      desc: 'REST piensa en sustantivos, no en acciones. Lee la URL y reconoce el recurso solicitado: tasks (las tareas) dentro de projects/4. La acción viaja en el method (POST = crear), no en el path.',
       code: 'recurso : tasks\nparent  : projects/4\nformato : JSON'
     },
     3: {
       key: 'endpoints',
       title: 'Endpoints — el contrato',
-      desc: 'Match contra la tabla de endpoints. Encuentra el handler que cumple este contrato: method + path + schema-in + schema-out + status codes.',
+      desc: 'Match contra la tabla de routes que el servidor tiene declaradas. Encuentra el handler (la función) que se compromete a atender este pedido bajo un contrato: method + path + schema-in + schema-out + status codes.',
       code: 'POST /projects/{id}/tasks\n  in  : { title, due_date? }\n  201 : { id, title, project_id }\n  400 : title requerido\n  404 : proyecto no existe'
     },
     4: {
       key: 'datos',
       title: 'Datos — la memoria',
-      desc: 'El handler ejecuta el INSERT. Es el momento de la verdad: la base puede aceptar la escritura o rechazarla por sus propias reglas (foreign keys, NOT NULL, etc.).',
+      desc: 'El handler ejecuta el INSERT contra la base. Y acá está el momento de la verdad: la base tiene sus propias reglas (foreign keys, NOT NULL, unique constraints) y puede aceptar la escritura o rechazarla.',
       code: 'INSERT INTO tasks\n  (title, project_id)\nVALUES (?, ?);'
     },
     '5-success': {
       key: 'response',
       title: 'Response 2xx — éxito',
-      desc: 'La base aceptó el INSERT. El handler arma la respuesta con el objeto creado, headers set, status 200. La cadena cierra del lado del servidor.',
+      desc: 'La base aceptó. El handler arma una response con el objeto recién creado y status 201. Como cuando un servidor web te devuelve la página que pediste — pero el contenido acá es JSON estructurado, listo para que el cliente lo consuma.',
       code: 'status: 200 OK\nContent-Type: application/json\n\n{ "id": 17,\n  "title": "Bibliografia",\n  "project_id": 4,\n  "due_date": null }'
     },
     '5-error': {
       key: 'errores',
       title: 'Errores 5xx — falla',
-      desc: 'La base rechaza la inserción. El handler captura la excepción, escribe el stack trace al log y devuelve 500. Hay evidencia para pasarle a la IA y razonar el fix.',
+      desc: 'La base rechazó. El handler captura la excepción, escribe el stack trace al log (lo vemos en la sección seis) y arma una response 5xx con un mensaje genérico. La evidencia queda del lado del servidor; el cliente solo ve el código.',
       code: 'status: 500 Internal Server Error\n\nlog:\n  IntegrityError: NOT NULL\n  constraint failed: project_id\n  app/routes/tasks.py:14'
     },
     6: {
