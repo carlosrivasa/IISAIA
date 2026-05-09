@@ -1,6 +1,6 @@
 # Spine — Semana 03: Arquitectura Backend y Datos
 
-**Whole-week through-line:** La semana 02 te enseñó a nombrar las piezas del frontend para dirigir a la IA cuando el código vive en el navegador. Esta semana es el reflejo: mismo rol (supervisor arquitectónico), mismo mecanismo (vocabulario → especificación → código auditable), terreno nuevo (servidor). HTTP, REST, rutas, datos y errores son el vocabulario backend que te permite seguir dirigiendo cuando el código se muda al servidor. La clase termina cerrando el espejo en vivo: el profesor levanta una API con Claude Code mientras los alumnos leen ruta por ruta lo que dictaron.
+**Whole-week through-line:** La semana 02 te enseñó a nombrar las piezas del frontend para dirigir a la IA cuando el código vive en el navegador. Esta semana es el reflejo: mismo rol (supervisor arquitectónico), mismo mecanismo (vocabulario → especificación → código auditable), terreno nuevo (servidor). HTTP, REST, paths, datos y errores son el vocabulario backend que te permite seguir dirigiendo cuando el código se muda al servidor. La clase termina cerrando el espejo en vivo: el profesor levanta una API con Claude Code mientras los alumnos leen endpoint por endpoint lo que dictaron.
 
 ## Section 1: Backend y el supervisor arquitectónico
 **Source material:** `source_material/01-backend-y-el-supervisor.md`
@@ -8,18 +8,18 @@
 **Key analogy:** El espejo de la semana 02. Frontend ↔ backend como las dos mitades simétricas de la misma habilidad: nombrar piezas para dirigir a una IA.
 **What students walk away knowing:**
 - El rol "supervisor arquitectónico" sobrevive al cambio de capa; lo que cambia es el vocabulario.
-- El mapa de la clase: HTTP → REST → rutas/contratos → datos → errores → salto al stack local.
+- El mapa de la clase: HTTP → REST → paths/contratos → datos → errores → salto al stack local.
 **Animations / interactive:** None new. Considerar reutilizar `pipeline-roadmap` (semana 01) para mostrar el arco de las 6 piezas y volver a iluminarlas al abrir cada sección.
 **Slide budget:** 3 slides (espejo → roadmap → disclaimer). Sin hook ni "tres cosas que cambian": ambos pre-cargan vocabulario backend que el alumno todavía no tiene; cada consecuencia (persistencia, contratos, leer la respuesta) se motiva en su propia sección más adelante.
 
 ## Section 2: Cliente, servidor y HTTP
 **Source material:** `source_material/02-cliente-servidor-y-http.md`
-**Through-line:** HTTP es el idioma cliente↔servidor. Cliente y servidor son roles, no programas. Los verbos son un repertorio fijo (cinco que importan), y los códigos de estado dicen de qué lado fue la falla antes de mirar nada más.
+**Through-line:** HTTP es el idioma cliente↔servidor. Cliente y servidor son roles, no programas. Los methods son un repertorio fijo (cinco que importan), y los status codes dicen de qué lado fue la falla antes de mirar nada más.
 **Hook:** Cuando abrís Twitter y aparece el feed, algo viajó. Cuando refrescás Gmail, igual. Cuando WhatsApp Web envía un mensaje, lo mismo. Eso pasa decenas de veces por minuto en cualquier dispositivo: una conversación con vocabulario fijo.
 **What students walk away knowing:**
 - Cliente y servidor son roles, no programas; cualquier cosa puede ser cliente (incluso otro servidor).
 - Anatomía de un par request/response: método + URL + headers + body opcional / status + headers + body.
-- Los cinco verbos que cubren el 95% del trabajo (GET/POST/PUT/PATCH/DELETE) y las tres familias de códigos (2xx/4xx/5xx) — si arranca con 4 mirá tu pedido, si arranca con 5 mirá los logs.
+- Los cinco methods que cubren el 95% del trabajo (GET/POST/PUT/PATCH/DELETE) y las tres familias de códigos (2xx/4xx/5xx) — si arranca con 4 mirá tu pedido, si arranca con 5 mirá los logs.
 **Animations / interactive:** None new. `flow-with-arrows` para el ida-y-vuelta request/response. Posible diagrama estático con request crudo y response cruda lado a lado.
 **Slide budget:** 8–10
 
@@ -29,32 +29,32 @@
 **Hook:** Querés borrar la tarea 17 del proyecto 4. ¿`DELETE /projects/4/tasks/17` o `POST /borrar-tarea?id=17&proyecto=4`? Las dos son HTTP válido. Una sola es REST.
 **What students walk away knowing:**
 - REST es una convención (no la única — GraphQL y RPC existen), y la mayoría de las APIs que vas a dictar la usan.
-- Las URLs nombran recursos en plural; el verbo dice qué hacer, la URL dice sobre qué; anidás cuando la pertenencia es estructural.
+- Las URLs nombran recursos en plural; el method dice qué hacer, la URL dice sobre qué; anidás cuando la pertenencia es estructural.
 - Idempotencia (GET/DELETE/PUT sí, POST no) y stateless: por qué cada propiedad cambia cómo retentás y cómo escala el servidor.
 **Animations / interactive:** None new. `comparison-2col` para `DELETE /projects/4/tasks/17` vs `POST /borrar-tarea?...`. Para idempotencia, slide con dos llamadas seguidas y el estado final visible.
 **Slide budget:** 7–9
 
-## Section 4: Rutas, controladores y el contrato (climax)
+## Section 4: Paths, controllers y el contrato (climax)
 **Source material:** `source_material/04-rutas-controladores-y-contratos.md`
-**Through-line:** Un endpoint son cinco piezas — verbo + path + schema-in + schema-out + códigos posibles. Ese bloque entero es la unidad mínima dictable a una IA: el átomo del backend, igual que en semana 02 lo era un componente con sus props y su estado. El controlador atiende; vos no lo escribís, lo especificás.
+**Through-line:** Un endpoint son cinco piezas — method + path + schema-in + schema-out + códigos posibles. Ese bloque entero es la unidad mínima dictable a una IA: el átomo del backend, igual que en semana 02 lo era un componente con sus props y su estado. El controller atiende; vos no lo escribís, lo especificás.
 **Hook:** Le decís a la IA "hacé un endpoint para crear una tarea" y te devuelve trescientas líneas que parecen razonables. Mirás de cerca y descubrís que inventó diez decisiones que vos no dictaste — cada una es una bifurcación que aparece cuando algo se rompe.
 **Key analogy:** Endpoint con contrato ↔ componente con props/state (semana 02). El "átomo dictable" del frontend tiene su gemelo del lado del servidor: una pieza chica, con bordes claros, que pegás a la IA sin tener que aclarar nada más.
 **What students walk away knowing:**
 - Las cinco piezas de un endpoint y por qué cada una corresponde a una decisión que alguien tiene que tomar (o la IA la toma sin avisarte).
 - Mantra path/query/body: path identifica, query modifica, body transporta el contenido nuevo.
 - Cómo se ve un bloque de contrato concreto y por qué es la unidad mínima dictable que cierra el espejo con semana 02.
-**Animations / interactive:** None new. `code-walkthrough` con highlights por línea sobre el bloque de contrato (verbo, path, entrada, salida, errores, cada uno se ilumina). Posible variante con `clickable-steps` reutilizando el componente de semana 01.
+**Animations / interactive:** None new. `code-walkthrough` con highlights por línea sobre el bloque de contrato (method, path, entrada, salida, errores, cada uno se ilumina). Posible variante con `clickable-steps` reutilizando el componente de semana 01.
 **Slide budget:** 8–10
 
 ## Section 5: Datos: relaciones vs documentos
 **Source material:** `source_material/05-datos-relaciones-vs-documentos.md`
-**Through-line:** Los datos son la memoria del servidor. Dos formas de modelarlos: relacional (tablas con esquema y foreign keys, integridad de fábrica) y documental (objetos JSON anidados en colecciones, esquema flexible). La heurística por default: relacional, y SQLite como punto de entrada práctico.
+**Through-line:** Los datos son la memoria del servidor. Dos formas de modelarlos: relational (tablas con schema y foreign keys, integridad de fábrica) y document (objetos JSON anidados en colecciones, schema flexible). La heurística por default: relational, y SQLite como entry point práctico.
 **Hook:** Acordate de la to-do list de la clase pasada: vivía en una variable de JavaScript en el navegador. Refrescabas la página y todo desaparecía. Eso no era un bug — la página nunca tuvo memoria. El servidor es lo que le da memoria a la aplicación.
 **What students walk away knowing:**
 - Tres razones por las que hace falta una base de datos: persistencia, eficiencia de consulta, integridad.
-- Relacional (tablas + columnas + foreign keys + JOIN) vs. documental (documentos JSON anidados en colecciones), con el mismo dominio (proyectos/tareas) modelado de las dos formas.
-- La heurística pragmática: arrancar relacional con SQLite; ir a documental solo cuando un patrón concreto lo justifica.
-**Animations / interactive:** None new. `comparison-2col` SQL ↔ NoSQL con el ejemplo proyectos/tareas modelado en ambas formas. `code-walkthrough` con el schema relacional para resaltar la foreign key.
+- Relational (tablas + columnas + foreign keys + JOIN) vs. document (documentos JSON anidados en colecciones), con el mismo dominio (proyectos/tareas) modelado de las dos formas.
+- La heurística pragmática: arrancar relational con SQLite; ir a document solo cuando un patrón concreto lo justifica.
+**Animations / interactive:** None new. `comparison-2col` SQL ↔ NoSQL con el ejemplo proyectos/tareas modelado en ambas formas. `code-walkthrough` con el schema relational para resaltar la foreign key.
 **Slide budget:** 7–9
 
 ## Section 6: Errores y observabilidad
@@ -82,7 +82,7 @@
 
 ## Section 8: Demo en vivo
 **Source material:** `source_material/08-demo-en-vivo.md`
-**Through-line:** Coreografía del cierre. El profesor escribe en pantalla un bloque de contrato (la misma forma del archivo 04) ANTES de invocar a Claude Code; después dicta el contrato a la IA y leen juntos lo que apareció, ruta por ruta, error por error. La cadena contrato → código → servidor → cliente, en vivo.
+**Through-line:** Coreografía del cierre. El profesor escribe en pantalla un bloque de contrato (la misma forma del archivo 04) ANTES de invocar a Claude Code; después dicta el contrato a la IA y leen juntos lo que apareció, endpoint por endpoint, error por error. La cadena contrato → código → servidor → cliente, en vivo.
 **What students walk away knowing:**
 - El demo no agrega un concepto nuevo; cierra el espejo y deja al alumno con ganas de instalar Claude Code y replicarlo.
 - (Apropiación visceral) Lo que ustedes dictaron fue el contrato; lo que la IA hizo fue escribirlo. El rol — supervisor arquitectónico — sobrevivió la mudanza al servidor.

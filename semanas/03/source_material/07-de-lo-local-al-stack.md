@@ -32,7 +32,7 @@ El demo de la próxima clase usa un stack chico y mainstream.
 
 **Python** es el lenguaje. Es el más común para backend en cursos introductorios y muy fuerte para el ecosistema de IA y data, así que lo que aprendas acá te sirve para los temas que vienen después.
 
-**FastAPI** es el framework: define rutas, schemas y devuelve respuestas con muy poca ceremonia. Encaja con el "contrato" que vimos en el archivo 04: lo que dictás se parece a lo que termina escrito, así que el código no esconde la intención.
+**FastAPI** es el framework: define paths, schemas y devuelve respuestas con muy poca ceremonia. Encaja con el "contrato" que vimos en el archivo 04: lo que dictás se parece a lo que termina escrito, así que el código no esconde la intención.
 
 **SQLite** es la base. Vive en un archivo, sin un servidor de DB aparte que haya que instalar. Suficiente para el demo y para muchas apps reales en producción.
 
@@ -77,7 +77,7 @@ armame el backend
 creá un proyecto Python con venv y FastAPI:
 - estructura: app/main.py (FastAPI), app/db.py (SQLite), requirements.txt
 - dependencias: fastapi, uvicorn, pydantic
-- una ruta GET /health que devuelva { "status": "ok" }
+- un path GET /health que devuelva { "status": "ok" }
 - arrancalo con: uvicorn app.main:app --reload
 - mostrame en pantalla la URL y los logs
 ```

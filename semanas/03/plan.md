@@ -11,7 +11,7 @@ Implementation plan derived from `spine.md`. Through-line A (espejo backend de s
   - `<aside class="notes">` per slide, three-format speaker notes.
   - Trailing `<script>` block(s) only if the section needs animation init.
 - **Shared CSS first.** Prefer existing classes from `_config/theme/components.css`: `.bg-secondary-card`, `.bg-code-card`, `.comparison-2col`, `.flow-step`, `.flow-arrow`, `.pipe-grid`, `.pipe-node`, `.pipe-arrow`, `.pipeline-box`, `.pipeline-arrow`, `.chat-mockup` (+ `.chat-bubble`, `.chat-cursor`), `.stage-box`. Only invent scoped CSS when no existing class fits.
-- **Shared roadmap class.** A `.piece-roadmap` (defined once in the page-level scaffold) reuses `.pipe-node` / `.pipe-arrow` styling and adds `.active-1` … `.active-6` selectors that highlight one of the six pieces (HTTP, REST, rutas/contratos, datos, errores, salto). Section openers (§2 onward) re-render the roadmap with the right `.active-N` to keep the espejo arc visible.
+- **Shared roadmap class.** A `.piece-roadmap` (defined once in the page-level scaffold) reuses `.pipe-node` / `.pipe-arrow` styling and adds `.active-1` … `.active-6` selectors that highlight one of the six pieces (HTTP, REST, paths/contratos, datos, errores, salto). Section openers (§2 onward) re-render the roadmap with the right `.active-N` to keep the espejo arc visible.
 - **Voice and didactic rules** per `tools/skills/slide-generation/voice-and-didactics.md`. No bullet-only slides. Three-format notes: `<strong>` actions / `<u>` description / `<em>` script (between quotes, conversational). One `<em>` block per fragment-press.
 - **No emojis. No "diplomatura". No "Vibe Coding". No "payoff" — usar "recompensa" o "sentido". Title slide h1 is the topic, not "Semana NN".**
 
@@ -54,13 +54,13 @@ NB: omitido un hook tipo big-question (era redundante con la pregunta de semana 
 2. Hook: tres ejemplos cotidianos (Twitter feed, Gmail check, WhatsApp Web send) — diagrama mínimo cliente↔servidor con texto evocativo. "Algo viajó."
 3. Cliente y servidor son roles, no programas — `comparison-2col` o tarjeta única: lista de cosas que pueden ser cliente (navegador, app móvil, otro servidor consumiendo API, `curl`).
 4. Anatomía del request/response — `code-walkthrough` con el bloque crudo `GET /projects/4 HTTP/1.1 ... HTTP/1.1 200 OK ...`. Resaltar las cuatro partes del request y las tres del response.
-5. Los cinco verbos — tabla compacta o data-table: GET / POST / PUT / PATCH / DELETE con descripción de una línea cada uno.
+5. Los cinco methods — tabla compacta o data-table: GET / POST / PUT / PATCH / DELETE con descripción de una línea cada uno.
 6. Códigos 2xx/4xx/5xx — `comparison-2col` o tres-card lateral: cada familia con ejemplos concretos (200/201/204; 400/404 + nota "401/403 → semana 7"; 500/503).
 7. La regla diagnóstica — "Si arranca con 4, mirá tu pedido. Si arranca con 5, mirá los logs." Slide minimal con la frase como mantra.
 8. Por qué importa para vos como supervisor — frase de cierre del source, una sola idea grande.
 9. Vago vs específico — `comparison-2col` con dos prompts del source. Cierre: tres ejes (determinismo, iteración, auditoría) + disclosure honesta sobre LLMs modernos. Cumplir con el patrón de la spine.
 
-**Patterns:** `comparison-2col`, `code-walkthrough`, `data-table` (verbos), tarjetas.
+**Patterns:** `comparison-2col`, `code-walkthrough`, `data-table` (methods), tarjetas.
 
 **Animations:** none new. Para el hook puede haber un mini-diagrama estático con dos cajas y una flecha animada con CSS (scope: `.s2-`).
 
@@ -72,10 +72,10 @@ NB: omitido un hook tipo big-question (era redundante con la pregunta de semana 
 1. Section opener: `Capa 2 — REST` con `piece-roadmap` en `active-2`.
 2. Hook — la decisión "borrar la tarea 17". `comparison-2col`: `DELETE /projects/4/tasks/17` ↔ `POST /borrar-tarea?...`. Ambas son HTTP válidas; una sola es REST.
 3. HTTP es el cómo; REST es el qué — frase + nota corta sobre alternativas (GraphQL, RPC) sin entrar en detalle.
-4. Todo es recurso — concepto + ejemplos: colección (`/projects`), item (`/projects/4`), recurso anidado (`/projects/4/tasks`, `/projects/4/tasks/17`). Mantra: "el verbo dice qué hacer; la URL dice sobre qué".
+4. Todo es recurso — concepto + ejemplos: colección (`/projects`), item (`/projects/4`), recurso anidado (`/projects/4/tasks`, `/projects/4/tasks/17`). Mantra: "el method dice qué hacer; la URL dice sobre qué".
 5. Regla 1 — Plural. `comparison-2col` `/users` ↔ `/user`, con explicación corta.
 6. Regla 2 — Jerarquía cuando hay relación. Pertenencia estructural vs opcional con dos ejemplos: `/projects/4/tasks` (anidado) ↔ `/tasks?project=4` (filtro plano).
-7. Regla 3 — Idempotencia. Tabla con 5 verbos × idempotente sí/no, con consecuencia práctica (retentar sin miedo vs duplicar).
+7. Regla 3 — Idempotencia. Tabla con 5 methods × idempotente sí/no, con consecuencia práctica (retentar sin miedo vs duplicar).
 8. Regla 4 — Stateless. Frase + por qué importa para escalar y por qué van a aparecer tokens de auth en semana 7.
 9. Vago vs específico (con el ejemplo del source).
 
@@ -83,17 +83,17 @@ NB: omitido un hook tipo big-question (era redundante con la pregunta de semana 
 
 **Animations:** none new.
 
-## Task 4 — §4 Rutas, controladores y el contrato (climax)
+## Task 4 — §4 Paths, controllers y el contrato (climax)
 
 **Subagent dispatch.** Inputs: spine §4, source `04-rutas-controladores-y-contratos.md`.
 
 **Slide arc (8–10 slides):**
 1. Section opener: `Capa 3 — Rutas y contratos` con `piece-roadmap` en `active-3`.
 2. Hook: "Le decís a la IA 'hacé un endpoint para crear una tarea' y te devuelve trescientas líneas." Listar las 10 decisiones invisibles que tomó la IA en una columna; del otro lado, el contrato que las explicita. `comparison-2col`.
-3. Una ruta es una promesa — las cinco piezas con un slide tipo pipeline horizontal: verbo → path → schema-in → schema-out → códigos posibles. Reuse `.flow-step` o crear `.s4-piece` con highlight por fragmento.
+3. Un path es una promesa — las cinco piezas con un slide tipo pipeline horizontal: method → path → schema-in → schema-out → códigos posibles. Reuse `.flow-step` o crear `.s4-piece` con highlight por fragmento.
 4. Path / Query / Body — mantra ("path identifica, query modifica, body transporta"). `comparison-2col` o tres-card con ejemplos.
-5. El controlador atiende la promesa — frase: vos no escribís controladores, los especificás. Tarjeta única.
-6. El bloque de contrato — `code-walkthrough` con el pseudocódigo del source completo (POST /projects/{id}/tasks con sus salidas 201/400/404). `data-line-numbers` para resaltar primero el verbo+path, después la entrada, después salida 201, después las salidas de error.
+5. El controller atiende la promesa — frase: vos no escribís controllers, los especificás. Tarjeta única.
+6. El bloque de contrato — `code-walkthrough` con el pseudocódigo del source completo (POST /projects/{id}/tasks con sus salidas 201/400/404). `data-line-numbers` para resaltar primero el method+path, después la entrada, después salida 201, después las salidas de error.
 7. **Slide de la analogía clave** — espejo con semana 02: "Endpoint con contrato ↔ componente con props/state". `comparison-2col`: a la izquierda el componente con props tipadas (semana 02), a la derecha el endpoint con contrato (esta clase). Pie: "El átomo dictable también tiene gemelo del lado del servidor."
 8. Vago vs específico (con el bloque del source).
 
@@ -109,11 +109,11 @@ NB: omitido un hook tipo big-question (era redundante con la pregunta de semana 
 1. Section opener: `Capa 4 — Datos` con `piece-roadmap` en `active-4`.
 2. Hook: "La to-do list de la clase pasada vivía en una variable de JavaScript." Mostrar imagen mental del refresh borrando todo. Tarjeta o slide con frase grande tipo `big-question` ("la página nunca tuvo memoria").
 3. Tres razones por las que hace falta una DB — `comparison-2col` o tres-card: persistencia / eficiencia de consulta / integridad. Cada una con ejemplo concreto del source.
-4. Relacional — `code-walkthrough` con el schema `projects` + `tasks` del source, resaltando la foreign key. Frase de cierre: tabla, fila, columna, esquema, JOIN.
-5. Documental — `code-walkthrough` con el JSON anidado del source. Frase: documento, colección, sin esquema rígido. Ejemplo: MongoDB / DynamoDB.
+4. Relational — `code-walkthrough` con el schema `projects` + `tasks` del source, resaltando la foreign key. Frase de cierre: tabla, fila, columna, schema, JOIN.
+5. Document — `code-walkthrough` con el JSON anidado del source. Frase: documento, colección, sin schema rígido. Ejemplo: MongoDB / DynamoDB.
 6. El trade-off — `comparison-2col`: cuándo una, cuándo la otra. (anidar conviene cuando siempre leés todo junto; mal cuando las tareas viven solas o filtrás globalmente.)
-7. Cómo elegir — heurística pragmática: relacional por default, documental cuando un patrón concreto lo justifica.
-8. SQLite como punto de entrada — frase: cero configuración, vive en un archivo. Distinción local (SQLite) ↔ producción (Postgres) con la nota: las decisiones de modelado son las mismas.
+7. Cómo elegir — heurística pragmática: relational por default, document cuando un patrón concreto lo justifica.
+8. SQLite como entry point — frase: cero configuración, vive en un archivo. Distinción local (SQLite) ↔ producción (Postgres) con la nota: las decisiones de modelado son las mismas.
 9. Vago vs específico (con el bloque CREATE TABLE del source).
 
 **Patterns:** `comparison-2col`, `code-walkthrough`, tarjetas.
@@ -130,7 +130,7 @@ NB: omitido un hook tipo big-question (era redundante con la pregunta de semana 
 3. Los errores tienen dueño — mantra 4xx=cliente / 5xx=servidor con ejemplos. Tabla compacta o `comparison-2col`. (Nota: 401/403 → semana 7, igual que en §2.)
 4. Logs: lo que el servidor te susurra — `code-walkthrough` con las 3 líneas del source. Resaltar progresivamente: request, error interno, status code de salida.
 5. El stack trace — `code-walkthrough` con el traceback Python del source. Resaltar la línea relevante (`app/routes/tasks.py:14`) — no las del framework, no la última. Mantra: "el síntoma grita al final, la causa vive en la primera línea de código que escribiste vos".
-6. Cómo le contás esto a la IA — `comparison-2col`: prompt malo ("no funciona, dame fix") ↔ prompt con evidencia (verbo+ruta+código+log+stack+handler). Misma diferencia, otra capa.
+6. Cómo le contás esto a la IA — `comparison-2col`: prompt malo ("no funciona, dame fix") ↔ prompt con evidencia (method+path+código+log+stack+handler). Misma diferencia, otra capa.
 7. Vago vs específico (cierre del patrón con el ejemplo del source).
 
 **Patterns:** `comparison-2col`, `code-walkthrough` con highlights progresivos.
@@ -161,7 +161,7 @@ NB: omitido un hook tipo big-question (era redundante con la pregunta de semana 
 
 **Slide arc (4–6 slides):**
 1. Section divider — `Demo en vivo` (clase `section-divider`).
-2. Lo que se va a mostrar — la lista de los 5 requisitos del source (3 verbos, foreign key visible, camino de error 4xx, frontend mínimo, dominio NO-trivial). `comparison-2col` o lista densa transformada en tarjetas.
+2. Lo que se va a mostrar — la lista de los 5 requisitos del source (3 methods, foreign key visible, camino de error 4xx, frontend mínimo, dominio NO-trivial). `comparison-2col` o lista densa transformada en tarjetas.
 3. La plantilla de contrato — `code-walkthrough` con la plantilla del source (stack + tablas + endpoints + frontend). Pre-fragmentar para revelar bloque por bloque mientras el profesor la dicta en vivo.
 4. Beats del demo — `clickable-steps` con los 6 beats numerados. Texto corto en cada paso; el detalle vive en la lectura previa del profesor. (Reuse `clickable-steps.js` de semana 01: copiar a `slides/clickable-steps.js`.)
 5. Cierre — slide de 30 segundos final: "Ustedes no tipearon nada. Lo que dirigieron fue el contrato." Espejo cerrado con semana 02. Una sola frase grande.
