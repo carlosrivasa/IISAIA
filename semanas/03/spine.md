@@ -1,6 +1,6 @@
 # Spine — Semana 03: Arquitectura Backend y Datos
 
-**Whole-week through-line:** La semana 02 te enseñó a nombrar las piezas del frontend para dirigir a la IA cuando el código vive en el navegador. Esta semana es el reflejo: mismo rol (supervisor arquitectónico), mismo mecanismo (vocabulario → especificación → código auditable), terreno nuevo (servidor). HTTP, REST, paths, datos y errores son el vocabulario backend que te permite seguir dirigiendo cuando el código se muda al servidor. La clase termina cerrando el espejo en vivo: el profesor levanta una API con Claude Code mientras los alumnos leen endpoint por endpoint lo que dictaron.
+**Whole-week through-line:** La semana 02 te enseñó a nombrar las piezas del frontend para dirigir a la IA cuando el código vive en el navegador. Esta semana es el reflejo: mismo rol (supervisor arquitectónico), mismo mecanismo (vocabulario → especificación → código auditable), terreno nuevo (servidor). HTTP, REST, paths, datos y errores son el vocabulario backend que te permite seguir dirigiendo cuando el código se muda al servidor. La clase termina cerrando el espejo en vivo: el profesor escribe un openapi.yaml en ChatGPT canvas mientras los alumnos leen endpoint por endpoint el contrato del §4 hecho archivo, y ven el yaml renderizado en Swagger UI.
 
 ## Section 1: Backend y el supervisor arquitectónico
 **Source material:** `source_material/01-backend-y-el-supervisor.md`
@@ -8,7 +8,7 @@
 **Key analogy:** El espejo de la semana 02. Frontend ↔ backend como las dos mitades simétricas de la misma habilidad: nombrar piezas para dirigir a una IA.
 **What students walk away knowing:**
 - El rol "supervisor arquitectónico" sobrevive al cambio de capa; lo que cambia es el vocabulario.
-- El mapa de la clase: HTTP → REST → endpoints → datos → errores → salto al stack local.
+- El mapa de la clase: HTTP → REST → endpoints → datos → errores → OpenAPI (el contrato escrito).
 **Animations / interactive:** None new. Considerar reutilizar `pipeline-roadmap` (semana 01) para mostrar el arco de las 6 piezas y volver a iluminarlas al abrir cada sección.
 **Slide budget:** 3 slides (espejo → roadmap → disclaimer). Sin hook ni "tres cosas que cambian": ambos pre-cargan vocabulario backend que el alumno todavía no tiene; cada consecuencia (persistencia, contratos, leer la respuesta) se motiva en su propia sección más adelante.
 
@@ -68,23 +68,22 @@
 **Animations / interactive:** None new. `code-walkthrough` con highlights sobre log de 3 líneas y stack trace; posible `comparison-2col` para "prompt malo" vs "prompt con evidencia".
 **Slide budget:** 6–7
 
-## Section 7: De lo local al stack (salto)
-**Source material:** `source_material/07-de-lo-local-al-stack.md`
-**Through-line:** Una pestaña no aguanta un servidor de verdad — hace falta proceso, puerto y sistema de archivos. Por eso bajamos a CLI con Claude Code: transparencia, foco didáctico, continuidad con la próxima clase. Stack del demo (Python + FastAPI + SQLite + Uvicorn + venv) y tarea para llegar a semana 4 con la máquina lista.
-**Hook:** Hasta ahora todo pasaba en una pestaña del navegador. Un servidor de verdad no entra en una pestaña — necesita un proceso vivo, un puerto donde escuchar y archivos en disco. Esa máquina sos vos.
+## Section 7: OpenAPI — el contrato escrito
+**Source material:** `source_material/07-openapi-el-contrato-escrito.md`
+**Through-line:** Lo que vinimos llamando "contrato" tiene un nombre y un archivo: OpenAPI. Las cinco piezas del bloque del §4 (method, path, schema-in, schema-out, errores) se mapean directamente a paths/HTTP-method-keys/requestBody/responses. La industria le puso formato a la idea, y eso desbloquea tres cosas concretas: menos ambigüedad para la IA, codegen automático (docs, clientes, mocks, tests) y durabilidad como artefacto en el repo.
+**Key analogy:** El contrato hecho archivo. La derecha del §4 ↔ la izquierda del §7: misma información, dos formatos.
 **What students walk away knowing:**
-- Las tres cosas que un servidor necesita y que una pestaña no da: proceso, puerto, sistema de archivos.
-- Por qué CLI (Claude Code) antes que IDE: transparencia, mínima superficie, continuidad con semana 4.
-- Stack del demo nombrado pieza por pieza (FastAPI = framework, SQLite = base, Uvicorn = ASGI, venv = aislamiento); FastAPI es una elección, no la única — Express, Django, Flask, Go, Rails coexisten.
-- Tarea concreta antes de semana 4: Python ≥3.11, Node ≥18, instalar Claude Code, verificar `claude --version`.
-**Animations / interactive:** None new. Slide tipo "checklist accionable" para la tarea de instalación con los comandos exactos.
-**Slide budget:** 7–8
+- OpenAPI 3.1 es el formato estándar para describir una API REST: las cinco piezas del §4 con keys oficiales (`paths`, `requestBody`, `responses`).
+- Tres razones por las que es un archivo y no un prompt: ambigüedad fija, codegen real (Swagger UI, clientes), durabilidad versionada.
+- El supervisor arquitectónico ahora dirige un artefacto durable, no un prompt que se pierde.
+**Animations / interactive:** None new. `comparison-2col` con step-through highlights mapeando línea-a-línea bloque del §4 ↔ openapi.yaml.
+**Slide budget:** 3 slides (apertura → side-by-side → por qué importa).
 
-## Section 8: Demo en vivo
+## Section 8: Demo en vivo — canvas escribe el openapi.yaml
 **Source material:** `source_material/08-demo-en-vivo.md`
-**Through-line:** Coreografía del cierre. El profesor escribe en pantalla un bloque de contrato (la misma forma del archivo 04) ANTES de invocar a Claude Code; después dicta el contrato a la IA y leen juntos lo que apareció, endpoint por endpoint, error por error. La cadena contrato → código → servidor → cliente, en vivo.
+**Through-line:** Coreografía del cierre. El profesor pega un prompt que dicta el contrato del §4 (projects/tasks) y le pide a ChatGPT canvas el openapi.yaml. Lee el yaml endpoint por endpoint mapeando al §4, agrega un endpoint en vivo, edita a mano dentro del canvas, y al final pega el yaml en editor.swagger.io para mostrar el render con docs interactivas y un "Try it" funcional. La cadena: contrato → archivo → docs renderizadas, en vivo.
 **What students walk away knowing:**
-- El demo no agrega un concepto nuevo; cierra el espejo y deja al alumno con ganas de instalar Claude Code y replicarlo.
-- (Apropiación visceral) Lo que ustedes dictaron fue el contrato; lo que la IA hizo fue escribirlo. El rol — supervisor arquitectónico — sobrevivió la mudanza al servidor.
-**Animations / interactive:** None new. Las "slides" de esta sección son scaffolding mínimo: una plantilla del bloque de contrato visible mientras se dicta, marcadores de los seis beats del demo, slide de cierre. La animación real es el demo en sí.
-**Slide budget:** 4–6
+- El demo no agrega un concepto nuevo; cierra el espejo y deja al alumno con ganas de tomar el yaml y darlo a una IA local en semana 4.
+- (Apropiación visceral) Lo que ustedes dictaron fue el contrato; ahora tiene archivo. El rol — supervisor arquitectónico — sobrevivió la mudanza al servidor.
+**Animations / interactive:** None new. Reusa `clickable-steps` (mismo componente del §8 anterior) para los 6 beats. `section-divider` para apertura.
+**Slide budget:** 5 slides (divider → 5 requisitos + counter → plantilla del prompt → 6 beats → cierre + bridge a semana 4).
