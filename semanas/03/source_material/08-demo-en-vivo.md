@@ -53,7 +53,7 @@ El alumno tiene que ver el prompt aparecer letra por letra. Esa parte del demo e
 
 **Beat 3 — Agregar un endpoint en vivo desde el chat.** Sin tocar el canvas, escribir en el chat: *"agregá `DELETE /projects/{id}`, con 404 si el proyecto no existe."* Mostrar el canvas actualizándose en tiempo real. Frase para el aire: *"El contrato es editable; no es un prompt de un solo tiro."*
 
-**Beat 4 — Editar a mano dentro del canvas.** Click directo en el canvas y editar. Por ejemplo, agregar `description` opcional al schema de `Task`, o cambiar `due_date` de `string` plano a `string` con `format: date-time`. Frase para el aire: *"La IA y vos comparten editor."* El punto del beat es romper la idea de que la IA es una caja negra que tira un resultado: el alumno ve que el archivo es tuyo y editable como cualquier otro.
+**Beat 4 — Editar a mano dentro del canvas.** Click directo en el canvas y editar. Por ejemplo, agregar `description` opcional al schema de `Task`, o cambiar `due_date` de `string` plano a `string` con `format: date-time`. Frase para el aire: *"La IA y vos comparten editor."*
 
 **Beat 5 — Pegar el yaml en `editor.swagger.io`.** Copiar el contenido del canvas, abrir `editor.swagger.io`, pegarlo. Aparece Swagger UI renderizado del lado derecho. Click en `POST /projects` → "Try it out" → "Execute". Frase para el aire: *"Del mismo archivo salieron docs interactivas. Codegen es real, no abstracción."* No hace falta que el endpoint conecte con un servidor real; alcanza con ver la UI funcional.
 
