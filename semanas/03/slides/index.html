@@ -122,7 +122,7 @@
         <aside class="notes">
           <p><strong>Proyectar mientras se acomodan. Esperar 1–2 min.</strong></p>
           <p><u>Apertura de la semana 03. La frontera ya no es la pestaña; es el servidor.</u></p>
-          <p><em>"Hoy hacemos el reflejo de lo que vimos la semana pasada. Ahí aprendimos a nombrar las piezas del frontend para dirigir a la IA. Hoy aprendemos las del backend — methods, paths, contratos, datos, errores — y al final cerramos con un demo en vivo: levantamos un servidor con Claude Code mientras lo leemos juntos."</em></p>
+          <p><em>"Hoy hacemos el reflejo de lo que vimos la semana pasada. Ahí aprendimos a nombrar las piezas del frontend para dirigir a la IA. Hoy aprendemos las del backend — methods, paths, contratos, datos, errores — y al final cerramos con un demo en vivo: escribimos un openapi.yaml en ChatGPT canvas, el contrato hecho archivo, y lo vemos renderizado en Swagger UI."</em></p>
         </aside>
       </section>
 
@@ -156,7 +156,7 @@
           Endpoints<br>
           Datos<br>
           Errores<br>
-          Salto al stack local
+          OpenAPI: el contrato escrito
         </p>
       </div>
     </div>
@@ -167,7 +167,7 @@
       <p><strong>Arrancar con la columna izquierda visible. Click para revelar backend. Click para revelar la línea de cierre.</strong></p>
       <p><u>Slide del espejo. Establece la simetría con semana 02 y nombra el rol que sobrevive.</u></p>
       <p><em>"La semana pasada nombramos las cinco capas del frontend para dirigir lo que la IA escribe en el navegador: estructura, estilo, comportamiento, estado, empaque. Ese vocabulario te dejaba auditar lo que el modelo te tiraba en HTML, CSS y JavaScript."</em></p>
-      <p><em>"Esta clase hacemos lo mismo del otro lado. Seis piezas: HTTP, REST, endpoints, datos, errores y el salto al stack local. Cada una es una palabra que vas a necesitar para especificarle a la IA qué construir, y para leer lo que devuelve sin tragártelo."</em></p>
+      <p><em>"Esta clase hacemos lo mismo del otro lado. Seis piezas: HTTP, REST, endpoints, datos, errores y OpenAPI, el contrato escrito. Cada una es una palabra que vas a necesitar para especificarle a la IA qué construir, y para leer lo que devuelve sin tragártelo."</em></p>
       <p><em>"Pero fijate en lo que no cambia: el rol. Sos supervisor arquitectónico también del lado del servidor. La IA implementa; vos decidís el contrato. Lo único que cambia es el terreno."</em></p>
     </aside>
   </section>
@@ -400,7 +400,7 @@
 
     <aside class="notes">
       <p><strong>Click en "Avanzar" 6 veces para recorrer el ciclo. En el paso 4 (Datos) el componente tira el dado: 70% éxito (verde) / 30% error (rojo). "Reiniciar" vuelve al inicio y re-tira el dado.</strong></p>
-      <p><u>Diagrama interactivo del ciclo cliente-servidor-cliente. 5 de las 6 piezas (HTTP, REST, Endpoints, Datos, Errores) viven dentro del servidor. Salto al stack local NO aparece — es la bisagra a la próxima clase, no parte del request lifecycle. Sigue listado en la espejo card §1.2.</u></p>
+      <p><u>Diagrama interactivo del ciclo cliente-servidor-cliente. 5 de las 6 piezas (HTTP, REST, Endpoints, Datos, Errores) viven dentro del servidor. OpenAPI NO aparece — describe el contrato, no participa del request lifecycle. Sigue listada en la espejo card §1.2.</u></p>
       <p><em>"En la slide anterior dijimos que el rol no cambia, lo que cambia es el terreno. Bueno, este es el terreno. A la izquierda el cliente — quien arma el pedido (un navegador, una app móvil, un curl en la terminal, lo que sea). A la derecha el servidor, con sus piezas adentro. En este ejemplo el servidor es algo simple: una API de tareas — parecido a un to-do app — que guarda proyectos y, dentro de cada uno, las tareas pendientes. El cliente quiere agregar una tarea nueva; voy avanzando paso a paso para mostrarles el ciclo entero, desde que el cliente arma el pedido hasta que recibe la respuesta de vuelta."</em></p>
       <p><em>"Click. El cliente arma un pedido HTTP con method POST y la request viaja por la red hasta el servidor. Como ambos hablan HTTP, el servidor entiende lo que le llega: desempaca el pedido, lee el method (POST), el path (/projects/4/tasks), los headers (metadatos: dominio, tipo de contenido) y el body (el contenido — la tarea nueva). Hasta acá no hay lógica de aplicación; solo saber qué llegó."</em></p>
       <p><em>"Click. Ahora el servidor sabe qué le llegó, pero todavía no sabe qué le pidieron. Para eso usa REST — una convención que le dice cómo leer la URL. La regla es simple: la URL siempre nombra una cosa, y el method dice qué hacer con esa cosa. En este pedido, /projects/4/tasks apunta a 'las tareas del proyecto 4' (esa es la cosa), y POST significa 'crear una nueva' (esa es la acción). Si fuera GET sería 'leer las tareas'; si fuera DELETE en /projects/4/tasks/17 sería 'borrar la tarea 17'. Misma URL, distintos methods, distintas acciones."</em></p>
@@ -621,7 +621,7 @@
       <span class="pipe-arrow">→</span>
       <div class="pipe-node" data-piece="5"><div class="pipe-label">Errores</div><div class="pipe-sub">leer fallas</div></div>
       <span class="pipe-arrow">→</span>
-      <div class="pipe-node" data-piece="6"><div class="pipe-label">Salto</div><div class="pipe-sub">al stack</div></div>
+      <div class="pipe-node" data-piece="6"><div class="pipe-label">OpenAPI</div><div class="pipe-sub">contrato escrito</div></div>
     </div>
     <p style="margin-top: 36px; text-align: center; font-size: 0.95em; max-width: 32em; margin-left: auto; margin-right: auto;">
       El idioma con el que <span style="color: var(--accent);">cliente y servidor</span> se hablan.
@@ -955,8 +955,8 @@ Content-Type: application/json
       </div>
       <span class="pipe-arrow">→</span>
       <div class="pipe-node" data-piece="6">
-        <div class="pipe-label">Salto</div>
-        <div class="pipe-sub">al stack</div>
+        <div class="pipe-label">OpenAPI</div>
+        <div class="pipe-sub">contrato escrito</div>
       </div>
     </div>
     <p style="margin-top: 32px; font-size: 0.95em; text-align: center; max-width: 36em; margin-left: auto; margin-right: auto;">
@@ -1341,8 +1341,8 @@ GET  /projects/4</code></pre>
       </div>
       <span class="pipe-arrow">&rarr;</span>
       <div class="pipe-node" data-piece="6">
-        <div class="pipe-label">Salto</div>
-        <div class="pipe-sub">al stack</div>
+        <div class="pipe-label">OpenAPI</div>
+        <div class="pipe-sub">contrato escrito</div>
       </div>
     </div>
     <p style="margin-top: 28px; font-size: 0.95em; text-align: center; max-width: 36em; margin-left: auto; margin-right: auto;">
@@ -1670,8 +1670,8 @@ btn.addEventListener('click', () =&gt; {
       </div>
       <span class="pipe-arrow">&rarr;</span>
       <div class="pipe-node" data-piece="6">
-        <div class="pipe-label">Salto</div>
-        <div class="pipe-sub">al stack</div>
+        <div class="pipe-label">OpenAPI</div>
+        <div class="pipe-sub">contrato escrito</div>
       </div>
     </div>
     <p style="margin-top: 28px; font-size: 0.9em; text-align: center; max-width: 32em; margin-left: auto; margin-right: auto;">
@@ -1844,7 +1844,7 @@ tasks
       <u>Aterrizaje práctico. SQLite es la elección del curso; Postgres queda nombrado para que sepan a qué transición van algún día.</u>
       <p><em>"En este curso vamos a usar SQLite, no Postgres. La razón es práctica. SQLite es cero configuración: no hay un servidor de base aparte, no hay red, no hay usuarios, no hay credenciales. La base entera vive en un archivo en tu disco, y la librería se importa como cualquier otra del lenguaje. Si abrís el archivo del proyecto, ahí adentro está todo."</em></p>
       <p><em>"En producción, lo más probable es que termines usando Postgres, que es la opción seria, con servidor dedicado, despliegue separado, replicación, y todo eso. La buena noticia es que las decisiones de modelado son las mismas. Las tablas, las foreign keys, los tipos de columna, los JOINs: todo eso se piensa igual en SQLite y en Postgres."</em></p>
-      <p><em>"SQLite te deja concentrarte en qué modelás, no en dónde corre la base. Por eso entra en una clase de noventa minutos. Y por eso, en el cierre de hoy, vamos a poder pedirle a Claude Code que nos arme la base completa sin que tengamos que pelearnos con un servicio aparte."</em></p>
+      <p><em>"SQLite te deja concentrarte en qué modelás, no en dónde corre la base. Por eso entra en una clase de noventa minutos."</em></p>
     </aside>
   </section>
 
@@ -2026,7 +2026,7 @@ tasks
       <span class="pipe-arrow">→</span>
       <div class="pipe-node" data-piece="5"><div class="pipe-label">Errores</div><div class="pipe-sub">leer fallas</div></div>
       <span class="pipe-arrow">→</span>
-      <div class="pipe-node" data-piece="6"><div class="pipe-label">Salto</div><div class="pipe-sub">al stack</div></div>
+      <div class="pipe-node" data-piece="6"><div class="pipe-label">OpenAPI</div><div class="pipe-sub">contrato escrito</div></div>
     </div>
     <p style="margin-top: 36px; text-align: center; font-size: 0.95em; max-width: 34em; margin-left: auto; margin-right: auto;">
       Cuando algo se rompe, <span style="color: var(--accent);">leer la falla</span> es parte de supervisar.
