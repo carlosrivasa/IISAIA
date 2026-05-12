@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BOTONERA MALIGNA</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      scrollbar-width: thick;
+      scrollbar-color: #00ffff #ff00ff;
+    }
+
+    body {
+      margin: 0;
+      overflow-x: hidden;
+      overflow-y: scroll;
+      background:
+        repeating-linear-gradient(
+          45deg,
+          #ff00ff,
+          #ff00ff 15px,
+          #39ff14 15px,
+          #39ff14 30px,
+          #ffdb58 30px,
+          #ffdb58 45px
+        );
+      font-family: "Comic Sans MS", "Papyrus", cursive;
+      min-height: 300vh;
+      cursor: crosshair;
+      animation: bodypanic 0.3s infinite alternate;
+    }
+
+    @keyframes bodypanic {
+      from {
+        filter: hue-rotate(0deg) contrast(120%);
+      }
+      to {
+        filter: hue-rotate(18deg) contrast(180%);
+      }
+    }
+
+    marquee {
+      background: black;
+      color: #39ff14;
+      font-size: 4rem;
+      text-shadow: 5px 5px 0 red;
+      padding: 18px;
+      border-bottom: 9px dotted yellow;
+      transform: rotate(-1deg);
+    }
+
+    main {
+      position: relative;
+      min-height: 2500px;
+      padding: 40px;
+    }
+
+    section {
+      border: 8px ridge cyan;
+      background: rgba(255,255,255,0.1);
+      margin: 80px 13px 240px 70px;
+      transform: rotate(calc(var(--r) * 1deg));
+      backdrop-filter: blur(1px);
+    }
+
+    .cluster {
+      position: relative;
+      min-height: 600px;
+    }
+
+    button {
+      border: 6px dashed black;
+      color: black;
+      font-weight: bold;
+      font-family: "Papyrus", "Comic Sans MS", fantasy;
+      position: absolute;
+      transition: all 0.08s linear;
+      cursor: help;
+      user-select: none;
+      box-shadow: 10px 10px 0 rgba(0,0,0,0.4);
+    }
+
+    button:hover {
+      filter: saturate(300%) blur(0.3px);
+    }
+
+    .spin {
+      animation: spin 13s linear infinite;
+    }
+
+    .pulse {
+      animation: pulse 0.9s infinite alternate;
+    }
+
+    .wiggle {
+      animation: wiggle 0.2s infinite;
+    }
+
+    @keyframes spin {
+      from {
+        transform: rotate(0deg);
+      }
+      to {
+        transform: rotate(360deg);
+      }
+    }
+
+    @keyframes pulse {
+      from {
+        transform: scale(1);
+      }
+      to {
+        transform: scale(1.3) rotate(-4deg);
+      }
+    }
+
+    @keyframes wiggle {
+      0% { transform: translateX(0px); }
+      25% { transform: translateX(5px); }
+      50% { transform: translateX(-5px); }
+      100% { transform: translateX(0px); }
+    }
+
+    .tiny {
+      font-size: 8px;
+      width: 60px;
+      height: 42px;
+      background: #39ff14;
+    }
+
+    .huge {
+      width: 330px;
+      height: 160px;
+      font-size: 41px;
+      background: #ff00ff;
+    }
+
+    .weird {
+      width: 177px;
+      height: 69px;
+      font-size: 28px;
+      background: #ffdb58;
+    }
+
+    .diagonal {
+      transform: rotate(14deg);
+    }
+
+    .sneaky {
+      background: cyan;
+      border-radius: 70% 0 40% 90%;
+    }
+
+    .danger {
+      background: red;
+      color: yellow;
+      text-transform: uppercase;
+    }
+
+    .upside {
+      transform: rotate(180deg);
+    }
+
+    footer {
+      position: fixed;
+      bottom: 0;
+      width: 100%;
+      background: black;
+      color: white;
+      font-size: 9px;
+      padding: 3px;
+      letter-spacing: 7px;
+      text-align: center;
+      animation: pulse 0.2s infinite alternate;
+    }
+
+    button {
+    min-width: 90px;
+    min-height: 50px;
+    }
+
+    button:hover {
+    cursor: wait;
+    transform: scale(1.04);
+    }
+
+    /* Hace que los botones “escurridizos” huyan menos */
+    /* .runaway {
+    transition:
+        left 0.18s ease-out,
+        top 0.18s ease-out,
+        transform 0.1s linear;
+    } */
+  </style>
+</head>
+<body>
+  <marquee behavior="alternate" scrollamount="35">
+    ⚠️ BOTONERA DE EFECTOS SONOROS TOTALMENTE SEGURA DEFINITIVAMENTE ⚠️
+  </marquee>
+
+  <main>
+    <section style="--r: -3">
+      <div class="cluster">
+        <button class="huge pulse" style="top: 60px; left: 80px;" data-sound="scream">
+          NO TOCAR
+        </button>
+
+        <button class="tiny spin sneaky runaway" style="top: 310px; left: 480px;" data-sound="beep">
+          ??
+        </button>
+
+        <button class="weird wiggle" style="top: 180px; left: 720px;" data-sound="laser">
+          LASER FISCAL
+        </button>
+
+        <button class="danger upside delayed" style="top: 420px; left: 220px; width: 200px; height: 90px; font-size: 11px;" data-sound="horn">
+          OIDNOS
+        </button>
+      </div>
+    </section>
+
+    <section style="--r: 8">
+      <div class="cluster">
+        <button class="weird pulse runaway" style="top: 30px; left: 1000px; width: 130px; height: 230px;" data-sound="robot">
+          ROBOT
+        </button>
+
+        <button class="huge diagonal fake-button" style="top: 300px; left: 860px; width: 280px; height: 120px; font-size: 14px;" data-sound="tinybeep">
+          BOTÓN NORMAL Y CONFIABLE
+        </button>
+
+        <button class="tiny spin" style="top: 530px; left: 1300px; width: 90px; height: 90px; font-size: 33px;" data-sound="coin">
+          $
+        </button>
+
+        <button class="danger wiggle delayed runaway" style="top: 120px; left: 600px; width: 260px; height: 70px; font-size: 47px;" data-sound="alarm">
+          AYUDA
+        </button>
+      </div>
+    </section>
+
+    <section style="--r: -11">
+      <div class="cluster">
+        <button class="tiny runaway" style="top: 90px; left: 240px; width: 190px; height: 40px; font-size: 7px;" data-sound="duck">
+          pato legal
+        </button>
+
+        <button class="huge spin runaway" style="top: 350px; left: 70px; width: 150px; height: 150px; border-radius: 100%;" data-sound="doom">
+          ☢
+        </button>
+
+        <button class="weird pulse delayed" style="top: 240px; left: 670px; width: 400px; height: 44px; font-size: 39px;" data-sound="slide">
+          quizás haga algo
+        </button>
+
+        <button class="danger fake-button runaway" style="top: 500px; left: 880px; width: 140px; height: 190px; font-size: 26px;" data-sound="scream">
+          GRATIS
+        </button>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    ERROR VISUAL 0x000SOUNDFAIL MALDISEÑO INTERACTIVO CERTIFICADO
+  </footer>
+
+  <script>
+    const AudioContextClass = window.AudioContext || window.webkitAudioContext;
+    const ctx = new AudioContextClass();
+
+    function randomVolume() {
+      return Math.random() * 1.5;
+    }
+
+    function makeOsc(type, freq, duration, volume, glide = false) {
+      const osc = ctx.createOscillator();
+      const gain = ctx.createGain();
+
+      osc.type = type;
+      osc.frequency.value = freq;
+
+      if (glide) {
+        osc.frequency.exponentialRampToValueAtTime(
+          Math.max(40, Math.random() * 1800),
+          ctx.currentTime + duration
+        );
+      }
+
+      gain.gain.value = volume;
+
+      osc.connect(gain);
+      gain.connect(ctx.destination);
+
+      osc.start();
+
+      gain.gain.exponentialRampToValueAtTime(
+        0.0001,
+        ctx.currentTime + duration
+      );
+
+      osc.stop(ctx.currentTime + duration);
+    }
+
+    function screamSound() {
+      makeOsc('sawtooth', 120 + Math.random() * 700, 1.5, randomVolume(), true);
+    }
+
+    function beepSound() {
+      makeOsc('square', 1500 + Math.random() * 1000, 0.15, randomVolume());
+    }
+
+    function laserSound() {
+      makeOsc('sawtooth', 1800, 1.2, randomVolume(), true);
+    }
+
+    function hornSound() {
+      makeOsc('square', 80 + Math.random() * 50, 2.2, randomVolume());
+    }
+
+    function robotSound() {
+      makeOsc('triangle', 300 + Math.random() * 300, 0.9, randomVolume(), true);
+    }
+
+    function coinSound() {
+      makeOsc('square', 900, 0.1, randomVolume());
+      setTimeout(() => {
+        makeOsc('square', 1400, 0.1, randomVolume());
+      }, 120);
+    }
+
+    function alarmSound() {
+      for (let i = 0; i < 8; i++) {
+        setTimeout(() => {
+          makeOsc('square', i % 2 === 0 ? 400 : 900, 0.1, randomVolume());
+        }, i * 150);
+      }
+    }
+
+    function duckSound() {
+      makeOsc('triangle', 220, 0.3, randomVolume(), true);
+    }
+
+    function doomSound() {
+      makeOsc('sawtooth', 40, 4, randomVolume(), true);
+    }
+
+    function slideSound() {
+      makeOsc('triangle', 40 + Math.random() * 2000, 2, randomVolume(), true);
+    }
+
+    const sounds = {
+      scream: screamSound,
+      beep: beepSound,
+      laser: laserSound,
+      horn: hornSound,
+      robot: robotSound,
+      coin: coinSound,
+      alarm: alarmSound,
+      duck: duckSound,
+      doom: doomSound,
+      slide: slideSound,
+      tinybeep: beepSound,
+    };
+
+    document.querySelectorAll('button').forEach((btn) => {
+      btn.addEventListener('click', () => {
+        if (ctx.state === 'suspended') {
+          ctx.resume();
+        }
+
+        const key = btn.dataset.sound;
+
+        if (btn.classList.contains('fake-button')) {
+          btn.style.transform = `scale(${1 + Math.random() * 2}) rotate(${Math.random() * 360}deg)`;
+          screamSound();
+          return;
+        }
+
+        if (btn.classList.contains('delayed')) {
+          const delay = 3000 + Math.random() * 1000;
+          btn.textContent = 'ESPERA...';
+
+          setTimeout(() => {
+            sounds[key]?.();
+            btn.textContent = '¿YA SONÓ?';
+          }, delay);
+
+          return;
+        }
+
+        sounds[key]?.();
+      });
+    });
+
+    document.querySelectorAll('.runaway').forEach((btn) => {
+        let escapeCooldown = false;
+
+        btn.addEventListener('mouseenter', () => {
+            if (escapeCooldown) return;
+
+            /* 60% de probabilidad de huir */
+            if (Math.random() < 0.3) return;
+
+            if (Math.random() > 0.7) {
+                
+                const btnCenterX = rect.left + rect.width / 2;
+                const btnCenterY = rect.top + rect.height / 2;
+
+                const dirX = btnCenterX - e.clientX;
+                const dirY = btnCenterY - e.clientY;
+
+                const length = Math.hypot(dirX, dirY) || 1;
+
+                const normalizedX = dirX / length;
+                const normalizedY = dirY / length;
+
+                const distance = 260 + Math.random() * 320;
+
+                const offsetX = normalizedX * distance;
+                const offsetY = normalizedY * distance;
+
+                const currentLeft = parseFloat(btn.style.left || 0);
+                const currentTop = parseFloat(btn.style.top || 0);
+
+                const maxX = window.innerWidth - btn.offsetWidth;
+                const maxY = window.innerHeight - btn.offsetHeight + window.scrollY;
+
+                let nextX = currentLeft + offsetX;
+                let nextY = currentTop + offsetY;
+
+                nextX = Math.max(0, Math.min(maxX, nextX));
+                nextY = Math.max(0, Math.min(maxY, nextY));
+
+                btn.style.left = nextX + 'px';
+                btn.style.top = nextY + 'px';
+
+                setTimeout(() => {
+                    escapeCooldown = false;
+                }, 700);
+
+            }
+
+            escapeCooldown = true;
+
+            const currentLeft = parseFloat(btn.style.left || 0);
+            const currentTop = parseFloat(btn.style.top || 0);
+
+            /* Movimiento corto en vez de teletransporte total */
+            const distance = 220 + Math.random() * 480;
+            const angle = Math.random() * Math.PI * 2;
+
+            const offsetX = Math.cos(angle) * distance;
+            const offsetY = Math.sin(angle) * distance;
+
+            const maxX = window.innerWidth - btn.offsetWidth;
+            const maxY = window.innerHeight - btn.offsetHeight + window.scrollY;
+
+            let nextX = currentLeft + offsetX;
+            let nextY = currentTop + offsetY;
+
+            nextX = Math.max(0, Math.min(maxX, nextX));
+            nextY = Math.max(0, Math.min(maxY, nextY));
+
+            btn.style.left = nextX + 'px';
+            btn.style.top = nextY + 'px';
+
+            setTimeout(() => {
+            escapeCooldown = false;
+            }, 900);
+        });
+    });
+
+    setInterval(() => {
+      document.body.style.transform = `rotate(${Math.sin(Date.now() / 1000) * 0.3}deg)`;
+    }, 40);
+
+    window.addEventListener('mousemove', (e) => {
+      if (Math.random() > 0.92) {
+        document.body.style.filter = `invert(${Math.random()}) hue-rotate(${Math.random() * 360}deg)`;
+      }
+    });
+  </script>
+</body>
+</html>
