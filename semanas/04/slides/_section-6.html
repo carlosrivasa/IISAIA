@@ -249,11 +249,11 @@
 </section>
 
 <!-- §6.3 · La pantalla mapeada al loop — animación cc -->
-<section>
+<section data-loop-mode="cc">
   <h2>La pantalla es el loop expuesto</h2>
 
   <div class="s6-loop-wrap">
-    <div id="s6-loop-cc"></div>
+    <div style="min-height:240px;"></div>
     <div class="s6-map-list">
       <div class="s6-map-row">
         <span class="s6-map-phase">Pensar</span>
@@ -407,7 +407,5 @@
 </section>
 
 <!-- INIT-SCRIPTS-§6-START -->
-<script>
-  initFourLoop({ containerId: 's6-loop-cc', mode: 'cc' });
-</script>
+<!-- §6.3 loop animation now mounted via part1-loop overlay (data-loop-mode on the section) -->
 <!-- INIT-SCRIPTS-§6-END -->
