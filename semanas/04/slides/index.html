@@ -222,6 +222,24 @@
       border-left: 3px solid var(--accent-secondary);
       padding-left: calc(var(--spacing-sm) - 3px);
     }
+
+    /* C6 — Part 1 loop animation host (logically persistent across §2-§6) */
+    #part1-loop-overlay {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      z-index: 50;
+      pointer-events: none;
+      width: max-content;
+      display: none;
+    }
+    #part1-loop-overlay.visible {
+      display: block;
+    }
+    #part1-loop {
+      /* fourLoopAnim renders here */
+    }
   </style>
 </head>
 <body>
@@ -7296,6 +7314,10 @@
     </div>
   </div>
 
+  <div id="part1-loop-overlay">
+    <div id="part1-loop"></div>
+  </div>
+
   <script src="../../../node_modules/reveal.js/dist/reveal.js"></script>
   <script src="../../../node_modules/reveal.js/plugin/highlight/highlight.js"></script>
   <script src="../../../node_modules/reveal.js/plugin/notes/notes.js"></script>
@@ -7311,6 +7333,51 @@
       margin: 0.02,
       plugins: [RevealHighlight, RevealNotes]
     });
+  </script>
+  <script>
+    // C6 — Sync the part1-loop animation with the current slide's data-loop-* attrs
+    (function() {
+      var part1Initialized = false;
+
+      function syncPart1Loop() {
+        var slide = (typeof Reveal !== 'undefined') ? Reveal.getCurrentSlide() : null;
+        var overlay = document.getElementById('part1-loop-overlay');
+        if (!slide || !overlay) return;
+
+        var mode = slide.dataset.loopMode;
+        var phase = slide.dataset.loopPhase || 'none';
+        var fillRaw = slide.dataset.loopFill;
+        var fillPercent = fillRaw ? parseInt(fillRaw, 10) : undefined;
+
+        if (!mode) {
+          overlay.classList.remove('visible');
+          return;
+        }
+
+        overlay.classList.add('visible');
+
+        var opts = {
+          containerId: 'part1-loop',
+          mode: mode
+        };
+        if (phase !== 'none') opts.phase = phase;
+        if (fillPercent !== undefined && !isNaN(fillPercent)) opts.fillPercent = fillPercent;
+
+        if (!part1Initialized) {
+          if (window.initFourLoop) {
+            window.initFourLoop(opts);
+            part1Initialized = true;
+          }
+        } else {
+          if (window.updateFourLoop) window.updateFourLoop(opts);
+        }
+      }
+
+      if (typeof Reveal !== 'undefined') {
+        Reveal.on('ready', syncPart1Loop);
+        Reveal.on('slidechanged', syncPart1Loop);
+      }
+    })();
   </script>
 
   <!-- init §2 -->
