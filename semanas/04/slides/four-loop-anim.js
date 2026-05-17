@@ -303,11 +303,15 @@
     html += '<div style="font-size:0.6em;color:var(--text-muted);margin-bottom:6px;letter-spacing:0.04em;">ventana de contexto</div>';
     // Outer bar
     html += '<div style="width:36px;height:130px;border:2px solid var(--text-muted);border-radius:6px;background:var(--bg-code);position:relative;overflow:hidden;">';
-    // Token chips filling ~60% from bottom
-    // 60% of 126px inner ≈ 76px
-    html += '<div style="position:absolute;bottom:0;left:0;right:0;height:76px;display:flex;flex-direction:column-reverse;flex-wrap:wrap;align-content:flex-start;gap:2px;padding:2px;">';
-    // Render small token chips
-    var chipCount = 24;
+    // fillPercent: 0-100. Default 60 (matches original 76/126 ≈ 60%).
+    var fillPercent = typeof opts.fillPercent === 'number' ? opts.fillPercent : 60;
+    // Inner area is ~126px; clamp percent and convert.
+    if (fillPercent < 0) fillPercent = 0;
+    if (fillPercent > 100) fillPercent = 100;
+    var fillHeight = Math.round(126 * (fillPercent / 100));
+    // chipCount scales with fill: 40 chips at 100%, 24 at 60% (matches original).
+    var chipCount = Math.round(40 * (fillPercent / 100));
+    html += '<div style="position:absolute;bottom:0;left:0;right:0;height:' + fillHeight + 'px;display:flex;flex-direction:column-reverse;flex-wrap:wrap;align-content:flex-start;gap:2px;padding:2px;transition:height 600ms ease;">';
     for (var i = 0; i < chipCount; i++) {
       html += '<div style="width:10px;height:10px;border-radius:2px;background:var(--accent-secondary);opacity:0.75;"></div>';
     }
