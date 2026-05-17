@@ -402,6 +402,48 @@
     container.innerHTML = html;
   }
 
+  function renderPoison(container, opts) {
+    var b = buildBaseRow(opts);
+
+    var html = '<div style="display:flex;align-items:flex-start;gap:20px;padding:10px 0;justify-content:center;">';
+
+    // Left: cycle (dim slightly to emphasize the rot is in the context, not the loop itself)
+    html += '<div style="display:flex;flex-direction:column;align-items:center;">';
+    html += '<div style="display:flex;align-items:center;gap:6px;">';
+    html += nodeHtml(b.pensarLabel,  null, b.pensarStyle);
+    html += arrowSvg({ width: 36, height: 24, lit: b.arrowPA_lit });
+    html += nodeHtml(b.actuarLabel,  null, b.actuarStyle);
+    html += arrowSvg({ width: 36, height: 24, lit: b.arrowAO_lit });
+    html += nodeHtml(b.observarLabel, null, b.observarStyle);
+    html += '</div>';
+    html += '<div style="margin-top:2px;position:relative;width:354px;">';
+    html += arrowSvg({ returnArc: true, arcWidth: 354, arcHeight: 34, lit: false });
+    html += '<span style="position:absolute;bottom:2px;left:50%;transform:translateX(-50%);font-size:0.6em;color:var(--text-muted);font-family:var(--font-mono);">repetir</span>';
+    html += '</div>';
+    html += exitChipsHtml(false);
+    html += '</div>';
+
+    // Right: context bar with RED noise chips mixed in
+    html += '<div style="display:flex;flex-direction:column;align-items:center;margin-top:4px;">';
+    html += '<div style="font-size:0.6em;color:var(--text-muted);margin-bottom:6px;letter-spacing:0.04em;">ventana de contexto</div>';
+    html += '<div style="width:36px;height:130px;border:2px solid var(--text-muted);border-radius:6px;background:var(--bg-code);position:relative;overflow:hidden;">';
+    html += '<div style="position:absolute;bottom:0;left:0;right:0;height:108px;display:flex;flex-direction:column-reverse;flex-wrap:wrap;align-content:flex-start;gap:2px;padding:2px;">';
+    var chipCount = 36;
+    for (var i = 0; i < chipCount; i++) {
+      var isNoise = (i % 3 === 0);
+      var color = isNoise ? '#ff6b6b' : 'var(--accent-secondary)';
+      var opacity = isNoise ? '0.85' : '0.55';
+      html += '<div style="width:10px;height:10px;border-radius:2px;background:' + color + ';opacity:' + opacity + ';"></div>';
+    }
+    html += '</div>';
+    html += '</div>';
+    html += '<div style="font-size:0.55em;color:#ff6b6b;margin-top:5px;text-align:center;max-width:80px;font-weight:700;">el agente alimenta su propio rot</div>';
+    html += '</div>';
+
+    html += '</div>';
+    container.innerHTML = html;
+  }
+
   function renderCC(container, opts) {
     var labels = opts.labels || {};
     var pensarLabel  = labels.pensar  || 'PENSAR';
@@ -585,6 +627,7 @@
     'infinite':  renderInfinite,
     'drift':     renderDrift,
     'hallucinate': renderHallucinate,
+    'poison':    renderPoison,
     'cc':        renderCC,
     'subagent':  renderSubagent,
     'planmode':  renderPlanmode,
