@@ -8,9 +8,12 @@
 
 (function (root, factory) {
   if (typeof module !== 'undefined' && module.exports) {
-    module.exports = { initFourLoop: factory() };
+    module.exports = factory();
   } else {
-    root.initFourLoop = factory();
+    var api = factory();
+    root.initFourLoop = api.init;       // backward-compat alias
+    root.updateFourLoop = api.update;   // new API
+    root.fourLoopAnim = api;             // namespace
   }
 }(typeof self !== 'undefined' ? self : this, function () {
 
@@ -593,8 +596,39 @@
     }
 
     // Track instance (scoped — no globals leaked beyond this array)
-    allInstances.push({ containerId: opts.containerId, render: render });
+    allInstances.push({
+      containerId: opts.containerId,
+      opts: opts,           // guardar opts originales para merge en update
+      render: render
+    });
   }
 
-  return initFourLoop;
+  function updateFourLoop(updateOpts) {
+    if (!updateOpts || !updateOpts.containerId) return;
+    var inst = null;
+    for (var i = 0; i < allInstances.length; i++) {
+      if (allInstances[i].containerId === updateOpts.containerId) {
+        inst = allInstances[i];
+        break;
+      }
+    }
+    if (!inst) return;
+    var container = document.getElementById(updateOpts.containerId);
+    if (!container) return;
+
+    // Merge update opts over original opts (phase/mode/fillPercent override)
+    var merged = {};
+    for (var k in inst.opts) merged[k] = inst.opts[k];
+    if (updateOpts.phase !== undefined) merged.phase = updateOpts.phase;
+    if (updateOpts.mode !== undefined) merged.mode = updateOpts.mode;
+    if (updateOpts.fillPercent !== undefined) merged.fillPercent = updateOpts.fillPercent;
+
+    var renderer = modeMap[merged.mode] || renderIntro;
+    renderer(container, merged);
+
+    // Update stored opts so subsequent updates merge over the new state
+    inst.opts = merged;
+  }
+
+  return { init: initFourLoop, update: updateFourLoop };
 }));
