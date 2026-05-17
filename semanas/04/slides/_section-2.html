@@ -218,10 +218,6 @@
   margin-top: 4px;
 }
 /* C1 — consolidated phase slide: prevent vertical jump between fragments */
-.s2-h2-phase {
-  min-height: 1.6em;
-  margin-bottom: 0.4em;
-}
 .s2-phase-card-stage {
   min-height: 180px;
 }
@@ -240,6 +236,24 @@
   position: relative;
   min-height: 1.6em;
   margin-bottom: 0.4em;
+}
+/* Wrap container for the card stack: base card flows, fragment cards layer on top */
+.s2-card-stack {
+  position: relative;
+  min-height: 220px;
+  max-width: 580px;
+  margin: 18px auto 0;
+}
+.s2-card-stack .s2-phase-card.s2-phase-card-stage {
+  /* Base card flows normally; fragment cards stack on top via absolute. */
+  margin: 0 auto;
+}
+.s2-card-stack .s2-phase-card.s2-phase-card-stage.fragment.current-visible {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  margin: 0 auto;
 }
 </style>
 
@@ -297,28 +311,30 @@
 <section>
   <div class="s2-h2-stack">
     <h2 data-phase-h2="pensar" class="s2-h2-phase">Pensar — formular el próximo paso</h2>
-    <h2 data-phase-h2="actuar" class="s2-h2-phase fragment current-visible">Actuar — usar una herramienta</h2>
-    <h2 data-phase-h2="observar" class="s2-h2-phase fragment current-visible">Observar — leer el resultado</h2>
+    <h2 data-phase-h2="actuar" class="s2-h2-phase fragment current-visible" data-fragment-index="1">Actuar — usar una herramienta</h2>
+    <h2 data-phase-h2="observar" class="s2-h2-phase fragment current-visible" data-fragment-index="2">Observar — leer el resultado</h2>
   </div>
 
   <div class="s2-loop-wrap">
     <div id="s2-loop-phases"></div>
   </div>
 
-  <div class="s2-phase-card s2-phase-card-stage" data-phase-card="pensar">
-    <h3>Pensar</h3>
-    <p>El agente razona sobre el estado actual: qué sabe, qué le falta saber, qué hipótesis tiene. No es pensamiento lineal — es el modelo formulando el próximo paso en función de lo que observó antes.</p>
-    <p class="s2-produces">Produce: una decisión sobre qué acción tomar a continuación.</p>
-  </div>
-  <div class="s2-phase-card s2-phase-card-stage actuar fragment current-visible" data-phase-card="actuar">
-    <h3>Actuar</h3>
-    <p>El agente usa una herramienta: corre un comando, edita un archivo, llama a una API, lee un directorio. La acción produce un efecto en el entorno.</p>
-    <p class="s2-produces">Produce: un cambio en el entorno — algo que antes no era verdad, ahora lo es.</p>
-  </div>
-  <div class="s2-phase-card s2-phase-card-stage observar fragment current-visible" data-phase-card="observar">
-    <h3>Observar</h3>
-    <p>El agente lee el resultado de la acción: el output del comando, el contenido del archivo, la respuesta HTTP. Eso nuevo entra a su contexto y alimenta la próxima vuelta de pensar.</p>
-    <p class="s2-produces">Produce: información nueva en el contexto — el insumo de la siguiente vuelta.</p>
+  <div class="s2-card-stack">
+    <div class="s2-phase-card s2-phase-card-stage" data-phase-card="pensar">
+      <h3>Pensar</h3>
+      <p>El agente razona sobre el estado actual: qué sabe, qué le falta saber, qué hipótesis tiene. No es pensamiento lineal — es el modelo formulando el próximo paso en función de lo que observó antes.</p>
+      <p class="s2-produces">Produce: una decisión sobre qué acción tomar a continuación.</p>
+    </div>
+    <div class="s2-phase-card s2-phase-card-stage actuar fragment current-visible" data-phase-card="actuar" data-fragment-index="1">
+      <h3>Actuar</h3>
+      <p>El agente usa una herramienta: corre un comando, edita un archivo, llama a una API, lee un directorio. La acción produce un efecto en el entorno.</p>
+      <p class="s2-produces">Produce: un cambio en el entorno — algo que antes no era verdad, ahora lo es.</p>
+    </div>
+    <div class="s2-phase-card s2-phase-card-stage observar fragment current-visible" data-phase-card="observar" data-fragment-index="2">
+      <h3>Observar</h3>
+      <p>El agente lee el resultado de la acción: el output del comando, el contenido del archivo, la respuesta HTTP. Eso nuevo entra a su contexto y alimenta la próxima vuelta de pensar.</p>
+      <p class="s2-produces">Produce: información nueva en el contexto — el insumo de la siguiente vuelta.</p>
+    </div>
   </div>
 
   <aside class="notes">
