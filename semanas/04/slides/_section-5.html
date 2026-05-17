@@ -189,6 +189,53 @@
   margin: 4px 0 0;
   line-height: 1.5;
 }
+
+/* C2 — consolidated modes layout */
+.s5-c2-layout {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 18px;
+  margin-top: 18px;
+}
+.s5-c2-chips {
+  width: 100%;
+  max-width: 920px;
+}
+.s5-c2-anim {
+  min-height: 200px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.s5-c2-detail {
+  width: 100%;
+  max-width: 720px;
+  min-height: 90px;
+  padding: 14px 20px;
+  background: var(--bg-secondary);
+  border-radius: 8px;
+  border-left: 3px solid var(--text-muted);
+  text-align: left;
+}
+.s5-c2-detail h4 {
+  margin: 0 0 6px;
+  font-size: 0.78em;
+  color: var(--accent);
+}
+.s5-c2-detail p {
+  margin: 0;
+  font-size: 0.7em;
+  line-height: 1.55;
+  color: var(--text-primary);
+}
+.s5-c2-placeholder {
+  text-align: center;
+  color: var(--text-muted);
+  font-style: italic;
+  font-size: 0.7em;
+  margin: 0;
+}
 </style>
 
 <!-- §5.1 · Opener-hook — el contraste que arma §5 -->
@@ -223,42 +270,22 @@
 <section>
   <h2>Cuatro modos de falla nuevos</h2>
 
-  <div id="s5-modes" style="margin-top:18px;"></div>
-
-  <aside class="notes">
-    <p><strong>Click para abrir cada modo en orden. Leer título + summary. Señalar el link a la sección anterior antes de pasar al siguiente.</strong></p>
-    <p><u>Dispositivo explainer — clickable-steps, 4 modos. Cada modo conecta a una pieza ya vista en la parte 1. El ejemplo en cada step es esa conexión explícita. No es demo: es el recorrido conceptual de los cuatro modos.</u></p>
-    <p><em>"Cuatro modos de falla que un agente que actúa puede tener y que un modelo que solo escribe no puede. Cada uno está anclado a algo que ya vimos."</em></p>
-    <p><em>"Loop infinito: ninguna de las cuatro condiciones de corte del §2 se cumple. El loop no converge — no es que trabaja mucho, es que no para."</em></p>
-    <p><em>"Deriva de objetivo: el agente arrancó con tu tarea y terminó haciendo otra. Desde adentro del loop no parece un error — siguió algo que le pareció relevante. Desde afuera, la tarea original no está."</em></p>
-    <p><em>"Alucinar tools o resultados: la alucinación que vimos en la Semana 1 escala. Ahora el agente puede afirmar que ejecutó algo que no ejecutó, o reportar una salida distinta de la real. El loop sigue sobre esa premisa falsa."</em></p>
-    <p><em>"Envenenar el propio contexto: la versión activa del context rot del §4. Una salida enorme — un log de dos mil líneas — entra sin procesar y el modelo razona desde ese contexto degradado."</em></p>
-  </aside>
-</section>
-
-<!-- §5.3 · Loop infinito + deriva — animación -->
-<section>
-  <h2>Loop infinito y deriva de objetivo</h2>
-
-  <div class="s5-anim-pair">
-    <div class="s5-anim-block">
-      <p class="s5-anim-label" style="color:#e74c3c;">Loop infinito</p>
-      <div id="s5-loop-infinite"></div>
-      <p class="s5-anim-caption">Ninguna condición de corte del §2 se cumple.<br>Cada vuelta gasta contexto y modifica el entorno.</p>
-    </div>
-    <div class="s5-anim-block">
-      <p class="s5-anim-label" style="color:#ffcb6b;">Deriva de objetivo</p>
-      <div id="s5-loop-drift"></div>
-      <p class="s5-anim-caption">Arrancó en A — terminó en otra tarea.<br>El resultado es coherente internamente, pero no es lo que pediste.</p>
+  <div class="s5-c2-layout">
+    <div id="s5-modes" class="s5-c2-chips"></div>
+    <div id="s5-loop" class="s5-c2-anim"></div>
+    <div id="s5-mode-detail" class="s5-c2-detail">
+      <p class="s5-c2-placeholder">Click un modo para ver cómo se manifiesta en el loop.</p>
     </div>
   </div>
 
   <aside class="notes">
-    <p><strong>Dejar ambas animaciones correr antes de hablar. Señalar "repetir" en la izquierda — no hay salida. Señalar el objetivo tachado en la derecha.</strong></p>
-    <p><u>Slide de animación doble. Los dos contenedores son independientes. El loop infinito no tiene ninguna salida activa — el arco de "repetir" pulsa indefinidamente. La deriva muestra el objetivo A tachado y desplazado a otra tarea.</u></p>
-    <p><em>"El loop infinito es esto: las cuatro condiciones de corte del §2 — objetivo alcanzado, límite de pasos, el agente pide ayuda, falla no recuperable — ninguna se dispara. Puede ser porque el objetivo estaba mal especificado, el límite no se configuró, o el agente sobreestima su progreso. El resultado es el arco de la derecha que pulsa: el loop no para."</em></p>
-    <p><em>"La deriva es distinta. El agente sí avanza — pero hacia otra cosa. Empezó a arreglar el bug del endpoint, notó una inconsistencia en el esquema de la base, y decidió refactorizar primero. Cuando volvés, el bug original no está arreglado y el modelo de datos cambió. El objetivo A está tachado — terminó en B."</em></p>
-    <p><em>"Ambos modos son silenciosos. No hay error visible — el loop sigue, las tools se ejecutan, el modelo reporta progreso. El problema se descubre desde afuera."</em></p>
+    <p><strong>Click cada modo en orden para ver título + summary + animación + conexión a la sección anterior. Modos independientes — orden narrativo sugerido es loop infinito → deriva → alucinar → envenenar, pero podés ir libre. Click la caja activa para deseleccionar.</strong></p>
+    <p><u>Slide consolidado: chips arriba, animación abajo (cambia con cada click), detalle de conexión debajo. Reemplaza el slide previo de animación doble (infinito + drift) — ahora los 4 modos tienen su animación.</u></p>
+    <p><em>"Cuatro modos de falla que un agente que actúa puede tener y que un modelo que solo escribe no puede. Cada uno está anclado a algo que ya vimos."</em></p>
+    <p><em>"Loop infinito: ninguna de las cuatro condiciones de corte del §2 se cumple. El loop no converge — no es que trabaja mucho, es que no para. Miren la animación: el arco de repetir pulsa, ninguna salida se enciende."</em></p>
+    <p><em>"Deriva de objetivo: el agente arrancó con tu tarea y terminó haciendo otra. Desde adentro del loop no parece un error. Miren: el objetivo A está tachado y derivó hacia otra tarea."</em></p>
+    <p><em>"Alucinar tools o resultados: la alucinación de S1 escala. Ahora el agente puede afirmar que ejecutó algo que no ejecutó. La animación lo muestra: actuar y observar pintados de rojo — tool inventada, resultado falso."</em></p>
+    <p><em>"Envenenar el propio contexto: la versión activa del context rot del §4. Una salida enorme entra sin procesar y degrada el contexto. La animación: los chips rojos representan ruido alimentándose."</em></p>
   </aside>
 </section>
 
@@ -388,29 +415,49 @@
 
 <!-- INIT-SCRIPTS-§5-START -->
 <script>
-  initClickableSteps({ containerId: 's5-modes', steps: [
-    {
-      title: 'Loop infinito',
-      summary: 'Sin una condición de corte efectiva, el agente da vueltas. El objetivo estaba mal especificado, el límite no se configuró, o el agente sobreestima su progreso. El loop sigue: gasta contexto, ejecuta acciones, modifica el entorno. No converge.',
-      example: 'Conexión con §2: las cuatro condiciones de corte (objetivo alcanzado / límite de pasos / el agente pide ayuda / falla no recuperable) — cuando ninguna se cumple, el loop no para solo.'
-    },
-    {
-      title: 'Deriva de objetivo',
-      summary: 'El agente arranca con tu tarea y termina haciendo otra que consideró mejor. Empezó a arreglar el bug del endpoint, notó una inconsistencia en el esquema, y decidió refactorizar primero. La tarea original no está; el modelo de datos cambió.',
-      example: 'Desde adentro del loop no parece un error: el agente siguió algo que le pareció relevante. El problema se ve desde afuera, cuando revisás el resultado.'
-    },
-    {
-      title: 'Alucinar tools o resultados',
-      summary: 'El agente puede afirmar que ejecutó un comando que no ejecutó, o reportar una salida distinta de la real. El loop sigue sobre esa premisa falsa — varias vueltas, con acciones reales construidas sobre algo que nunca pasó.',
-      example: 'Conexión con S1: la alucinación que aprendiste en la semana 1 ahora actúa. La confianza del modelo no cambió; lo que cambió es que ahora actúa sobre ella.'
-    },
-    {
-      title: 'Envenenar el propio contexto',
-      summary: 'El agente ejecuta algo que produce una salida enorme — un log de dos mil líneas, un stack trace con cincuenta frames — y esa salida entra sin procesar. El modelo razona desde ese contexto degradado: señales importantes pierden contra ruido masivo.',
-      example: 'Conexión con §4: el context rot era deterioro pasivo con el tiempo. Este modo lo precipita activamente con una sola acción.'
+  // C2 — consolidated modes
+  var s5C2ModeMap = [
+    { mode: 'infinite',    title: 'Loop infinito',         body: 'Conexión con §2: las cuatro condiciones de corte (objetivo alcanzado / límite de pasos / el agente pide ayuda / falla no recuperable). Cuando ninguna se cumple, el loop no para solo.' },
+    { mode: 'drift',       title: 'Deriva de objetivo',    body: 'Desde adentro del loop no parece un error — el agente siguió algo que le pareció relevante. El problema se ve desde afuera, cuando revisás el resultado.' },
+    { mode: 'hallucinate', title: 'Alucinar tools o resultados', body: 'Conexión con S1: la alucinación que aprendiste en la primera semana ahora actúa. La confianza del modelo no cambió; lo que cambió es que ahora actúa sobre ella.' },
+    { mode: 'poison',      title: 'Envenenar el propio contexto', body: 'Conexión con §4: el context rot era deterioro pasivo con el tiempo. Este modo lo precipita activamente con una sola acción.' }
+  ];
+
+  initClickableSteps({
+    containerId: 's5-modes',
+    steps: [
+      {
+        title: 'Loop infinito',
+        summary: 'Sin una condición de corte efectiva, el agente da vueltas. El objetivo estaba mal especificado, el límite no se configuró, o el agente sobreestima su progreso. El loop sigue: gasta contexto, ejecuta acciones, modifica el entorno. No converge.'
+      },
+      {
+        title: 'Deriva de objetivo',
+        summary: 'El agente arranca con tu tarea y termina haciendo otra que consideró mejor. Empezó a arreglar el bug del endpoint, notó una inconsistencia en el esquema, y decidió refactorizar primero. La tarea original no está; el modelo de datos cambió.'
+      },
+      {
+        title: 'Alucinar tools o resultados',
+        summary: 'El agente puede afirmar que ejecutó un comando que no ejecutó, o reportar una salida distinta de la real. El loop sigue sobre esa premisa falsa — varias vueltas, con acciones reales construidas sobre algo que nunca pasó.'
+      },
+      {
+        title: 'Envenenar el propio contexto',
+        summary: 'El agente ejecuta algo que produce una salida enorme — un log de dos mil líneas, un stack trace con cincuenta frames — y esa salida entra sin procesar. El modelo razona desde ese contexto degradado: señales importantes pierden contra ruido masivo.'
+      }
+    ],
+    onChange: function(idx) {
+      var detail = document.getElementById('s5-mode-detail');
+      if (idx < 0 || !s5C2ModeMap[idx]) {
+        if (window.updateFourLoop) window.updateFourLoop({ containerId: 's5-loop', mode: 'intro' });
+        if (detail) detail.innerHTML = '<p class="s5-c2-placeholder">Click un modo para ver cómo se manifiesta en el loop.</p>';
+        return;
+      }
+      var cfg = s5C2ModeMap[idx];
+      if (window.updateFourLoop) window.updateFourLoop({ containerId: 's5-loop', mode: cfg.mode });
+      if (detail) detail.innerHTML = '<h4>' + cfg.title + '</h4><p>' + cfg.body + '</p>';
     }
-  ] });
-  initFourLoop({ containerId: 's5-loop-infinite', mode: 'infinite' });
-  initFourLoop({ containerId: 's5-loop-drift', mode: 'drift' });
+  });
+
+  if (document.getElementById('s5-loop')) {
+    initFourLoop({ containerId: 's5-loop', mode: 'intro' });
+  }
 </script>
 <!-- INIT-SCRIPTS-§5-END -->

@@ -16,7 +16,8 @@
  *         example: '<div>...HTML shown when clicked...</div>'
  *       },
  *       // ...
- *     ]
+ *     ],
+ *     onChange: function(idx, step) { ... }   // optional, fires after every click/keyboard interaction; idx is -1 when deselected, step is null when deselected
  *   })
  */
 
@@ -97,6 +98,9 @@ function initClickableSteps(opts) {
           e.stopPropagation();
           activeIdx = activeIdx === idx ? -1 : idx;
           render();
+          if (typeof opts.onChange === 'function') {
+            opts.onChange(activeIdx, activeIdx >= 0 ? steps[activeIdx] : null);
+          }
         });
         el.addEventListener('keydown', function(e) {
           if (e.key === 'Enter' || e.key === ' ') {
@@ -104,6 +108,9 @@ function initClickableSteps(opts) {
             e.stopPropagation();
             activeIdx = activeIdx === idx ? -1 : idx;
             render();
+            if (typeof opts.onChange === 'function') {
+              opts.onChange(activeIdx, activeIdx >= 0 ? steps[activeIdx] : null);
+            }
           }
         });
       })(j, boxes[j]);
