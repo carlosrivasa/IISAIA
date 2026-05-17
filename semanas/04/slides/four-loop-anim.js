@@ -375,6 +375,33 @@
     container.innerHTML = html;
   }
 
+  function renderHallucinate(container, opts) {
+    var labels = opts.labels || {};
+    var pensarLabel  = labels.pensar  || 'PENSAR';
+    var actuarLabel  = labels.actuar  || 'ACTUAR';
+    var observarLabel = labels.observar || 'OBSERVAR';
+
+    var dimStyle = nodeStyle('opacity:0.45;color:var(--text-muted)');
+    var errorStyle = litNodeStyle('#ff6b6b');
+
+    var html = '<div style="display:flex;flex-direction:column;align-items:center;padding:10px 0;">';
+    html += '<div style="display:flex;align-items:center;gap:6px;">';
+    html += nodeHtml(pensarLabel, null, dimStyle);
+    html += arrowSvg({ width: 40, height: 24, lit: false });
+    html += nodeHtml(actuarLabel, '(tool inventada)', errorStyle);
+    html += arrowSvg({ width: 40, height: 24, lit: true });
+    html += nodeHtml(observarLabel, '(resultado falso)', errorStyle);
+    html += '</div>';
+    html += '<div style="margin-top:2px;position:relative;width:366px;">';
+    html += arrowSvg({ returnArc: true, arcWidth: 366, arcHeight: 36, lit: false });
+    html += '<span style="position:absolute;bottom:2px;left:50%;transform:translateX(-50%);font-size:0.6em;color:var(--text-muted);font-family:var(--font-mono);">repetir</span>';
+    html += '</div>';
+    html += exitChipsHtml(false);
+    html += caption('actúa sobre una premisa falsa');
+    html += '</div>';
+    container.innerHTML = html;
+  }
+
   function renderCC(container, opts) {
     var labels = opts.labels || {};
     var pensarLabel  = labels.pensar  || 'PENSAR';
@@ -557,6 +584,7 @@
     'fill':      renderFill,
     'infinite':  renderInfinite,
     'drift':     renderDrift,
+    'hallucinate': renderHallucinate,
     'cc':        renderCC,
     'subagent':  renderSubagent,
     'planmode':  renderPlanmode,
