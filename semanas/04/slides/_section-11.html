@@ -535,17 +535,21 @@
 }
 </style>
 
-<!-- §11.1 · Opener — lens-tracker FLIPS a LOOP (primer flip de toda la parte 2) -->
+<!-- §11.1 · Opener — lens-tracker FLIPS a LOOP (primer flip de toda la parte 2, animado via fragment) -->
 <section>
   <h2>El eje cambia — por primera vez en la parte 2.</h2>
 
   <div class="s11-opener-wrap">
-    <div class="lens-tracker on-loop">
+    <div class="lens-tracker on-context" id="s11-tracker">
       <div class="pole pole-loop">LOOP</div>
       <div class="lens-sep">↔</div>
       <div class="pole pole-context">CONTEXTO</div>
     </div>
-    <p class="s11-opener-flip-label">primer flip a loop en toda la parte 2</p>
+    <p class="s11-opener-flip-label" id="s11-flip-sublabel">hasta acá, todo aterrizó acá</p>
+
+    <!-- Invisible fragment that triggers the flip animation -->
+    <div class="fragment" data-flip-tracker="loop" data-flip-sublabel="control del flujo" aria-hidden="true" style="display:none;"></div>
+
     <p class="s11-opener-hook">Hasta acá, todo aterrizó en contexto. Hoy la pregunta cambia.</p>
     <p class="s11-opener-sub">
       §7, §8, §9, §10 — cuatro secciones, una sola pregunta: ¿qué entra al agente?<br>
@@ -554,8 +558,8 @@
   </div>
 
   <aside class="notes">
-    <p><strong>Señalar el tracker — LOOP iluminado por primera vez en toda la parte 2. No decir nada todavía. Dejar que el visual hable. Pausa de dos segundos. Después leer la línea principal.</strong></p>
-    <p><u>Opener de §11. Este es el primer y único flip a LOOP en toda la parte 2 — dejar que el visual hable antes de las palabras. El flip es deliberado y es el hook de la sección. El sublabel y la pregunta refuerzan el momento, pero el tracker lo dice primero.</u></p>
+    <p><strong>Señalar el tracker — arranca en CONTEXTO, igual que §10. Pausa de dos segundos. Press abajo dispara el flip animado a LOOP, primer flip de toda la parte 2. Dejar que el visual hable antes de las palabras. Después leer la línea principal.</strong></p>
+    <p><u>Opener de §11. El tracker arranca en CONTEXTO (cinco secciones encadenadas), y el press abajo dispara el primer y único flip a LOOP en toda la parte 2 — animado vía fragment con un delay de 200ms para que la transición CSS sea visible. El flip es deliberado y es el hook de la sección. El sublabel también cambia con el flip ("hasta acá, todo aterrizó acá" → "control del flujo"). El visual lo dice primero; las palabras lo refuerzan.</u></p>
     <p><em>"Miren el tracker."</em></p>
     <p><em>"Por primera vez en toda la parte 2, aterrizó en LOOP. §7, §8, §9, §10 — cuatro secciones seguidas en CONTEXTO. Esta es la primera vez que cambia."</em></p>
     <p><em>"La pregunta que recorrió §7 a §10 era siempre la misma: ¿qué entra al agente? ¿Qué cargás? ¿Cuándo? ¿En qué forma? Eso es gestionar contexto."</em></p>
@@ -933,6 +937,33 @@
 
 <!-- INIT-SCRIPTS-§11-START -->
 <script>
+  // C5 — §11 animated flip from contexto to loop
+  Reveal.on('fragmentshown', function(e) {
+    if (e.fragment.dataset && e.fragment.dataset.flipTracker === 'loop') {
+      setTimeout(function() {
+        var t = document.getElementById('s11-tracker');
+        if (t) {
+          t.classList.remove('on-context');
+          t.classList.add('on-loop');
+        }
+        var sub = document.getElementById('s11-flip-sublabel');
+        if (sub) sub.textContent = e.fragment.dataset.flipSublabel || sub.textContent;
+      }, 200);
+    }
+  });
+
+  Reveal.on('fragmenthidden', function(e) {
+    if (e.fragment.dataset && e.fragment.dataset.flipTracker === 'loop') {
+      var t = document.getElementById('s11-tracker');
+      if (t) {
+        t.classList.remove('on-loop');
+        t.classList.add('on-context');
+      }
+      var sub = document.getElementById('s11-flip-sublabel');
+      if (sub) sub.textContent = 'hasta acá, todo aterrizó acá';
+    }
+  });
+
   initFourLoop({containerId: 's11-loop-planmode', mode: 'planmode'});
   initFourLoop({containerId: 's11-loop-gate', mode: 'gate'});
   initClickableSteps({containerId: 's11-demo-steps', steps: [

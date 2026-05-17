@@ -312,34 +312,15 @@
 }
 </style>
 
-<!-- §10.1 · Opener — lens-tracker aterriza en CONTEXTO, sub-label "aísla el contexto de un loop entero" -->
+<!-- §10.2 · Hook — el escenario de autenticación (tracker merged from former §10.1 opener) -->
 <section>
-  <h2>¿Loop o contexto? Contexto — aislar el loop entero.</h2>
-
-  <div class="s10-opener-wrap">
-    <div class="lens-tracker on-context">
-      <div class="pole pole-loop">LOOP</div>
-      <div class="lens-sep">↔</div>
-      <div class="pole pole-context">CONTEXTO</div>
-    </div>
-    <p class="s10-opener-sublabel">aísla el contexto de un loop entero</p>
-    <p class="s10-opener-question">
-      §9 aisló un procedimiento. ¿Qué pasa cuando el trabajo de exploración
-      que acumula el agente
-      <em>nunca llega al contexto del padre?</em>
-    </p>
+  <div class="lens-tracker on-context" style="margin-bottom:14px;">
+    <div class="pole pole-loop">LOOP</div>
+    <div class="lens-sep">↔</div>
+    <div class="pole pole-context">CONTEXTO</div>
   </div>
+  <p style="text-align:center;font-size:0.62em;color:var(--text-muted);font-family:var(--font-mono);letter-spacing:0.06em;text-transform:uppercase;margin:0 0 14px;">aísla el contexto de un loop entero</p>
 
-  <aside class="notes">
-    <p><strong>Señalar el tracker — CONTEXTO iluminado, cuarta sección seguida acá. Leer el sublabel. Leer la pregunta con pausa antes de la línea final.</strong></p>
-    <p><u>Opener de §10. El tracker es el dispositivo recurrente — no necesita explicación, solo señalarlo. La pregunta retoma exactamente donde §9 terminó: las skills aíslan un procedimiento; §10 escala eso al loop entero.</u></p>
-    <p><em>"El tracker otra vez en CONTEXTO. Cuatro secciones seguidas aterrizando acá. El sublabel dice algo más grande que todo lo anterior: aísla el contexto de un loop entero."</em></p>
-    <p><em>"§9 nos mostró que una skill puede aislar un procedimiento — cero tokens hasta que se invoca. Pero un procedimiento son instrucciones. ¿Qué pasa cuando lo que queremos aislar no son las instrucciones sino el trabajo de exploración que el agente acumula mientras ejecuta? Eso es §10."</em></p>
-  </aside>
-</section>
-
-<!-- §10.2 · Hook — el escenario de autenticación -->
-<section>
   <h2>El escenario: cuarenta archivos, una sola pregunta</h2>
 
   <div class="s10-scenario-card">
@@ -360,8 +341,9 @@
   </div>
 
   <aside class="notes">
-    <p><strong>Leer los dos primeros párrafos despacio. Pausa larga antes del fragment. Click para revelar la pregunta. Dejar que la pregunta respire.</strong></p>
-    <p><u>Hook narrativo de §10. Los dos primeros párrafos plantan el problema con callbacks explícitos a §4 (contexto finito) y §5 (envenenar). El fragment es la pregunta que todo el resto de §10 responde.</u></p>
+    <p><strong>Señalar el tracker — CONTEXTO iluminado, cuarta sección seguida acá. Leer el sublabel ("aísla el contexto de un loop entero"). Después leer los dos primeros párrafos despacio. Pausa larga antes del fragment. Click para revelar la pregunta. Dejar que la pregunta respire.</strong></p>
+    <p><u>Hook narrativo de §10 con el tracker en la cabecera (cuarto aterrizaje seguido en CONTEXTO; el sublabel anuncia algo más grande que todo lo anterior). Los dos primeros párrafos plantan el problema con callbacks explícitos a §4 (contexto finito) y §5 (envenenar). El fragment es la pregunta que todo el resto de §10 responde.</u></p>
+    <p><em>"El tracker otra vez en CONTEXTO. Cuatro secciones seguidas aterrizando acá. El sublabel dice algo más grande que todo lo anterior: aísla el contexto de un loop entero. §9 nos mostró que una skill puede aislar un procedimiento — cero tokens hasta que se invoca. Pero un procedimiento son instrucciones. ¿Qué pasa cuando lo que queremos aislar no son las instrucciones sino el trabajo de exploración que el agente acumula mientras ejecuta? Eso es §10."</em></p>
     <p><em>"Imaginá esta situación. Le pedís a Claude Code que encuentre dónde se maneja la autenticación en un repo mediano. No es un repo pequeño: tiene carpetas, archivos de configuración, imports cruzados. Para responder bien tiene que abrir cosas, leer, rastrear. Cuarenta archivos, sin esfuerzo."</em></p>
     <p><em>"Ya vimos qué pasa con eso. §4: la ventana es finita, cada token que entra ocupa un lugar que no se recupera. §5: cuando el agente lee tanto que su propio contexto lo confunde — logs, archivos de auth, trazas repetidas — llamamos a eso envenenar el contexto."</em></p>
     <p><em>"La pregunta que quiero que tengan en la cabeza antes de seguir:"</em></p>

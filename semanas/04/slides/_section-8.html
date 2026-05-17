@@ -543,34 +543,15 @@
 }
 </style>
 
-<!-- §8.1 · Opener — lens-tracker aterriza en CONTEXTO -->
+<!-- §8.2 · .claude/rules/ — instrucciones modulares (tracker merged from former §8.1 opener) -->
 <section>
-  <h2>¿Loop o contexto? Contexto.</h2>
-
-  <div class="s8-opener-wrap">
-    <div class="lens-tracker on-context">
-      <div class="pole pole-loop">LOOP</div>
-      <div class="lens-sep">↔</div>
-      <div class="pole pole-context">CONTEXTO</div>
-    </div>
-    <p class="s8-opener-sublabel">condicional · autocurado</p>
-    <p class="s8-opener-question">
-      ¿Y si una instrucción pudiera estar en el contexto
-      <em>solo cuando hace falta</em>,
-      y no ocupar espacio el resto del tiempo?
-    </p>
+  <div class="lens-tracker on-context" style="margin-bottom:14px;">
+    <div class="pole pole-loop">LOOP</div>
+    <div class="lens-sep">↔</div>
+    <div class="pole pole-context">CONTEXTO</div>
   </div>
+  <p style="text-align:center;font-size:0.62em;color:var(--text-muted);font-family:var(--font-mono);letter-spacing:0.06em;text-transform:uppercase;margin:0 0 14px;">condicional · autocurado</p>
 
-  <aside class="notes">
-    <p><strong>Señalar el tracker — CONTEXTO iluminado, igual que en §7. Leer el sublabel. Pausa. Leer la pregunta en voz alta, despacio.</strong></p>
-    <p><u>Slide de apertura de §8. El tracker ya es conocido — no hay que explicarlo, solo señalarlo. El sublabel "condicional · autocurado" anuncia los dos rótulos de la tricotomía que §8 cierra. La pregunta de cierre de §7 se retoma acá como hook directo.</u></p>
-    <p><em>"La pregunta-lente aterriza otra vez en contexto. Y el sublabel ya dice de qué va esta sección: condicional y autocurado. Los dos rótulos de la tricotomía que §4 plantó y que todavía no cerramos."</em></p>
-    <p><em>"Y volvemos con la pregunta con la que terminó §7: ¿y si una instrucción pudiera estar en el contexto solo cuando hace falta, y no ocupar espacio el resto del tiempo? §7 dijo que era posible. §8 lo muestra."</em></p>
-  </aside>
-</section>
-
-<!-- §8.2 · .claude/rules/ — instrucciones modulares -->
-<section>
   <h2>.claude/rules/ — instrucciones en archivos separados</h2>
 
   <div class="s8-dir-card">
@@ -598,8 +579,9 @@
   </div>
 
   <aside class="notes">
-    <p><strong>Señalar el árbol de directorios. Nombrar los subdirectorios en voz alta. Mencionar el alcance de usuario.</strong></p>
-    <p><u>Slide de estructura de .claude/rules/. El árbol muestra la organización modular concretamente. Los dos props cubren los dos aspectos operativos clave: descubrimiento recursivo y reglas a nivel de usuario. No hay listas de items — el árbol visual hace ese trabajo.</u></p>
+    <p><strong>Señalar el tracker — CONTEXTO iluminado, igual que en §7. Leer el sublabel. Pausa. Después señalar el árbol de directorios, nombrar los subdirectorios en voz alta y mencionar el alcance de usuario.</strong></p>
+    <p><u>Slide de estructura de .claude/rules/ con el tracker en la cabecera. El tracker ya es conocido — no hay que explicarlo, solo señalarlo. El sublabel "condicional · autocurado" anuncia los dos rótulos de la tricotomía que §8 cierra. El árbol muestra la organización modular concretamente. Los dos props cubren los dos aspectos operativos clave: descubrimiento recursivo y reglas a nivel de usuario.</u></p>
+    <p><em>"La pregunta-lente aterriza otra vez en contexto. Y el sublabel ya dice de qué va esta sección: condicional y autocurado. Los dos rótulos de la tricotomía que §4 plantó y que todavía no cerramos. Volvemos con la pregunta con la que terminó §7: ¿y si una instrucción pudiera estar en el contexto solo cuando hace falta, y no ocupar espacio el resto del tiempo? §7 dijo que era posible. §8 lo muestra."</em></p>
     <p><em>"Además de CLAUDE.md, Claude Code tiene un mecanismo de instrucciones en archivos separados. Cualquier archivo .md dentro de .claude/rules/ se trata como una regla independiente."</em></p>
     <p><em>"El descubrimiento es recursivo: podés organizar subdirectorios — rules/backend/, rules/testing/, rules/deploy/ — y Claude los encuentra igual. No necesitás registrar nada, solo poner el archivo ahí."</em></p>
     <p><em>"Y también existe ~/.claude/rules/ a nivel de usuario: reglas que aplican a todos tus proyectos, cargadas antes que las del proyecto actual. Mismo mecanismo, alcance más amplio."</em></p>

@@ -281,35 +281,15 @@
 }
 </style>
 
-<!-- §9.1 · Opener — lens-tracker aterriza en CONTEXTO, hilo de §8 -->
+<!-- §9.2 · Qué es una skill (tracker merged from former §9.1 opener) -->
 <section>
-  <h2>¿Loop o contexto? Contexto — un paso más lejos.</h2>
-
-  <div class="s9-opener-wrap">
-    <div class="lens-tracker on-context">
-      <div class="pole pole-loop">LOOP</div>
-      <div class="lens-sep">↔</div>
-      <div class="pole pole-context">CONTEXTO</div>
-    </div>
-    <p class="s9-opener-sublabel">condicional por invocación</p>
-    <p class="s9-opener-question">
-      ¿Puede el contexto condicional ir más lejos?
-      Una path-scoped rule entra por archivo.
-      Un procedimiento completo
-      <em>no matchea ningún path.</em>
-    </p>
+  <div class="lens-tracker on-context" style="margin-bottom:14px;">
+    <div class="pole pole-loop">LOOP</div>
+    <div class="lens-sep">↔</div>
+    <div class="pole pole-context">CONTEXTO</div>
   </div>
+  <p style="text-align:center;font-size:0.62em;color:var(--text-muted);font-family:var(--font-mono);letter-spacing:0.06em;text-transform:uppercase;margin:0 0 14px;">condicional por invocación</p>
 
-  <aside class="notes">
-    <p><strong>Señalar el tracker — CONTEXTO iluminado igual que en §8. Leer el sublabel. Leer la pregunta despacio, con pausa antes de la línea final.</strong></p>
-    <p><u>Opener de §9. El tracker es el dispositivo recurrente — no necesita explicación, solo señalarlo. La pregunta retoma exactamente donde §8 terminó: la condicionalidad por archivo ya está cubierta; ahora la pregunta es si el mecanismo puede abarcar algo que no es un archivo.</u></p>
-    <p><em>"El tracker otra vez en CONTEXTO. Tres secciones seguidas aterrizando acá. Y el sublabel dice algo nuevo: condicional por invocación."</em></p>
-    <p><em>"§8 cerró con una pregunta: ¿puede el contexto condicional ir más lejos? Una path-scoped rule entra cuando tocás ciertos archivos. Funciona perfecto para instrucciones de área. Pero hay algo que no matchea ningún path: un procedimiento completo — cómo se genera un slide, cómo se toma una transcripción de YouTube y se convierte en material de clase, cómo se audita un PR. Para eso existen las skills."</em></p>
-  </aside>
-</section>
-
-<!-- §9.2 · Qué es una skill -->
-<section>
   <h2>Una skill: un procedimiento completo, no una instrucción suelta</h2>
 
   <div class="s9-focus-card">
@@ -326,8 +306,9 @@
   </div>
 
   <aside class="notes">
-    <p><strong>Leer el primer párrafo enfatizando "fases, verificaciones, anti-patterns". Leer el segundo párrafo distinguiendo el trigger. Leer la línea clave al final con pausa antes de "Lo que no usás, no pagás."</strong></p>
-    <p><u>Slide de definición. Un solo concepto: qué es una skill. El contraste con path-scoped rules es el hilo que conecta con §8. La línea de cierre es la afirmación de diseño central — no un detalle técnico, sino la filosofía que justifica el mecanismo.</u></p>
+    <p><strong>Señalar el tracker — CONTEXTO iluminado igual que en §8. Leer el sublabel ("condicional por invocación"). Después leer el primer párrafo enfatizando "fases, verificaciones, anti-patterns". Leer el segundo párrafo distinguiendo el trigger. Leer la línea clave al final con pausa antes de "Lo que no usás, no pagás."</strong></p>
+    <p><u>Slide de definición con el tracker en la cabecera (tercer aterrizaje seguido en CONTEXTO; el sublabel "condicional por invocación" es el rótulo nuevo). Un solo concepto: qué es una skill. El contraste con path-scoped rules es el hilo que conecta con §8. La línea de cierre es la afirmación de diseño central — no un detalle técnico, sino la filosofía que justifica el mecanismo.</u></p>
+    <p><em>"El tracker otra vez en CONTEXTO. Tres secciones seguidas aterrizando acá. Y el sublabel dice algo nuevo: condicional por invocación. §8 cerró con una pregunta: ¿puede el contexto condicional ir más lejos? Una path-scoped rule entra cuando tocás ciertos archivos. Funciona perfecto para instrucciones de área. Pero hay algo que no matchea ningún path: un procedimiento completo — cómo se genera un slide, cómo se toma una transcripción de YouTube y se convierte en material de clase, cómo se audita un PR. Para eso existen las skills."</em></p>
     <p><em>"¿Qué es una skill? No es un prompt largo. No es un bloque de instrucciones pegado en CLAUDE.md. Es un procedimiento completo: fases, pasos de verificación, anti-patterns explícitos. Una capacidad completa sobre cómo hacer algo."</em></p>
     <p><em>"La diferencia con las path-scoped rules no es técnica. Es conceptual. Una path-scoped rule trae instrucciones cuando tocás ciertos archivos. Una skill trae un procedimiento cuando la invocás, o cuando Claude determina que la tarea lo requiere."</em></p>
     <p><em>"Y el punto que más importa en términos de contexto: una skill no existe para la sesión hasta que se necesita. No carga al arranque. No ocupa un solo token. Lo que no usás, no pagás."</em></p>
