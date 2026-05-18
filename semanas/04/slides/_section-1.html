@@ -115,9 +115,130 @@
   font-style: italic;
   margin-top: 18px;
 }
+
+/* S1 recap — LLM evolution (predict token → loop → self-terminating) */
+.s1-recap-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  max-width: 760px;
+  margin: 18px auto 0;
+}
+.s1-recap-stage {
+  background: var(--bg-secondary);
+  border: 1px solid #2a3a5a;
+  border-radius: 8px;
+  padding: 12px 18px 14px;
+}
+.s1-recap-label {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: 0.6em;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-bottom: 8px;
+}
+.s1-recap-flow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+.s1-recap-box {
+  background: var(--bg-code);
+  border: 1px solid var(--text-muted);
+  border-radius: 6px;
+  padding: 7px 14px;
+  font-size: 0.72em;
+  color: var(--text-primary);
+  font-family: var(--font-mono);
+  min-width: 90px;
+  text-align: center;
+}
+.s1-recap-box.llm {
+  border-color: var(--accent);
+  color: var(--accent);
+  font-weight: 700;
+}
+.s1-recap-box.end-tok {
+  border-color: var(--accent-secondary);
+  color: var(--accent-secondary);
+}
+.s1-recap-arrow {
+  color: var(--text-muted);
+  font-size: 1.1em;
+}
+.s1-recap-loopback {
+  margin-top: 6px;
+  text-align: center;
+  font-size: 0.65em;
+  color: var(--accent);
+  font-style: italic;
+}
+.s1-recap-loopback .key {
+  color: var(--text-primary);
+  font-style: normal;
+  font-family: var(--font-mono);
+}
 </style>
 
-<!-- §1.1 · Hook — la rueda copy-paste -->
+<!-- §1.1 · Callback S1 — el LLM ya era un loop -->
+<section>
+  <h2>De un token al siguiente: el loop ya estaba ahí</h2>
+
+  <div class="s1-recap-stack">
+    <!-- Stage 1: single-shot prediction -->
+    <div class="s1-recap-stage">
+      <span class="s1-recap-label">1 · predecir el próximo token</span>
+      <div class="s1-recap-flow">
+        <div class="s1-recap-box">texto de entrada</div>
+        <div class="s1-recap-arrow">→</div>
+        <div class="s1-recap-box llm">LLM</div>
+        <div class="s1-recap-arrow">→</div>
+        <div class="s1-recap-box">próximo token</div>
+      </div>
+    </div>
+
+    <!-- Stage 2: loop with external cutoff -->
+    <div class="s1-recap-stage fragment fade-in">
+      <span class="s1-recap-label">2 · generar tokens hasta el tope</span>
+      <div class="s1-recap-flow">
+        <div class="s1-recap-box">entrada + tokens ya generados</div>
+        <div class="s1-recap-arrow">→</div>
+        <div class="s1-recap-box llm">LLM</div>
+        <div class="s1-recap-arrow">→</div>
+        <div class="s1-recap-box">próximo token</div>
+      </div>
+      <p class="s1-recap-loopback">↺ la salida se agrega a la entrada · corta al llegar al tope <span class="key">max_tokens</span></p>
+    </div>
+
+    <!-- Stage 3: model emits end-of-generation token -->
+    <div class="s1-recap-stage fragment fade-in">
+      <span class="s1-recap-label">3 · el modelo decide cuándo termina</span>
+      <div class="s1-recap-flow">
+        <div class="s1-recap-box">entrada + tokens ya generados</div>
+        <div class="s1-recap-arrow">→</div>
+        <div class="s1-recap-box llm">LLM</div>
+        <div class="s1-recap-arrow">→</div>
+        <div class="s1-recap-box end-tok">&lt;END&gt;</div>
+      </div>
+      <p class="s1-recap-loopback">↺ mismo loop · el modelo emite un token especial que detiene la generación</p>
+    </div>
+  </div>
+
+  <aside class="notes">
+    <p><strong>Tres reveals progresivos. Cada uno suma una pieza al loop. El tercero deja al alumno con la idea de que el LLM ya tenía un loop interno — el de hoy es un loop afuera del LLM.</strong></p>
+    <p><u>Callback a S1. Refresca tres pasos: predicción single-shot, loop con cutoff externo (max_tokens), loop con cutoff emitido por el propio modelo. Visualmente, las tres son cajas y flechas — el mismo idioma que usa el resto del deck. Prepara la analogía: el loop ya estaba adentro del modelo; hoy vamos a ver el loop afuera.</u></p>
+    <p><em>"Antes de empezar §1, un refresco de la semana 1. La unidad básica del modelo es esta: le pasás un texto, te devuelve el próximo token. Una sola predicción, single-shot."</em></p>
+    <p><em>"Lo que vimos después es que esa predicción se mete en un loop. Cada token generado se concatena a la entrada y el modelo predice el siguiente. El loop corta cuando se alcanza un tope explícito — max_tokens, configurado desde afuera. Esa es la primera versión de cómo un modelo de chat te entrega una respuesta completa."</em></p>
+    <p><em>"La versión madura es esta: el modelo, durante su entrenamiento, aprende a emitir un token especial — un end-of-text — que el sistema interpreta como 'terminé'. El loop corta cuando el propio modelo decide que terminó, no cuando se acaba el presupuesto. El loop es el mismo; lo que cambió es quién dice basta."</em></p>
+    <p><em>"Tengan esto en la cabeza para lo que sigue: ya conocen un loop, el de adentro del LLM. En esta clase abrimos el zoom y vemos el loop afuera — un loop que envuelve al LLM y le da capacidades nuevas."</em></p>
+  </aside>
+</section>
+
+<!-- §1.2 · Hook — la rueda copy-paste -->
 <section>
   <h2>El loop manual</h2>
 
