@@ -7571,16 +7571,48 @@
     if (e.fragment.dataset && e.fragment.dataset.rotFill) {
       var bar = document.getElementById('s4-rot-bar-fill');
       if (!bar) return;
-      // Recalculate from the highest still-visible data-rot-fill element. Default to 25% (initial).
+      // Recalculate from the highest still-visible data-rot-fill element,
+      // excluding the one that's currently hiding (its .visible class may
+      // not be removed yet when this event fires).
       var visibles = document.querySelectorAll('.fragment.visible[data-rot-fill]');
       var maxPct = 25;
       visibles.forEach(function(el) {
+        if (el === e.fragment) return;
         var p = parseInt(el.dataset.rotFill, 10);
         if (!isNaN(p) && p > maxPct) maxPct = p;
       });
       bar.style.height = maxPct + '%';
     }
   });
+
+  // Reset both bars to the correct height whenever the slide changes, based on
+  // which fragments are currently visible. Without this, navigating away from a
+  // slide at high fill and coming back leaves stale inline style on the bar,
+  // so the first press makes it shrink instead of grow.
+  function s4SyncBars() {
+    var bar1 = document.getElementById('s4-bar-fill');
+    if (bar1) {
+      var annos = document.querySelectorAll('.s4-token-anno.visible[data-fill]');
+      var max1 = 2;
+      annos.forEach(function(el) {
+        var p = parseInt(el.dataset.fill, 10);
+        if (!isNaN(p) && p > max1) max1 = p;
+      });
+      bar1.style.height = max1 + '%';
+    }
+    var bar2 = document.getElementById('s4-rot-bar-fill');
+    if (bar2) {
+      var visibles = document.querySelectorAll('.fragment.visible[data-rot-fill]');
+      var max2 = 25;
+      visibles.forEach(function(el) {
+        var p = parseInt(el.dataset.rotFill, 10);
+        if (!isNaN(p) && p > max2) max2 = p;
+      });
+      bar2.style.height = max2 + '%';
+    }
+  }
+  Reveal.on('slidechanged', s4SyncBars);
+  Reveal.on('ready', s4SyncBars);
 </script>
 
   <!-- init §5 -->
