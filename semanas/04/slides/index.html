@@ -1027,53 +1027,151 @@
   right: 0;
   margin: 0 auto;
 }
+
+/* §2.1 bridge — tool use single-turn (continuity with §1.1 visual idiom) */
+.s2-bridge-section h2 {
+  font-size: 1.35em;
+  margin-bottom: 8px;
+}
+.s2-bridge-pipe {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  margin: 14px auto 0;
+  max-width: 820px;
+}
+.s2-bridge-io {
+  font-family: var(--font-mono);
+  font-size: 0.62em;
+  color: var(--text-muted);
+  text-align: center;
+}
+.s2-bridge-arrow {
+  color: var(--text-muted);
+  font-size: 0.95em;
+  line-height: 1;
+}
+.s2-bridge-runtime {
+  border: 1px dashed var(--accent-secondary);
+  border-radius: 8px;
+  padding: 14px 22px 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 10px;
+  background: rgba(130, 170, 255, 0.04);
+  width: 100%;
+  max-width: 720px;
+}
+.s2-bridge-runtime-label {
+  font-family: var(--font-mono);
+  font-size: 0.52em;
+  color: var(--accent-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  text-align: center;
+}
+.s2-bridge-runtime-rule {
+  font-size: 0.62em;
+  color: var(--accent-secondary);
+  text-align: center;
+  margin: 0;
+  line-height: 1.5;
+}
+.s2-bridge-runtime-rule.recap {
+  color: var(--text-muted);
+  font-style: italic;
+}
+.s2-bridge-runtime-rule.new {
+  color: var(--accent);
+  font-weight: 700;
+  border-top: 1px solid rgba(100, 255, 218, 0.22);
+  padding-top: 10px;
+  font-style: normal;
+}
+.s2-bridge-runtime-rule code {
+  font-family: var(--font-mono);
+  color: var(--accent);
+  font-size: 0.95em;
+}
+.s2-bridge-runtime-rule.recap code,
+.s2-bridge-runtime-rule.new code {
+  color: var(--accent);
+}
+.s2-bridge-box {
+  background: var(--bg-code);
+  border: 1px solid var(--accent);
+  border-radius: 5px;
+  padding: 6px 16px;
+  font-size: 0.72em;
+  color: var(--accent);
+  font-family: var(--font-mono);
+  text-align: center;
+  font-weight: 700;
+  align-self: center;
+  min-width: 90px;
+}
+.s2-bridge-caption {
+  margin: 14px auto 0;
+  font-size: 0.66em;
+  color: var(--text-muted);
+  text-align: center;
+  font-style: italic;
+  max-width: 720px;
+  line-height: 1.55;
+}
 </style>
 <section>
-<!-- §2.1 · Hook — "Arreglá el bug." -->
-<section>
-  <h2>"Arreglá el bug."</h2>
+<!-- §2.1 · Bridge desde §1 — tool use single-turn (no agentic) -->
+<section class="s2-bridge-section">
+  <h2>Una capacidad nueva: tools</h2>
 
-  <div class="bg-secondary-card" style="max-width:580px;margin:20px auto 0;padding:28px 32px;text-align:center;">
-    <p style="font-size:1.05em;color:var(--text-primary);margin:0 0 8px;line-height:1.5;">
-      Una sola línea. Sin stack trace. Sin contexto.<br>
-      <span style="color:var(--text-muted);font-size:0.85em;">¿Por qué eso no alcanza para que el agente termine?</span>
-    </p>
+  <div class="s2-bridge-pipe">
+    <div class="s2-bridge-io">"¿qué pasó hoy en las noticias?"</div>
+    <div class="s2-bridge-arrow">↓</div>
 
-    <p class="fragment fade-in" style="margin:22px 0 0;font-size:0.82em;color:var(--text-muted);line-height:1.6;border-top:1px solid #2a3a5a;padding-top:18px;">
-      Porque el modelo todavía no vio el error.<br>
-      No sabe qué stack trace aparece cuando corrés los tests.<br>
-      Le pediste que arregle algo que no puede ver.
-    </p>
+    <div class="s2-bridge-runtime">
+      <span class="s2-bridge-runtime-label">programa externo</span>
+      <p class="s2-bridge-runtime-rule recap">arma el contexto · concatena · corta al <code>&lt;END&gt;</code> · filtra <code>&lt;thinking&gt;</code> (como antes)</p>
+      <div class="s2-bridge-box">LLM + SFT + RL</div>
+      <p class="s2-bridge-runtime-rule new">NUEVO: si el LLM emite <code>&lt;search&gt;...&lt;/search&gt;</code> (u otra tool):<br>
+        pausa la generación → ejecuta la tool → inyecta el resultado al contexto → el LLM continúa</p>
+    </div>
 
-    <p class="fragment fade-in" style="margin:16px 0 0;font-size:0.9em;color:var(--accent);font-style:italic;">
-      Una respuesta en ese momento sería una apuesta.
-    </p>
+    <div class="s2-bridge-arrow">↓</div>
+    <div class="s2-bridge-io">respuesta informada por la búsqueda</div>
   </div>
 
+  <p class="s2-bridge-caption">
+    Tool use single-turn: una sola respuesta del LLM consulta herramientas externas durante la generación.<br>
+    Sin iteración. Sin agente todavía — el LLM usa la tool, sigue generando, termina.
+  </p>
+
   <aside class="notes">
-    <p><strong>Abrir con la pregunta en pantalla. Pausa. Esperar que alguno intente responder mentalmente. Primer click revela el por qué. Segundo click cierra.</strong></p>
-    <p><u>Slide de apertura de sección. La pregunta es genuina — no retórica. La respuesta la da el alumno mentalmente antes de verla.</u></p>
-    <p><em>"'Arreglá el bug.' Una sola línea. Le diste eso al agente. ¿Por qué no alcanza?"</em></p>
-    <p><em>"Porque el modelo todavía no vio el error. No sabe qué stack trace aparece cuando corrés los tests, no sabe si el problema está en la función que escribió o en el test que la invoca. Le pediste que arregle algo que no puede ver todavía. La respuesta que te daría en ese momento sería una apuesta — y las apuestas son caras cuando el que actúa sobre tu repo es el agente, no vos."</em></p>
-    <p><em>"Entonces ¿qué hace? No da una respuesta. Entra en un loop."</em></p>
+    <p><strong>Bridge entre §1 y el resto de §2. Subrayar la línea verde con NUEVO — esa es la capacidad nueva del programa externo. Hacer explícito al final: una sola vuelta, no un loop.</strong></p>
+    <p><u>Slide que extiende la evolución del programa externo del §1.1. Tool use single-turn: la tool se ejecuta DENTRO de una sola respuesta del LLM, en el mismo flujo de generación. No es agentic todavía — el LLM no decide después qué hacer con el resultado, simplemente continúa generando la respuesta final.</u></p>
+    <p><em>"Antes de meternos en el agente, una capacidad intermedia del programa externo que probablemente ya usaron sin saberlo. ¿Alguna vez le preguntaron a ChatGPT algo sobre el día de hoy y les respondió citando un sitio web? Esa respuesta el LLM no la sabía por sí solo. Lo que pasó es que el programa externo, en algún momento, aprendió a hacer una cosa nueva: detectar cuando el LLM emite un token especial de tool call — por ejemplo <code>&lt;search&gt;noticias de hoy&lt;/search&gt;</code> — pausar la generación, ejecutar la herramienta, inyectar el resultado al contexto, y dejar que el LLM siga generando ahora informado por esa nueva información."</em></p>
+    <p><em>"Es la misma mecánica que ya conocen: el programa lee tokens que el LLM emite y reacciona. Antes eran <code>&lt;END&gt;</code> o <code>&lt;thinking&gt;</code>. Ahora también <code>&lt;search&gt;</code>, o cualquier otra tool — código, calculadora, lectura de archivo, lo que sea que el programa tenga implementado. Pero acá hay algo importante: esto sigue siendo una sola respuesta del LLM, una sola vuelta de generación. El LLM usa la tool, vuelve a generar, termina con <code>&lt;END&gt;</code>. No hay un loop donde el LLM piense, actúe, observe el resultado, decida qué hacer a continuación. Es un solo round informado. Y muchas tareas reales necesitan más que eso."</em></p>
   </aside>
 </section>
 
-<!-- §2.2 · No da una respuesta: entra en un loop -->
+<!-- §2.2 · ReAct: cuando una tool no alcanza -->
 <section data-loop-mode="intro">
-  <h2>No da una respuesta: entra en un loop</h2>
+  <h2>ReAct: cuando una tool no alcanza</h2>
 
   <div class="s2-loop-wrap" style="min-height:240px;"></div>
 
   <p style="text-align:center;margin-top:18px;font-size:0.78em;color:var(--text-muted);font-style:italic;">
+    Pensar → actuar → observar — el programa permite múltiples vueltas.<br>
     Todo lo que sigue actúa sobre este ciclo.
   </p>
 
   <aside class="notes">
-    <p><strong>Dejar que la animación cargue antes de hablar. Señalar el ciclo y las salidas con el puntero.</strong></p>
-    <p><u>Primera aparición de la animación bespoke del loop. Modo intro: ciclo completo, sin fase resaltada. Las 4 condiciones de corte aparecen como salidas del ciclo.</u></p>
-    <p><em>"La diferencia entre un chat que sugiere y un agente que resuelve no está en qué modelo corre adentro. Está en esto: el agente no da una respuesta única. Entra en un loop."</em></p>
-    <p><em>"Tres fases que se repiten — pensar, actuar, observar — con un arco de vuelta. Y cuatro salidas posibles, que son las condiciones de corte: cuándo el loop decide que terminó. Este ciclo es la firma de la semana. Todo lo que veamos después va a actuar sobre alguna parte de este diagrama."</em></p>
+    <p><strong>Dejar que la animación cargue antes de hablar. Conectar explícitamente con el slide anterior: una vuelta vs múltiples vueltas. Señalar las cuatro salidas — son las condiciones de corte que vemos en detalle más adelante.</strong></p>
+    <p><u>Introducción de ReAct como la siguiente arquitectura del programa externo: en lugar de UN round con tool, el LLM puede iterar — pensar, actuar (tool), observar el resultado, pensar de nuevo, actuar otra vez, hasta resolver la tarea. Primera aparición de la animación bespoke del loop.</u></p>
+    <p><em>"Imaginate que te dicen 'arreglá el bug en mi backend'. Una sola tool — un grep, una búsqueda — no alcanza. Necesitás correr los tests, ver el output, decidir dónde mirar según el error, leer un archivo, proponer un cambio, correr los tests de nuevo. Cinco, diez tools encadenadas, y entre cada una el modelo tiene que pensar qué hacer a continuación según lo que observó. Una sola respuesta del LLM, por más informada que esté, no resuelve eso."</em></p>
+    <p><em>"Esa arquitectura tiene nombre: ReAct, de Reasoning + Acting entrelazados. El programa externo da un paso más: en lugar de una sola respuesta con tools dentro, entra en un loop. Tres fases que se repiten — pensar, actuar, observar — con cuatro salidas posibles que son las condiciones de corte: cuándo el loop decide que terminó. Este ciclo es la firma de la semana. Todo lo que veamos después va a actuar sobre alguna parte de este diagrama."</em></p>
   </aside>
 </section>
 
