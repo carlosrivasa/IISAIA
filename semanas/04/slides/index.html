@@ -1125,7 +1125,7 @@
 <section>
 <!-- §2.1 · Bridge desde §1 — tool use single-turn (no agentic) -->
 <section class="s2-bridge-section">
-  <h2>Una capacidad nueva: tools</h2>
+  <h2>Tools: una vuelta, sin loop</h2>
 
   <div class="s2-bridge-pipe">
     <div class="s2-bridge-io">"¿qué pasó hoy en las noticias?"</div>
@@ -1133,10 +1133,9 @@
 
     <div class="s2-bridge-runtime">
       <span class="s2-bridge-runtime-label">programa externo</span>
-      <p class="s2-bridge-runtime-rule recap">arma el contexto · concatena · corta al <code>&lt;END&gt;</code> · filtra <code>&lt;thinking&gt;</code> (como antes)</p>
       <div class="s2-bridge-box">LLM + SFT + RL</div>
-      <p class="s2-bridge-runtime-rule new">NUEVO: si el LLM emite <code>&lt;search&gt;...&lt;/search&gt;</code> (u otra tool):<br>
-        pausa la generación → ejecuta la tool → inyecta el resultado al contexto → el LLM continúa</p>
+      <p class="s2-bridge-runtime-rule">cuando el LLM emite <code>&lt;search&gt;...&lt;/search&gt;</code> (o cualquier tool):<br>
+        pausa · ejecuta · inyecta el resultado · el LLM continúa generando</p>
     </div>
 
     <div class="s2-bridge-arrow">↓</div>
@@ -1144,15 +1143,14 @@
   </div>
 
   <p class="s2-bridge-caption">
-    Tool use single-turn: una sola respuesta del LLM consulta herramientas externas durante la generación.<br>
-    Sin iteración. Sin agente todavía — el LLM usa la tool, sigue generando, termina.
+    Las tools que vieron en S1, ubicadas en el programa externo.<br>
+    Una sola vuelta del LLM. Sin iteración, sin agente todavía.
   </p>
 
   <aside class="notes">
-    <p><strong>Bridge entre §1 y el resto de §2. Subrayar la línea verde con NUEVO — esa es la capacidad nueva del programa externo. Hacer explícito al final: una sola vuelta, no un loop.</strong></p>
-    <p><u>Slide que extiende la evolución del programa externo del §1.1. Tool use single-turn: la tool se ejecuta DENTRO de una sola respuesta del LLM, en el mismo flujo de generación. No es agentic todavía — el LLM no decide después qué hacer con el resultado, simplemente continúa generando la respuesta final.</u></p>
-    <p><em>"Antes de meternos en el agente, una capacidad intermedia del programa externo que probablemente ya usaron sin saberlo. ¿Alguna vez le preguntaron a ChatGPT algo sobre el día de hoy y les respondió citando un sitio web? Esa respuesta el LLM no la sabía por sí solo. Lo que pasó es que el programa externo, en algún momento, aprendió a hacer una cosa nueva: detectar cuando el LLM emite un token especial de tool call — por ejemplo <code>&lt;search&gt;noticias de hoy&lt;/search&gt;</code> — pausar la generación, ejecutar la herramienta, inyectar el resultado al contexto, y dejar que el LLM siga generando ahora informado por esa nueva información."</em></p>
-    <p><em>"Es la misma mecánica que ya conocen: el programa lee tokens que el LLM emite y reacciona. Antes eran <code>&lt;END&gt;</code> o <code>&lt;thinking&gt;</code>. Ahora también <code>&lt;search&gt;</code>, o cualquier otra tool — código, calculadora, lectura de archivo, lo que sea que el programa tenga implementado. Pero acá hay algo importante: esto sigue siendo una sola respuesta del LLM, una sola vuelta de generación. El LLM usa la tool, vuelve a generar, termina con <code>&lt;END&gt;</code>. No hay un loop donde el LLM piense, actúe, observe el resultado, decida qué hacer a continuación. Es un solo round informado. Y muchas tareas reales necesitan más que eso."</em></p>
+    <p><strong>Slide corto. La mecánica de tool call la conocen de S1 — no repetirla. El punto acá es ubicar las tools en el programa externo del §1 y marcar la diferencia con lo que viene: una vuelta vs múltiples vueltas.</strong></p>
+    <p><u>Bridge entre §1 y ReAct. Ya saben qué es una tool y cómo funciona (S1). Lo que se agrega es ubicarlas como otra responsabilidad del programa externo y dejar claro que esto sigue siendo una sola respuesta del LLM — el contraste con ReAct es lo que importa.</u></p>
+    <p><em>"Las tools ya las conocen de la semana 1. La idea es la misma: el LLM emite un token de tool call — <code>&lt;search&gt;</code>, una llamada a calculadora, una lectura de archivo —, el programa lo detecta, ejecuta la tool, inyecta el resultado, el LLM sigue generando informado. Es otra responsabilidad del programa externo que venimos armando. Lo que importa subrayar es esto: esta es una sola vuelta del LLM. Una sola respuesta. El LLM usa la tool, termina con <code>&lt;END&gt;</code>, fin. No hay loop. Y muchas tareas reales no se resuelven en una sola vuelta."</em></p>
   </aside>
 </section>
 
