@@ -1,0 +1,277 @@
+openapi: 3.1.0
+info:
+  title: Text to Ambience API
+  version: 1.0.0
+  description: >-
+    API para la generación y curación de ambientes musicales para locales
+    comerciales basados en descripciones de texto e inteligencia artificial.
+
+servers:
+  - url: https://api.texttoambience.com/v1
+    description: Production server
+
+paths:
+  /ambiences:
+    get:
+      summary: Listar ambientes generados
+      operationId: listAmbiences
+      tags:
+        - Ambiences
+      responses:
+        '200':
+          description: Lista de ambientes generados
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Ambience'
+
+    post:
+      summary: Crear un nuevo ambiente desde un prompt
+      operationId: createAmbience
+      tags:
+        - Ambiences
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateAmbienceRequest'
+      responses:
+
+        '201':
+          description: Ambiente creado exitosamente
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Ambience'
+        '400':
+          description: Solicitud inválida
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+        '429':
+          description: Demasiadas solicitudes. Se excedió el límite permitido.
+          headers:
+            Retry-After:
+              description: Segundos que el cliente debe esperar antes de reintentar.
+              schema:
+                type: integer
+
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                rateLimitExceeded:
+                  summary: Límite excedido
+                  value:
+                    error: Rate limit exceeded. Please try again later.
+
+  /ambiences/{id}/filters:
+    get:
+      summary: Listar los filtros técnicos de un ambiente
+      operationId: listAmbienceFilters
+      tags:
+        - Filters
+      parameters:
+        - $ref: '#/components/parameters/AmbienceId'
+      responses:
+        '200':
+          description: Lista de filtros asociados al ambiente
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Filter'
+        '404':
+          description: Ambiente no encontrado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+    post:
+      summary: Agregar o modificar un filtro técnico del ambiente
+      operationId: upsertAmbienceFilter
+      tags:
+        - Filters
+      parameters:
+        - $ref: '#/components/parameters/AmbienceId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateFilterRequest'
+      responses:
+        '201':
+          description: Filtro creado exitosamente
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Filter'
+        '400':
+          description: Datos inválidos o faltantes
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
+          description: Ambiente no encontrado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+  /ambiences/{id}/filters/{filterId}:
+    delete:
+      summary: Remover un filtro del ambiente
+      operationId: deleteAmbienceFilter
+      tags:
+        - Filters
+      parameters:
+        - $ref: '#/components/parameters/AmbienceId'
+        - $ref: '#/components/parameters/FilterId'
+      responses:
+        '204':
+          description: Filtro eliminado correctamente
+        '404':
+          description: Ambiente o filtro no encontrado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+components:
+  parameters:
+    AmbienceId:
+      name: id
+      in: path
+      required: true
+      description: Identificador único del ambiente
+      schema:
+        type: string
+        format: uuid
+
+    FilterId:
+      name: filterId
+      in: path
+      required: true
+      description: Identificador único del filtro
+      schema:
+        type: string
+        format: uuid
+
+  schemas:
+    Ambience:
+      type: object
+      additionalProperties: false
+      required:
+        - id
+        - prompt_text
+        - name
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: Identificador único del ambiente
+        prompt_text:
+          type: string
+          description: Texto descriptivo utilizado para generar el ambiente
+          minLength: 1
+        name:
+          type: string
+          description: Nombre amigable del ambiente
+          minLength: 1
+
+    Filter:
+      type: object
+      additionalProperties: false
+      required:
+        - id
+        - parameter_name
+        - value_type
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: Identificador único del filtro
+        parameter_name:
+          type: string
+          description: Nombre del parámetro técnico
+          examples:
+            - energy
+            - acousticness
+            - genre
+        value_type:
+          type: string
+          description: Tipo de valor utilizado en el filtro
+          enum:
+            - range
+            - keyword
+        min_value:
+          type: number
+          description: Valor mínimo permitido para filtros de rango
+        max_value:
+          type: number
+          description: Valor máximo permitido para filtros de rango
+        keyword_value:
+          type: string
+          description: Valor textual utilizado en filtros de tipo keyword
+
+    CreateAmbienceRequest:
+      type: object
+      additionalProperties: false
+      required:
+        - prompt_text
+        - name
+      properties:
+        prompt_text:
+          type: string
+          minLength: 1
+          description: Texto descriptivo para generar el ambiente
+        name:
+          type: string
+          minLength: 1
+          description: Nombre del ambiente
+
+    CreateFilterRequest:
+      type: object
+      additionalProperties: false
+      required:
+        - parameter_name
+        - value_type
+      properties:
+        parameter_name:
+          type: string
+          description: Nombre del parámetro técnico
+        value_type:
+          type: string
+          enum:
+            - range
+            - keyword
+          description: Tipo de dato del filtro
+        min_value:
+          type: number
+          description: Valor mínimo para filtros de rango
+        max_value:
+          type: number
+          description: Valor máximo para filtros de rango
+        keyword_value:
+          type: string
+          description: Valor textual para filtros keyword
+
+    ErrorResponse:
+      type: object
+      additionalProperties: false
+      required:
+        - error
+      properties:
+        error:
+          type: string
+          description: Mensaje descriptivo del error
