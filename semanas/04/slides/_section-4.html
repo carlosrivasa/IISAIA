@@ -293,14 +293,14 @@
 
   <p class="s4-opener-thesis fragment fade-in">
     Quien dirige bien un agente no es el que escribe el mejor prompt:<br>es el que mantiene la ventana enfocada en lo que importa.
-    <span class="s4-opener-thesis-sub">Un prompt brillante no te salva si la ventana se llena de basura.</span>
+    <span class="s4-opener-thesis-sub">Lo que entra al contexto define dos cosas: la calidad de la respuesta y el costo de la sesión.</span>
   </p>
 
   <aside class="notes">
-    <p><strong>Definir la disciplina primero. Pausa. Click revela la tesis — leerla despacio, con peso.</strong></p>
-    <p><u>Apertura de §4. Acabamos de definir las tres ingenierías en §3.3 — empezamos por el primer nivel nuevo, context engineering. La tesis vivía antes como slide propia; ahora es el cierre conceptual del opener.</u></p>
+    <p><strong>Definir la disciplina primero. Pausa. Click revela la tesis — leerla despacio, con peso. Subrayar las dos consecuencias: calidad y costo.</strong></p>
+    <p><u>Apertura de §4. Acabamos de definir las tres ingenierías en §3.3 — empezamos por el primer nivel nuevo, context engineering. La tesis vivía antes como slide propia; ahora es el cierre conceptual del opener, ampliada para incluir el ángulo de costo.</u></p>
     <p><em>"Empezamos por context engineering — el primer nivel después del prompt. Su alcance es una sesión completa, y su trabajo es controlar qué ve el modelo durante toda la tarea: qué se carga al principio, qué se mantiene cuando el loop itera vuelta a vuelta, qué se descarta cuando el espacio se llena."</em></p>
-    <p><em>"La tesis va a salir varias veces a lo largo de la clase pero conviene plantarla de entrada: quien dirige bien un agente no es el que escribe el mejor prompt — es el que mantiene la ventana enfocada en lo que importa. Un prompt brillante no te salva si a la vuelta cuarenta la ventana está llena de observaciones irrelevantes que tapan tus instrucciones. La habilidad central no es escribir instrucciones perfectas: es administrar el espacio donde el agente trabaja."</em></p>
+    <p><em>"La tesis va a salir varias veces a lo largo de la clase pero conviene plantarla de entrada: quien dirige bien un agente no es el que escribe el mejor prompt — es el que mantiene la ventana enfocada en lo que importa. Y eso importa por dos razones que vamos a desarrollar. Una es de calidad: un prompt brillante no te salva si a la vuelta cuarenta la ventana está llena de observaciones irrelevantes que tapan tus instrucciones. La otra es de costo: cada token en la ventana se factura en cada llamada al modelo. Si el agente itera cincuenta vueltas con una ventana saturada, estás pagando esa saturación cincuenta veces. Context engineering ataca las dos."</em></p>
   </aside>
 </section>
 
@@ -362,13 +362,19 @@
     </div>
   </div>
 
+  <p class="fragment fade-in" style="text-align:center;margin:18px auto 0;max-width:780px;font-size:0.74em;color:var(--accent);font-style:italic;line-height:1.55;">
+    Cada token cuenta dos veces: <strong style="color:var(--accent);">ocupa lugar</strong> en la ventana y se <strong style="color:var(--accent);">factura en cada vuelta del loop</strong>.<br>
+    <span style="color:var(--text-muted);font-style:normal;font-size:0.92em;">50 vueltas con la ventana al 95% = ~10M tokens facturados solo en input.</span>
+  </p>
+
   <aside class="notes">
-    <p><strong>El bar fill arranca casi vacío. Cada press abajo revela una anotación numérica Y crece el bar al porcentaje correspondiente (20% / 60% / 95%) — animación de ~600ms. Tres reveals.</strong></p>
-    <p><u>Visualiza concretamente la presión que el loop ejerce sobre la ventana. Los números son del orden real (no fórmulas exactas).</u></p>
+    <p><strong>El bar fill arranca casi vacío. Tres presses revelan anotaciones + crecen el bar (20% / 60% / 95%). El cuarto press revela la línea de costo — el segundo precio que paga cada token.</strong></p>
+    <p><u>Visualiza la presión que el loop ejerce sobre la ventana, y la doble lectura: ocupación + costo. Los números son del orden real (no fórmulas exactas).</u></p>
     <p><em>"La ventana arranca casi vacía. Cada vuelta del loop agrega tokens. Un pensamiento del modelo: tokens. Una llamada a herramienta: tokens. La respuesta de esa herramienta: tokens. Todo se apila."</em></p>
     <p><em>"Pongámosle números: un archivo de código de tamaño mediano — 300 líneas con comentarios — ocupa entre 1.500 y 2.500 tokens. Parece chico."</em></p>
     <p><em>"Pero leé veinte archivos de ese tamaño — y en una sesión real leés veinte archivos sin darte cuenta — y ya gastaste entre 30.000 y 50.000 tokens solo en observaciones. Sin contar los pensamientos del modelo. Sin contar los logs de herramientas."</em></p>
     <p><em>"Los modelos actuales tienen ventanas que rondan los 200.000 tokens. En una sesión larga, la ventana se consume más rápido de lo que intuís."</em></p>
+    <p><em>"Y un detalle del que conviene tener conciencia desde temprano: cada token cuenta dos veces. Ocupa lugar — eso ya lo vimos — pero también se factura. Y se factura no una vez sino en cada llamada al modelo, porque cada vuelta del loop le manda al LLM el contexto completo. Si tu agente da cincuenta vueltas con la ventana al 95%, son 50 × 190.000 = unos 9 millones y medio de tokens facturados solo en input. Por eso context engineering no es solo una cuestión de calidad — también es de costo."</em></p>
   </aside>
 </section>
 
