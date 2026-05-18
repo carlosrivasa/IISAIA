@@ -37,6 +37,21 @@
   color: var(--text-muted);
   font-size: 0.9em;
 }
+.s1-loop-step.subsystem {
+  border: 1px dashed var(--accent-secondary);
+  background: rgba(130,170,255,0.06);
+}
+.s1-loop-step.subsystem strong {
+  color: var(--accent-secondary);
+}
+.s1-loop-step.subsystem .s1-loop-callback {
+  display: block;
+  color: var(--accent-secondary);
+  font-size: 0.78em;
+  font-style: italic;
+  margin: 2px 0 4px;
+  font-family: var(--font-sans);
+}
 .s1-loop-h-arrow {
   color: var(--text-muted);
   font-size: 1.3em;
@@ -467,8 +482,9 @@
         <span>seleccionar, ⌘C</span>
       </div>
       <div class="s1-loop-h-arrow">→</div>
-      <div class="s1-loop-step">
+      <div class="s1-loop-step subsystem">
         <strong>Chat</strong>
+        <span class="s1-loop-callback">todo lo del slide anterior</span>
         <span>pegar, preguntar</span>
       </div>
     </div>
