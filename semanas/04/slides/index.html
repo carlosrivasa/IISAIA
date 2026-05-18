@@ -613,7 +613,7 @@
           <div class="s1-recap-runtime">
             <span class="s1-recap-runtime-label">programa externo</span>
             <div class="s1-recap-box llm">LLM</div>
-            <p class="s1-recap-runtime-rule">↺ reenvía la salida · corta al <code>max_tokens</code></p>
+            <p class="s1-recap-runtime-rule">↺ concatena la salida a la entrada · corta al <code>max_tokens</code></p>
           </div>
           <div class="s1-recap-arrow">↓</div>
           <div class="s1-recap-io">texto de entrada + max_tokens</div>
@@ -631,7 +631,7 @@
             <span class="s1-recap-runtime-label">programa externo</span>
             <p class="s1-recap-runtime-rule">envuelve el mensaje: <code>&lt;|user|&gt;</code> antes, <code>&lt;|assistant|&gt;</code> para pedir respuesta</p>
             <div class="s1-recap-box llm">LLM + SFT</div>
-            <p class="s1-recap-runtime-rule">↺ reenvía la salida · corta si emite <code>&lt;END&gt;</code></p>
+            <p class="s1-recap-runtime-rule">↺ concatena la salida a la entrada · corta si emite <code>&lt;END&gt;</code></p>
           </div>
           <div class="s1-recap-arrow">↓</div>
           <div class="s1-recap-io">respuesta completa</div>
