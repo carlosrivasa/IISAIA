@@ -68,8 +68,16 @@
 
 /* Loop mapping card for §3 */
 .s3-loop-wrap {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  /* Reserve vertical space for the animation in tool mode (no exit chips, smaller). */
+  height: 160px;
   margin: 14px auto 0;
-  max-width: 720px;
+}
+#s3-tool-loop {
+  transform: scale(1.1);
+  transform-origin: center top;
 }
 .s3-mapping {
   display: grid;
@@ -271,10 +279,12 @@
 </section>
 
 <!-- §3.4 · El ciclo de una tool ES el loop -->
-<section data-loop-mode="tool">
+<section>
   <h2>El ciclo de una tool es el loop</h2>
 
-  <div class="s3-loop-wrap" style="min-height:240px;"></div>
+  <div class="s3-loop-wrap">
+    <div id="s3-tool-loop"></div>
+  </div>
 
   <div class="s3-mapping">
     <div class="s3-map-card">
@@ -472,6 +482,10 @@
 
 <!-- INIT-SCRIPTS-§3-START -->
 <script>
+  if (document.getElementById('s3-tool-loop')) {
+    initFourLoop({ containerId: 's3-tool-loop', mode: 'tool' });
+  }
+
   initClickableSteps({
     containerId: 's3-demo-steps',
     steps: [

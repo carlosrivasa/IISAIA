@@ -35,6 +35,12 @@
   margin: 20px auto 0;
   align-items: start;
 }
+.s6-cc-loop-host {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  min-height: 180px;
+}
 .s6-map-list {
   display: flex;
   flex-direction: column;
@@ -249,11 +255,13 @@
 </section>
 
 <!-- §6.3 · La pantalla mapeada al loop — animación cc -->
-<section data-loop-mode="cc">
+<section>
   <h2>La pantalla es el loop expuesto</h2>
 
   <div class="s6-loop-wrap">
-    <div style="min-height:240px;"></div>
+    <div class="s6-cc-loop-host">
+      <div id="s6-cc-loop"></div>
+    </div>
     <div class="s6-map-list">
       <div class="s6-map-row">
         <span class="s6-map-phase">Pensar</span>
@@ -407,5 +415,9 @@
 </section>
 
 <!-- INIT-SCRIPTS-§6-START -->
-<!-- §6.3 loop animation now mounted via part1-loop overlay (data-loop-mode on the section) -->
+<script>
+  if (document.getElementById('s6-cc-loop')) {
+    initFourLoop({ containerId: 's6-cc-loop', mode: 'cc' });
+  }
+</script>
 <!-- INIT-SCRIPTS-§6-END -->

@@ -411,6 +411,18 @@
   transform: scale(1.4);
   transform-origin: center top;
 }
+/* §2.10 — Condiciones de corte: local mount so it doesn't collide with the cards below. */
+.s2-corte-loop-host {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  height: 180px;
+  margin: 8px 0 0;
+}
+#s2-corte-loop {
+  transform: scale(1.1);
+  transform-origin: center top;
+}
 </style>
 
 <!-- §2.1 · Bridge desde §1 — tool use single-turn (no agentic) -->
@@ -627,13 +639,15 @@
   </aside>
 </section>
 
-<!-- §2.10 · Condiciones de corte -->
-<section data-loop-mode="intro">
+<!-- §2.10 · Condiciones de corte (cierre de sección) -->
+<section>
   <h2>Condiciones de corte</h2>
 
-  <div class="s2-loop-wrap" style="margin-bottom:0;min-height:240px;"></div>
+  <div class="s2-corte-loop-host">
+    <div id="s2-corte-loop"></div>
+  </div>
 
-  <div class="s2-corte-grid" style="margin-top:14px;">
+  <div class="s2-corte-grid">
     <div class="s2-corte-card ideal">
       <h3>Objetivo alcanzado</h3>
       <p>El estado del entorno coincide con lo pedido. Los tests pasan, el endpoint responde 200. Condición ideal.</p>
@@ -652,66 +666,14 @@
     </div>
   </div>
 
-  <p class="s2-corte-close fragment fade-in">Sin condición de corte, el loop da vueltas. Qué pasa cuando se descontrola, lo vemos en §5.</p>
+  <p class="s2-corte-close fragment fade-in">Sin condición de corte, el loop da vueltas.</p>
 
   <aside class="notes">
-    <p><strong>Señalar la animación primero — el loop en modo neutro. Después recorrer las cuatro tarjetas. Click para el adelanto de §5.</strong></p>
-    <p><u>Animación en modo intro (sin fase resaltada) + cuatro cards con código de color. El adelanto de §5 se planta con intención pero sin desarrollar.</u></p>
-    <p><em>"Para que el loop funcione, tiene que saber cuándo parar. Sin condición de corte, el loop no termina — o peor, termina de maneras que no querías."</em></p>
-    <p><em>"En la práctica aparecen cuatro: objetivo alcanzado — la ideal, el estado del entorno coincide con lo pedido. Límite de pasos — hay un techo configurado y se alcanzó sin resolver. El agente pide ayuda — encontró algo que no puede resolver solo y llama a un humano. Y falla no recuperable — detecta un estado del que no sabe salir y para."</em></p>
-    <p><em>"La condición de corte no es un detalle de implementación. Es lo que separa un agente que trabaja de un agente que da vueltas. Qué pasa exactamente cuando el loop se descontrola lo vemos en §5."</em></p>
-  </aside>
-</section>
-
-<!-- §2.11 · section-divider — Demo · El loop desnudo -->
-<section class="section-divider">
-  <h2>Demo · El loop desnudo</h2>
-
-  <aside class="notes">
-    <p><u>Slide de transición. Sin contenido adicional — el título anuncia el demo y da un segundo de preparación al docente.</u></p>
-    <p><em>"Vimos el loop en un diagrama, lo vimos en un trace de texto. Ahora lo vemos correr en vivo, vuelta por vuelta."</em></p>
-  </aside>
-</section>
-
-<!-- §2.12 · Demo beats — clickable-steps -->
-<section>
-  <h2>El loop desnudo — 3 beats</h2>
-
-  <div id="s2-demo-steps" style="margin-top:18px;"></div>
-
-  <aside class="notes">
-    <p><strong>Demo en vivo. Click recorre los 3 beats. Tarea: "Agregá un endpoint GET /health que devuelva {status: ok} y probá que responde."</strong></p>
-    <p><u>Beat 1 = pensar antes de actuar · Beat 2 = narrar las 3 fases · Beat 3 = la corrección es otra vuelta. "Qué mirar" de cada beat está en el panel de click. Plan B: si resuelve en un turno sin error, pedir el endpoint sin especificar el shape del JSON para forzar una iteración; si no hay entorno, narrar sobre grabación previa.</u></p>
-    <p><em>"No le pedí que escriba código. Le pedí un resultado. Miren cómo se las arregla."</em></p>
-    <p><em>"Esto es pensar… esto es actuar, está editando el router… esto es observar, está leyendo la respuesta del servidor. Fíjense: no terminó cuando escribió el código. Siguió."</em></p>
-    <p><em>"Ahí. Falló, lo vio, y volvió a entrar al loop. Eso es exactamente lo que vos hacías a mano — pero lo cerró él."</em></p>
-  </aside>
-</section>
-
-<!-- §2.13 · Cierre del demo + bridge a §4 -->
-<section>
-  <h2>El loop opera sobre algo finito</h2>
-
-  <div class="bg-secondary-card" style="max-width:600px;margin:20px auto 0;padding:26px 30px;">
-    <p style="font-size:0.85em;line-height:1.65;color:var(--text-primary);margin:0 0 18px;">
-      Cada vuelta del loop produjo información nueva.<br>
-      Esa información fue a algún lado — al contexto del agente.
-    </p>
-    <p style="font-size:0.82em;line-height:1.65;color:var(--text-muted);margin:0;border-top:1px solid #2a3a5a;padding-top:16px;">
-      El contexto tiene un tamaño, un límite, y una estructura propia.<br>
-      Gestionar ese espacio es la otra mitad de entender cómo funciona un agente.
-    </p>
-  </div>
-
-  <p class="fragment fade-in" style="text-align:center;margin-top:22px;font-size:0.9em;color:var(--accent);font-style:italic;">
-    El loop opera sobre algo finito: el contexto. Eso es §4.
-  </p>
-
-  <aside class="notes">
-    <p><strong>Dejar que el card se lea. Click para revelar el bridge a §4.</strong></p>
-    <p><u>Slide de cierre de sección. Ancla lo que acaban de ver (el loop en acto) y planta el hilo hacia §4 (la ventana de contexto).</u></p>
-    <p><em>"Vieron el loop correr. Cada vuelta, el agente observó algo y eso entró a su contexto. La primera vuelta el agente no sabía nada. La tercera ya sabía que los tests pasaban y el objetivo estaba cumplido."</em></p>
-    <p><em>"Esa información fue acumulándose en algún lugar. Ese lugar se llama contexto, tiene un tamaño fijo, y cuando se llena, algo tiene que ceder. El loop es el esqueleto. Pero opera sobre algo concreto y finito. Eso lo vemos en §4."</em></p>
+    <p><strong>Señalar primero las cuatro chips de salida en la animación (esas son las condiciones que vamos a abrir), después recorrer las cuatro tarjetas. Click final para la línea de cierre.</strong></p>
+    <p><u>Slide de cierre de §2. La animación en modo intro reaparece para que la lectura sea: "el loop tiene cuatro salidas posibles; cada card detalla una". El cierre planta sin desarrollar: lo que pasa cuando ninguna se cumple es §5.</u></p>
+    <p><em>"Cerramos el loop con la pregunta que lo hace operativo: ¿cuándo termina? El diagrama lo sugiere desde el principio — hay cuatro chips de salida. Cada uno es una condición distinta."</em></p>
+    <p><em>"Objetivo alcanzado: la ideal. El estado del entorno coincide con lo pedido — los tests pasan, el endpoint responde 200, el archivo tiene la línea nueva. El agente reporta y termina. Límite de pasos: hay un techo configurado y se alcanzó sin resolver. El agente cuenta qué hizo y hasta dónde llegó. Pide ayuda: encontró algo que no puede resolver solo — falta un secreto, no tiene permiso, hay ambigüedad — y suspende el loop hasta que alguien intervenga. Falla no recuperable: detecta un estado del que no sabe cómo salir y para."</em></p>
+    <p><em>"La condición de corte no es un detalle de implementación. Es lo que separa un agente que trabaja de un agente que da vueltas. Con esto cerramos el loop: tres fases, cuatro salidas, un programa externo que lo orquesta. Lo que pasa cuando ninguna de esas salidas se cumple — el loop infinito, la deriva, la alucinación que actúa — es uno de los temas que vienen más adelante. Por ahora, el esqueleto está armado."</em></p>
   </aside>
 </section>
 
@@ -725,6 +687,11 @@
   // §2.2 — ReAct intro (local mount so the animation can fade in with a fragment)
   if (document.getElementById('s2-react-loop')) {
     initFourLoop({ containerId: 's2-react-loop', mode: 'intro' });
+  }
+
+  // §2.10 — Condiciones de corte (local mount so the cards below don't get covered by the overlay)
+  if (document.getElementById('s2-corte-loop')) {
+    initFourLoop({ containerId: 's2-corte-loop', mode: 'intro' });
   }
 
   Reveal.on('fragmentshown', function(e) {
@@ -751,25 +718,5 @@
     updateFourLoop({ containerId: 's2-loop-phases', mode: 'intro', phase: phase });
   });
 
-  initClickableSteps({
-    containerId: 's2-demo-steps',
-    steps: [
-      {
-        title: 'Beat 1 — Tarea verificable',
-        summary: 'Dar al agente un objetivo concreto y verificable. Observar la primera fase de razonamiento antes de cualquier acción.',
-        example: 'Qué mirar: el agente empieza a razonar antes de editar nada — reconocé eso como "pensar". La primera acción visible es actuar.'
-      },
-      {
-        title: 'Beat 2 — Narrar las fases',
-        summary: 'Nombrar en voz alta cada fase mientras aparece en pantalla: pensar → actuar → observar. Señalar con el puntero la correspondencia con el diagrama.',
-        example: 'Qué mirar: el agente no terminó cuando escribió el código. Siguió — corrió el servidor, hizo el request, leyó el resultado. Eso es el loop completo.'
-      },
-      {
-        title: 'Beat 3 — La corrección es otra vuelta',
-        summary: 'Identificar el momento en que algo falló y el agente lo detectó, volvió a pensar, y tomó una acción correctiva — todo dentro del mismo loop.',
-        example: 'Qué mirar: la corrección no fue una respuesta nueva. El agente actualizó su hipótesis con lo que observó y siguió. No empezó de cero.'
-      }
-    ]
-  });
 </script>
 <!-- INIT-SCRIPTS-§2-END -->
