@@ -116,12 +116,12 @@
   margin-top: 18px;
 }
 
-/* S1 recap — LLM evolution (predict token → loop → self-terminating) */
+/* S1 recap — LLM evolution (predict token → loop → SFT → RL) */
 .s1-recap-cols {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 14px;
-  max-width: 1180px;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+  max-width: 1240px;
   margin: 14px auto 0;
 }
 .s1-recap-stage {
@@ -200,13 +200,10 @@
 }
 .s1-recap-runtime-rule {
   font-size: 0.6em;
-  color: var(--text-primary);
+  color: var(--accent-secondary);
   text-align: center;
   margin: 0;
   line-height: 1.4;
-}
-.s1-recap-runtime-rule.prep {
-  color: var(--text-muted);
 }
 .s1-recap-runtime-rule code {
   font-family: var(--font-mono);
@@ -332,8 +329,8 @@
   <h2>El LLM y el programa que lo controla</h2>
 
   <div class="s1-recap-body">
-    <!-- 3-column phase: visible at start, fades out when stage 4 appears -->
-    <div class="s1-recap-cols fragment fade-out" data-fragment-index="3">
+    <!-- 4-column phase: visible at start, fades out when stage 5 (detail) appears -->
+    <div class="s1-recap-cols fragment fade-out" data-fragment-index="4">
       <!-- Stage 1: single-shot, no runtime -->
       <div class="s1-recap-stage">
         <span class="s1-recap-label">1 · predecir un token</span>
@@ -372,7 +369,7 @@
           <div class="s1-recap-arrow">↓</div>
           <div class="s1-recap-runtime">
             <span class="s1-recap-runtime-label">programa externo</span>
-            <p class="s1-recap-runtime-rule prep">envuelve el mensaje con tokens de rol: <code>&lt;|user|&gt;</code> antes del mensaje, <code>&lt;|assistant|&gt;</code> para pedir la respuesta</p>
+            <p class="s1-recap-runtime-rule">envuelve el mensaje con tokens de rol: <code>&lt;|user|&gt;</code> antes del mensaje, <code>&lt;|assistant|&gt;</code> para pedir la respuesta</p>
             <div class="s1-recap-box llm">LLM + SFT</div>
             <p class="s1-recap-runtime-rule">↺ reenvía la salida a la entrada<br>corta si el LLM emite <code>&lt;END&gt;</code></p>
           </div>
@@ -381,11 +378,29 @@
         </div>
         <p class="s1-recap-caption">Vía SFT el LLM aprendió un vocabulario especial: reconoce los marcadores de rol que el programa inserta, y emite la señal de fin.</p>
       </div>
+
+      <!-- Stage 4: RL teaches the model to reason with thinking tokens; program filters them -->
+      <div class="s1-recap-stage fragment fade-in" data-fragment-index="3">
+        <span class="s1-recap-label">4 · razonamiento interno (RL)</span>
+        <div class="s1-recap-pipe">
+          <div class="s1-recap-io">texto de entrada</div>
+          <div class="s1-recap-arrow">↓</div>
+          <div class="s1-recap-runtime">
+            <span class="s1-recap-runtime-label">programa externo</span>
+            <p class="s1-recap-runtime-rule">envuelve el mensaje con tokens de rol (igual que antes)</p>
+            <div class="s1-recap-box llm">LLM + SFT + RL</div>
+            <p class="s1-recap-runtime-rule">↺ corta si emite <code>&lt;END&gt;</code><br>filtra los tokens <code>&lt;thinking&gt;...&lt;/thinking&gt;</code> del output</p>
+          </div>
+          <div class="s1-recap-arrow">↓</div>
+          <div class="s1-recap-io">respuesta final (sin pensamiento)</div>
+        </div>
+        <p class="s1-recap-caption">RL entrena al modelo a razonar internamente antes de responder. El programa separa los tokens de pensamiento del mensaje final.</p>
+      </div>
     </div>
 
-    <!-- Stage 4: appears alone with full width when the 3-col view fades out -->
-    <div class="s1-recap-stage4 fragment fade-in" data-fragment-index="3">
-      <span class="s1-recap-stage4-label">4 · conversación: el programa arma el contexto turno tras turno</span>
+    <!-- Stage 5: appears alone with full width when the 4-col view fades out -->
+    <div class="s1-recap-stage4 fragment fade-in" data-fragment-index="4">
+      <span class="s1-recap-stage4-label">5 · conversación: el programa arma el contexto turno tras turno</span>
 
       <div class="s1-recap-stage4-context">
         <div class="s1-recap-stage4-block sys">
@@ -421,12 +436,13 @@
   </div>
 
   <aside class="notes">
-    <p><strong>Cuatro estados, tres reveals. Los tres primeros viven juntos en columnas; el cuarto los reemplaza para dar lugar a la vista detallada de cómo el programa arma la conversación. Énfasis siempre en el recuadro punteado: el programa externo.</strong></p>
-    <p><u>Callback a S1 expandido. Stages 1-3 muestran la evolución mecánica del loop (single-shot → max_tokens → &lt;END&gt;). Stage 4 abre la siguiente capa: cómo el mismo programa externo no solo controla el loop sino que también ensambla el contexto turno tras turno. Stage 4 aparece solo, sin compartir espacio con los otros, para que la estructura system prompt / historial / mensaje nuevo se vea bien.</u></p>
+    <p><strong>Cinco estados, cuatro reveals. Los cuatro primeros viven juntos en columnas; el quinto los reemplaza para dar lugar a la vista detallada de cómo el programa arma la conversación. Énfasis siempre en el recuadro punteado: el programa externo.</strong></p>
+    <p><u>Callback a S1 expandido. Stages 1-4 muestran la evolución mecánica del LLM y su programa externo (single-shot → max_tokens → SFT → RL). Stage 5 abre la capa de conversación: cómo el mismo programa externo ensambla el contexto turno tras turno. Stage 5 aparece solo, sin compartir espacio con los otros, para que la estructura system prompt / historial / mensaje nuevo se vea bien.</u></p>
     <p><em>"Antes de empezar §1, un refresco de la semana 1. La unidad básica del modelo es esta: le pasás un texto, te devuelve el próximo token. Una sola predicción. No hace falta nada más alrededor."</em></p>
     <p><em>"Lo que vimos después es que esa predicción se mete en un loop. Y acá empieza algo importante: el loop no lo corre el LLM. Lo corre un programa afuera — la rutina del provider, del SDK, del runtime — que toma la salida del LLM, la concatena a la entrada, le vuelve a pedir el próximo token, y corta cuando se alcanza un tope explícito como max_tokens. Esa caja punteada es lo nuevo que tienen que ver."</em></p>
-    <p><em>"La versión madura del loop introduce dos usos de tokens especiales que el LLM aprendió en una etapa puntual de su entrenamiento: el supervised fine-tuning, o SFT. Por eso ahora la caja dice 'LLM + SFT'. El primer token especial, en la salida: durante SFT el modelo aprende a emitir un token especial — end-of-text — que el programa afuera interpreta como 'terminé'. La señal viene de adentro del LLM, pero quien la lee y detiene la generación sigue siendo el programa. El segundo, en la entrada: el usuario manda texto plano, sin nada raro. Es el programa el que envuelve ese texto con tokens de rol — pone `&lt;|user|&gt;` antes del mensaje y `&lt;|assistant|&gt;` al final, como diciéndole 'acá te toca a vos'. El LLM aprendió en SFT a leer esos marcadores y saber qué parte del texto es entrada y qué parte tiene que generar. Las dos cosas — fin y rol — son parte del mismo vocabulario aprendido vía fine-tuning."</em></p>
-    <p><em>"Ahora dejá que los tres se vayan y mirá esto solo. El programa afuera hace una segunda cosa que es lo que arma la dinámica de conversación que conocen. Tres bloques: el system prompt — un texto que el programa inyecta una sola vez al principio de la sesión y que el LLM va a tener delante en cada turno. El historial — todo lo que el usuario y el modelo se dijeron antes, que el programa guarda. Y el mensaje nuevo. El programa concatena los tres bloques en un solo texto y eso es lo que el LLM recibe. El LLM genera la respuesta — siempre con su loop y su &lt;END&gt; — y el programa toma esa respuesta y la suma al historial. Próximo turno, el historial es un poco más largo. El LLM por sí solo no recuerda nada entre turnos; el que recuerda es el programa. La semana 4 entera trata sobre cómo evoluciona este programa: empezó contando tokens, aprendió a mantener una conversación, va a terminar siendo un agente."</em></p>
+    <p><em>"La versión madura del loop introduce dos usos de tokens especiales que el LLM aprendió en una etapa puntual de su entrenamiento: el supervised fine-tuning, o SFT. Por eso ahora la caja dice 'LLM + SFT'. El primer token especial, en la salida: durante SFT el modelo aprende a emitir un token especial — end-of-text — que el programa afuera interpreta como 'terminé'. La señal viene de adentro del LLM, pero quien la lee y detiene la generación sigue siendo el programa. El segundo, en la entrada: el usuario manda texto plano, sin nada raro. Es el programa el que envuelve ese texto con tokens de rol — pone `&lt;|user|&gt;` antes del mensaje y `&lt;|assistant|&gt;` al final, como diciéndole 'acá te toca a vos'. El LLM aprendió en SFT a leer esos marcadores y saber qué parte del texto es entrada y qué parte tiene que generar."</em></p>
+    <p><em>"El siguiente paso del entrenamiento agrega una capa más: reinforcement learning, RL. Por eso la caja dice 'LLM + SFT + RL'. Lo que aprende el modelo con RL — entre otras cosas — es a razonar antes de responder. Genera una cadena de pensamiento envuelta en tokens especiales como `&lt;thinking&gt;...&lt;/thinking&gt;` que es trabajo interno del modelo, y después la respuesta final para el usuario. El programa externo lidia con esto: lee el output completo, filtra los tokens de razonamiento, y solo le muestra al usuario la respuesta final. El usuario ve un mensaje limpio; el pensamiento queda detrás de bambalinas. Otra responsabilidad nueva del programa, y otra cosa que el LLM aprendió en una etapa específica de entrenamiento."</em></p>
+    <p><em>"Ahora dejá que los cuatro se vayan y mirá esto solo. El programa afuera hace una cosa más que es lo que arma la dinámica de conversación que conocen. Tres bloques: el system prompt — un texto que el programa inyecta una sola vez al principio de la sesión y que el LLM va a tener delante en cada turno. El historial — todo lo que el usuario y el modelo se dijeron antes, que el programa guarda. Y el mensaje nuevo. El programa concatena los tres bloques en un solo texto y eso es lo que el LLM recibe. El LLM genera la respuesta — siempre con su loop, su `&lt;END&gt;` y su razonamiento interno — y el programa toma esa respuesta y la suma al historial. Próximo turno, el historial es un poco más largo. El LLM por sí solo no recuerda nada entre turnos; el que recuerda es el programa. La semana 4 entera trata sobre cómo evoluciona este programa: empezó contando tokens, aprendió a mantener una conversación, va a terminar siendo un agente."</em></p>
   </aside>
 </section>
 
