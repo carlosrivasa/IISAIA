@@ -1288,16 +1288,16 @@
   </aside>
 </section>
 
-<!-- §2.6 · El trace concreto — pytest -->
+<!-- §2.6 · El trace concreto — un 404 en producción -->
 <section>
-  <h2>El loop en acto — pytest</h2>
+  <h2>El loop en acto — un 404 en producción</h2>
 
   <div class="s2-trace">
     <div class="s2-trace-row">
       <div class="s2-trace-phase pensar">pensar</div>
       <div class="s2-trace-connector"></div>
       <div class="s2-trace-body">
-        <p>Veo el código, la consola vacía. No sé si los tests corren ni de qué fallan. Necesito correr el suite primero.</p>
+        <p>El endpoint <code>/tasks</code> devuelve 404 en producción. No sé qué lo causa — necesito ver los logs del servidor.</p>
       </div>
     </div>
     <div class="s2-trace-gap"></div>
@@ -1305,7 +1305,7 @@
       <div class="s2-trace-phase actuar">actuar</div>
       <div class="s2-trace-connector"></div>
       <div class="s2-trace-body">
-        <p>Ejecuta <code>pytest</code>.</p>
+        <p>Abre los logs con <code>tail -n 100 access.log</code>.</p>
       </div>
     </div>
     <div class="s2-trace-gap"></div>
@@ -1313,7 +1313,7 @@
       <div class="s2-trace-phase observar">observar</div>
       <div class="s2-trace-connector"></div>
       <div class="s2-trace-body">
-        <p>Dos tests fallan. <code>AssertionError: expected 200, got 404</code>. El path del endpoint tiene un slash de más.</p>
+        <p>Cada <code>GET /tasks/</code> devuelve 404. Revisa la config del router y encuentra la ruta registrada como <code>/tasks//</code> — slash duplicado.</p>
       </div>
     </div>
     <div class="s2-trace-gap"></div>
@@ -1337,20 +1337,20 @@
       <div class="s2-trace-phase observar">observar</div>
       <div class="s2-trace-connector"></div>
       <div class="s2-trace-body">
-        <p>Corre los tests de nuevo. Pasan los dos. El tercero también. Suite verde.</p>
+        <p>Hace un <code>curl</code> al endpoint: devuelve 200. El 404 en producción se resolvió.</p>
       </div>
     </div>
   </div>
 
-  <p class="s2-trace-close">Tres vueltas: identificó, corrigió, confirmó.</p>
+  <p class="s2-trace-close">Dos vueltas: la primera identificó, la segunda corrigió y confirmó.</p>
 
   <aside class="notes">
     <p><strong>Leer el trace despacio, señalando cada fase con el puntero. Hacer pausa en el observar de la vuelta 1 — esa línea cambia todo lo que sigue.</strong></p>
-    <p><u>Trace de 6 pasos sobre el ejemplo pytest del source material. Cada fase tiene su color. Sin animación JS — el puntero del docente navega el trace.</u></p>
-    <p><em>"Veámoslo concreto. La tarea: 'hacé que pasen los tests'. El agente no tiene información de partida — solo el objetivo."</em></p>
-    <p><em>"Primera vuelta: pensar — no sé nada todavía, necesito correr el suite. Actuar — ejecuta pytest. Observar — dos fallos, AssertionError expected 200 got 404, el path tiene un slash de más. Esa observación entró al contexto."</em></p>
-    <p><em>"Segunda vuelta: pensar — ya sé qué es y dónde está. Actuar — edita el router. Observar — suite verde. Condición de corte: objetivo alcanzado."</em></p>
-    <p><em>"Tres vueltas. La primera no resolvió nada: identificó. La segunda corrigió. La tercera confirmó. Un agente que devuelve un texto después del primer prompt no completó ninguna de esas vueltas — te delegó el trabajo a vos."</em></p>
+    <p><u>Trace de 6 pasos sobre un escenario de debugging en producción. Cada fase tiene su color. Sin animación JS — el puntero del docente navega el trace.</u></p>
+    <p><em>"Veámoslo concreto. La tarea: 'hay 404s en el endpoint /tasks en producción, encontrá por qué.' El agente no tiene información de partida — solo el objetivo."</em></p>
+    <p><em>"Primera vuelta: pensar — no sé qué pasa, necesito ver los logs. Actuar — abre los logs del servidor. Observar — cada /tasks/ devuelve 404, y revisando el router encuentra que la ruta está registrada con un slash duplicado: /tasks//. Esa observación entró al contexto."</em></p>
+    <p><em>"Segunda vuelta: pensar — ya sé qué es y dónde está. Actuar — edita el router. Observar — curl al endpoint devuelve 200. Condición de corte: objetivo alcanzado."</em></p>
+    <p><em>"Dos vueltas. La primera no resolvió nada: identificó la causa. La segunda corrigió y confirmó. Un agente que devuelve un texto después del primer prompt no completó ninguna de esas vueltas — te delegó el trabajo a vos."</em></p>
   </aside>
 </section>
 
