@@ -410,12 +410,13 @@
   display: flex;
   justify-content: center;
   align-items: flex-start;
-  /* Reserve vertical space for the scaled animation (≈140px natural × 1.45 ≈ 200px). */
-  height: 220px;
+  /* Reserve vertical space for the scaled animation incl. exit chips.
+     Natural ≈180px (row + arc + chips); at scale 1.4 ≈ 250px. */
+  height: 280px;
   margin: 14px 0 0;
 }
 #s2-react-loop {
-  transform: scale(1.45);
+  transform: scale(1.4);
   transform-origin: center top;
 }
 </style>
