@@ -219,7 +219,7 @@
   <h2>Tres ingenierías para dirigir un agente</h2>
 
   <div class="s3-eng-grid">
-    <div class="s3-eng-card prompt">
+    <div class="s3-eng-card prompt fragment fade-in" data-fragment-index="1">
       <p class="s3-eng-title">Prompt engineering</p>
       <p class="s3-eng-scope">alcance: una interacción</p>
       <p class="s3-eng-body">
@@ -230,7 +230,7 @@
         Es lo que vienen practicando en las semanas anteriores.
       </p>
     </div>
-    <div class="s3-eng-card context">
+    <div class="s3-eng-card context fragment fade-in" data-fragment-index="2">
       <p class="s3-eng-title">Context engineering</p>
       <p class="s3-eng-scope">alcance: una sesión</p>
       <p class="s3-eng-body">
@@ -241,7 +241,7 @@
         Compactar, resetear, exponer información progresivamente.
       </p>
     </div>
-    <div class="s3-eng-card harness">
+    <div class="s3-eng-card harness fragment fade-in" data-fragment-index="3">
       <p class="s3-eng-title">Harness engineering</p>
       <p class="s3-eng-scope">alcance: múltiples sesiones</p>
       <p class="s3-eng-body">
@@ -254,15 +254,15 @@
     </div>
   </div>
 
-  <p class="s3-eng-footer">
+  <p class="s3-eng-footer fragment fade-in" data-fragment-index="4">
     Los tres alcances se anidan: <em>prompt</em> ⊂ <em>context</em> ⊂ <em>harness</em>.
     Lo que sigue de la clase abre los dos niveles que no conocían.
   </p>
 
   <aside class="notes">
-    <p><strong>Recorrer las tres tarjetas izquierda a derecha. Énfasis en el alcance creciente — una interacción, una sesión, múltiples sesiones. Pausa en la última línea sobre el anidamiento.</strong></p>
+    <p><strong>Cinco estados, cuatro reveals. Arranca solo con el título; cada press abajo revela una tarjeta (prompt → context → harness) y el último click trae la línea del anidamiento. Énfasis en el alcance creciente.</strong></p>
     <p><u>Slide marco del resto de §3–§5. Las tres ingenierías son alcances anidados: cualquier prompt vive dentro de una sesión, cualquier sesión vive dentro de un harness. El resto del deck (incluyendo toda la parte 2 con Claude Code) se va a poder ubicar en una de las tres categorías.</u></p>
-    <p><em>"Tres ingenierías que se diferencian por su alcance — el lapso de tiempo y el número de interacciones sobre las que operan."</em></p>
+    <p><em>"Tres ingenierías que se diferencian por su alcance — el lapso de tiempo y el número de interacciones sobre las que operan. Las introduzco una por una."</em></p>
     <p><em>"Prompt engineering: una sola interacción. Diseñar el mejor mensaje, las instrucciones, las restricciones, los ejemplos. Es lo que vienen practicando en las semanas anteriores. No desaparece — sigue siendo la base. Pero es solo el primer nivel."</em></p>
     <p><em>"Context engineering: una sesión completa. La ventana de contexto pasa a ser un recurso a gestionar — qué se carga al principio, qué se mantiene cuando el loop itera, qué se descarta cuando se llena. Es una habilidad nueva que entra en juego apenas el agente trabaja sobre algo no trivial."</em></p>
     <p><em>"Harness engineering: múltiples sesiones. Acá ya no estás pensando en un mensaje ni en una conversación — estás pensando en el entorno completo en que el agente opera. Qué tools tiene a disposición. Qué guardrails lo frenan cuando va a hacer algo riesgoso. Qué scripts deterministas se ejecutan que el modelo no puede saltar. Cómo se cierra el feedback loop cuando algo falla. Es donde vive la responsabilidad de la que hablamos en el slide anterior."</em></p>
