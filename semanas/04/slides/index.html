@@ -461,9 +461,6 @@
   margin: 0;
   line-height: 1.4;
 }
-.s1-recap-runtime-rule.prep {
-  color: var(--text-muted);
-}
 .s1-recap-runtime-rule code {
   font-family: var(--font-mono);
   color: var(--accent);
@@ -479,69 +476,209 @@
   border-top: 1px solid #2a3a5a;
   padding-top: 8px;
 }
+
+/* Stage 4 — appears alone, full width, replaces the 3-col view */
+.s1-recap-body {
+  position: relative;
+  min-height: 540px;
+}
+.s1-recap-stage4 {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 12px;
+  max-width: 1180px;
+  margin: 14px auto 0;
+}
+.s1-recap-stage4-label {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: 0.6em;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  text-align: center;
+}
+.s1-recap-stage4-context {
+  display: grid;
+  grid-template-columns: 1fr 1.6fr 1fr;
+  gap: 10px;
+  align-items: stretch;
+}
+.s1-recap-stage4-block {
+  background: var(--bg-code);
+  border: 1px solid #2a3a5a;
+  border-radius: 7px;
+  padding: 10px 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+.s1-recap-stage4-block.sys {
+  border-color: var(--accent-secondary);
+}
+.s1-recap-stage4-block.new-msg {
+  border-color: var(--accent);
+}
+.s1-recap-stage4-blocklabel {
+  font-family: var(--font-mono);
+  font-size: 0.55em;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+.s1-recap-stage4-block.sys .s1-recap-stage4-blocklabel { color: var(--accent-secondary); }
+.s1-recap-stage4-block.new-msg .s1-recap-stage4-blocklabel { color: var(--accent); }
+.s1-recap-stage4-block p {
+  margin: 0;
+  font-size: 0.62em;
+  color: var(--text-primary);
+  line-height: 1.5;
+}
+.s1-recap-stage4-block p strong {
+  color: var(--text-muted);
+  font-weight: 700;
+  font-family: var(--font-mono);
+  font-size: 0.92em;
+}
+.s1-recap-stage4-plus {
+  align-self: center;
+  font-size: 1.1em;
+  color: var(--text-muted);
+  padding: 0 4px;
+}
+.s1-recap-stage4-arrow {
+  text-align: center;
+  font-size: 1em;
+  color: var(--text-muted);
+}
+.s1-recap-runtime.wide {
+  width: 100%;
+  max-width: 720px;
+  margin: 0 auto;
+}
+.s1-recap-stage4-output {
+  text-align: center;
+  font-size: 0.7em;
+  color: var(--text-primary);
+  font-family: var(--font-mono);
+  border: 1px dashed var(--text-muted);
+  border-radius: 6px;
+  padding: 8px 14px;
+  max-width: 720px;
+  margin: 0 auto;
+}
+.s1-recap-stage4-output .annot {
+  display: block;
+  font-family: var(--font-sans);
+  font-size: 0.78em;
+  color: var(--accent);
+  font-style: italic;
+  margin-top: 4px;
+}
 </style>
 <section>
 <!-- §1.1 · Callback S1 — el programa que envuelve al LLM -->
 <section>
   <h2>El LLM y el programa que lo controla</h2>
 
-  <div class="s1-recap-cols">
-    <!-- Stage 1: single-shot, no runtime -->
-    <div class="s1-recap-stage">
-      <span class="s1-recap-label">1 · predecir un token</span>
-      <div class="s1-recap-pipe">
-        <div class="s1-recap-io">texto de entrada</div>
-        <div class="s1-recap-arrow">↓</div>
+  <div class="s1-recap-body">
+    <!-- 3-column phase: visible at start, fades out when stage 4 appears -->
+    <div class="s1-recap-cols fragment fade-out" data-fragment-index="3">
+      <!-- Stage 1: single-shot, no runtime -->
+      <div class="s1-recap-stage">
+        <span class="s1-recap-label">1 · predecir un token</span>
+        <div class="s1-recap-pipe">
+          <div class="s1-recap-io">texto de entrada</div>
+          <div class="s1-recap-arrow">↓</div>
+          <div class="s1-recap-box llm">LLM</div>
+          <div class="s1-recap-arrow">↓</div>
+          <div class="s1-recap-io">próximo token</div>
+        </div>
+        <p class="s1-recap-caption">Una sola predicción. No hace falta nada afuera.</p>
+      </div>
+
+      <!-- Stage 2: external runtime with max_tokens cutoff -->
+      <div class="s1-recap-stage fragment fade-in" data-fragment-index="1">
+        <span class="s1-recap-label">2 · loop con tope externo</span>
+        <div class="s1-recap-pipe">
+          <div class="s1-recap-io">texto de entrada</div>
+          <div class="s1-recap-arrow">↓</div>
+          <div class="s1-recap-runtime">
+            <span class="s1-recap-runtime-label">programa externo</span>
+            <div class="s1-recap-box llm">LLM</div>
+            <p class="s1-recap-runtime-rule">↺ reenvía la salida a la entrada<br>corta al llegar a <code>max_tokens</code></p>
+          </div>
+          <div class="s1-recap-arrow">↓</div>
+          <div class="s1-recap-io">texto de entrada + max_tokens</div>
+        </div>
+        <p class="s1-recap-caption">El LLM no decide parar — un programa afuera cuenta tokens.</p>
+      </div>
+
+      <!-- Stage 3: model emits <END> token; program detects it -->
+      <div class="s1-recap-stage fragment fade-in" data-fragment-index="2">
+        <span class="s1-recap-label">3 · el modelo señala el fin</span>
+        <div class="s1-recap-pipe">
+          <div class="s1-recap-io">texto de entrada</div>
+          <div class="s1-recap-arrow">↓</div>
+          <div class="s1-recap-runtime">
+            <span class="s1-recap-runtime-label">programa externo</span>
+            <div class="s1-recap-box llm">LLM</div>
+            <p class="s1-recap-runtime-rule">↺ reenvía la salida a la entrada<br>corta si el LLM emite <code>&lt;END&gt;</code></p>
+          </div>
+          <div class="s1-recap-arrow">↓</div>
+          <div class="s1-recap-io">respuesta completa</div>
+        </div>
+        <p class="s1-recap-caption">El programa sigue afuera. El LLM aprende a emitir la señal de fin.</p>
+      </div>
+    </div>
+
+    <!-- Stage 4: appears alone with full width when the 3-col view fades out -->
+    <div class="s1-recap-stage4 fragment fade-in" data-fragment-index="3">
+      <span class="s1-recap-stage4-label">4 · conversación: el programa arma el contexto turno tras turno</span>
+
+      <div class="s1-recap-stage4-context">
+        <div class="s1-recap-stage4-block sys">
+          <span class="s1-recap-stage4-blocklabel">system prompt — inyectado una vez</span>
+          <p>"Sos un asistente útil que responde con precisión y brevedad."</p>
+        </div>
+        <div class="s1-recap-stage4-block">
+          <span class="s1-recap-stage4-blocklabel">historial — crece turno tras turno</span>
+          <p><strong>usuario:</strong> ¿qué es Python?</p>
+          <p><strong>modelo:</strong> Un lenguaje de programación interpretado…</p>
+        </div>
+        <div class="s1-recap-stage4-block new-msg">
+          <span class="s1-recap-stage4-blocklabel">mensaje nuevo</span>
+          <p><strong>usuario:</strong> ¿cómo lo instalo?</p>
+        </div>
+      </div>
+
+      <div class="s1-recap-stage4-arrow">↓ el programa concatena los tres bloques</div>
+
+      <div class="s1-recap-runtime wide">
+        <span class="s1-recap-runtime-label">programa externo</span>
         <div class="s1-recap-box llm">LLM</div>
-        <div class="s1-recap-arrow">↓</div>
-        <div class="s1-recap-io">próximo token</div>
+        <p class="s1-recap-runtime-rule">↺ genera hasta <code>&lt;END&gt;</code> · guarda la pregunta y la respuesta en el historial</p>
       </div>
-      <p class="s1-recap-caption">Una sola predicción. No hace falta nada afuera.</p>
-    </div>
 
-    <!-- Stage 2: external runtime with max_tokens cutoff -->
-    <div class="s1-recap-stage fragment fade-in">
-      <span class="s1-recap-label">2 · loop con tope externo</span>
-      <div class="s1-recap-pipe">
-        <div class="s1-recap-io">texto de entrada</div>
-        <div class="s1-recap-arrow">↓</div>
-        <div class="s1-recap-runtime">
-          <span class="s1-recap-runtime-label">programa externo</span>
-          <div class="s1-recap-box llm">LLM</div>
-          <p class="s1-recap-runtime-rule">↺ reenvía la salida a la entrada<br>corta al llegar a <code>max_tokens</code></p>
-        </div>
-        <div class="s1-recap-arrow">↓</div>
-        <div class="s1-recap-io">texto de entrada + max_tokens</div>
-      </div>
-      <p class="s1-recap-caption">El LLM no decide parar — un programa afuera cuenta tokens.</p>
-    </div>
+      <div class="s1-recap-stage4-arrow">↓</div>
 
-    <!-- Stage 3: runtime also assembles system prompt + history -->
-    <div class="s1-recap-stage fragment fade-in">
-      <span class="s1-recap-label">3 · conversación con historial</span>
-      <div class="s1-recap-pipe">
-        <div class="s1-recap-io">nuevo mensaje del usuario</div>
-        <div class="s1-recap-arrow">↓</div>
-        <div class="s1-recap-runtime">
-          <span class="s1-recap-runtime-label">programa externo</span>
-          <p class="s1-recap-runtime-rule prep">arma: <code>system prompt</code> + historial + mensaje</p>
-          <div class="s1-recap-box llm">LLM</div>
-          <p class="s1-recap-runtime-rule">↺ reenvía la salida · corta si emite <code>&lt;END&gt;</code><br>guarda el intercambio en el historial</p>
-        </div>
-        <div class="s1-recap-arrow">↓</div>
-        <div class="s1-recap-io">respuesta del modelo</div>
+      <div class="s1-recap-stage4-output">
+        "Para instalar Python, descargá el instalador desde python.org…"
+        <span class="annot">se concatena al historial para el próximo turno</span>
       </div>
-      <p class="s1-recap-caption">El programa también arma el contexto: inyecta el system prompt, mantiene el historial entre mensajes.</p>
     </div>
   </div>
 
   <aside class="notes">
-    <p><strong>Tres columnas, dos reveals. Énfasis en el recuadro "programa externo" — esa caja es la idea nueva que prepara §2 (loop · tools · entorno alrededor del LLM).</strong></p>
-    <p><u>Callback a S1. Refresca tres pasos: predicción single-shot, loop con cutoff externo (max_tokens), loop con cutoff emitido por el propio modelo. La novedad respecto a S1 es que dibujamos explícitamente el programa que envuelve al LLM — anticipa la arquitectura del agente.</u></p>
+    <p><strong>Cuatro estados, tres reveals. Los tres primeros viven juntos en columnas; el cuarto los reemplaza para dar lugar a la vista detallada de cómo el programa arma la conversación. Énfasis siempre en el recuadro punteado: el programa externo.</strong></p>
+    <p><u>Callback a S1 expandido. Stages 1-3 muestran la evolución mecánica del loop (single-shot → max_tokens → &lt;END&gt;). Stage 4 abre la siguiente capa: cómo el mismo programa externo no solo controla el loop sino que también ensambla el contexto turno tras turno. Stage 4 aparece solo, sin compartir espacio con los otros, para que la estructura system prompt / historial / mensaje nuevo se vea bien.</u></p>
     <p><em>"Antes de empezar §1, un refresco de la semana 1. La unidad básica del modelo es esta: le pasás un texto, te devuelve el próximo token. Una sola predicción. No hace falta nada más alrededor."</em></p>
     <p><em>"Lo que vimos después es que esa predicción se mete en un loop. Y acá empieza algo importante: el loop no lo corre el LLM. Lo corre un programa afuera — la rutina del provider, del SDK, del runtime — que toma la salida del LLM, la concatena a la entrada, le vuelve a pedir el próximo token, y corta cuando se alcanza un tope explícito como max_tokens. Esa caja punteada es lo nuevo que tienen que ver."</em></p>
-    <p><em>"La versión madura tiene dos cosas nuevas. Una: el LLM, durante su entrenamiento, aprende a emitir un token especial — end-of-text — y el programa afuera lo interpreta como 'terminé'. La señal viene de adentro del LLM; quien la lee y detiene la generación sigue siendo el programa. Dos, y acá está lo que arma la dinámica de conversación que conocen: el programa afuera también construye la entrada. Inyecta el system prompt al principio, mantiene un historial de mensajes y respuestas, y cada vez que el usuario manda algo nuevo, concatena el system prompt + historial + mensaje y eso es lo que el LLM ve. El LLM por sí solo no recuerda nada — el historial lo guarda el programa."</em></p>
-    <p><em>"Tengan ese recuadro en la cabeza para lo que sigue. La semana 4 entera trata sobre cómo evoluciona ese programa afuera del LLM. Empezó contando tokens. Aprendió a mantener una conversación. Va a terminar siendo un agente."</em></p>
+    <p><em>"La versión madura del loop: el LLM, durante su entrenamiento, aprende a emitir un token especial — end-of-text — y el programa afuera lo interpreta como 'terminé'. El loop es el mismo, el programa afuera es el mismo. Lo que cambió es quién dice basta: ahora la señal viene de adentro del LLM, pero quien la lee y detiene la generación sigue siendo el programa afuera."</em></p>
+    <p><em>"Ahora dejá que los tres se vayan y mirá esto solo. El programa afuera hace una segunda cosa que es lo que arma la dinámica de conversación que conocen. Tres bloques: el system prompt — un texto que el programa inyecta una sola vez al principio de la sesión y que el LLM va a tener delante en cada turno. El historial — todo lo que el usuario y el modelo se dijeron antes, que el programa guarda. Y el mensaje nuevo. El programa concatena los tres bloques en un solo texto y eso es lo que el LLM recibe. El LLM genera la respuesta — siempre con su loop y su &lt;END&gt; — y el programa toma esa respuesta y la suma al historial. Próximo turno, el historial es un poco más largo. El LLM por sí solo no recuerda nada entre turnos; el que recuerda es el programa. La semana 4 entera trata sobre cómo evoluciona este programa: empezó contando tokens, aprendió a mantener una conversación, va a terminar siendo un agente."</em></p>
   </aside>
 </section>
 
