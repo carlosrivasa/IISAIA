@@ -2159,36 +2159,37 @@
     </div>
 
     <div class="s4-rot-diagram">
-      <div class="s4-rot-layer obs-heavy">
+      <div class="s4-rot-layer obs-heavy fragment fade-in" data-fragment-index="2">
         <span>observación vuelta 35 — output de tests (2.1k tokens)</span>
         <span class="s4-rot-tag">reciente · pesa</span>
       </div>
-      <div class="s4-rot-layer obs">
+      <div class="s4-rot-layer obs fragment fade-in" data-fragment-index="2">
         <span>observación vuelta 28 — lectura de config.yml</span>
         <span class="s4-rot-tag">medio · pesa menos</span>
       </div>
-      <div class="s4-rot-layer obs">
+      <div class="s4-rot-layer obs fragment fade-in" data-fragment-index="1">
         <span>observación vuelta 14 — respuesta del endpoint</span>
         <span class="s4-rot-tag">lejano</span>
       </div>
-      <div class="s4-rot-arrow">↓ sepultada</div>
+      <div class="s4-rot-arrow fragment fade-in" data-fragment-index="2">↓ sepultada</div>
       <div class="s4-rot-layer buried">
         <span>instrucción original — "no uses dependencias externas"</span>
-        <span class="s4-rot-tag">enterrada · casi invisible</span>
+        <span class="s4-rot-tag">acá desde el inicio</span>
       </div>
     </div>
   </div>
 
-  <p style="text-align:center;margin-top:16px;font-size:0.72em;color:var(--text-muted);font-style:italic;">
+  <p class="fragment fade-in" data-fragment-index="3" style="text-align:center;margin-top:16px;font-size:0.72em;color:var(--text-muted);font-style:italic;">
     la instrucción no desapareció — pero la señal se diluyó en el ruido
   </p>
 
   <aside class="notes">
-    <p><strong>Señalar el bar lleno a la izquierda (venimos de "la ventana se llenó"). Después desde abajo hacia arriba en el rot diagram — la instrucción enterrada primero, después las capas encima.</strong></p>
-    <p><u>El bar lleno ancla el contexto (venimos del slide anterior). El rot diagram muestra qué pasa adentro de esa ventana llena: la instrucción original sobrevive pero perdió peso. La señal se diluye en el ruido reciente.</u></p>
-    <p><em>"Context rot es el nombre del fenómeno que todo supervisor de agentes encuentra tarde o temprano, y que conviene conocer antes de que te sorprenda."</em></p>
-    <p><em>"El mecanismo es éste: diste una instrucción al inicio de la sesión. El agente la ejecutó bien las primeras vueltas. Pero después de muchas iteraciones, algo cambia. El modelo empieza a ignorarla — propone soluciones que la contradicen, repite cosas que ya hizo, da respuestas más vagas."</em></p>
-    <p><em>"Lo que pasó es esto: la instrucción original quedó sepultada bajo cientos de líneas de observaciones recientes. El modelo puede ver todo lo que está en la ventana — pero no todo lo que ve pesa igual cuando genera la respuesta siguiente. Las observaciones recientes dominan. La instrucción del principio, enterrada bajo logs y outputs, perdió peso. La señal se diluyó en el ruido."</em></p>
+    <p><strong>Entry: solo la instrucción original en la base + bar al 95%. Press 1 revela la primera observación (vuelta 14). Press 2 revela las dos más recientes (28, 35) + la flecha "sepultada". Press 3 revela la línea de cierre.</strong></p>
+    <p><u>Cuatro estados, tres reveals: la instrucción original aparece sola al inicio (la pusiste vos, en el comienzo de la sesión). Después se acumulan observaciones, cada vez más recientes y pesadas, hasta que la instrucción queda enterrada. El cierre nombra lo que pasó.</u></p>
+    <p><em>"Empezamos con esto: diste una instrucción al inicio de la sesión — pongamos 'no uses dependencias externas'. Acá está, en la base de la ventana. El agente la leyó. Las primeras vueltas la ejecutó bien."</em></p>
+    <p><em>"Después el agente trabajó. Vuelta 14: hizo un request HTTP y la respuesta entró. Una observación encima de la instrucción original. No es mucho — todavía la instrucción se ve."</em></p>
+    <p><em>"Pero el agente siguió. Vuelta 28: leyó un config. Vuelta 35: corrió tests y el output (2.1k tokens) entró arriba de todo. Y acá pasa lo que importa: el modelo puede ver todo lo que está en la ventana — pero no todo lo que ve pesa igual cuando genera la respuesta siguiente. Las observaciones recientes dominan. La instrucción del principio, enterrada bajo logs y outputs más nuevos, perdió peso."</em></p>
+    <p><em>"Resultado: la instrucción no desapareció — sigue ahí, técnicamente en el contexto. Pero la señal se diluyó en el ruido. El modelo deja de respetarla. Eso es context rot."</em></p>
   </aside>
 </section>
 
