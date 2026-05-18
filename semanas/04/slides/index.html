@@ -555,8 +555,8 @@
 }
 .s1-recap-stage4-arrow {
   text-align: center;
-  font-size: 1em;
-  color: var(--text-muted);
+  font-size: 0.7em;
+  color: var(--accent-secondary);
 }
 .s1-recap-runtime.wide {
   width: 100%;
@@ -578,7 +578,7 @@
   display: block;
   font-family: var(--font-sans);
   font-size: 0.78em;
-  color: var(--accent);
+  color: var(--accent-secondary);
   font-style: italic;
   margin-top: 4px;
 }
@@ -669,21 +669,21 @@
         </div>
         <div class="s1-recap-stage4-block">
           <span class="s1-recap-stage4-blocklabel">historial — crece turno tras turno</span>
-          <p><strong>usuario:</strong> ¿qué es Python?</p>
-          <p><strong>modelo:</strong> Un lenguaje de programación interpretado…</p>
+          <p><strong>&lt;|user|&gt;</strong> ¿qué es Python?</p>
+          <p><strong>&lt;|assistant|&gt;</strong> Un lenguaje de programación interpretado…</p>
         </div>
         <div class="s1-recap-stage4-block new-msg">
           <span class="s1-recap-stage4-blocklabel">mensaje nuevo</span>
-          <p><strong>usuario:</strong> ¿cómo lo instalo?</p>
+          <p><strong>&lt;|user|&gt;</strong> ¿cómo lo instalo?</p>
         </div>
       </div>
 
-      <div class="s1-recap-stage4-arrow">↓ el programa concatena los tres bloques</div>
+      <div class="s1-recap-stage4-arrow">↓ el programa envuelve cada mensaje con tokens de rol y concatena los tres bloques</div>
 
       <div class="s1-recap-runtime wide">
         <span class="s1-recap-runtime-label">programa externo</span>
-        <div class="s1-recap-box llm">LLM + SFT</div>
-        <p class="s1-recap-runtime-rule">↺ genera hasta <code>&lt;END&gt;</code> · guarda la pregunta y la respuesta en el historial</p>
+        <div class="s1-recap-box llm">LLM + SFT + RL</div>
+        <p class="s1-recap-runtime-rule">↺ concatena la salida a la entrada · corta al <code>&lt;END&gt;</code> · filtra los <code>&lt;thinking&gt;</code> del output · guarda el intercambio en el historial</p>
       </div>
 
       <div class="s1-recap-stage4-arrow">↓</div>
