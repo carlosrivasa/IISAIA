@@ -41,8 +41,8 @@
 
     /* ------------------------------------------------------------------ */
     /* SHARED HELPER: .lens-tracker                                        */
-    /* A thin horizontal bar with two poles: LOOP and CONTEXTO.           */
-    /* Usage: add class .on-loop or .on-context to activate one pole.     */
+    /* A thin horizontal bar with two poles: CONTEXT and HARNESS.         */
+    /* Usage: add class .on-context or .on-harness to activate one pole.  */
     /* ------------------------------------------------------------------ */
     .lens-tracker {
       display: flex;
@@ -79,7 +79,7 @@
       flex-shrink: 0;
     }
 
-    /* on-context: CONTEXTO pole lit, LOOP dimmed */
+    /* on-context: CONTEXT pole lit (accent-secondary blue), HARNESS dimmed */
     .lens-tracker.on-context .pole-context {
       color: var(--bg-primary);
       background: var(--accent-secondary);
@@ -87,7 +87,7 @@
       transform: scale(1.05);
       font-weight: 700;
     }
-    .lens-tracker.on-context .pole-loop {
+    .lens-tracker.on-context .pole-harness {
       color: var(--text-muted);
       background: var(--bg-secondary);
       border-color: var(--text-muted);
@@ -95,15 +95,15 @@
       font-weight: normal;
     }
 
-    /* on-loop: LOOP pole lit, CONTEXTO dimmed */
-    .lens-tracker.on-loop .pole-loop {
+    /* on-harness: HARNESS pole lit (accent teal), CONTEXT dimmed */
+    .lens-tracker.on-harness .pole-harness {
       color: var(--bg-primary);
-      background: var(--accent-secondary);
-      border-color: var(--accent-secondary);
+      background: var(--accent);
+      border-color: var(--accent);
       transform: scale(1.05);
       font-weight: 700;
     }
-    .lens-tracker.on-loop .pole-context {
+    .lens-tracker.on-harness .pole-context {
       color: var(--text-muted);
       background: var(--bg-secondary);
       border-color: var(--text-muted);

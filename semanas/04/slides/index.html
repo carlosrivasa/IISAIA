@@ -41,8 +41,8 @@
 
     /* ------------------------------------------------------------------ */
     /* SHARED HELPER: .lens-tracker                                        */
-    /* A thin horizontal bar with two poles: LOOP and CONTEXTO.           */
-    /* Usage: add class .on-loop or .on-context to activate one pole.     */
+    /* A thin horizontal bar with two poles: CONTEXT and HARNESS.         */
+    /* Usage: add class .on-context or .on-harness to activate one pole.  */
     /* ------------------------------------------------------------------ */
     .lens-tracker {
       display: flex;
@@ -79,7 +79,7 @@
       flex-shrink: 0;
     }
 
-    /* on-context: CONTEXTO pole lit, LOOP dimmed */
+    /* on-context: CONTEXT pole lit (accent-secondary blue), HARNESS dimmed */
     .lens-tracker.on-context .pole-context {
       color: var(--bg-primary);
       background: var(--accent-secondary);
@@ -87,7 +87,7 @@
       transform: scale(1.05);
       font-weight: 700;
     }
-    .lens-tracker.on-context .pole-loop {
+    .lens-tracker.on-context .pole-harness {
       color: var(--text-muted);
       background: var(--bg-secondary);
       border-color: var(--text-muted);
@@ -95,15 +95,15 @@
       font-weight: normal;
     }
 
-    /* on-loop: LOOP pole lit, CONTEXTO dimmed */
-    .lens-tracker.on-loop .pole-loop {
+    /* on-harness: HARNESS pole lit (accent teal), CONTEXT dimmed */
+    .lens-tracker.on-harness .pole-harness {
       color: var(--bg-primary);
-      background: var(--accent-secondary);
-      border-color: var(--accent-secondary);
+      background: var(--accent);
+      border-color: var(--accent);
       transform: scale(1.05);
       font-weight: 700;
     }
-    .lens-tracker.on-loop .pole-context {
+    .lens-tracker.on-harness .pole-context {
       color: var(--text-muted);
       background: var(--bg-secondary);
       border-color: var(--text-muted);
@@ -3152,24 +3152,24 @@
   </aside>
 </section>
 
-<!-- §6.5 · La pregunta-lente — intro al lens-tracker -->
+<!-- §6.5 · La pregunta-lente — intro al lens-tracker (context vs harness) -->
 <section>
   <h2>La pregunta que lleva toda la parte 2</h2>
 
   <div class="s6-lens-wrap">
     <p class="s6-lens-question">
-      ¿Esto actúa sobre <em>cómo corre el loop</em>,<br>
-      o sobre <em>qué hay en el contexto</em> cuando el loop arranca?
+      ¿Esto actúa sobre <em>qué ve el agente</em> dentro de una sesión,<br>
+      o sobre <em>el entorno</em> donde el agente opera?
     </p>
 
     <div class="lens-tracker">
-      <div class="pole pole-loop">LOOP</div>
+      <div class="pole pole-context">CONTEXT</div>
       <div class="lens-sep">↔</div>
-      <div class="pole pole-context">CONTEXTO</div>
+      <div class="pole pole-harness">HARNESS</div>
     </div>
 
     <p class="s6-lens-explain">
-      Este visual abre cada sección de la parte 2. En cada una aterriza en un polo — contexto (§7–§10) o loop (§11).
+      Este visual abre cada sección de la parte 2. En cada una aterriza en un polo — <strong>context</strong> (§7–§10) o <strong>harness</strong> (§11).
       Por ahora ninguno está activo: la pregunta todavía está abierta.
       Llevala a cada sección y las conexiones se hacen solas.
     </p>
@@ -3177,10 +3177,10 @@
 
   <aside class="notes">
     <p><strong>Leer la pregunta central en voz alta. Pausa. Señalar el tracker — "ninguno iluminado todavía". Leer la explicación al pie.</strong></p>
-    <p><u>Slide de introducción al tracker. El .lens-tracker está en estado neutral (sin clase .on-loop ni .on-context — ambos polos dimmed). Es el primer momento que aparece; todas las secciones siguientes lo reusan con un polo iluminado. Sin demo en §6 — el tracker se introduce solo.</u></p>
+    <p><u>Slide de introducción al tracker. El .lens-tracker está en estado neutral (sin .on-context ni .on-harness — ambos polos dimmed). Es el primer momento que aparece; cada sección siguiente lo reusa con un polo iluminado. Conecta directo con las tres ingenierías de §3.3: prompt ya lo conocían, hoy abrimos context y harness — esos dos son los polos del tracker.</u></p>
     <p><em>"El resto de la clase recorre las decisiones de diseño de Claude Code una por una. Y todas responden la misma pregunta."</em></p>
-    <p><em>"¿Esto actúa sobre cómo corre el loop, o sobre qué hay en el contexto cuando el loop arranca?"</em></p>
-    <p><em>"Este visual — el tracker loop/contexto — va a abrir cada sección de la parte 2. En cada una va a aterrizar en un polo. Por ahora no aterriza en ninguno: la pregunta está abierta."</em></p>
+    <p><em>"¿Esto actúa sobre qué ve el agente dentro de una sesión — eso es context engineering —, o sobre el entorno donde el agente opera — eso es harness engineering? Las dos ingenierías que abrimos en la parte 1 son los dos polos del tracker."</em></p>
+    <p><em>"Este visual va a abrir cada sección de la parte 2. En cada una va a aterrizar en un polo. Por ahora no aterriza en ninguno: la pregunta está abierta."</em></p>
     <p><em>"Llevá esa pregunta a cada sección. No como un ejercicio — como el organizador real. Si sabés dónde aterriza cada feature, el mapa de Claude Code se arma solo."</em></p>
   </aside>
 </section>
@@ -3590,9 +3590,9 @@
 <!-- §7.2 · CLAUDE.md = siempre cargado (tracker merged from former §7.1 opener) -->
 <section>
   <div class="lens-tracker on-context" style="margin-bottom:14px;">
-    <div class="pole pole-loop">LOOP</div>
+    <div class="pole pole-context">CONTEXT</div>
     <div class="lens-sep">↔</div>
-    <div class="pole pole-context">CONTEXTO</div>
+    <div class="pole pole-harness">HARNESS</div>
   </div>
   <p style="text-align:center;font-size:0.62em;color:var(--text-muted);font-family:var(--font-mono);letter-spacing:0.06em;text-transform:uppercase;margin:0 0 14px;">siempre cargado</p>
 
@@ -4415,9 +4415,9 @@
 <!-- §8.2 · .claude/rules/ — instrucciones modulares (tracker merged from former §8.1 opener) -->
 <section>
   <div class="lens-tracker on-context" style="margin-bottom:14px;">
-    <div class="pole pole-loop">LOOP</div>
+    <div class="pole pole-context">CONTEXT</div>
     <div class="lens-sep">↔</div>
-    <div class="pole pole-context">CONTEXTO</div>
+    <div class="pole pole-harness">HARNESS</div>
   </div>
   <p style="text-align:center;font-size:0.62em;color:var(--text-muted);font-family:var(--font-mono);letter-spacing:0.06em;text-transform:uppercase;margin:0 0 14px;">condicional · autocurado</p>
 
@@ -5082,9 +5082,9 @@
 <!-- §9.2 · Qué es una skill (tracker merged from former §9.1 opener) -->
 <section>
   <div class="lens-tracker on-context" style="margin-bottom:14px;">
-    <div class="pole pole-loop">LOOP</div>
+    <div class="pole pole-context">CONTEXT</div>
     <div class="lens-sep">↔</div>
-    <div class="pole pole-context">CONTEXTO</div>
+    <div class="pole pole-harness">HARNESS</div>
   </div>
   <p style="text-align:center;font-size:0.62em;color:var(--text-muted);font-family:var(--font-mono);letter-spacing:0.06em;text-transform:uppercase;margin:0 0 14px;">condicional por invocación</p>
 
@@ -5618,9 +5618,9 @@
 <!-- §10.2 · Hook — el escenario de autenticación (tracker merged from former §10.1 opener) -->
 <section>
   <div class="lens-tracker on-context" style="margin-bottom:14px;">
-    <div class="pole pole-loop">LOOP</div>
+    <div class="pole pole-context">CONTEXT</div>
     <div class="lens-sep">↔</div>
-    <div class="pole pole-context">CONTEXTO</div>
+    <div class="pole pole-harness">HARNESS</div>
   </div>
   <p style="text-align:center;font-size:0.62em;color:var(--text-muted);font-family:var(--font-mono);letter-spacing:0.06em;text-transform:uppercase;margin:0 0 14px;">aísla el contexto de un loop entero</p>
 
@@ -5845,7 +5845,7 @@
 
   <aside class="notes">
     <p><strong>Leer el párrafo principal — remarcar "el loop entero" como la escala final de aislamiento. Pausa. Leer el bridge enfatizando "cambia de eje" y el flip visual del tracker que viene.</strong></p>
-    <p><u>Cierre de §10 y puente a §11. El párrafo principal consolida el arco de §7–§10 como variaciones del mismo principio de aislamiento de contexto, escalando de instrucción a procedimiento a loop entero. El bridge anticipa el flip del tracker a LOOP — el primer flip de toda la parte 2 — que es el hook central de §11.</u></p>
+    <p><u>Cierre de §10 y puente a §11. El párrafo principal consolida el arco de §7–§10 como variaciones del mismo principio de aislamiento de contexto, escalando de instrucción a procedimiento a loop entero. El bridge anticipa el flip del tracker a HARNESS — el primer flip de toda la parte 2 — que es el hook central de §11.</u></p>
     <p><em>"La misma lógica que recorre §7, §8, §9 y §10 es siempre la misma: actuar sobre el contexto para que el agente no se ahogue en ruido. CLAUDE.md elige qué cargar siempre. Las path-scoped rules, qué cargar por archivo. Las skills, qué cargar por invocación. Y los sub-agents aislan la unidad más grande de todas: el loop entero."</em></p>
     <p><em>"§11 cambia algo. No en el argumento — en el eje. Todo lo que vimos desde §7 responde la misma pregunta: ¿qué entra al contexto del agente? §11 responde otra: ¿cuánto le dejás hacer al agente antes de que tengas que mirar?"</em></p>
     <p><em>"Y el tracker, que en toda la parte 2 aterrizó en CONTEXTO, va a hacer algo nuevo. La primera vez que lo ven en LOOP es el hook de §11."</em></p>
@@ -6330,7 +6330,7 @@
 }
 .s11-table-row:last-child { border-bottom: none; }
 .s11-table-row.ctx-row { background: rgba(130, 170, 255, 0.04); }
-.s11-table-row.loop-row { background: rgba(100, 255, 218, 0.05); }
+.s11-table-row.harness-row { background: rgba(100, 255, 218, 0.05); }
 .s11-table-td {
   flex: 1;
   padding: 11px 20px;
@@ -6346,7 +6346,7 @@
   color: var(--text-primary);
 }
 .s11-table-td.ctx-pill { color: var(--accent-secondary); font-weight: 700; }
-.s11-table-td.loop-pill { color: var(--accent); font-weight: 700; }
+.s11-table-td.harness-pill { color: var(--accent); font-weight: 700; }
 .s11-table-coda {
   margin-top: 14px;
   background: rgba(100, 255, 218, 0.06);
@@ -6392,22 +6392,22 @@
 }
 </style>
 <section>
-<!-- §11.1 · Opener — lens-tracker FLIPS a LOOP (primer flip de toda la parte 2, animado via fragment) -->
+<!-- §11.1 · Opener — lens-tracker FLIPS a HARNESS (primer flip de toda la parte 2, animado via fragment) -->
 <section>
   <h2>El eje cambia — por primera vez en la parte 2.</h2>
 
   <div class="s11-opener-wrap">
     <div class="lens-tracker on-context" id="s11-tracker">
-      <div class="pole pole-loop">LOOP</div>
+      <div class="pole pole-context">CONTEXT</div>
       <div class="lens-sep">↔</div>
-      <div class="pole pole-context">CONTEXTO</div>
+      <div class="pole pole-harness">HARNESS</div>
     </div>
     <p class="s11-opener-flip-label" id="s11-flip-sublabel">hasta acá, todo aterrizó acá</p>
 
     <!-- Invisible fragment that triggers the flip animation -->
-    <div class="fragment" data-flip-tracker="loop" data-flip-sublabel="control del flujo" aria-hidden="true" style="display:none;"></div>
+    <div class="fragment" data-flip-tracker="harness" data-flip-sublabel="el entorno donde el agente actúa" aria-hidden="true" style="display:none;"></div>
 
-    <p class="s11-opener-hook">Hasta acá, todo aterrizó en contexto. Hoy la pregunta cambia.</p>
+    <p class="s11-opener-hook">Hasta acá, todo aterrizó en context. Hoy la pregunta cambia.</p>
     <p class="s11-opener-sub">
       §7, §8, §9, §10 — cuatro secciones, una sola pregunta: ¿qué entra al agente?<br>
       §11 pregunta algo diferente: <em>¿cuánto le dejás hacer antes de mirar?</em>
@@ -6415,12 +6415,12 @@
   </div>
 
   <aside class="notes">
-    <p><strong>Señalar el tracker — arranca en CONTEXTO, igual que §10. Pausa de dos segundos. Press abajo dispara el flip animado a LOOP, primer flip de toda la parte 2. Dejar que el visual hable antes de las palabras. Después leer la línea principal.</strong></p>
-    <p><u>Opener de §11. El tracker arranca en CONTEXTO (cinco secciones encadenadas), y el press abajo dispara el primer y único flip a LOOP en toda la parte 2 — animado vía fragment con un delay de 200ms para que la transición CSS sea visible. El flip es deliberado y es el hook de la sección. El sublabel también cambia con el flip ("hasta acá, todo aterrizó acá" → "control del flujo"). El visual lo dice primero; las palabras lo refuerzan.</u></p>
+    <p><strong>Señalar el tracker — arranca en CONTEXT, igual que §10. Pausa de dos segundos. Press abajo dispara el flip animado a HARNESS, primer flip de toda la parte 2. Dejar que el visual hable antes de las palabras.</strong></p>
+    <p><u>Opener de §11. El tracker arranca en CONTEXT (cuatro secciones encadenadas), y el press abajo dispara el primer y único flip a HARNESS en toda la parte 2 — animado vía fragment con un delay de 200ms para que la transición CSS sea visible. El flip es deliberado y es el hook de la sección. El sublabel también cambia con el flip ("hasta acá, todo aterrizó acá" → "el entorno donde el agente actúa"). El visual lo dice primero; las palabras lo refuerzan.</u></p>
     <p><em>"Miren el tracker."</em></p>
-    <p><em>"Por primera vez en toda la parte 2, aterrizó en LOOP. §7, §8, §9, §10 — cuatro secciones seguidas en CONTEXTO. Esta es la primera vez que cambia."</em></p>
-    <p><em>"La pregunta que recorrió §7 a §10 era siempre la misma: ¿qué entra al agente? ¿Qué cargás? ¿Cuándo? ¿En qué forma? Eso es gestionar contexto."</em></p>
-    <p><em>"§11 pregunta algo diferente. No qué entra. Cuánto le dejás hacer antes de mirar. Eso es gestionar autonomía. Y es lo que separa esta sección de todo lo que vimos desde §6."</em></p>
+    <p><em>"Por primera vez en toda la parte 2, aterrizó en HARNESS. §7, §8, §9, §10 — cuatro secciones seguidas en CONTEXT. Esta es la primera vez que cambia."</em></p>
+    <p><em>"La pregunta que recorrió §7 a §10 era siempre la misma: ¿qué entra al agente? ¿Qué cargás? ¿Cuándo? ¿En qué forma? Eso es context engineering."</em></p>
+    <p><em>"§11 pregunta algo diferente. No qué entra: cuánto le dejás hacer antes de mirar. Eso es harness engineering — diseñar el entorno donde el agente opera, no qué ve. Y es lo que separa esta sección de todo lo que vimos desde §6."</em></p>
   </aside>
 </section>
 
@@ -6728,40 +6728,40 @@
     </div>
     <div class="s11-table-row ctx-row">
       <div class="s11-table-td" style="flex:2"><code>CLAUDE.md</code> jerárquico <span style="color:var(--text-muted); font-size:0.88em;">(§7)</span></div>
-      <div class="s11-table-td ctx-pill" style="flex:1">Contexto — instrucciones que entran a la ventana</div>
+      <div class="s11-table-td ctx-pill" style="flex:1">Context — instrucciones que entran a la ventana</div>
     </div>
     <div class="s11-table-row ctx-row">
       <div class="s11-table-td" style="flex:2">Rules y auto-memory <span style="color:var(--text-muted); font-size:0.88em;">(§8)</span></div>
-      <div class="s11-table-td ctx-pill" style="flex:1">Contexto — qué se preserva entre sesiones</div>
+      <div class="s11-table-td ctx-pill" style="flex:1">Context — qué se preserva entre sesiones</div>
     </div>
     <div class="s11-table-row ctx-row">
       <div class="s11-table-td" style="flex:2">Skills y slash commands <span style="color:var(--text-muted); font-size:0.88em;">(§9)</span></div>
-      <div class="s11-table-td ctx-pill" style="flex:1">Contexto — procedimientos reutilizables sin inundar</div>
+      <div class="s11-table-td ctx-pill" style="flex:1">Context — procedimientos reutilizables sin inundar</div>
     </div>
     <div class="s11-table-row ctx-row">
       <div class="s11-table-td" style="flex:2">Sub-agents <span style="color:var(--text-muted); font-size:0.88em;">(§10)</span></div>
-      <div class="s11-table-td ctx-pill" style="flex:1">Contexto — aísla el contexto de un loop entero para que el ruido no llegue al padre</div>
+      <div class="s11-table-td ctx-pill" style="flex:1">Context — aísla el contexto de un loop entero para que el ruido no llegue al padre</div>
     </div>
-    <div class="s11-table-row loop-row">
+    <div class="s11-table-row harness-row">
       <div class="s11-table-td" style="flex:2">Plan mode <span style="color:var(--text-muted); font-size:0.88em;">(§11)</span></div>
-      <div class="s11-table-td loop-pill" style="flex:1">Loop — separa "pensar" de "actuar" para que el supervisor entre en el medio</div>
+      <div class="s11-table-td harness-pill" style="flex:1">Harness — separa "pensar" de "actuar" para que el supervisor entre en el medio</div>
     </div>
-    <div class="s11-table-row loop-row">
+    <div class="s11-table-row harness-row">
       <div class="s11-table-td" style="flex:2">Permisos <span style="color:var(--text-muted); font-size:0.88em;">(§11)</span></div>
-      <div class="s11-table-td loop-pill" style="flex:1">Loop — gate antes de cada acción que actúa sobre el mundo</div>
+      <div class="s11-table-td harness-pill" style="flex:1">Harness — gate antes de cada acción que actúa sobre el mundo</div>
     </div>
   </div>
   <div class="s11-table-coda">
-    No son quince features sueltas. Son dos cosas — el loop y el contexto — y formas de entrar al proceso.
+    No son quince features sueltas. Son dos cosas — <em>context</em> y <em>harness</em> — y formas de entrar al proceso.
   </div>
 
   <aside class="notes">
-    <p><strong>Señalar cada fila mientras se lee. Las cuatro filas de CONTEXTO en azul tenue — nombrar la sección de origen. Las dos filas de LOOP en verde — remarcar que son las primeras en esa columna. Pausa larga antes de la coda.</strong></p>
-    <p><u>Slide de cierre de la parte 2. La tabla es el payoff del dispositivo lente-tracker que recorrió §7 a §11. El patron visual importa: cuatro filas de CONTEXTO, dos de LOOP — el peso refleja la estructura de la parte 2. La coda es la tesis del through-line expresada en su forma más directa.</u></p>
+    <p><strong>Señalar cada fila mientras se lee. Las cuatro filas de CONTEXT en azul tenue — nombrar la sección de origen. Las dos filas de HARNESS en verde — remarcar que son las primeras en esa columna. Pausa larga antes de la coda.</strong></p>
+    <p><u>Slide de cierre de la parte 2. La tabla es el payoff del dispositivo lens-tracker que recorrió §7 a §11. El patrón visual importa: cuatro filas de CONTEXT, dos de HARNESS — el peso refleja la estructura de la parte 2. La coda es la tesis del through-line en su forma más directa, conectando con las tres ingenierías de §3.3.</u></p>
     <p><em>"Durante la parte 2 vimos muchas herramientas. La tentación es memorizarlas como una lista de features. Pero si usaron la lente que propusimos en §6, ya ven algo diferente."</em></p>
-    <p><em>"CLAUDE.md — contexto. Rules y auto-memory — contexto. Skills — contexto. Sub-agents — contexto. Cuatro secciones, cuatro formas distintas de actuar sobre lo mismo: lo que entra a la ventana del agente."</em></p>
-    <p><em>"Plan mode — loop. Permisos — loop. Dos mecanismos que actúan sobre cuándo y cómo el supervisor entra al proceso. No sobre qué sabe el agente — sobre cuánto le dejás hacer."</em></p>
-    <p><em>"No son quince features sueltas. Son dos cosas — el loop y el contexto — y formas de entrar al proceso. Si aparece una herramienta que no conocen, la pregunta es siempre la misma: ¿actúa sobre el loop o sobre el contexto?"</em></p>
+    <p><em>"CLAUDE.md — context. Rules y auto-memory — context. Skills — context. Sub-agents — context. Cuatro secciones, cuatro formas distintas de actuar sobre lo mismo: lo que entra a la ventana del agente."</em></p>
+    <p><em>"Plan mode — harness. Permisos — harness. Dos mecanismos que actúan sobre el entorno: cuándo y cómo el supervisor entra al proceso. No sobre qué sabe el agente — sobre cuánto le dejás hacer."</em></p>
+    <p><em>"No son quince features sueltas. Son dos cosas — context y harness — y formas de entrar al proceso. Si aparece una herramienta que no conocen, la pregunta es siempre la misma: ¿actúa sobre el context o sobre el harness?"</em></p>
   </aside>
 </section>
 
@@ -7305,7 +7305,7 @@
       </div>
     </div>
     <div class="s12-conexion-card">
-      <div class="s12-conexion-card-label">S4<br>loop y contexto</div>
+      <div class="s12-conexion-card-label">S4<br>context y harness</div>
       <div class="s12-conexion-card-body">
         Entran cuando el proyecto crece. CLAUDE.md persiste las decisiones de arquitectura entre sesiones.
         Los sub-agents aíslan partes del loop. Plan mode muestra el plan antes de tocar nada.
@@ -7450,9 +7450,9 @@
 
     <div class="s12-arco-tracker-row">
       <div class="lens-tracker">
-        <div class="pole pole-loop">LOOP</div>
-        <div class="lens-sep">↔</div>
-        <div class="pole pole-context">CONTEXTO</div>
+        <div class="pole pole-context">CONTEXT</div>
+    <div class="lens-sep">↔</div>
+    <div class="pole pole-harness">HARNESS</div>
       </div>
       <span class="s12-arco-tracker-caption">las dos cosas, ya integradas</span>
     </div>
@@ -7471,7 +7471,7 @@
     <p><em>"Empezamos con un modelo que predice tokens. No era una metáfora — era literal. La primera pregunta fue '¿qué va a venir después?' y la respuesta llegó de las probabilidades sobre el vocabulario."</em></p>
     <p><em>"Después aprendieron a nombrar las piezas de lo que ese modelo construye. Componentes. Endpoints. Contratos. Status codes. Las palabras para dictar en lugar de reaccionar."</em></p>
     <p><em>"Después aprendieron a controlar el loop con el que trabaja. El contexto finito. Las palancas sobre lo que entra y sobre cuánto le dejás hacer. CLAUDE.md, plan mode, sub-agents, permisos."</em></p>
-    <p><em>"Miren el tracker. Ya no aterriza en ningún polo. Las dos cosas, ya integradas. Esa fue la lente de toda la parte 2 — no para elegir entre loop y contexto, sino para saber qué estás ajustando cuando ajustás algo."</em></p>
+    <p><em>"Miren el tracker. Ya no aterriza en ningún polo. Las dos cosas, ya integradas. Esa fue la lente de toda la parte 2 — no para elegir entre context y harness, sino para saber qué estás ajustando cuando ajustás algo."</em></p>
     <p><em>"No son herramientas separadas. Son el mismo supervisor trabajando en distintas capas al mismo tiempo."</em></p>
     <p><em>"Eso es todo. Nos vemos en el trabajo final."</em></p>
   </aside>
@@ -7834,14 +7834,14 @@
 
   <!-- init §11 -->
 <script>
-  // C5 — §11 animated flip from contexto to loop
+  // §11 animated flip: context → harness (the first lens flip in Part 2)
   Reveal.on('fragmentshown', function(e) {
-    if (e.fragment.dataset && e.fragment.dataset.flipTracker === 'loop') {
+    if (e.fragment.dataset && e.fragment.dataset.flipTracker === 'harness') {
       setTimeout(function() {
         var t = document.getElementById('s11-tracker');
         if (t) {
           t.classList.remove('on-context');
-          t.classList.add('on-loop');
+          t.classList.add('on-harness');
         }
         var sub = document.getElementById('s11-flip-sublabel');
         if (sub) sub.textContent = e.fragment.dataset.flipSublabel || sub.textContent;
@@ -7850,10 +7850,10 @@
   });
 
   Reveal.on('fragmenthidden', function(e) {
-    if (e.fragment.dataset && e.fragment.dataset.flipTracker === 'loop') {
+    if (e.fragment.dataset && e.fragment.dataset.flipTracker === 'harness') {
       var t = document.getElementById('s11-tracker');
       if (t) {
-        t.classList.remove('on-loop');
+        t.classList.remove('on-harness');
         t.classList.add('on-context');
       }
       var sub = document.getElementById('s11-flip-sublabel');
