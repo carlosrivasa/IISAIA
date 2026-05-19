@@ -2376,42 +2376,23 @@
   border-radius: 10px;
   border: 1px solid #2a3a5a;
 }
-.s5-horse-caption {
-  font-family: var(--font-mono);
-  font-size: 0.68em;
-  color: var(--text-muted);
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  margin: 0;
-}
-.s5-horse-card.with .s5-horse-caption {
-  color: var(--accent);
-}
-.s5-horse-sub {
-  font-size: 0.6em;
-  color: var(--text-muted);
-  text-align: center;
-  line-height: 1.5;
-  margin: 0;
+.s5-horse-caption-bad {
+  font-size: 0.86em;
+  color: #e74c3c;
   font-style: italic;
-  max-width: 280px;
-}
-.s5-opener-thesis {
-  max-width: 800px;
-  margin: 18px auto 0;
   text-align: center;
-  font-size: 0.84em;
+  margin: 0;
+  font-family: var(--font-mono);
+}
+.s5-horse-caption-bad::before { content: '"'; }
+.s5-horse-caption-bad::after { content: '"'; }
+.s5-horse-caption-good {
+  font-size: 1em;
   color: var(--accent);
   font-weight: 700;
-  line-height: 1.5;
-}
-.s5-opener-thesis-sub {
-  display: block;
-  margin-top: 6px;
-  font-size: 0.78em;
-  color: var(--text-muted);
-  font-weight: normal;
-  font-style: italic;
+  text-align: center;
+  margin: 0;
+  letter-spacing: 0.02em;
 }
 
 /* §5.2 — six dimensions grid */
@@ -2632,26 +2613,19 @@
   <div class="s5-horse-comparison">
     <div class="s5-horse-card without">
       <img src="../img/caballo-descontrolado.png" alt="Caballo descontrolado, sin arnés">
-      <p class="s5-horse-caption">Sin arnés</p>
-      <p class="s5-horse-sub">Potente. Libre. Pero su potencia no tira en ninguna dirección útil.</p>
+      <p class="s5-horse-caption-bad">no cometas errores</p>
     </div>
-    <div class="s5-horse-card with">
+    <div class="s5-horse-card with fragment fade-in">
       <img src="../img/caballlo-harness.png" alt="Caballo con arnés tirando de una carreta">
-      <p class="s5-horse-caption">Con arnés</p>
-      <p class="s5-horse-sub">La misma potencia, canalizada — tira de tu carreta hacia donde querés.</p>
+      <p class="s5-horse-caption-good">Harness Engineering</p>
     </div>
   </div>
 
-  <p class="s5-opener-thesis fragment fade-in">
-    El harness es el andamiaje que canaliza al agente.
-    <span class="s5-opener-thesis-sub">Convierte poder bruto en trabajo dirigido.</span>
-  </p>
-
   <aside class="notes">
-    <p><strong>Mostrar las dos imágenes lado a lado. Pausa. Explicar la etimología y la metáfora. Click revela la tesis al pie.</strong></p>
-    <p><u>Opener de §5 con la metáfora del caballo. El término "harness" en inglés es polisémico; uno de sus significados literales es el arnés equino. El paralelo: el agente es potente como un caballo, y el harness es lo que canaliza esa potencia. La idea fuerza es positiva ("trabajo dirigido"), no defensiva ("evitar que pase algo malo").</u></p>
-    <p><em>"Harness — la palabra en inglés tiene varios significados, pero uno es muy concreto. El arnés es lo que se le pone al caballo para que pueda tirar de una carreta en la dirección que querés. Sin el arnés, el caballo tiene la misma potencia — pero esa potencia no se traduce en nada útil. Con el arnés, esa misma potencia tira hacia donde vos lo dirigís."</em></p>
-    <p><em>"Esa es la idea de harness engineering. El modelo es el caballo. Es potente. Solo, sin arnés, esa potencia no se traduce en trabajo dirigido. El harness es lo que canaliza al agente para que tire de tu carreta. Y diseñarlo es una disciplina con sus propias dimensiones — eso es lo que viene a continuación."</em></p>
+    <p><strong>Entry: solo el caballo descontrolado, con el prompt "no cometas errores" abajo. Click: aparece el caballo con arnés y la palabra "Harness Engineering".</strong></p>
+    <p><u>Opener de §5 con la metáfora del caballo en dos tiempos. Primer tiempo: el caballo sin arnés y el prompt ingenuo "no cometas errores" — esa es la estrategia que no funciona. Segundo tiempo: el caballo con arnés tirando de la carreta, y el nombre de la disciplina. El contraste es entre "pedirle al modelo que se comporte" y "diseñarle el andamiaje para que tire en la dirección que querés".</u></p>
+    <p><em>"Harness — la palabra en inglés tiene varios significados, pero uno es muy concreto. El arnés es lo que se le pone al caballo para que pueda tirar de una carreta en la dirección que querés. Acá tenemos a un caballo sin arnés. Potente. Libre. Y supongamos que la estrategia es pedirle que se comporte. Decirle 'no cometas errores'. Eso no funciona — ni con un caballo, ni con un modelo."</em></p>
+    <p><em>"Lo que funciona es esto. La misma potencia, canalizada por un arnés. Tira de tu carreta hacia donde vos querés. Esa es la disciplina: harness engineering. No es pedirle al modelo que sea mejor — es diseñar el andamiaje que canaliza lo que ya hace."</em></p>
   </aside>
 </section>
 
