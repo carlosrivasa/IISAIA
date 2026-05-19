@@ -1,10 +1,9 @@
 openapi: 3.1.0
 info:
-  title: Text to Ambience API
+  title: Ambience API
   version: 1.0.0
   description: >-
-    API para la generación y curación de ambientes musicales para locales
-    comerciales basados en descripciones de texto e inteligencia artificial.
+    API para la gestión de ambientes musicales para locales.
 
 servers:
   - url: https://api.texttoambience.com/v1
