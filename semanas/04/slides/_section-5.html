@@ -283,10 +283,10 @@
 
   <aside class="notes">
     <p><strong>Entry: solo título y etimología. Click 1: aparece el caballo descontrolado con "no cometas errores". Click 2: aparece el caballo con arnés y la palabra "Harness Engineering".</strong></p>
-    <p><u>Opener de §5 con la metáfora del caballo en tres tiempos. Entry: la etimología. Primer tiempo: el caballo sin arnés y el prompt ingenuo "no cometas errores" — la estrategia que no funciona. Segundo tiempo: el caballo con arnés tirando de la carreta y el nombre de la disciplina. El contraste es entre "pedirle al modelo que se comporte" y "diseñarle el andamiaje para que tire en la dirección que querés".</u></p>
+    <p><u>Opener de §5 con la metáfora del caballo en tres tiempos. Entry: la etimología. Primer tiempo: el caballo sin arnés y el prompt ingenuo "no cometas errores" — la estrategia que no funciona. Segundo tiempo: el caballo con arnés tirando de la carreta y el nombre de la disciplina. El contraste es entre "pedirle al modelo que se comporte" y "diseñarle el arnés para que tire en la dirección que querés".</u></p>
     <p><em>"Harness — la palabra en inglés tiene varios significados, pero uno es muy concreto. El arnés es lo que se le pone al caballo para que pueda tirar de una carreta en la dirección que querés."</em></p>
     <p><em>"Imagínense a este caballo. Potente. Libre. Y supongamos que la estrategia es pedirle que se comporte. Decirle 'no cometas errores'. Eso no funciona — ni con un caballo, ni con un modelo."</em></p>
-    <p><em>"Lo que funciona es esto. La misma potencia, canalizada por un arnés. Tira de tu carreta hacia donde vos querés. Esa es la disciplina: harness engineering. No es pedirle al modelo que sea mejor — es diseñar el andamiaje que canaliza lo que ya hace."</em></p>
+    <p><em>"Lo que funciona es esto. La misma potencia, canalizada por un arnés. Tira de tu carreta hacia donde vos querés. Esa es la disciplina: harness engineering. No es pedirle al modelo que sea mejor — es diseñar el arnés que canaliza lo que ya hace."</em></p>
   </aside>
 </section>
 
@@ -349,23 +349,23 @@
 
     <div class="s5-frontier-narrow">
       <p style="margin:0 0 10px;">
-        Algunos usan <strong>"harness"</strong> específicamente para el <strong>andamiaje de runtime</strong>:
+        Algunos usan <strong>"harness"</strong> específicamente para <strong>todo lo que rodea al modelo en runtime</strong>:
         el system prompt, las definiciones de las tools, la lógica de reintentos,
         la orquestación de sub-agentes, los pasos de verificación.
       </p>
       <p style="margin:0;">
         Eso, en esa lectura, es distinto del <em>modelo en sí</em> y de un <em>prompt suelto</em>.
-        Es la capa de scaffolding que envuelve a los dos.
+        Es la capa de runtime que envuelve a los dos.
       </p>
     </div>
   </div>
 
   <aside class="notes">
-    <p><strong>Leer las dos tarjetas en orden. La primera es la honestidad sobre el solape. La segunda da la lectura específica del harness como andamiaje runtime.</strong></p>
-    <p><u>Slide de honestidad disciplinaria. Reconoce que la división entre context y harness engineering no es limpia. La lectura más útil para Claude Code: harness = runtime scaffolding, distinto del modelo y de prompts sueltos.</u></p>
+    <p><strong>Leer las dos tarjetas en orden. La primera es la honestidad sobre el solape. La segunda da la lectura específica del harness como capa de runtime.</strong></p>
+    <p><u>Slide de honestidad disciplinaria. Reconoce que la división entre context y harness engineering no es limpia. La lectura más útil para Claude Code: harness = la capa de runtime que rodea al modelo, distinta del modelo y de prompts sueltos.</u></p>
     <p><em>"Una aclaración honesta antes de seguir: los límites entre context engineering y harness engineering son difusos. Qué contexto cargás es parte del harness, pero también es lo que define context engineering. Y hay un tercer término que algunos usan, 'agent engineering', que se pisa con los dos."</em></p>
-    <p><em>"La lectura que nos sirve para Claude Code es ésta: algunos usan harness específicamente para el andamiaje de runtime — el system prompt, las definiciones de tools, la lógica de reintentos, la orquestación de sub-agentes, los pasos de verificación. Visto así, harness es la capa de scaffolding que envuelve al modelo y a los prompts sueltos. No es el modelo, no es un prompt — es lo que los hace operativos como agente."</em></p>
-    <p><em>"En la parte 2 vamos a usar esa lectura. Cada feature de Claude Code que veamos va a ser una pieza de ese andamiaje."</em></p>
+    <p><em>"La lectura que nos sirve para Claude Code es ésta: algunos usan harness específicamente para todo lo que rodea al modelo en runtime — el system prompt, las definiciones de tools, la lógica de reintentos, la orquestación de sub-agentes, los pasos de verificación. Visto así, el harness es la capa de runtime que envuelve al modelo y a los prompts sueltos. No es el modelo, no es un prompt — es lo que los hace operativos como agente."</em></p>
+    <p><em>"En la parte 2 vamos a usar esa lectura. Cada feature de Claude Code que veamos va a ser una pieza de esa capa."</em></p>
   </aside>
 </section>
 
@@ -440,7 +440,7 @@
       <p class="s5-eng-recap-title">Harness engineering</p>
       <p class="s5-eng-recap-scope">múltiples sesiones</p>
       <p class="s5-eng-recap-body">
-        El andamiaje: prompt, tools, contexto, feedback, verificación, descomposición.
+        La capa de runtime: prompt, tools, contexto, feedback, verificación, descomposición.
       </p>
     </div>
   </div>
@@ -457,7 +457,7 @@
   <aside class="notes">
     <p><strong>Recorrer las tres tarjetas izquierda a derecha. Pausa. Click revela el bridge a la Parte 2.</strong></p>
     <p><u>Cierre de Parte 1. Las tres ingenierías quedaron definidas en §3.3 y desarrolladas en §4 y §5. El recap visual cierra el marco conceptual; el bridge prepara la Parte 2: Claude Code va a ser un caso concreto que llena cada nivel con features específicas.</u></p>
-    <p><em>"Cerramos la Parte 1 con las tres ingenierías. Prompt: una interacción. Context: una sesión. Harness: el andamiaje runtime que vimos en este §5 — prompt, tools, contexto, feedback, verificación, descomposición."</em></p>
+    <p><em>"Cerramos la Parte 1 con las tres ingenierías. Prompt: una interacción. Context: una sesión. Harness: la capa de runtime que vimos en este §5 — prompt, tools, contexto, feedback, verificación, descomposición."</em></p>
     <p><em>"Lo que viene a continuación — la Parte 2 — es Claude Code. Y la propuesta es ésta: cada feature que vas a ver, sin excepción, llena uno de estos tres niveles. CLAUDE.md, las rules, las skills, los sub-agents, plan mode, los permisos, los hooks. Cada uno actúa en prompt, context o harness."</em></p>
     <p><em>"Por eso la pregunta ya no es '¿qué hace esa feature?'. Es '¿en qué nivel actúa?'. Si sabés eso, sabés qué problema te resuelve y cuándo usarla. Ese es el lente que recorre toda la Parte 2."</em></p>
   </aside>
