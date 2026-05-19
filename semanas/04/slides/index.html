@@ -2340,197 +2340,209 @@
       <!-- ===== §5 — Cuando el agente falla ===== -->
       <style>
 /* Scoped styles for §5 only */
-.s5-hook-contrast {
-  max-width: 680px;
-  margin: 22px auto 0;
-}
-.s5-hook-col {
-  display: flex;
-  flex-direction: column;
-  gap: 0;
-}
-.s5-hook-col .s5-label {
-  font-size: 0.6em;
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-  color: var(--text-muted);
-  margin: 0 0 8px;
-}
-.s5-hook-col .s5-worst {
-  font-size: 0.72em;
-  font-weight: 700;
-  margin: 0 0 8px;
-}
-.s5-hook-col .s5-detail {
-  font-size: 0.68em;
-  color: var(--text-primary);
-  line-height: 1.65;
-  margin: 0 0 auto;
-}
-.s5-hook-col .s5-footer {
-  font-size: 0.63em;
-  color: var(--text-muted);
-  font-style: italic;
-  margin: 12px 0 0;
-  border-top: 1px solid #2a3a5a;
-  padding-top: 10px;
-}
 
-/* Failure mode cards */
-.s5-mode-card {
+/* §5.1 opener — definition + thesis (mirrors §4 opener) */
+.s5-opener-def {
+  max-width: 720px;
+  margin: 22px auto 0;
   background: var(--bg-secondary);
   border: 1px solid #2a3a5a;
-  border-left: 3px solid #e74c3c;
-  border-radius: 7px;
-  padding: 18px 20px;
-  max-width: 660px;
-  margin: 0 auto;
+  border-left: 3px solid var(--accent);
+  border-radius: 10px;
+  padding: 22px 28px;
 }
-.s5-mode-card .s5-mode-head {
-  font-size: 0.67em;
-  font-weight: 700;
-  color: #e74c3c;
+.s5-opener-scope {
+  font-family: var(--font-mono);
+  font-size: 0.6em;
+  color: var(--accent);
   text-transform: uppercase;
-  letter-spacing: 0.05em;
+  letter-spacing: 0.08em;
   margin: 0 0 10px;
 }
-.s5-mode-card .s5-mode-body {
-  font-size: 0.72em;
+.s5-opener-def-body {
+  font-size: 0.84em;
   color: var(--text-primary);
-  line-height: 1.65;
-  margin: 0 0 12px;
-}
-.s5-mode-card .s5-mode-link {
-  font-size: 0.64em;
-  color: var(--accent-secondary);
+  line-height: 1.6;
   margin: 0;
-  border-top: 1px solid #2a3a5a;
-  padding-top: 10px;
+}
+.s5-opener-thesis {
+  max-width: 760px;
+  margin: 22px auto 0;
+  text-align: center;
+  font-size: 0.92em;
+  color: var(--accent);
+  font-weight: 700;
+  line-height: 1.5;
+}
+.s5-opener-thesis-sub {
+  display: block;
+  margin-top: 8px;
+  font-size: 0.78em;
+  color: var(--text-muted);
+  font-weight: normal;
+  font-style: italic;
 }
 
-/* Supervisor card */
-.s5-supervisor-wrap {
-  max-width: 680px;
-  margin: 22px auto 0;
+/* §5.4 — La respuesta del harness (grid of mechanisms) */
+.s5-harness-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+  max-width: 900px;
+  margin: 20px auto 0;
+}
+.s5-harness-card {
+  background: var(--bg-secondary);
+  border: 1px solid #2a3a5a;
+  border-left: 3px solid var(--accent);
+  border-radius: 8px;
+  padding: 14px 18px 16px;
   display: flex;
   flex-direction: column;
-  gap: 12px;
+}
+.s5-harness-card-title {
+  font-family: var(--font-mono);
+  font-size: 0.7em;
+  font-weight: 700;
+  color: var(--accent);
+  margin: 0 0 8px;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+.s5-harness-card-body {
+  font-size: 0.66em;
+  color: var(--text-primary);
+  line-height: 1.55;
+  margin: 0 0 10px;
+}
+.s5-harness-card-eg {
+  font-family: var(--font-mono);
+  font-size: 0.58em;
+  color: var(--text-muted);
+  background: var(--bg-code);
+  border-radius: 4px;
+  padding: 6px 10px;
+  margin: auto 0 0;
+  line-height: 1.5;
+}
+
+/* §5.5 supervisor — reframed */
+.s5-supervisor-wrap {
+  max-width: 800px;
+  margin: 20px auto 0;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
 }
 .s5-supervisor-card {
   background: var(--bg-secondary);
   border: 1px solid #2a3a5a;
-  border-radius: 7px;
+  border-radius: 8px;
   padding: 16px 20px;
-  font-size: 0.7em;
-  color: var(--text-primary);
-  line-height: 1.65;
 }
-.s5-supervisor-card strong {
-  color: var(--accent);
-}
-.s5-audit-line {
-  text-align: center;
-  font-size: 0.88em;
-  font-weight: 700;
-  color: #ffcb6b;
-  margin: 18px 0 0;
-  letter-spacing: 0.01em;
-}
-
-/* Part 1 recap */
-.s5-recap-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 10px;
-  max-width: 700px;
-  margin: 20px auto 0;
-}
-.s5-recap-card {
-  background: var(--bg-secondary);
-  border: 1px solid #2a3a5a;
-  border-radius: 7px;
-  padding: 14px 16px;
-}
-.s5-recap-card .s5-recap-num {
-  font-size: 0.58em;
+.s5-supervisor-card.before { border-left: 3px solid var(--text-muted); }
+.s5-supervisor-card.after { border-left: 3px solid var(--accent); }
+.s5-supervisor-label {
   font-family: var(--font-mono);
+  font-size: 0.58em;
   color: var(--text-muted);
   text-transform: uppercase;
   letter-spacing: 0.08em;
-  display: block;
-  margin-bottom: 5px;
+  margin: 0 0 8px;
 }
-.s5-recap-card .s5-recap-title {
-  font-size: 0.74em;
-  font-weight: 700;
-  color: var(--accent);
-  margin: 0 0 6px;
-}
-.s5-recap-card .s5-recap-desc {
-  font-size: 0.64em;
-  color: var(--text-muted);
-  line-height: 1.55;
-  margin: 0;
-}
-.s5-lens-line {
-  max-width: 680px;
-  margin: 24px auto 0;
-  background: var(--bg-secondary);
-  border: 2px solid var(--accent);
-  border-radius: 10px;
-  padding: 26px 34px;
-  text-align: center;
-}
-.s5-lens-line .s5-lens-main {
-  font-size: 1.05em;
+.s5-supervisor-card.after .s5-supervisor-label { color: var(--accent); }
+.s5-supervisor-headline {
+  font-size: 0.82em;
   font-weight: 700;
   color: var(--text-primary);
   margin: 0 0 10px;
-  line-height: 1.5;
+  line-height: 1.45;
 }
-.s5-lens-line .s5-lens-main em {
+.s5-supervisor-body {
+  font-size: 0.66em;
+  color: var(--text-primary);
+  line-height: 1.6;
+  margin: 0;
+}
+.s5-supervisor-foot {
+  text-align: center;
+  margin: 18px auto 0;
+  font-size: 0.78em;
+  color: var(--accent);
+  font-style: italic;
+  max-width: 720px;
+}
+
+/* §5.6 cierre — tres ingenierías recap */
+.s5-eng-recap {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  max-width: 1100px;
+  margin: 18px auto 0;
+}
+.s5-eng-recap-card {
+  background: var(--bg-secondary);
+  border: 1px solid #2a3a5a;
+  border-radius: 8px;
+  padding: 14px 16px 16px;
+}
+.s5-eng-recap-card.prompt { border-left: 3px solid var(--text-muted); }
+.s5-eng-recap-card.context { border-left: 3px solid var(--accent-secondary); }
+.s5-eng-recap-card.harness { border-left: 3px solid var(--accent); }
+.s5-eng-recap-title {
+  font-family: var(--font-mono);
+  font-size: 0.74em;
+  font-weight: 700;
+  margin: 0 0 6px;
+}
+.s5-eng-recap-card.prompt .s5-eng-recap-title { color: var(--text-muted); }
+.s5-eng-recap-card.context .s5-eng-recap-title { color: var(--accent-secondary); }
+.s5-eng-recap-card.harness .s5-eng-recap-title { color: var(--accent); }
+.s5-eng-recap-scope {
+  font-family: var(--font-mono);
+  font-size: 0.54em;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin: 0 0 10px;
+}
+.s5-eng-recap-body {
+  font-size: 0.62em;
+  color: var(--text-primary);
+  line-height: 1.55;
+  margin: 0;
+}
+.s5-eng-recap-bridge {
+  max-width: 820px;
+  margin: 22px auto 0;
+  background: var(--bg-secondary);
+  border: 1px solid var(--accent);
+  border-radius: 10px;
+  padding: 22px 30px;
+  text-align: center;
+}
+.s5-eng-recap-bridge-main {
+  font-size: 0.9em;
+  font-weight: 700;
+  color: var(--text-primary);
+  line-height: 1.5;
+  margin: 0 0 10px;
+}
+.s5-eng-recap-bridge-main em {
   color: var(--accent);
   font-style: normal;
 }
-.s5-lens-line .s5-lens-sub {
+.s5-eng-recap-bridge-sub {
   font-size: 0.7em;
   color: var(--text-muted);
-  margin: 0;
   line-height: 1.6;
+  margin: 0;
+  padding-top: 10px;
   border-top: 1px solid #2a3a5a;
-  padding-top: 12px;
 }
 
-/* Loop anim containers spacing */
-.s5-anim-pair {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 16px;
-  max-width: 760px;
-  margin: 20px auto 0;
-}
-.s5-anim-block {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-}
-.s5-anim-label {
-  font-size: 0.62em;
-  text-transform: uppercase;
-  letter-spacing: 0.07em;
-  color: var(--text-muted);
-  text-align: center;
-}
-.s5-anim-caption {
-  font-size: 0.63em;
-  color: var(--text-muted);
-  font-style: italic;
-  text-align: center;
-  margin: 4px 0 0;
-  line-height: 1.5;
-}
-
-/* C2 — consolidated modes layout */
+/* C2 — consolidated modes layout (kept for §5.3 clickable-steps slide) */
 .s5-c2-layout {
   display: flex;
   flex-direction: column;
@@ -2578,37 +2590,78 @@
 }
 </style>
 <section>
-<!-- §5.1 · Opener-hook — el contraste que arma §5 -->
+<!-- §5.1 · Harness engineering — opener + thesis -->
 <section>
-  <h2>La falla que deja rastro</h2>
+  <h2>Harness engineering</h2>
 
-  <div class="comparison-2col s5-hook-contrast" style="align-items:stretch;">
-    <div class="bg-secondary-card s5-hook-col">
-      <p class="s5-label">Cuando el modelo sugería</p>
-      <p class="s5-worst" style="color:var(--accent-secondary);">Peor caso: sugerencia mala</p>
-      <p class="s5-detail">La veías antes de actuar. La rechazabas. El entorno no cambió. No quedó rastro.</p>
-      <p class="s5-footer">Vos eras el que cerraba el loop — cada vuelta pasaba por tus manos.</p>
-    </div>
-    <div class="bg-secondary-card s5-hook-col" style="border-color:#e74c3c;">
-      <p class="s5-label" style="color:#e74c3c;">Cuando el agente actúa</p>
-      <p class="s5-worst" style="color:#e74c3c;">Peor caso: un entorno que ya cambió</p>
-      <p class="s5-detail">Editó archivos. Ejecutó comandos. El loop siguió. Cuando lo mirás, la falla <em style="font-style:italic;color:#e74c3c;">ya pasó</em>.</p>
-      <p class="s5-footer">La falla deja rastro. Vale la pena conocer los modos antes de encontrárselos.</p>
-    </div>
+  <div class="s5-opener-def">
+    <p class="s5-opener-scope">alcance: múltiples sesiones</p>
+    <p class="s5-opener-def-body">
+      Diseñar el <strong>entorno</strong> donde el agente opera: qué <strong>tools</strong> tiene a disposición, qué <strong>guardrails</strong> lo frenan antes de actuar, qué <strong>scripts deterministas</strong> usa donde el modelo no debería decidir, qué <strong>feedback loops</strong> cierran el ciclo cuando algo falla.
+    </p>
   </div>
 
+  <p class="s5-opener-thesis fragment fade-in">
+    El problema no es el modelo: es el entorno.
+    <span class="s5-opener-thesis-sub">Diseñar sistemas que imposibiliten la falla — no solo instruir mejor.</span>
+  </p>
+
   <aside class="notes">
-    <p><strong>Señalar columna izquierda, luego derecha. No apresurar — dejar que el contraste asiente.</strong></p>
-    <p><u>Slide de apertura de §5. El contraste viene casi textual del material fuente y es el hook completo — no hay pregunta separada. La columna roja no tiene animación de entrada: aparece toda junta para que el contraste sea inmediato.</u></p>
-    <p><em>"Arrancamos §5 con algo que ya saben pero que vale ponerlo en paralelo. Cuando el modelo solo sugería, el peor caso era una sugerencia mala. La veías antes de hacer algo. La rechazabas. El entorno no cambió. No quedó rastro."</em></p>
-    <p><em>"Cuando el agente actúa sobre tu repo, el peor caso es otro. Editó archivos. Ejecutó comandos. El loop siguió varias vueltas. Cuando volvés a mirar, la falla ya pasó. No es un borrador que descartás — es un estado del entorno que ahora tenés que entender y posiblemente deshacer."</em></p>
-    <p><em>"Vale la pena nombrar los modos de falla antes de encontrárselos. Eso es §5."</em></p>
+    <p><strong>Definir la disciplina primero. Pausa. Click revela la tesis — leerla despacio, con peso.</strong></p>
+    <p><u>Apertura de §5. Después de prompt y context, harness es el nivel exterior — el entorno completo en que el agente opera. La tesis es la idea-fuerza de la disciplina: cuando algo sale mal en un agente capaz, el problema casi siempre está afuera del modelo.</u></p>
+    <p><em>"Llegamos al tercer nivel: harness engineering. Su alcance es múltiples sesiones — ya no estás pensando en un mensaje ni en una conversación, estás pensando en el entorno completo. Cuatro piezas: qué tools tiene a disposición, qué guardrails lo frenan antes de hacer algo riesgoso, qué scripts deterministas se ejecutan donde el modelo no debería decidir, y qué feedback loops cierran el ciclo cuando algo falla."</em></p>
+    <p><em>"Y la tesis: el problema no es el modelo, es el entorno. Cuando un agente moderno con un buen prompt y buen context engineering falla en producción, la respuesta casi siempre no es 'cambiá el modelo'. Es: el entorno te dejó hacer algo que no debió poder hacer. Y la habilidad central de harness no es escribir mejor — es diseñar sistemas que imposibiliten la falla. Es lo que la próxima parte del curso va a llenar con features concretas."</em></p>
   </aside>
 </section>
 
-<!-- §5.2 · Cuatro modos — clickable-steps -->
+<!-- §5.2 · Leer vs escribir — la asimetría que motiva el harness -->
+<section>
+  <h2>Leer vs. escribir — el riesgo no es simétrico</h2>
+
+  <div class="comparison-2col" style="margin-top:18px;align-items:stretch;">
+    <div class="bg-secondary-card" style="display:flex;flex-direction:column;">
+      <p style="font-size:0.62em;text-transform:uppercase;letter-spacing:0.08em;color:var(--text-muted);margin:0 0 10px;">Leer</p>
+      <p style="font-size:0.78em;font-weight:700;color:var(--accent-secondary);margin:0 0 10px;">reversible</p>
+      <p style="font-size:0.7em;color:var(--text-primary);line-height:1.6;margin:0 0 auto;">
+        Leer un archivo, listar un directorio, llamar un endpoint de solo lectura. El entorno no cambió. El peor caso: llenó el contexto con información irrelevante.
+      </p>
+      <p style="font-size:0.64em;color:var(--text-muted);font-style:italic;margin:12px 0 0;border-top:1px solid #2a3a5a;padding-top:10px;">
+        Puede intentar otra lectura.
+      </p>
+    </div>
+    <div class="bg-secondary-card" style="border-color:#e74c3c;display:flex;flex-direction:column;">
+      <p style="font-size:0.62em;text-transform:uppercase;letter-spacing:0.08em;color:#e74c3c;margin:0 0 10px;">Escribir / ejecutar</p>
+      <p style="font-size:0.78em;font-weight:700;color:#e74c3c;margin:0 0 10px;">puede no ser reversible</p>
+      <p style="font-size:0.7em;color:var(--text-primary);line-height:1.6;margin:0 0 auto;">
+        Editar un archivo, correr <code style="font-family:var(--font-mono);font-size:0.9em;background:var(--bg-code);padding:1px 4px;border-radius:3px;">git commit</code>, borrar un directorio, llamar un endpoint que muta estado. El entorno quedó en un estado diferente al esperado.
+      </p>
+      <p style="font-size:0.64em;color:var(--text-muted);font-style:italic;margin:12px 0 0;border-top:1px solid #2a3a5a;padding-top:10px;">
+        No hay deshacer automático.
+      </p>
+    </div>
+  </div>
+
+  <p class="fragment fade-in" style="text-align:center;margin-top:16px;font-size:0.78em;color:var(--accent);font-style:italic;">
+    El harness mira más las tools que actúan sobre el mundo.
+  </p>
+
+  <aside class="notes">
+    <p><strong>Señalar columna izquierda, luego derecha. El ejemplo de git commit y borrar directorio son los que aterrizan. Click revela la línea de cierre.</strong></p>
+    <p><u>La asimetría reversible/no reversible es la motivación operativa del harness. Sin esta distinción, todas las tools parecerían iguales — con ella se justifica que algunas necesitan guardrails extra.</u></p>
+    <p><em>"Antes de ver los modos de falla y la respuesta del harness, una distinción que organiza todo lo que sigue: no todas las tools tienen el mismo peso cuando algo sale mal."</em></p>
+    <p><em>"Una tool que lee no cambia el estado del entorno. Si el agente leyó el archivo equivocado, lo peor que pasó es que llenó el contexto con ruido. Puede intentar otra lectura, retroceder, corregir."</em></p>
+    <p><em>"Una tool que escribe o ejecuta modifica el entorno. Un archivo sobreescrito sin backup. Un git commit que avanzó el historial. Un endpoint que procesó algo. Puede que sea recuperable, puede que no. No hay deshacer automático."</em></p>
+    <p><em>"Por eso el harness mira más las tools que actúan sobre el mundo. Donde el daño es reversible, el costo de equivocarse es tiempo; donde no lo es, el costo es el estado del entorno. Esta asimetría es lo que justifica los guardrails que vienen."</em></p>
+  </aside>
+</section>
+
+<!-- §5.3 · Cuatro modos de falla — clickable steps -->
 <section>
   <h2>Cuatro modos de falla nuevos</h2>
+
+  <p style="text-align:center;margin:8px auto 0;max-width:820px;font-size:0.72em;color:var(--text-muted);font-style:italic;">
+    Lo que sale mal cuando el harness no te protege. Click cada modo para ver cómo se manifiesta.
+  </p>
 
   <div class="s5-c2-layout">
     <div id="s5-modes" class="s5-c2-chips"></div>
@@ -2619,137 +2672,144 @@
   </div>
 
   <aside class="notes">
-    <p><strong>Click cada modo en orden para ver título + summary + animación + conexión a la sección anterior. Modos independientes — orden narrativo sugerido es loop infinito → deriva → alucinar → envenenar, pero podés ir libre. Click la caja activa para deseleccionar.</strong></p>
-    <p><u>Slide consolidado: chips arriba, animación abajo (cambia con cada click), detalle de conexión debajo. Reemplaza el slide previo de animación doble (infinito + drift) — ahora los 4 modos tienen su animación.</u></p>
-    <p><em>"Cuatro modos de falla que un agente que actúa puede tener y que un modelo que solo escribe no puede. Cada uno está anclado a algo que ya vimos."</em></p>
-    <p><em>"Loop infinito: ninguna de las cuatro condiciones de corte del §2 se cumple. El loop no converge — no es que trabaja mucho, es que no para. Miren la animación: el arco de repetir pulsa, ninguna salida se enciende."</em></p>
-    <p><em>"Deriva de objetivo: el agente arrancó con tu tarea y terminó haciendo otra. Desde adentro del loop no parece un error. Miren: el objetivo A está tachado y derivó hacia otra tarea."</em></p>
-    <p><em>"Alucinar tools o resultados: la alucinación de S1 escala. Ahora el agente puede afirmar que ejecutó algo que no ejecutó. La animación lo muestra: actuar y observar pintados de rojo — tool inventada, resultado falso."</em></p>
-    <p><em>"Envenenar el propio contexto: la versión activa del context rot del §4. Una salida enorme entra sin procesar y degrada el contexto. La animación: los chips rojos representan ruido alimentándose."</em></p>
+    <p><strong>Click cada modo en orden para ver título + summary + animación + detalle. Modos independientes — orden narrativo sugerido es loop infinito → deriva → alucinar → envenenar. Click la caja activa para deseleccionar.</strong></p>
+    <p><u>Slide consolidado: chips arriba, animación en el medio (cambia con cada click), detalle abajo. Los cuatro modos son las situaciones contra las que el harness está diseñado para proteger.</u></p>
+    <p><em>"Cuatro modos de falla que aparecen cuando el agente actúa y el harness no te protege. Cada uno está anclado a algo que ya vimos."</em></p>
+    <p><em>"Loop infinito: ninguna de las cuatro condiciones de corte del §2 se dispara. El loop no converge — gasta contexto, ejecuta acciones, modifica el entorno. El arco de la animación pulsa, ninguna salida se enciende."</em></p>
+    <p><em>"Deriva de objetivo: el agente arrancó con tu tarea y terminó en otra que consideró mejor. El objetivo A está tachado y derivó hacia otra tarea."</em></p>
+    <p><em>"Alucinar tools o resultados: la alucinación de S1 escala. Ahora el agente puede afirmar que ejecutó algo que no ejecutó. La animación: actuar y observar en rojo — tool inventada, resultado falso."</em></p>
+    <p><em>"Envenenar el propio contexto: la versión activa del context rot. Una salida enorme entra sin procesar y degrada el contexto. Los chips rojos representan ese ruido alimentándose."</em></p>
   </aside>
 </section>
 
-<!-- §5.4 · Alucinar tools/resultados -->
+<!-- §5.4 · La respuesta del harness -->
 <section>
-  <h2>Alucinar tools o resultados</h2>
+  <h2>La respuesta del harness</h2>
 
-  <div class="s5-mode-card">
-    <div class="s5-mode-head">Modo de falla — escala la alucinación</div>
-    <p class="s5-mode-body">
-      En la Semana 1 aprendiste que los modelos inventan con total convicción. Las mitigaciones eran: enseñarle a admitir incertidumbre, darle herramientas para verificar.<br><br>
-      En el agente, el problema cambia de escala. El agente puede afirmar que ejecutó un comando que no ejecutó. Puede leer la salida de una herramienta y reportar algo distinto de lo que dice. El loop sigue adelante sobre esa premisa falsa — varias vueltas más, acumulando acciones encima de algo que nunca pasó.
-    </p>
-    <p class="s5-mode-link">
-      <strong>Lo que cambió desde S1:</strong> la confianza del modelo no cambió. Lo que cambió es que ahora actúa sobre ella.
-    </p>
+  <p style="text-align:center;margin:8px auto 0;max-width:820px;font-size:0.72em;color:var(--text-muted);font-style:italic;">
+    Mecanismos que el entorno aporta para que esos modos no se manifiesten — o queden contenidos.
+  </p>
+
+  <div class="s5-harness-grid">
+    <div class="s5-harness-card">
+      <p class="s5-harness-card-title">Guardrails</p>
+      <p class="s5-harness-card-body">
+        Gates antes de cada acción riesgosa: la tool no se ejecuta hasta que un humano (o una regla) autoriza. El modelo propone, el harness dispone.
+      </p>
+      <p class="s5-harness-card-eg">Ej: permiso explícito antes de <code>rm</code>, antes de <code>git push</code>, antes de tocar producción.</p>
+    </div>
+    <div class="s5-harness-card">
+      <p class="s5-harness-card-title">Validación automática</p>
+      <p class="s5-harness-card-body">
+        Linters, type-checkers, tests, contratos. El modelo escribe, una verificación determinista chequea, y si falla se devuelve el error al loop.
+      </p>
+      <p class="s5-harness-card-eg">Ej: cada edit corre <code>tsc</code> + tests; si rompe, el agente recibe el output y corrige.</p>
+    </div>
+    <div class="s5-harness-card">
+      <p class="s5-harness-card-title">Scripts deterministas</p>
+      <p class="s5-harness-card-body">
+        Operaciones críticas no se confían al modelo: se ejecutan por código. El agente puede pedir que corran, no puede improvisar la lógica.
+      </p>
+      <p class="s5-harness-card-eg">Ej: el deploy es un script versionado; el agente lo invoca, no lo reinventa cada vez.</p>
+    </div>
+    <div class="s5-harness-card">
+      <p class="s5-harness-card-title">Feedback loops</p>
+      <p class="s5-harness-card-body">
+        Señales del entorno que vuelven al contexto cuando algo no anda. Sin observación, el agente no se autocorrige; con la observación correcta, sí.
+      </p>
+      <p class="s5-harness-card-eg">Ej: CI roto inyecta el log de fallo; un endpoint 500 inyecta el stack trace.</p>
+    </div>
   </div>
 
   <aside class="notes">
-    <p><strong>Leer el card completo. Énfasis en la línea de cierre — decirla despacio.</strong></p>
-    <p><u>Slide de un solo modo de falla. Sin listas — card con cuerpo y link a sección anterior. La estructura del card espeja los otros modos de falla para consistencia visual.</u></p>
-    <p><em>"Tercer modo. Este es el callback más directo a la Semana 1."</em></p>
-    <p><em>"En la primera clase aprendiste que los modelos alucinan — inventan cosas con total convicción. Los mecanismos de mitigación que vimos eran enseñarle al modelo a decir 'no sé' y darle herramientas para verificar antes de afirmar."</em></p>
-    <p><em>"Ahora el problema escala. El agente puede afirmar que ejecutó un comando que no ejecutó. Puede leer la salida de una herramienta y reportarte algo distinto de lo que la salida dice. Y el loop sigue adelante sobre esa premisa. No una vuelta — puede ser cinco, diez vueltas, con acciones reales construidas sobre algo que nunca pasó."</em></p>
-    <p><em>"Lo que cambió desde la Semana 1 no es la confianza del modelo. Esa sigue igual. Lo que cambió es que ahora actúa sobre esa confianza. La alucinación ya no es un texto que corregís — es una premisa que el loop ya usó."</em></p>
+    <p><strong>Recorrer las cuatro tarjetas izquierda a derecha. Énfasis en que cada una corresponde a un tipo de defensa contra los modos del slide anterior.</strong></p>
+    <p><u>Las cuatro respuestas del harness contra los modos de falla. Guardrails frenan acciones riesgosas; validación detecta errores antes de propagarlos; scripts deterministas evitan que el modelo improvise donde no debe; feedback loops aseguran que el agente vea cuando algo falló.</u></p>
+    <p><em>"Para cada modo de falla, el harness tiene una respuesta. Cuatro mecanismos que diseñás como parte del entorno — no son cosas que le pedís al modelo, son cosas que el entorno hace por su cuenta."</em></p>
+    <p><em>"Guardrails: gates antes de cada acción riesgosa. La tool no se ejecuta hasta que se autoriza — un humano clickea, o una regla del harness lo permite. El modelo propone la acción; el harness decide si pasa. Esto neutraliza la mayoría de los daños no reversibles."</em></p>
+    <p><em>"Validación automática: linters, type-checkers, tests, contratos. Después de cada edit, una verificación determinista corre. Si falla, el output va al contexto y el loop sigue corrigiendo. Es la diferencia entre 'el modelo dice que funciona' y 'la máquina lo verifica'."</em></p>
+    <p><em>"Scripts deterministas: las operaciones críticas — deploy, migración, llamadas a servicios externos — no se confían al modelo. Se ejecutan por código versionado. El agente puede pedir que corran, no puede improvisar la lógica cada vez. Esto neutraliza la deriva en partes sensibles."</em></p>
+    <p><em>"Feedback loops: el entorno le devuelve señales al agente cuando algo no anda. Tests rotos, builds fallidos, endpoints que devuelven 500. Sin esta retroalimentación, el agente no se autocorrige. Con ella, el loop converge."</em></p>
   </aside>
 </section>
 
-<!-- §5.5 · Envenenar el propio contexto -->
+<!-- §5.5 · El supervisor diseña, no solo audita -->
 <section>
-  <h2>Envenenar el propio contexto</h2>
-
-  <div class="s5-mode-card" style="border-left-color:#ffcb6b;">
-    <div class="s5-mode-head" style="color:#ffcb6b;">Modo de falla — la versión activa del context rot</div>
-    <p class="s5-mode-body">
-      En §4 viste el context rot: instrucciones del inicio sepultadas bajo observaciones recientes que pesan más. Ese era el deterioro pasivo.<br><br>
-      Este modo es la versión activa. El agente ejecuta algo que produce una salida enorme — un log de dos mil líneas, un stack trace con cincuenta frames repetidos — y esa salida entra en la ventana sin procesar. De ahí en adelante el modelo razona desde ese contexto degradado: las señales importantes compiten con ruido masivo y pierden. El deterioro es gradual y difícil de notar desde adentro del loop.
-    </p>
-    <p class="s5-mode-link" style="color:#ffcb6b;">
-      <strong>Diferencia con §4:</strong> el context rot del §4 era inevitable con el tiempo. Acá el agente lo precipita activamente con una sola acción.
-    </p>
-  </div>
-
-  <aside class="notes">
-    <p><strong>Señalar el link "Diferencia con §4" al final — ese contraste es la clave del slide.</strong></p>
-    <p><u>Cuarto modo de falla. Callback explícito a §4. El card usa amber en lugar de rojo para distinguirlo visualmente — es un modo relacionado con el contexto, no con el loop o la alucinación.</u></p>
-    <p><em>"Cuarto modo — y es el que más conecta con §4."</em></p>
-    <p><em>"El context rot del §4 era pasivo: vuelta a vuelta, las instrucciones del inicio van perdiendo peso. Eso es inevitable con sesiones largas."</em></p>
-    <p><em>"Este modo es la versión activa del mismo problema. El agente ejecuta algo — un comando que tira un log de dos mil líneas, un stack trace con cincuenta frames repetidos — y esa salida entra sin procesamiento. En ese momento, la ventana de contexto se llena de ruido. Las señales importantes — tus instrucciones, el estado actual, el objetivo — compiten con esa masa de texto y pierden."</em></p>
-    <p><em>"La diferencia con §4 es esa: el context rot tardaba en llegar. Este modo puede llegar en una sola acción. Y desde adentro del loop, el modelo no lo registra como error — sigue razonando, solo que desde un contexto degradado."</em></p>
-  </aside>
-</section>
-
-<!-- §5.6 · El rol del supervisor: cuándo mirar -->
-<section>
-  <h2>El rol del supervisor: cuándo mirar</h2>
+  <h2>El supervisor diseña el entorno</h2>
 
   <div class="s5-supervisor-wrap">
-    <div class="s5-supervisor-card">
-      La autonomía del agente no elimina el supervisor. Lo que cambia es <em style="font-style:italic;color:var(--accent);">cuándo</em> mira.<br>
-      En el modelo de chat, revisabas la respuesta antes de actuar. En el modelo agéntico, el agente ya actuó. Esperar al final para abrir el diff es demasiado tarde: un loop infinito no para solo, una deriva no se autocorrige.
+    <div class="s5-supervisor-card before">
+      <p class="s5-supervisor-label">Antes — modelo de chat</p>
+      <p class="s5-supervisor-headline">Auditor post-hoc</p>
+      <p class="s5-supervisor-body">
+        Revisás la respuesta antes de actuar. Si la sugerencia no sirve, la rechazás. El entorno no cambió.
+      </p>
     </div>
-    <div class="s5-supervisor-card" style="border-color:var(--accent-secondary);">
-      <strong>Callback Semana 3:</strong> "no le creés a la IA, creale a la máquina." Leé los logs, verificá los outputs antes de asumir que algo funciona.<br><br>
-      Mirá la evidencia: <strong>¿los archivos que dice haber editado cambiaron?</strong> <strong>¿El test que dice haber pasado corre?</strong>
+    <div class="s5-supervisor-card after">
+      <p class="s5-supervisor-label">Ahora — modelo agéntico</p>
+      <p class="s5-supervisor-headline">Diseñador del entorno</p>
+      <p class="s5-supervisor-body">
+        El agente ya actuó cuando lo mirás. La defensa que escala no es revisar más rápido — es diseñar guardrails, validaciones y scripts que lo frenen antes.
+      </p>
     </div>
   </div>
 
-  <p class="s5-audit-line">Revisión al final no es supervisión: es auditoría.</p>
+  <p class="s5-supervisor-foot fragment fade-in">
+    Revisar al final es auditoría — sigue siendo necesaria. Pero la supervisión vive en el harness.
+  </p>
 
   <aside class="notes">
-    <p><strong>Leer el primer card. Pausa. Leer las dos preguntas del segundo card en voz alta, despacio. Pausa larga antes de la línea de cierre.</strong></p>
-    <p><u>Slide sin lista — dos cards estructurados más la línea de cierre. La frase final viene del material fuente y es la conclusión de peso de este slide; no se neutraliza con nada después.</u></p>
-    <p><em>"La autonomía no quita al supervisor. Cambia cuándo mira."</em></p>
-    <p><em>"En el modelo de chat, vos revisabas la respuesta antes de hacer algo. La puerta de salida estaba antes de la acción. En el modelo agéntico, el agente ya actuó. Si esperás al final para abrir el diff, llegaste tarde."</em></p>
-    <p><em>"En la Semana 3 aprendieron esto para el backend: no le creás a la IA, creale a la máquina. Leé los logs. Verificá los outputs. Acá aplica lo mismo."</em></p>
-    <p><em>"Las preguntas que hacés como supervisor cambian. Ya no es '¿esta respuesta tiene sentido?'. Es: ¿los archivos que dice haber editado cambiaron? ¿El test que dice haber pasado corre si lo corrés vos?"</em></p>
-    <p><em>"Revisión al final no es supervisión. Es auditoría. La supervisión entra en el proceso, no después."</em></p>
+    <p><strong>Señalar la tarjeta izquierda, después la derecha. Pausa antes del click final.</strong></p>
+    <p><u>El rol del supervisor evoluciona: del auditor post-hoc al diseñador del entorno. La auditoría no desaparece, pero deja de ser la línea principal de defensa cuando el agente actúa autónomamente.</u></p>
+    <p><em>"Una consecuencia importante: el rol del supervisor cambia cuando el agente actúa autónomamente."</em></p>
+    <p><em>"En el modelo de chat, el supervisor era un auditor post-hoc — revisaba la respuesta antes de hacer algo. Si no servía, la rechazaba. El entorno no cambiaba porque vos eras el cuello de botella entre la sugerencia y la acción."</em></p>
+    <p><em>"En el modelo agéntico no podés ser ese cuello de botella — el agente ya actuó cuando lo mirás. La defensa que escala no es revisar más rápido. Es diseñar el entorno: poner guardrails antes de las acciones riesgosas, validaciones automáticas que verifiquen cada cambio, scripts deterministas donde el modelo no debería decidir. Eso es lo que pasa antes de que el agente pueda romper algo."</em></p>
+    <p><em>"La auditoría sigue siendo necesaria — uno revisa lo que el agente hizo, no le cree a ciegas. Pero la supervisión real, la que evita daños, vive en el harness, no en la revisión final."</em></p>
   </aside>
 </section>
 
-<!-- §5.7 · Cierre de la Parte 1 — lente para la Parte 2 -->
+<!-- §5.6 · Cierre Parte 1 — recap tres ingenierías + bridge a Parte 2 -->
 <section>
-  <h2>Cierre de la parte 1</h2>
+  <h2>Tres niveles para dirigir un agente</h2>
 
-  <div class="s5-recap-grid">
-    <div class="s5-recap-card">
-      <span class="s5-recap-num">Pieza 1 — §2</span>
-      <div class="s5-recap-title">El loop</div>
-      <p class="s5-recap-desc">pensar → actuar → observar, hasta una condición de corte</p>
+  <div class="s5-eng-recap">
+    <div class="s5-eng-recap-card prompt">
+      <p class="s5-eng-recap-title">Prompt engineering</p>
+      <p class="s5-eng-recap-scope">una interacción</p>
+      <p class="s5-eng-recap-body">
+        Diseñar el mejor input al modelo. Lo que vienen practicando desde antes.
+      </p>
     </div>
-    <div class="s5-recap-card">
-      <span class="s5-recap-num">Pieza 2 — §3</span>
-      <div class="s5-recap-title">Tools: leer y escribir</div>
-      <p class="s5-recap-desc">reversible vs. no reversible; cada observación ocupa contexto</p>
+    <div class="s5-eng-recap-card context">
+      <p class="s5-eng-recap-title">Context engineering</p>
+      <p class="s5-eng-recap-scope">una sesión</p>
+      <p class="s5-eng-recap-body">
+        Controlar qué ve el modelo: cargar lo necesario, mantener la señal, compactar o resetear cuando se llena.
+      </p>
     </div>
-    <div class="s5-recap-card">
-      <span class="s5-recap-num">Pieza 3 — §4</span>
-      <div class="s5-recap-title">Ventana finita</div>
-      <p class="s5-recap-desc">el loop la llena vuelta a vuelta; context rot como consecuencia</p>
-    </div>
-    <div class="s5-recap-card">
-      <span class="s5-recap-num">Pieza 4 — §5</span>
-      <div class="s5-recap-title">Modos de falla</div>
-      <p class="s5-recap-desc">loop infinito / deriva / alucinar tools / envenenar el contexto</p>
+    <div class="s5-eng-recap-card harness">
+      <p class="s5-eng-recap-title">Harness engineering</p>
+      <p class="s5-eng-recap-scope">múltiples sesiones</p>
+      <p class="s5-eng-recap-body">
+        Diseñar el entorno: tools, guardrails, scripts deterministas, feedback loops.
+      </p>
     </div>
   </div>
 
-  <div class="s5-lens-line">
-    <p class="s5-lens-main">
-      <em>Todo lo que sigue actúa sobre el loop o sobre el contexto.</em>
+  <div class="s5-eng-recap-bridge fragment fade-in">
+    <p class="s5-eng-recap-bridge-main">
+      Cada feature de Claude Code que viene <em>llena</em> uno de estos tres niveles.
     </p>
-    <p class="s5-lens-sub">
-      La parte 2 lleva estas cuatro piezas a una herramienta concreta. Cada feature que vas a ver responde exactamente a los problemas que acabamos de nombrar.
+    <p class="s5-eng-recap-bridge-sub">
+      Cuando veas una feature nueva, la pregunta ya no es "¿qué hace?" — es "¿en qué nivel actúa?"
     </p>
   </div>
 
   <aside class="notes">
-    <p><strong>Recorrer las cuatro piezas por nombre. Pausa. Leer la línea del lens en voz alta, despacio. Dejar el silencio hacer el trabajo.</strong></p>
-    <p><u>Slide de cierre de la parte 1 y pivot hacia la parte 2. El lens-line es el momento de mayor peso del slide — no se apresura, no se neutraliza. Las cuatro piezas son el resumen explícito de §1–§5. La línea del lens monta el dispositivo que recorre toda la parte 2.</u></p>
-    <p><em>"Antes de pasar a la parte 2, recapitulamos las cuatro piezas que construimos en §1–§5. El loop: pensar, actuar, observar, hasta una condición de corte. Las tools, con su distinción de riesgo entre leer y escribir. La ventana de contexto, finita, que el loop llena vuelta a vuelta. Y los cuatro modos de falla nuevos que aparecen cuando alguna de esas piezas se descontrola."</em></p>
-    <p><em>"Con esas cuatro piezas en la cabeza, esto es lo que monta la parte 2."</em></p>
-    <p><em>"Todo lo que sigue actúa sobre el loop o sobre el contexto."</em></p>
-    <p><em>"Cada feature de la herramienta que vamos a abrir en la parte 2 — sin excepción — es una respuesta a alguno de los problemas que acabamos de nombrar. No son features sueltas en una lista. Son palancas sobre las dos cosas que ya conocen."</em></p>
+    <p><strong>Recorrer las tres tarjetas izquierda a derecha. Pausa. Click revela el bridge a la Parte 2.</strong></p>
+    <p><u>Cierre de Parte 1. Las tres ingenierías quedaron definidas (§3) y desarrolladas (§4 y §5). El recap visual cierra el marco conceptual; el bridge prepara la Parte 2: Claude Code va a ser un caso concreto que llena cada nivel con features específicas.</u></p>
+    <p><em>"Cerramos la Parte 1 con las tres ingenierías ya definidas y desarrolladas. Prompt: una interacción. Context: una sesión. Harness: múltiples sesiones, el entorno completo."</em></p>
+    <p><em>"Lo que viene a continuación — la Parte 2 — es Claude Code. Y la propuesta es ésta: cada feature que vas a ver, sin excepción, llena uno de estos tres niveles. CLAUDE.md, las rules, las skills, los sub-agents, plan mode, los permisos. Cada uno actúa en prompt, context o harness."</em></p>
+    <p><em>"Por eso la pregunta ya no es '¿qué hace esa feature?'. Es '¿en qué nivel actúa?'. Si sabés eso, sabés qué problema te resuelve y cuándo usarla. Ese es el lente que recorre toda la Parte 2."</em></p>
   </aside>
 </section>
 </section>
@@ -7616,7 +7676,7 @@
 
   <!-- init §5 -->
 <script>
-  // C2 — consolidated modes
+  // §5.3 — Cuatro modos de falla (clickable-steps + animation)
   var s5C2ModeMap = [
     { mode: 'infinite',    title: 'Loop infinito',         body: 'Conexión con §2: las cuatro condiciones de corte (objetivo alcanzado / límite de pasos / el agente pide ayuda / falla no recuperable). Cuando ninguna se cumple, el loop no para solo.' },
     { mode: 'drift',       title: 'Deriva de objetivo',    body: 'Desde adentro del loop no parece un error — el agente siguió algo que le pareció relevante. El problema se ve desde afuera, cuando revisás el resultado.' },
