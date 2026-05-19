@@ -229,34 +229,9 @@
   </aside>
 </section>
 
-<!-- §6.2 · Hook — la revelación -->
-<section>
-  <h2>El loop del §2 ya tenía nombre</h2>
-
-  <div class="s6-hook-card">
-    <p class="s6-hook-main">
-      Lo que describimos en §2 como pensar → actuar → observar no era un diagrama abstracto.
-      Era la descripción de algo real. Cuando Claude Code trabaja en tu repo, no está
-      "pensando en cómo ayudarte". Está ejecutando vueltas de un loop que ya conocés.
-    </p>
-    <p class="s6-hook-reveal fragment">
-      Podés abrirlo ahora mismo en la terminal y dejar corriendo. El desafío la primera vez
-      no es entender qué hace — ya lo sabés. Es identificar en qué fase está.
-    </p>
-  </div>
-
-  <aside class="notes">
-    <p><strong>Leer el card superior. Pausa. Click para el fragment. Leer la línea de reveal despacio — es el momento de peso.</strong></p>
-    <p><u>Slide de hook y revelación. El fragment retrasa la segunda parte para que la primera caiga antes. No hay diagrama acá — la sorpresa es verbal. El tono es: "ya lo tenías enfrente".</u></p>
-    <p><em>"En §2 introdujimos el loop como concepto: pensar, actuar, observar, repetir hasta una condición de corte. Lo vimos con un trace de pytest. Lo animamos. Era abstracto — podría ser cualquier agente."</em></p>
-    <p><em>"No era abstracto. Era la descripción de Claude Code."</em></p>
-    <p><em>"Podés abrirlo ahora mismo en la terminal. Le das una tarea, la salida empieza a correr, y lo que ves no es una respuesta: es el loop ejecutándose en tiempo real. El desafío la primera vez no es entender qué hace — eso ya lo sabés. Es aprender a reconocer en qué fase está cuando lo mirás."</em></p>
-  </aside>
-</section>
-
 <!-- §6.3 · La pantalla mapeada al loop — animación cc -->
 <section>
-  <h2>La pantalla es el loop expuesto</h2>
+  <h2>La pantalla, fase por fase</h2>
 
   <div class="s6-loop-wrap">
     <div class="s6-cc-loop-host">
@@ -281,7 +256,7 @@
     </div>
   </div>
 
-  <p class="s6-map-note">No es un log de actividad: es el loop expuesto, vuelta por vuelta.</p>
+  <p class="s6-map-note">No es un log de actividad: es el loop corriendo, vuelta por vuelta.</p>
 
   <aside class="notes">
     <p><strong>Señalar la animación a la izquierda — dejar que cicle una vuelta antes de pasar a las columnas de la derecha. Recorrer las tres filas de arriba hacia abajo.</strong></p>
@@ -289,7 +264,7 @@
     <p><em>"Cuando abrís Claude Code y le das una tarea, lo primero que aparece es texto del modelo razonando. No es una respuesta para vos: es el modelo formulando la próxima acción en función de lo que tiene en contexto. Eso es pensar."</em></p>
     <p><em>"Después aparece una tool call. Edit, Bash, Read, Write — el nombre de la herramienta, los argumentos, el archivo o el comando. Algo en el entorno cambia. Eso es actuar."</em></p>
     <p><em>"Después aparece el resultado: la salida del comando, el contenido del archivo, el error. Esa información nueva entra al contexto y alimenta la próxima vuelta. Eso es observar."</em></p>
-    <p><em>"La pantalla no es un log de actividad. Es el loop expuesto, vuelta por vuelta. Pensar, actuar, observar, repetir. Exactamente como lo viste en §2."</em></p>
+    <p><em>"La pantalla no es un log de actividad. Es el loop corriendo, vuelta por vuelta. Pensar, actuar, observar, repetir."</em></p>
   </aside>
 </section>
 
@@ -320,17 +295,17 @@
     </div>
   </div>
 
-  <p class="s6-piece-sub">El mismo diagrama del §2, con una herramienta concreta detrás de cada pieza.</p>
+  <p class="s6-piece-sub">El mismo diagrama de antes, con una herramienta concreta detrás de cada pieza.</p>
 
   <aside class="notes">
     <p><strong>Recorrer las cuatro piezas por nombre. Pausa en "Entorno" — enfatizar "de verdad". Leer la línea de cierre despacio.</strong></p>
-    <p><u>Slide de mapeo de 4 piezas. Grid 2×2. El §2 definió LLM + loop + tools + entorno; este slide ancla las cuatro piezas a sus equivalentes concretos en Claude Code. La línea final reitera la costura.</u></p>
-    <p><em>"El §2 definió un agente como cuatro piezas. Las cuatro aparecen en Claude Code."</em></p>
+    <p><u>Slide de mapeo de 4 piezas. Grid 2×2. La parte 1 definió LLM + loop + tools + entorno; este slide ancla las cuatro piezas a sus equivalentes concretos en Claude Code. La línea final reitera la costura.</u></p>
+    <p><em>"Vimos antes que un agente son cuatro piezas. Las cuatro aparecen en Claude Code."</em></p>
     <p><em>"El LLM es Claude. Decide qué hacer en cada vuelta a partir de todo lo que tiene en contexto: la tarea original, el historial de la sesión, la última observación."</em></p>
     <p><em>"El loop es el motor. Claude Code no para después de la primera respuesta. Sigue. Eso es lo que lo convierte en algo que termina tareas en lugar de describirlas."</em></p>
     <p><em>"Las tools son las manos: Edit, Bash, Read, Write. Sin ellas el LLM razonaría brillantemente sobre qué habría que hacer, pero no podría tocar nada."</em></p>
     <p><em>"El entorno es tu repo real, tu terminal, tu filesystem. No una simulación. Cuando Claude Code ejecuta npm test, los tests corren de verdad. Lo que el agente observa y modifica es tuyo."</em></p>
-    <p><em>"El mismo diagrama del §2. Con una herramienta concreta detrás de cada pieza."</em></p>
+    <p><em>"El mismo diagrama de antes. Con una herramienta concreta detrás de cada pieza."</em></p>
   </aside>
 </section>
 
