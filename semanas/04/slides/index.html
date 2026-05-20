@@ -4100,6 +4100,27 @@
   <aside class="notes">
     <p><strong>Setup antes del slide: terminal con cwd en una copia del demo-repo, Claude Code instalado. Una pestaña del file explorer apuntando a ~/.claude/projects/. Click recorre los tres pasos; en cada uno hablo en vivo, los notes acá son el guion mínimo.</strong></p>
     <p><u>Demo de la sección. Tres pasos. Paso 1: /memory lista las fuentes cargadas, user y project con sus paths. Paso 2: /context muestra el delta atribuible a CLAUDE.md. Paso 3: navego a la carpeta de auto memory del demo-repo y abro MEMORY.md si existe — si no existe, explico que aparece cuando Claude aprende algo. El plan B vive en el paso 3 por si /context no coopera.</u></p>
+    <hr>
+    <p><strong>Acciones (copiables):</strong></p>
+    <p><strong>Paso 1 — /memory: las fuentes cargadas</strong></p>
+    <ul>
+      <li>Terminal: <code>cd ~/demo-repo</code></li>
+      <li>Terminal: <code>claude</code></li>
+      <li>En Claude: <code>/memory</code></li>
+      <li>Mirar: nivel user + project con paths completos</li>
+    </ul>
+    <p><strong>Paso 2 — /context: el delta atribuible</strong></p>
+    <ul>
+      <li>En Claude: <code>/context</code></li>
+      <li>Mirar: delta de contexto atribuible a CLAUDE.md (folder map, convenciones, workflow)</li>
+    </ul>
+    <p><strong>Paso 3 — Auto memory: la carpeta paralela</strong></p>
+    <ul>
+      <li>File explorer: ir a <code>~/.claude/projects/&lt;demo-repo&gt;/memory/</code></li>
+      <li>Si existe <code>MEMORY.md</code>: abrirlo</li>
+      <li>Mirar: contraste con CLAUDE.md — esto lo escribió Claude, no vos</li>
+    </ul>
+    <p><em>Plan B (si /context no funciona en la versión instalada): sostener el punto con /memory solo. Narrar: "todo lo que ven en esta lista entró a la ventana antes de mi primer mensaje".</em></p>
     <p><em>"Vamos al demo. Tres pasos. El objetivo es hacer visible algo que hasta acá fue verbal: CLAUDE.md ocupa contexto desde el arranque, y la auto memory es un sistema separado que vive en otro archivo."</em></p>
   </aside>
 </section>
@@ -4986,6 +5007,28 @@ Cuando trabajes con código del backend:
     <p><strong>Setup antes del slide: terminal con cwd en una copia del demo-repo, Claude Code abierto. VS Code con el árbol .claude/rules/ visible y api.md abierto en una pestaña. Click recorre los tres pasos; hablo en vivo en cada uno, las notas son guion mínimo.</strong></p>
     <p><u>Demo de la sección. Tres pasos progresivos sobre la misma sesión: /memory sin tocar nada → leer un archivo de frontend → leer un archivo de backend, con /memory entre cada paso para mostrar el cambio. La consigna entera es ver aparecer api.md en la lista solo en el último paso. Plan B vive en notes del paso 3 por si /memory no expone la lista con suficiente detalle.</u></p>
     <p><em>"Vamos al demo. Tres pasos sobre la misma sesión. El objetivo es ver, con el mismo comando /memory, cómo api.md cambia de estado: no cargada, no cargada, cargada — y en qué momento exacto se activa."</em></p>
+    <hr>
+    <p><strong>Acciones (copiables):</strong></p>
+    <p><strong>Paso 1 — La rule existe, pero no está cargada</strong></p>
+    <ul>
+      <li>VS Code: abrir árbol <code>.claude/rules/</code> — ver los 4 archivos</li>
+      <li>Abrir <code>api.md</code>: señalar frontmatter <code>paths: ["backend/**/*.py"]</code></li>
+      <li>En Claude: <code>/memory</code></li>
+      <li>Mirar: <code>api.md</code> NO aparece en la lista</li>
+    </ul>
+    <p><strong>Paso 2 — Tocar un archivo que no matchea</strong></p>
+    <ul>
+      <li>En Claude: "leé <code>frontend/index.html</code>"</li>
+      <li>En Claude: <code>/memory</code></li>
+      <li>Mirar: <code>api.md</code> sigue sin aparecer — no matchea el glob</li>
+    </ul>
+    <p><strong>Paso 3 — Tocar un archivo que sí matchea</strong></p>
+    <ul>
+      <li>En Claude: "leé <code>backend/routers/users.py</code>"</li>
+      <li>En Claude: <code>/memory</code></li>
+      <li>Mirar: <code>api.md</code> ahora SÍ aparece cargada</li>
+    </ul>
+    <p><em>Plan B (si /memory no muestra el detalle): demostrar por comportamiento. Pedirle a Claude que edite un archivo cualquiera del frontend — no propone regenerar el openapi. Pedirle que toque backend/routers/users.py — ahora sí lo propone.</em></p>
   </aside>
 </section>
 
@@ -5863,6 +5906,29 @@ Cuando trabajes con código del backend:
     <p><strong>Setup antes del slide: VS Code con tres archivos abiertos en paneles lado a lado — ~/.claude/settings.json (usuario), .claude/settings.json del demo-repo (proyecto), .claude/settings.local.json (local, o el .example si el local no existe en esta máquina). Terminal con cwd en una copia del demo-repo, Claude Code listo para abrir nueva sesión. Click recorre los tres pasos; la narración vive en vivo.</strong></p>
     <p><u>Demo de la sección. Tres pasos sobre los archivos abiertos en paralelo: recorrer qué va en cada nivel (Paso 1), cambiar un campo y mostrar que toma efecto en próxima sesión (Paso 2), abrir el .gitignore y mostrar que el .local no se trackea (Paso 3). El objetivo del demo no es la mecánica de cada paso — es asentar la convención de qué decisión va en qué nivel. Plan B vive en notes del Paso 3.</u></p>
     <p><em>"Vamos al demo. Tres pasos sobre los mismos tres archivos abiertos en paralelo. El objetivo no es ver el runtime hacer fuegos artificiales — es ver con qué criterio decidís qué va en cada nivel."</em></p>
+    <hr>
+    <p><strong>Acciones (copiables):</strong></p>
+    <p><strong>Paso 1 — Los tres archivos abiertos en paralelo</strong></p>
+    <ul>
+      <li>VS Code: abrir lado a lado <code>~/.claude/settings.json</code>, <code>.claude/settings.json</code>, <code>.claude/settings.local.json</code></li>
+      <li>Narrar: qué campo va en cada nivel y por qué</li>
+      <li>Mirar: tres niveles, tres responsabilidades</li>
+    </ul>
+    <p><strong>Paso 2 — Cambiar el model y ver el efecto en próxima sesión</strong></p>
+    <ul>
+      <li>VS Code: editar <code>.claude/settings.json</code></li>
+      <li>Cambiar <code>"model"</code> de <code>claude-sonnet-4-6</code> a <code>claude-haiku-4-5</code>, guardar</li>
+      <li>Terminal: cerrar Claude Code y abrir sesión nueva</li>
+      <li>Mirar: barra inferior muestra Haiku 4.5</li>
+      <li>Revertir el cambio</li>
+    </ul>
+    <p><strong>Paso 3 — El .gitignore lo confirma</strong></p>
+    <ul>
+      <li>VS Code: abrir <code>.gitignore</code>, buscar línea <code>.claude/settings.local.json</code></li>
+      <li>Terminal: <code>git status</code></li>
+      <li>Mirar: el <code>.local.json</code> no aparece — git lo ignora</li>
+    </ul>
+    <p><em>Plan B (si el demo se traba en algún paso): los tres archivos abiertos sostienen el argumento solos. Leer cada uno en voz alta — proyecto define la base compartida, local agrega lo específico de la máquina, usuario persiste entre proyectos.</em></p>
   </aside>
 </section>
 
@@ -6756,6 +6822,31 @@ Cuando trabajes con código del backend:
     <p><strong>Setup antes del slide: terminal con cwd en una copia del demo-repo, en una sesión nueva. El .claude/settings.json del demo-repo, abierto en VS Code en una pestaña al lado, para mostrar los cambios que /permissions va escribiendo (en settings.local.json). Plan B en notes del último paso si algo falla en vivo.</strong></p>
     <p><u>Demo de la sección. Tres pasos sobre la misma sesión, sin reiniciar. El primer paso muestra el comportamiento default cuando no hay regla; el segundo, allow agregado en vivo elimina el prompt; el tercero, deny agregado en vivo bloquea sin opción a confirmar. El objetivo es ver la diferencia entre ask y deny en pantalla, no contártela. Si el flujo en vivo falla, el Plan B sostiene el argumento leyendo las tres listas del settings.json — la lógica se sostiene sin ver el runtime ejecutarse.</u></p>
     <p><em>"Vamos al demo. Tres pasos sobre una misma sesión, sin reiniciar. La idea es ver en pantalla el ciclo completo: un comando que pregunta, una regla que lo libera, una regla que lo bloquea."</em></p>
+    <hr>
+    <p><strong>Acciones (copiables):</strong></p>
+    <p><strong>Paso 1 — Sin permiso: el prompt aparece</strong></p>
+    <ul>
+      <li>Setup: sesión nueva en el demo-repo, sin <code>Bash(uv run pytest)</code> en allow</li>
+      <li>En Claude: "corré los tests"</li>
+      <li>Mirar: prompt "¿Permitir Bash uv run pytest?"</li>
+      <li>Negar — Claude no ejecuta pero no rompe</li>
+    </ul>
+    <p><strong>Paso 2 — /permissions agrega allow: pasa sin prompt</strong></p>
+    <ul>
+      <li>En Claude: <code>/permissions</code></li>
+      <li>Agregar <code>Bash(uv run pytest)</code> a <code>allow</code> (escribe en <code>.local.json</code>)</li>
+      <li>En Claude: "corré los tests" (de nuevo)</li>
+      <li>Mirar: corre sin prompt</li>
+      <li>VS Code: ver el diff en <code>.local.json</code> abierto al lado</li>
+    </ul>
+    <p><strong>Paso 3 — /permissions agrega deny: bloqueado sin opción</strong></p>
+    <ul>
+      <li>En Claude: <code>/permissions</code></li>
+      <li>Agregar <code>Read(./.env)</code> a <code>deny</code></li>
+      <li>En Claude: "mostrame el contenido de <code>.env</code>"</li>
+      <li>Mirar: bloqueado, sin prompt — Claude no puede rodearlo</li>
+    </ul>
+    <p><em>Plan B (si el flujo en vivo no coopera): abrir el .claude/settings.json del demo-repo y leer las tres listas — allow, deny, ask — en voz alta. Para cada entrada, explicar qué cubre y por qué está en esa lista.</em></p>
   </aside>
 </section>
 
@@ -6786,937 +6877,719 @@ Cuando trabajes con código del backend:
       <style>
 /* Scoped styles for §11 only */
 
-/* Opener wrap */
-.s11-opener-wrap {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 18px;
-  margin: 22px auto 0;
-  max-width: 640px;
-}
-.s11-opener-flip-label {
-  font-size: 0.63em;
-  font-family: var(--font-mono);
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: var(--accent);
-  margin: 0;
-}
-.s11-opener-hook {
-  font-size: 0.9em;
-  font-weight: 700;
-  color: var(--text-primary);
+/* Heading override scoped to §11 slides */
+.reveal .slides .s11-slide { text-align: center; }
+.reveal .slides .s11-slide h2 {
+  font-size: 0.82em;
+  line-height: 1.2;
+  margin: 0 0 6px;
   text-align: center;
-  margin: 0;
-  line-height: 1.7;
-}
-.s11-opener-sub {
-  font-size: 0.78em;
-  color: var(--text-muted);
-  text-align: center;
-  margin: 0;
-  line-height: 1.75;
-  font-style: italic;
-}
-.s11-opener-sub em {
-  color: var(--accent);
-  font-style: normal;
-  font-weight: 700;
+  text-transform: none;
+  letter-spacing: 0;
 }
 
-/* Generic focus card */
-.s11-focus-card {
-  max-width: 700px;
-  margin: 24px auto 0;
+/* --- Five-questions card (full + mini) — calibrated identically to §10 --- */
+.reveal .slides .s11-slide h2.s11-five-q-title {
+  font-size: 1.05em;
+  text-align: center;
+  margin: 0 0 16px;
+  line-height: 1.2;
+}
+.s11-five-q-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 7px;
+  list-style: none;
+  padding: 0;
+  margin: 0 auto;
+  max-width: 900px;
+}
+.s11-five-q-card {
   background: var(--bg-secondary);
   border: 1px solid #2a3a5a;
-  border-left: 3px solid var(--accent);
-  border-radius: 8px;
-  padding: 26px 34px;
-  text-align: left;
-}
-.s11-focus-card p {
-  font-size: 0.85em;
-  line-height: 1.82;
-  color: var(--text-primary);
-  margin: 0 0 14px;
-}
-.s11-focus-card p:last-child { margin: 0; }
-.s11-focus-card .s11-key-line {
-  font-size: 0.88em;
-  font-weight: 700;
-  color: var(--accent);
-  border-top: 1px solid #2a3a5a;
-  padding-top: 14px;
-  margin-top: 4px;
-}
-
-/* Comparison axis card */
-.s11-axis-wrap {
-  max-width: 720px;
-  margin: 24px auto 0;
+  border-radius: 6px;
+  padding: 9px 10px 9px;
   display: flex;
   flex-direction: column;
-  gap: 14px;
+  align-items: flex-start;
+  gap: 3px;
+  opacity: 0.45;
+  transition: opacity 0.3s ease, transform 0.3s ease, border-color 0.3s ease;
 }
-.s11-axis-cols {
-  display: flex;
-  gap: 14px;
-}
-.s11-axis-col {
-  flex: 1;
-  background: var(--bg-secondary);
-  border: 1px solid #2a3a5a;
-  border-radius: 8px;
-  padding: 20px 22px;
-}
-.s11-axis-col.loop-col {
+.s11-five-q-card.is-active {
+  opacity: 1;
+  border-color: var(--accent);
   border-left: 3px solid var(--accent);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 14px rgba(100, 255, 218, 0.08);
 }
-.s11-axis-col.ctx-col {
-  border-left: 3px solid var(--accent-secondary);
-}
-.s11-axis-col-label {
-  font-size: 0.56em;
+.s11-five-q-num {
   font-family: var(--font-mono);
-  text-transform: uppercase;
+  font-size: 0.5em;
   letter-spacing: 0.08em;
   color: var(--text-muted);
-  display: block;
-  margin-bottom: 7px;
 }
-.s11-axis-col-title {
-  font-size: 0.82em;
-  font-weight: 700;
+.s11-five-q-card.is-active .s11-five-q-num {
   color: var(--accent);
+}
+.s11-five-q-label {
+  font-size: 0.56em;
+  font-weight: 700;
+  color: var(--text-primary);
+  line-height: 1.3;
+}
+.s11-five-q-hint {
+  font-size: 0.44em;
+  color: var(--text-muted);
+  line-height: 1.4;
+}
+/* Mini variant */
+.s11-five-q-grid.is-mini {
+  grid-template-columns: repeat(5, auto);
+  justify-content: center;
+  gap: 4px;
+  max-width: 100%;
+  margin: 0 auto 8px;
+}
+.s11-five-q-grid.is-mini .s11-five-q-card {
+  padding: 3px 9px;
+  border-radius: 999px;
+  border-left-width: 1px;
+  flex-direction: row;
+  align-items: center;
+  gap: 5px;
+}
+.s11-five-q-grid.is-mini .s11-five-q-card.is-active {
+  border-left: 1px solid var(--accent);
+}
+.s11-five-q-grid.is-mini .s11-five-q-num {
+  font-size: 0.42em;
+}
+.s11-five-q-grid.is-mini .s11-five-q-label {
+  font-size: 0.5em;
+}
+
+/* Qué es — bullet list (definición + callout) */
+.s11-qe-list {
+  list-style: disc;
+  display: inline-block;
+  text-align: left;
+  max-width: 720px;
+  margin: 16px auto 0;
+  padding-left: 36px;
+  font-size: 0.6em;
+  line-height: 1.6;
+  color: var(--text-muted);
+}
+.s11-qe-list li {
+  padding-left: 6px;
   margin-bottom: 10px;
 }
-.s11-axis-col-title.sec { color: var(--accent-secondary); }
-.s11-axis-col-body {
-  font-size: 0.72em;
-  color: var(--text-muted);
-  line-height: 1.68;
-}
-.s11-axis-col-body strong { color: var(--text-primary); }
-.s11-axis-sep-line {
-  background: rgba(100, 255, 218, 0.06);
-  border: 1px solid rgba(100, 255, 218, 0.2);
-  border-radius: 7px;
-  padding: 12px 20px;
-  font-size: 0.73em;
-  color: var(--accent);
-  font-weight: 600;
-  line-height: 1.6;
-  text-align: center;
-}
-
-/* Plan mode anim + def note */
-.s11-planmode-wrap {
-  max-width: 720px;
-  margin: 20px auto 0;
-  display: flex;
-  flex-direction: column;
-  gap: 14px;
-}
-.s11-anim-container {
-  min-height: 220px;
-}
-.s11-def-note {
-  background: var(--bg-secondary);
-  border: 1px solid #2a3a5a;
-  border-left: 3px solid var(--accent);
-  border-radius: 7px;
-  padding: 16px 22px;
-  font-size: 0.74em;
-  color: var(--text-muted);
-  line-height: 1.72;
-}
-.s11-def-note strong { color: var(--text-primary); }
-.s11-def-note em {
-  color: var(--accent);
-  font-style: normal;
-  font-weight: 700;
-}
-
-/* Por qué importa — two cards */
-.s11-why-wrap {
-  max-width: 700px;
-  margin: 24px auto 0;
-  display: flex;
-  flex-direction: column;
-  gap: 14px;
-}
-.s11-why-card {
-  background: var(--bg-secondary);
-  border: 1px solid #2a3a5a;
-  border-radius: 8px;
-  padding: 20px 26px;
-}
-.s11-why-card-label {
-  font-size: 0.56em;
+.s11-qe-list li::marker { color: var(--accent); }
+.s11-qe-list strong { color: var(--text-primary); font-weight: 700; }
+.s11-qe-list code {
   font-family: var(--font-mono);
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-  color: var(--text-muted);
-  display: block;
-  margin-bottom: 7px;
-}
-.s11-why-card-body {
-  font-size: 0.8em;
-  color: var(--text-primary);
-  line-height: 1.8;
-}
-.s11-why-card-body em {
   color: var(--accent);
-  font-style: normal;
+  font-size: 0.95em;
+}
+.s11-qe-list li.s11-qe-callout {
+  list-style: none;
+  margin-left: -32px;
+  margin-top: 10px;
+  background: rgba(100, 255, 218, 0.06);
+  border-left: 3px solid var(--accent);
+  border-radius: 4px;
+  padding: 8px 14px;
+  color: var(--accent);
   font-weight: 700;
 }
-.s11-why-callout {
-  background: rgba(100, 255, 218, 0.06);
-  border: 1px solid rgba(100, 255, 218, 0.25);
-  border-radius: 7px;
-  padding: 13px 22px;
-  font-size: 0.76em;
-  color: var(--accent);
-  font-weight: 600;
-  text-align: center;
-  line-height: 1.6;
-}
 
-/* Gate anim + def note */
-.s11-gate-wrap {
-  max-width: 720px;
-  margin: 20px auto 0;
-  display: flex;
-  flex-direction: column;
-  gap: 14px;
-}
-.s11-gate-def-note {
+/* Dónde vive — 2×3 matrix table */
+.s11-matrix-wrap {
+  max-width: 880px;
+  margin: 12px auto 0;
   background: var(--bg-secondary);
   border: 1px solid #2a3a5a;
-  border-left: 3px solid var(--accent-secondary);
-  border-radius: 7px;
-  padding: 16px 22px;
-  font-size: 0.74em;
-  color: var(--text-muted);
-  line-height: 1.72;
-}
-.s11-gate-def-note strong { color: var(--text-primary); }
-.s11-gate-def-note em {
-  color: var(--accent-secondary);
-  font-style: normal;
-  font-weight: 700;
-}
-
-/* Dial de autonomía */
-.s11-dial-wrap {
-  max-width: 720px;
-  margin: 24px auto 0;
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-}
-.s11-dial-spectrum {
-  display: flex;
-  gap: 0;
   border-radius: 8px;
   overflow: hidden;
-  border: 1px solid #2a3a5a;
 }
-.s11-dial-zone {
-  flex: 1;
-  padding: 18px 16px;
-  text-align: center;
+.s11-matrix-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.5em;
+  line-height: 1.5;
+  text-align: left;
 }
-.s11-dial-zone.low {
-  background: rgba(100, 255, 218, 0.07);
-  border-right: 1px solid #2a3a5a;
-}
-.s11-dial-zone.mid {
-  background: rgba(100, 255, 218, 0.04);
-  border-right: 1px solid #2a3a5a;
-}
-.s11-dial-zone.high {
-  background: rgba(130, 170, 255, 0.07);
-}
-.s11-dial-zone-label {
-  font-size: 0.52em;
-  font-family: var(--font-mono);
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
+.s11-matrix-table thead th {
+  background: var(--bg-code);
   color: var(--text-muted);
-  display: block;
-  margin-bottom: 6px;
-}
-.s11-dial-zone-title {
-  font-size: 0.76em;
+  font-family: var(--font-mono);
+  font-size: 0.95em;
   font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  padding: 8px 12px;
+  border-bottom: 1px solid #2a3a5a;
+}
+.s11-matrix-table thead th.s11-matrix-rowhead { width: 22%; }
+.s11-matrix-table tbody td {
+  padding: 9px 12px;
+  vertical-align: top;
+  border-bottom: 1px solid #1e2a48;
+  color: var(--text-muted);
+}
+.s11-matrix-table tbody tr:last-child td { border-bottom: none; }
+.s11-matrix-table tbody td.s11-matrix-rowname {
+  color: var(--text-primary);
+  font-weight: 700;
+  font-size: 1.05em;
+  vertical-align: middle;
+}
+.s11-matrix-table tbody td code {
+  font-family: var(--font-mono);
+  color: var(--accent);
+  font-size: 0.98em;
+}
+.s11-matrix-note {
+  display: inline-block;
+  max-width: 760px;
+  margin: 10px 0 0;
+  font-size: 0.5em;
+  color: var(--text-muted);
+  text-align: center;
+  font-style: italic;
+  line-height: 1.5;
+}
+.s11-matrix-note strong { color: var(--text-primary); font-style: normal; }
+.s11-matrix-note code {
+  font-family: var(--font-mono);
+  color: var(--accent);
+  font-style: normal;
+}
+
+/* Cuándo se carga — callout grande + bullets */
+.s11-when-callout {
+  display: inline-block;
+  max-width: 760px;
+  margin: 14px auto 0;
+  background: rgba(100, 255, 218, 0.08);
+  border-left: 3px solid var(--accent);
+  border-radius: 6px;
+  padding: 14px 22px;
+  font-size: 0.72em;
+  color: var(--text-primary);
+  font-weight: 700;
+  line-height: 1.5;
+  text-align: left;
+}
+.s11-when-callout strong { color: var(--accent); }
+.s11-when-list {
+  list-style: disc;
+  display: inline-block;
+  text-align: left;
+  max-width: 720px;
+  margin: 14px auto 0;
+  padding-left: 36px;
+  font-size: 0.56em;
+  line-height: 1.6;
+  color: var(--text-muted);
+}
+.s11-when-list li {
+  padding-left: 4px;
   margin-bottom: 8px;
 }
-.s11-dial-zone.low .s11-dial-zone-title { color: var(--accent); }
-.s11-dial-zone.mid .s11-dial-zone-title { color: var(--text-primary); }
-.s11-dial-zone.high .s11-dial-zone-title { color: var(--accent-secondary); }
-.s11-dial-zone-desc {
-  font-size: 0.66em;
-  color: var(--text-muted);
-  line-height: 1.6;
+.s11-when-list li::marker { color: var(--accent); }
+.s11-when-list strong { color: var(--text-primary); }
+.s11-when-list code {
+  font-family: var(--font-mono);
+  color: var(--accent);
+  font-size: 0.95em;
 }
-.s11-dial-arrow-row {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 0 4px;
-}
-.s11-dial-arrow-end {
-  font-size: 0.68em;
+.s11-when-bottom {
+  display: inline-block;
+  max-width: 720px;
+  margin: 12px auto 0;
+  font-size: 0.55em;
   color: var(--text-muted);
   font-style: italic;
+  line-height: 1.5;
 }
-.s11-dial-arrow-line {
-  flex: 1;
-  height: 2px;
-  background: linear-gradient(to right, var(--accent), var(--accent-secondary));
-  margin: 0 10px;
-  position: relative;
-}
-.s11-dial-arrow-line::after {
-  content: '▶';
-  position: absolute;
-  right: -6px;
-  top: -7px;
-  font-size: 0.75em;
-  color: var(--accent-secondary);
-}
-.s11-dial-note {
-  background: var(--bg-secondary);
-  border: 1px solid #2a3a5a;
-  border-radius: 7px;
-  padding: 13px 22px;
-  font-size: 0.73em;
-  color: var(--text-muted);
-  line-height: 1.65;
-  text-align: center;
-}
-.s11-dial-note em {
-  color: var(--accent-secondary);
-  font-style: normal;
-  font-weight: 700;
-}
+.s11-when-bottom strong { color: var(--text-primary); font-style: normal; }
 
-/* Formalización del rol */
-.s11-rol-wrap {
-  max-width: 720px;
-  margin: 24px auto 0;
-  display: flex;
-  flex-direction: column;
-  gap: 14px;
-}
-.s11-rol-cols {
-  display: flex;
-  gap: 14px;
-}
-.s11-rol-col {
-  flex: 1;
-  background: var(--bg-secondary);
-  border: 1px solid #2a3a5a;
-  border-radius: 8px;
-  padding: 20px 22px;
-}
-.s11-rol-col.audit-col {
-  border-left: 3px solid #3a4a6a;
-  opacity: 0.88;
-}
-.s11-rol-col.super-col {
-  border-left: 3px solid var(--accent);
-}
-.s11-rol-col-label {
-  font-size: 0.54em;
-  font-family: var(--font-mono);
-  text-transform: uppercase;
-  letter-spacing: 0.09em;
-  color: var(--text-muted);
+/* Code walkthrough — frontmatter + phases */
+.s11-code-block {
   display: block;
-  margin-bottom: 7px;
-}
-.s11-rol-col-title {
-  font-size: 0.82em;
-  font-weight: 700;
-  margin-bottom: 9px;
-}
-.s11-rol-col.audit-col .s11-rol-col-title { color: var(--text-muted); }
-.s11-rol-col.super-col .s11-rol-col-title { color: var(--accent); }
-.s11-rol-col-body {
-  font-size: 0.7em;
-  color: var(--text-muted);
-  line-height: 1.68;
-}
-.s11-rol-col-body strong { color: var(--text-primary); }
-.s11-rol-callout {
-  background: rgba(100, 255, 218, 0.05);
-  border: 1px solid rgba(100, 255, 218, 0.2);
-  border-radius: 7px;
-  padding: 13px 22px;
-  font-size: 0.74em;
-  color: var(--accent);
-  font-weight: 600;
-  text-align: center;
-  line-height: 1.6;
-}
-
-/* Hooks y MCP cards */
-.s11-tools-wrap {
-  max-width: 720px;
-  margin: 26px auto 0;
-  display: flex;
-  flex-direction: column;
-  gap: 14px;
-}
-.s11-tools-cols {
-  display: flex;
-  gap: 14px;
-}
-.s11-tool-card {
-  flex: 1;
-  background: var(--bg-secondary);
+  max-width: 760px;
+  margin: 12px auto 0;
+  background: var(--bg-code);
   border: 1px solid #2a3a5a;
   border-radius: 8px;
-  padding: 20px 22px;
-}
-.s11-tool-card.hook-card {
-  border-top: 3px solid var(--accent);
-}
-.s11-tool-card.mcp-card {
-  border-top: 3px solid var(--accent-secondary);
-}
-.s11-tool-card-title {
-  font-size: 0.78em;
-  font-weight: 700;
-  margin-bottom: 10px;
-}
-.s11-tool-card.hook-card .s11-tool-card-title { color: var(--accent); }
-.s11-tool-card.mcp-card .s11-tool-card-title { color: var(--accent-secondary); }
-.s11-tool-card-body {
-  font-size: 0.7em;
+  padding: 12px 18px;
+  font-family: var(--font-mono);
+  font-size: 0.5em;
+  line-height: 1.55;
   color: var(--text-muted);
-  line-height: 1.7;
+  text-align: left;
+  overflow: hidden;
 }
-.s11-tool-card-body strong { color: var(--text-primary); }
-.s11-tool-card-body code {
+.s11-code-block .s11-code-key { color: var(--accent-secondary); }
+.s11-code-block .s11-code-val { color: var(--text-primary); }
+.s11-code-block .s11-code-fence { color: var(--text-muted); opacity: 0.7; }
+.s11-code-block .s11-code-comment { color: var(--text-muted); font-style: italic; }
+.s11-phases-list {
+  list-style: decimal;
+  display: inline-block;
+  text-align: left;
+  max-width: 720px;
+  margin: 12px auto 0;
+  padding-left: 36px;
+  font-size: 0.54em;
+  line-height: 1.55;
+  color: var(--text-muted);
+}
+.s11-phases-list li {
+  padding-left: 4px;
+  margin-bottom: 5px;
+}
+.s11-phases-list li::marker { color: var(--accent); font-family: var(--font-mono); }
+.s11-phases-list strong { color: var(--text-primary); }
+.s11-phases-list code {
   font-family: var(--font-mono);
   color: var(--accent);
-  font-size: 0.92em;
+  font-size: 0.96em;
 }
-.s11-tools-coda {
-  background: rgba(130, 170, 255, 0.05);
-  border: 1px solid rgba(130, 170, 255, 0.2);
-  border-radius: 7px;
-  padding: 12px 20px;
-  font-size: 0.72em;
-  color: var(--accent-secondary);
-  text-align: center;
+.s11-anti-card {
+  display: inline-block;
+  max-width: 720px;
+  margin: 10px auto 0;
+  background: rgba(255, 118, 118, 0.06);
+  border-left: 3px solid #ff7676;
+  border-radius: 4px;
+  padding: 8px 16px;
+  text-align: left;
+  font-size: 0.5em;
+  color: var(--text-muted);
+  line-height: 1.55;
+}
+.s11-anti-card strong {
+  color: #ff7676;
+  font-family: var(--font-mono);
+  font-size: 0.95em;
+}
+
+/* Slash command literal walkthrough (no mini-strip) */
+.s11-slash-block {
+  display: block;
+  max-width: 720px;
+  margin: 14px auto 0;
+  background: var(--bg-code);
+  border: 1px solid #2a3a5a;
+  border-radius: 8px;
+  padding: 14px 20px;
+  font-family: var(--font-mono);
+  font-size: 0.54em;
   line-height: 1.6;
-  font-style: italic;
+  color: var(--text-muted);
+  text-align: left;
+  white-space: pre-wrap;
+}
+.s11-slash-block .s11-code-key { color: var(--accent-secondary); }
+.s11-slash-block .s11-code-val { color: var(--text-primary); }
+.s11-slash-block .s11-code-fence { color: var(--text-muted); opacity: 0.7; }
+.s11-slash-tag {
+  display: inline-block;
+  max-width: 720px;
+  margin: 12px auto 0;
+  font-size: 0.56em;
+  color: var(--text-primary);
+  line-height: 1.55;
+  text-align: left;
+}
+.s11-slash-tag strong { color: var(--accent); }
+.s11-slash-tag code {
+  font-family: var(--font-mono);
+  color: var(--accent);
+  font-size: 0.95em;
+}
+
+/* Qué confunde — 3 bullets */
+.s11-gotchas-list {
+  list-style: disc;
+  display: inline-block;
+  text-align: left;
+  max-width: 780px;
+  margin: 14px auto 0;
+  padding-left: 36px;
+  font-size: 0.56em;
+  line-height: 1.6;
+  color: var(--text-muted);
+}
+.s11-gotchas-list li {
+  padding-left: 4px;
+  margin-bottom: 11px;
+}
+.s11-gotchas-list li::marker { color: var(--accent); }
+.s11-gotchas-list strong { color: var(--text-primary); font-weight: 700; }
+.s11-gotchas-list code {
+  font-family: var(--font-mono);
+  color: var(--accent);
+  font-size: 0.95em;
 }
 
 /* Demo wrap */
 .s11-demo-wrap {
-  max-width: 720px;
-  margin: 24px auto 0;
+  max-width: 760px;
+  margin: 16px auto 0;
 }
 
-/* Master table */
-.s11-table-wrap {
-  max-width: 720px;
-  margin: 20px auto 0;
-  display: flex;
-  flex-direction: column;
-  gap: 0;
-  border: 1px solid #2a3a5a;
-  border-radius: 8px;
-  overflow: hidden;
-}
-.s11-table-header {
-  display: flex;
-  background: var(--bg-code);
-  border-bottom: 1px solid #2a3a5a;
-  padding: 10px 0;
-}
-.s11-table-cell {
-  flex: 1;
-  padding: 0 20px;
-  font-size: 0.6em;
-  font-family: var(--font-mono);
-  text-transform: uppercase;
-  letter-spacing: 0.09em;
-  color: var(--text-muted);
-}
-.s11-table-row {
-  display: flex;
-  border-bottom: 1px solid #2a3a5a;
-  align-items: stretch;
-}
-.s11-table-row:last-child { border-bottom: none; }
-.s11-table-row.ctx-row { background: rgba(130, 170, 255, 0.04); }
-.s11-table-row.harness-row { background: rgba(100, 255, 218, 0.05); }
-.s11-table-td {
-  flex: 1;
-  padding: 11px 20px;
-  font-size: 0.68em;
-  line-height: 1.55;
-  color: var(--text-muted);
-  border-right: 1px solid #2a3a5a;
-}
-.s11-table-td:last-child { border-right: none; }
-.s11-table-td code {
-  font-family: var(--font-mono);
-  font-size: 0.9em;
-  color: var(--text-primary);
-}
-.s11-table-td.ctx-pill { color: var(--accent-secondary); font-weight: 700; }
-.s11-table-td.harness-pill { color: var(--accent); font-weight: 700; }
-.s11-table-coda {
-  margin-top: 14px;
-  background: rgba(100, 255, 218, 0.06);
-  border: 1px solid rgba(100, 255, 218, 0.2);
-  border-radius: 7px;
-  padding: 13px 22px;
-  font-size: 0.76em;
-  color: var(--accent);
-  font-weight: 600;
-  text-align: center;
-  line-height: 1.6;
-}
-
-/* Bridge card */
-.s11-bridge-card {
-  max-width: 660px;
-  margin: 30px auto 0;
+/* Cierre */
+.s11-close-card {
+  max-width: 740px;
+  margin: 18px auto 0;
   background: var(--bg-secondary);
   border: 1px solid #2a3a5a;
   border-radius: 8px;
-  padding: 32px 40px;
+  padding: 16px 24px;
   text-align: center;
 }
-.s11-bridge-main {
-  font-size: 0.88em;
-  font-weight: 700;
+.s11-close-main {
+  font-size: 0.64em;
+  line-height: 1.65;
   color: var(--text-primary);
-  line-height: 1.75;
-  margin: 0 0 18px;
+  margin: 0 0 12px;
 }
-.s11-bridge-sub {
-  font-size: 0.74em;
+.s11-close-main strong { color: var(--accent); }
+.s11-close-bridge {
+  font-size: 0.56em;
   color: var(--text-muted);
-  line-height: 1.8;
+  line-height: 1.6;
   border-top: 1px solid #2a3a5a;
-  padding-top: 16px;
+  padding-top: 11px;
   margin: 0;
 }
-.s11-bridge-sub em {
+.s11-close-bridge em {
   color: var(--accent);
   font-style: normal;
   font-weight: 700;
 }
+.s11-close-bridge code {
+  font-family: var(--font-mono);
+  color: var(--accent);
+  font-size: 0.95em;
+}
 </style>
 <section>
-<!-- §11.1 · Opener — lens-tracker FLIPS a HARNESS (primer flip de toda la parte 2, animado via fragment) -->
-<section>
-  <h2>El eje cambia — por primera vez en la parte 2.</h2>
+<!-- §11.1 · Apertura — Tarjeta de 5 preguntas (full opener) -->
+<section class="s11-slide">
+  <h2 class="s11-five-q-title">Skills y slash commands</h2>
 
-  <div class="s11-opener-wrap">
-    <div class="lens-tracker on-context" id="s11-tracker">
-      <div class="pole pole-context">CONTEXT</div>
-      <div class="lens-sep">↔</div>
-      <div class="pole pole-harness">HARNESS</div>
-    </div>
-    <p class="s11-opener-flip-label" id="s11-flip-sublabel">hasta acá, todo aterrizó acá</p>
-
-    <!-- Invisible fragment that triggers the flip animation -->
-    <div class="fragment" data-flip-tracker="harness" data-flip-sublabel="el entorno donde el agente actúa" aria-hidden="true" style="display:none;"></div>
-
-    <p class="s11-opener-hook">Hasta acá, todo aterrizó en context. Hoy la pregunta cambia.</p>
-    <p class="s11-opener-sub">
-      §7, §8, §9, §10 — cuatro secciones, una sola pregunta: ¿qué entra al agente?<br>
-      §11 pregunta algo diferente: <em>¿cuánto le dejás hacer antes de mirar?</em>
-    </p>
-  </div>
+  <ol class="s11-five-q-grid">
+    <li class="s11-five-q-card is-active">
+      <span class="s11-five-q-num">1</span>
+      <span class="s11-five-q-label">Qué es</span>
+      <span class="s11-five-q-hint">definición en una línea</span>
+    </li>
+    <li class="s11-five-q-card">
+      <span class="s11-five-q-num">2</span>
+      <span class="s11-five-q-label">Dónde vive</span>
+      <span class="s11-five-q-hint">paths / niveles</span>
+    </li>
+    <li class="s11-five-q-card">
+      <span class="s11-five-q-num">3</span>
+      <span class="s11-five-q-label">Cuándo se carga</span>
+      <span class="s11-five-q-hint">momento + trigger</span>
+    </li>
+    <li class="s11-five-q-card">
+      <span class="s11-five-q-num">4</span>
+      <span class="s11-five-q-label">Cómo se usa</span>
+      <span class="s11-five-q-hint">sintaxis + ejemplos</span>
+    </li>
+    <li class="s11-five-q-card">
+      <span class="s11-five-q-num">5</span>
+      <span class="s11-five-q-label">Qué confunde</span>
+      <span class="s11-five-q-hint">casos límite</span>
+    </li>
+  </ol>
 
   <aside class="notes">
-    <p><strong>Señalar el tracker — arranca en CONTEXT, igual que §10. Pausa de dos segundos. Press abajo dispara el flip animado a HARNESS, primer flip de toda la parte 2. Dejar que el visual hable antes de las palabras.</strong></p>
-    <p><u>Opener de §11. El tracker arranca en CONTEXT (cuatro secciones encadenadas), y el press abajo dispara el primer y único flip a HARNESS en toda la parte 2 — animado vía fragment con un delay de 200ms para que la transición CSS sea visible. El flip es deliberado y es el hook de la sección. El sublabel también cambia con el flip ("hasta acá, todo aterrizó acá" → "el entorno donde el agente actúa"). El visual lo dice primero; las palabras lo refuerzan.</u></p>
-    <p><em>"Miren el tracker."</em></p>
-    <p><em>"Por primera vez en toda la parte 2, aterrizó en HARNESS. §7, §8, §9, §10 — cuatro secciones seguidas en CONTEXT. Esta es la primera vez que cambia."</em></p>
-    <p><em>"La pregunta que recorrió §7 a §10 era siempre la misma: ¿qué entra al agente? ¿Qué cargás? ¿Cuándo? ¿En qué forma? Eso es context engineering."</em></p>
-    <p><em>"§11 pregunta algo diferente. No qué entra: cuánto le dejás hacer antes de mirar. Eso es harness engineering — diseñar el entorno donde el agente opera, no qué ve. Y es lo que separa esta sección de todo lo que vimos desde §6."</em></p>
+    <p><strong>Quinta vuelta con el mismo dispositivo. Ritmo rápido — la plantilla ya está internalizada. No leer las cinco preguntas; el título arriba alcanza para encuadrar.</strong></p>
+    <p><u>Apertura de §11. La sección anterior trató permisos — gates del runtime que limitan qué puede hacer el agente. Skills hacen lo contrario: agregan procedimientos completos. La misma plantilla baja sobre un objeto nuevo.</u></p>
+    <p><em>"Skills y slash commands. Quinta vuelta con la misma plantilla."</em></p>
+    <p><em>"Y un cambio de foco respecto a la sección anterior. Permisos limitan qué tools puede usar el agente. Skills hacen lo contrario: le dan procedimientos completos que de otra forma no tendría. Vamos a verlo con las cinco preguntas de siempre."</em></p>
   </aside>
 </section>
 
-<!-- §11.2 · Gestionar contexto vs gestionar autonomía -->
-<section>
-  <h2>Dos preguntas distintas, dos ejes de control</h2>
+<!-- §11.2 · Qué es — definición + callout -->
+<section class="s11-slide">
+  <ol class="s11-five-q-grid is-mini">
+    <li class="s11-five-q-card is-active"><span class="s11-five-q-num">1</span><span class="s11-five-q-label">Qué es</span></li>
+    <li class="s11-five-q-card"><span class="s11-five-q-num">2</span><span class="s11-five-q-label">Dónde vive</span></li>
+    <li class="s11-five-q-card"><span class="s11-five-q-num">3</span><span class="s11-five-q-label">Cuándo se carga</span></li>
+    <li class="s11-five-q-card"><span class="s11-five-q-num">4</span><span class="s11-five-q-label">Cómo se usa</span></li>
+    <li class="s11-five-q-card"><span class="s11-five-q-num">5</span><span class="s11-five-q-label">Qué confunde</span></li>
+  </ol>
 
-  <div class="s11-axis-wrap">
-    <div class="s11-axis-cols">
-      <div class="s11-axis-col ctx-col">
-        <span class="s11-axis-col-label">§7–§10 — contexto</span>
-        <div class="s11-axis-col-title sec">¿Qué entra al agente?</div>
-        <div class="s11-axis-col-body">
-          <strong>CLAUDE.md</strong> — qué cargás siempre.<br>
-          <strong>Rules</strong> — qué cargás por archivo.<br>
-          <strong>Skills</strong> — qué cargás por invocación.<br>
-          <strong>Sub-agents</strong> — qué carga una ventana separada que muere sola.<br><br>
-          El agente toma todas las decisiones una vez que el contexto está cargado.
-        </div>
-      </div>
-      <div class="s11-axis-col loop-col">
-        <span class="s11-axis-col-label">§11 — loop</span>
-        <div class="s11-axis-col-title">¿Cuánto le dejás hacer?</div>
-        <div class="s11-axis-col-body">
-          <strong>Plan mode</strong> — el agente propone antes de actuar; vos aprobás.<br>
-          <strong>Permisos</strong> — gate antes de cada acción que deja huella.<br><br>
-          La pregunta no es qué sabe el agente cuando arranca — es cuándo entra el supervisor
-          en el proceso.
-        </div>
-      </div>
-    </div>
-    <div class="s11-axis-sep-line">
-      Eso separa esta sección de todo lo que vimos desde §6.
-    </div>
-  </div>
+  <h2>Dos objetos distintos — un procedimiento y su disparador</h2>
+
+  <ul class="s11-qe-list">
+    <li><strong>Skill</strong> — procedimiento completo empaquetado como objeto de conocimiento: fases numeradas, checkpoints de verificación, lista explícita de anti-patterns. No es una instrucción suelta ni una preferencia de estilo: describe exhaustivamente cómo se hace un tipo de tarea.</li>
+    <li><strong>Slash command</strong> — atajo. Puede invocar una skill, ejecutar instrucciones inline, o disparar un comportamiento built-in del runtime. Su cuerpo es mínimo por diseño.</li>
+    <li><strong>Skill ≠ slash command.</strong> Una skill puede existir sin slash command (se activa por relevancia). Un slash command puede existir sin skill (instrucciones inline, atajos a features del sistema).</li>
+    <li class="s11-qe-callout">→ La skill es el conocimiento. El slash command es el disparador.</li>
+  </ul>
 
   <aside class="notes">
-    <p><strong>Señalar la columna derecha — contexto — y nombrar cada mecanismo rápido. Girar a la columna izquierda — loop — y marcar el cambio de pregunta. Leer la línea de cierre.</strong></p>
-    <p><u>Slide de contraste conceptual. Las dos columnas materializan la diferencia de eje. No es una comparación de herramientas — es una comparación de preguntas. La columna de loop tiene deliberadamente menos ítems: la simplicidad refuerza el cambio.</u></p>
-    <p><em>"§7 a §10 responden variaciones de la misma pregunta: ¿qué entra al agente? CLAUDE.md — lo que cargás siempre. Rules — lo que cargás por archivo. Skills — lo que cargás cuando hace falta. Sub-agents — lo que carga una ventana que muere sola. Cuatro mecanismos distintos, una sola pregunta de fondo."</em></p>
-    <p><em>"§11 responde otra pregunta. No qué sabe el agente cuando arranca. Cuánto le dejás hacer antes de que el supervisor entre. Eso no afecta el contexto — afecta el loop. Plan mode y permisos no cambian qué entra a la ventana; cambian dónde y cuándo el proceso se detiene."</em></p>
-    <p><em>"Eso separa esta sección de todo lo que vimos desde §6."</em></p>
+    <p><strong>Tres ítems con pausa entre cada uno. El tercero es el que más confunde — repetir "skill ≠ slash command" para fijarlo. Pausa antes del callout. El callout es la línea a retener.</strong></p>
+    <p><u>Slide de definición. Mini-strip con "Qué es" lit. Tres bullets + callout, mismo patrón que §10.2. El objetivo es separar dos cosas que la mayoría asume que son lo mismo: la skill (procedimiento) y el slash command (disparador). Esa separación define toda la sección.</u></p>
+    <p><em>"Primera pregunta. Qué es. Y acá la respuesta tiene dos partes porque son dos objetos distintos."</em></p>
+    <p><em>"Una skill es un procedimiento completo empaquetado como objeto de conocimiento. Tiene fases numeradas, checkpoints de verificación, una lista explícita de anti-patterns. No es una instrucción suelta — no es 'usá tabs en vez de espacios'. Es la descripción exhaustiva de cómo ejecutar un tipo de tarea: agregar un endpoint, generar slides, revisar código."</em></p>
+    <p><em>"Un slash command es un atajo. Tres formas: puede invocar una skill, puede ejecutar instrucciones inline directamente, o puede disparar un comportamiento built-in del runtime — como /memory o /context, que no tienen skill detrás. Su cuerpo es mínimo por diseño."</em></p>
+    <p><em>"Y la distinción central, la que más confunde al arranque: skill no es igual a slash command. Una skill puede existir sin slash command — Claude la activa por relevancia cuando la tarea matchea su descripción. Un slash command puede existir sin skill — solo ejecuta instrucciones inline o llama un feature del sistema. Cuando se usan juntos, la skill lleva el procedimiento y el slash command lleva la orden de invocación. Y eso es exactamente el callout: la skill es el conocimiento, el slash command es el disparador."</em></p>
   </aside>
 </section>
 
-<!-- §11.3 · Plan mode — animación mode:'planmode' -->
-<section>
-  <h2>Plan mode: un alto deliberado entre pensar y actuar</h2>
+<!-- §11.3 · Dónde viven — tabla 2×3 (skill / slash command × proyecto / usuario / plugins) -->
+<section class="s11-slide">
+  <ol class="s11-five-q-grid is-mini">
+    <li class="s11-five-q-card"><span class="s11-five-q-num">1</span><span class="s11-five-q-label">Qué es</span></li>
+    <li class="s11-five-q-card is-active"><span class="s11-five-q-num">2</span><span class="s11-five-q-label">Dónde vive</span></li>
+    <li class="s11-five-q-card"><span class="s11-five-q-num">3</span><span class="s11-five-q-label">Cuándo se carga</span></li>
+    <li class="s11-five-q-card"><span class="s11-five-q-num">4</span><span class="s11-five-q-label">Cómo se usa</span></li>
+    <li class="s11-five-q-card"><span class="s11-five-q-num">5</span><span class="s11-five-q-label">Qué confunde</span></li>
+  </ol>
 
-  <div class="s11-planmode-wrap">
-    <div class="s11-anim-container">
-      <div id="s11-loop-planmode"></div>
-    </div>
-    <div class="s11-def-note">
-      El agente construye un plan — qué va a hacer, en qué orden, qué herramientas va a usar —
-      y te lo presenta. Vos <em>aprobás, corregís o rechazás</em>.
-      Recién después ejecuta.<br><br>
-      <strong>No es un resumen a posteriori.</strong>
-      Es un alto deliberado entre el "pensar" y el "actuar",
-      con espacio explícito para que el supervisor entre en el medio.
-    </div>
+  <h2>Dos artefactos, tres scopes — archivos de markdown</h2>
+
+  <div class="s11-matrix-wrap">
+    <table class="s11-matrix-table">
+      <thead>
+        <tr>
+          <th class="s11-matrix-rowhead">Artefacto</th>
+          <th>Scope de proyecto</th>
+          <th>Scope de usuario</th>
+          <th>Plugins</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="s11-matrix-rowname">Skill</td>
+          <td><code>.claude/skills/&lt;nombre&gt;/SKILL.md</code></td>
+          <td><code>~/.claude/skills/&lt;nombre&gt;/</code></td>
+          <td>vía plugin instalado</td>
+        </tr>
+        <tr>
+          <td class="s11-matrix-rowname">Slash command</td>
+          <td><code>.claude/commands/&lt;nombre&gt;.md</code></td>
+          <td><code>~/.claude/commands/&lt;nombre&gt;.md</code></td>
+          <td>vía plugin instalado</td>
+        </tr>
+      </tbody>
+    </table>
   </div>
 
+  <p class="s11-matrix-note">
+    Las de <strong>usuario</strong> están disponibles en cualquier proyecto donde trabajes. Las de <strong>proyecto</strong>, solo en ese repo — y se versionan con el equipo. El demo-repo tiene su skill en <code>.claude/skills/add-endpoint/</code>.
+  </p>
+
   <aside class="notes">
-    <p><strong>Señalar la animación — el gate visible entre PENSAR y ACTUAR. Señalar ACTUAR/OBSERVAR dimmed. Leer la nota de definición énfasis en "aprobás, corregís o rechazás".</strong></p>
-    <p><u>Slide de plan mode. La animación en modo 'planmode' hace visible la pausa antes de la primera acción. ACTUAR/OBSERVAR aparecen dimmed porque todavía no ejecutó nada. La nota cierra la definición con la frase clave: no es a posteriori.</u></p>
-    <p><em>"Sin plan mode, el agente pasa de pensar a actuar sin pedirte permiso. Le diste la tarea, eligió la primera acción, y cuando te diste cuenta ya tocó tres archivos."</em></p>
-    <p><em>"Plan mode interrumpe eso. Ven en la animación: hay un gate entre PENSAR y ACTUAR. El agente arma el plan — qué va a hacer, en qué orden, qué herramientas — y se lo presenta al supervisor. ACTUAR y OBSERVAR siguen ahí, pero dimmed. El loop está detenido, esperando."</em></p>
-    <p><em>"Vos decidís: aprobás, corregís o rechazás. Recién cuando aprobás el loop sigue. No es un resumen a posteriori — es un alto deliberado, con espacio explícito para que el supervisor entre en el medio."</em></p>
+    <p><strong>Recorrer la tabla por filas. Marcar que la diferencia user vs proyecto es la misma idea que en §7 (CLAUDE.md) y §9 (settings.json): user viaja con vos, proyecto se commitea. Cerrar nombrando el archivo del demo-repo que vamos a abrir en §11.5.</strong></p>
+    <p><u>Slide de jerarquía. Tabla 2×3 — dos artefactos × tres scopes. La estructura es paralela: skills y slash commands viven en archivos hermanos, con scopes idénticos. La diferencia conceptual no es de ubicación, es de contenido — eso lo vamos a desarrollar slide a slide.</u></p>
+    <p><em>"Segunda pregunta. Dónde viven. Y la respuesta es ordenada: dos artefactos, tres scopes, todo archivos markdown."</em></p>
+    <p><em>"Skill. En scope de proyecto vive en .claude/skills/nombre/SKILL.md — una carpeta por skill, dentro de .claude/skills/. En scope de usuario, en tu home, tilde .claude/skills/nombre — disponible en cualquier proyecto donde trabajes. Y se distribuye también vía plugins instalados."</em></p>
+    <p><em>"Slash command. Misma estructura, archivo distinto. En scope de proyecto, .claude/commands/nombre.md — un archivo por comando. En scope de usuario, tilde .claude/commands/nombre.md. Y también vía plugins."</em></p>
+    <p><em>"La diferencia user versus proyecto es la misma idea que vimos en CLAUDE.md y settings.json: lo de usuario viaja con vos de repo en repo, lo de proyecto se commitea y lo comparte el equipo. El demo-repo tiene su skill en .claude/skills/add-endpoint — la vamos a abrir en el slide del cómo se usa."</em></p>
   </aside>
 </section>
 
-<!-- §11.4 · Por qué importa — callback §5 deriva de objetivo -->
-<section>
-  <h2>La defensa más barata contra la deriva</h2>
+<!-- §11.4 · Cuándo se cargan — el punto clave (callout + bullets) -->
+<section class="s11-slide">
+  <ol class="s11-five-q-grid is-mini">
+    <li class="s11-five-q-card"><span class="s11-five-q-num">1</span><span class="s11-five-q-label">Qué es</span></li>
+    <li class="s11-five-q-card"><span class="s11-five-q-num">2</span><span class="s11-five-q-label">Dónde vive</span></li>
+    <li class="s11-five-q-card is-active"><span class="s11-five-q-num">3</span><span class="s11-five-q-label">Cuándo se carga</span></li>
+    <li class="s11-five-q-card"><span class="s11-five-q-num">4</span><span class="s11-five-q-label">Cómo se usa</span></li>
+    <li class="s11-five-q-card"><span class="s11-five-q-num">5</span><span class="s11-five-q-label">Qué confunde</span></li>
+  </ol>
 
-  <div class="s11-why-wrap">
-    <div class="s11-why-card">
-      <span class="s11-why-card-label">Callback §5 — deriva de objetivo</span>
-      <div class="s11-why-card-body">
-        El agente empieza en A. La tarea es llegar a B. A la décima iteración está en D.
-        Cuando eso pasa <em>después de que ya escribió archivos</em>, el costo de corregirlo sube —
-        el loop acumuló consecuencias en el camino.<br><br>
-        Si el plan muestra que el agente ya entiende mal la tarea antes de tocar nada,
-        corregís <em>ahí</em>. Cero archivos modificados. Cero consecuencias acumuladas.
-      </div>
-    </div>
-    <div class="s11-why-callout">
-      Plan mode es la defensa más barata contra la deriva: entrás antes de que el loop actúe.
-    </div>
-  </div>
+  <h2>Al arranque entra el índice, no el procedimiento</h2>
+
+  <p class="s11-when-callout">
+    De cada skill, al arranque entra solo <strong><code>name</code> + <code>description</code></strong>.<br>
+    <strong>El cuerpo</strong> — fases, checklists, anti-patterns — entra <strong>cuando se invoca</strong>.
+  </p>
+
+  <ul class="s11-when-list">
+    <li><strong>En <code>/context</code> las vas a ver listadas</strong> — con ~60–110 tokens cada una. Eso es el índice (name + description) que Claude necesita para decidir si activarla por relevancia.</li>
+    <li><strong>El SKILL.md completo</strong> (varios cientos o miles de tokens) entra a la ventana al invocarse explícitamente o al matchear el <code>description</code> con la tarea actual.</li>
+    <li><strong>Slash commands</strong> aparecen en el autocomplete cuando escribís <code>/</code>. Tampoco cargan su cuerpo hasta invocación.</li>
+  </ul>
+
+  <p class="s11-when-bottom">
+    <strong>Diseño, no limitación.</strong> Tenés cinco skills instaladas: pagás cinco descripciones cortas siempre, y el cuerpo de la única que usás esa sesión. Las otras cuatro no se expanden.
+  </p>
 
   <aside class="notes">
-    <p><strong>Leer el párrafo de la tarjeta con pausa en "después de que ya escribió archivos". Dejar respira la segunda parte. Leer el callout como cierre.</strong></p>
-    <p><u>Slide de justificación. La tarjeta conecta plan mode con la deriva de objetivo del §5 — el callback hace que el beneficio sea concreto, no abstracto. El callout formula la tesis en una línea.</u></p>
-    <p><em>"Recordá §5: deriva de objetivo. El agente empieza entendiendo bien la tarea, pero a la décima iteración está haciendo algo distinto. No porque el modelo sea malo — porque el loop acumuló pequeñas desviaciones que se compusieron."</em></p>
-    <p><em>"Cuando eso pasa después de que ya escribió archivos, el costo de corregirlo sube. Tenés que ver qué cambió, deshacer lo que no querías, entender hasta dónde llegó."</em></p>
-    <p><em>"Plan mode corta ese camino antes de que empiece. Si el plan muestra que el agente ya está entendiéndote mal — que quiere tocar archivos que no debería, en un orden que no tiene sentido — lo corregís ahí. Cero archivos modificados. La corrección es barata porque llegó antes de la primera acción."</em></p>
-    <p><em>"Plan mode es la defensa más barata contra la deriva: entrás antes de que el loop actúe."</em></p>
+    <p><strong>El callout es la línea de toda la sección. Leerlo pausado, marcando la asimetría entre "índice" y "cuerpo". Después las tres bullets de arriba a abajo — la primera es la que más se confunde y la que vale la pena anticipar (sí, /context las muestra).</strong></p>
+    <p><u>Slide central de §11. Es la razón estructural por la que skills son una pieza distinta de CLAUDE.md o rules: el cuerpo no entra al contexto si no se usa. CLAUDE.md siempre paga su contenido entero; rules path-scoped pagan el contenido entero al matchear; skills pagan el índice (name+description) siempre, pero el cuerpo solo al invocarse. Esa es la diferencia operativa con todo lo visto hasta acá.</u></p>
+    <p><em>"Tercera pregunta. Cuándo se cargan. Y acá está el punto que más importa de toda la sección, el que define el modelo de contexto de las skills. Y también es donde más fácil se interpreta mal."</em></p>
+    <p><em>"De cada skill instalada, al arranque entra solo el name y el description — un par de líneas por skill, lo que Claude necesita para decidir si la skill aplica a la tarea actual. El cuerpo — las fases numeradas, los checklists, los anti-patterns — eso no entra al arranque. Entra solo cuando se invoca el comando, o cuando Claude determina por relevancia que la tarea la requiere matcheando el description."</em></p>
+    <p><em>"Adelanto un detalle que se ve apenas corrés /context: las skills aparecen listadas, con sesenta a ciento diez tokens cada una. Eso es el índice — el name + description que entró al arranque. No es el cuerpo. Por eso el costo aparece chico: el SKILL.md completo del demo-repo puede ser varios miles de tokens, pero en /context vas a ver una línea de cien."</em></p>
+    <p><em>"Los slash commands tienen el mismo comportamiento. Aparecen en el autocomplete cuando escribís slash, pero el cuerpo del comando no entra al contexto hasta que lo invocás."</em></p>
+    <p><em>"Y la línea de cierre: esto es diseño, no limitación. Si tenés cinco skills instaladas, pagás cinco descripciones cortas siempre, y el cuerpo solo de las que efectivamente usás en esta sesión. Compará con CLAUDE.md, que siempre carga su contenido entero desde el arranque, o con rules sin frontmatter, que también siempre cargan entero. Skills es el primer mecanismo donde el cuerpo es opt-in por tarea."</em></p>
   </aside>
 </section>
 
-<!-- §11.5 · Permisos — animación mode:'gate' -->
-<section>
-  <h2>Permisos: gate por herramienta, antes de cada acción</h2>
+<!-- §11.5 · Cómo se usa — walkthrough del SKILL.md de add-endpoint -->
+<section class="s11-slide">
+  <ol class="s11-five-q-grid is-mini">
+    <li class="s11-five-q-card"><span class="s11-five-q-num">1</span><span class="s11-five-q-label">Qué es</span></li>
+    <li class="s11-five-q-card"><span class="s11-five-q-num">2</span><span class="s11-five-q-label">Dónde vive</span></li>
+    <li class="s11-five-q-card"><span class="s11-five-q-num">3</span><span class="s11-five-q-label">Cuándo se carga</span></li>
+    <li class="s11-five-q-card is-active"><span class="s11-five-q-num">4</span><span class="s11-five-q-label">Cómo se usa</span></li>
+    <li class="s11-five-q-card"><span class="s11-five-q-num">5</span><span class="s11-five-q-label">Qué confunde</span></li>
+  </ol>
 
-  <div class="s11-gate-wrap">
-    <div class="s11-anim-container">
-      <div id="s11-loop-gate"></div>
-    </div>
-    <div class="s11-gate-def-note">
-      Antes de ejecutar una herramienta que actúa sobre el mundo — escribe un archivo,
-      corre un comando, llama a una API — el runtime puede pedirte confirmación. Un <em>gate</em>.
-      Aprobás o cancelás esa acción específica.<br><br>
-      Callback §3 — leer vs. escribir: <strong>leer = reversible, gate no necesario</strong>;
-      escribir / ejecutar = puede no serlo, <em>gate ahí</em>.
-      El criterio de fondo: ¿qué tan costoso es deshacer si se equivoca?
-    </div>
-  </div>
+  <h2>Anatomía del <code style="font-family:var(--font-mono);color:var(--accent);font-size:0.95em;">SKILL.md</code> — <code style="font-family:var(--font-mono);color:var(--accent);font-size:0.95em;">add-endpoint</code> del demo-repo</h2>
+
+  <pre class="s11-code-block"><span class="s11-code-fence">---</span>
+<span class="s11-code-key">name:</span> <span class="s11-code-val">add-endpoint</span>
+<span class="s11-code-key">description:</span> <span class="s11-code-val">Use when the user asks to add a new REST endpoint to the demo-repo backend. Adds the route, the schema if missing, the test, and regenerates openapi.yaml.</span>
+<span class="s11-code-fence">---</span></pre>
+
+  <ol class="s11-phases-list">
+    <li><strong>Decidir verbo y path</strong> — confirmar con el usuario; escrituras requieren <code>Depends(require_bearer)</code>.</li>
+    <li><strong>Schemas</strong> — si hace falta, agregar modelos en <code>backend/schemas/models.py</code>.</li>
+    <li><strong>Router</strong> — función en <code>backend/routers/&lt;resource&gt;.py</code> con <code>response_model</code> y <code>status_code</code> explícitos.</li>
+    <li><strong>Test</strong> — happy path + error esperado en <code>tests/test_&lt;resource&gt;.py</code>.</li>
+    <li><strong>OpenAPI</strong> — <code>uv run python scripts/export_openapi.py</code>.</li>
+    <li><strong>Verificación</strong> — <code>uv run pytest -v</code> pasa entero; mostrar diff del <code>openapi.yaml</code>.</li>
+  </ol>
+
+  <p class="s11-anti-card">
+    <strong>Anti-patterns:</strong> crear el endpoint sin test · olvidar regenerar <code style="font-family:var(--font-mono);color:#ff7676;font-size:0.95em;">openapi.yaml</code> · dejarlo sin <code style="font-family:var(--font-mono);color:#ff7676;font-size:0.95em;">response_model</code> · hardcodear constantes que pertenecen a <code style="font-family:var(--font-mono);color:#ff7676;font-size:0.95em;">models.py</code> o a una env var.
+  </p>
 
   <aside class="notes">
-    <p><strong>Señalar la animación — el gate sobre la flecha que sale de ACTUAR. Señalar los chips: "leer = sin gate" (dim) y "escribir = gate" (lit). Leer la nota énfasis en el criterio de fondo.</strong></p>
-    <p><u>Slide de permisos. La animación en modo 'gate' muestra el gate a nivel de herramienta — distinto de plan mode que actúa a nivel de tarea. La nota conecta con la distinción leer/escribir del §3 y formula el criterio de decisión.</u></p>
-    <p><em>"Plan mode trabaja a nivel de la tarea completa: el agente propone el plan antes de empezar. Los permisos trabajan a nivel de cada herramienta, dentro del loop que ya está corriendo."</em></p>
-    <p><em>"Ven en la animación: hay un gate en la flecha que sale de ACTUAR. El chip 'leer = sin gate' está dimmed — leer es reversible, si el agente leyó un archivo que no debía, no pasó nada. El chip 'escribir = gate' está iluminado — ahí el runtime pide confirmación antes de que la acción se ejecute."</em></p>
-    <p><em>"El criterio de fondo siempre es el mismo que plantamos en §3: ¿qué tan costoso es deshacer si se equivoca? En las acciones reversibles, el costo de una confirmación innecesaria supera el beneficio. En las que dejan huella, el gate vale."</em></p>
+    <p><strong>Recorrer arriba a abajo: frontmatter primero — marcar el name y el description, particularmente la convención "Use when X". Después las seis fases en orden, una línea por fase. Cerrar con la card de anti-patterns, en rojo, marcando que la lista explícita es parte del contrato de la skill.</strong></p>
+    <p><u>Slide de walkthrough. La pieza concreta que materializa todas las definiciones anteriores. La estructura es siempre la misma: frontmatter con name + description, cuerpo con fases ordenadas, lista explícita de anti-patterns. Esto es lo que un alumno va a escribir cuando empiece a producir sus propias skills.</u></p>
+    <p><em>"Cuarta pregunta. Cómo se usa. Y la mejor forma de mostrarlo es abrir una skill concreta — la skill add-endpoint del demo-repo."</em></p>
+    <p><em>"Arriba, el frontmatter YAML entre triple guion. Dos campos. name, el identificador — add-endpoint. Description, la frase que el runtime lee para decidir si la skill aplica. Acá dice 'Use when the user asks to add a new REST endpoint to the demo-repo backend' — sigue una convención: 'Use when X'. Ese formato no es estilo, es contrato — Claude lo lee y decide activación. Una description vaga activa mal."</em></p>
+    <p><em>"Abajo, el cuerpo. Seis fases ordenadas. Uno, decidir verbo y path con el usuario, y para escrituras agregar la dependencia de auth. Dos, schemas — si la ruta usa modelos nuevos, agregarlos en models.py. Tres, router — escribir la función en el archivo correspondiente, con response_model y status_code explícitos. Cuatro, test — al menos dos, happy path y error esperado. Cinco, OpenAPI — correr el script de export que regenera openapi.yaml. Seis, verificación — pytest pasa entero, mostrar el diff del schema."</em></p>
+    <p><em>"Y abajo en rojo, la lista de anti-patterns. La pieza explícita: crear el endpoint sin test, olvidar regenerar el openapi, dejarlo sin response_model, hardcodear constantes. Cada anti-pattern es algo que el agente puede hacer si no se lo prohibe explícitamente. La lista no es decorativa — es la diferencia entre 'esperar que Claude se acuerde' y 'tener escrito que no'."</em></p>
   </aside>
 </section>
 
-<!-- §11.6 · El dial de autonomía (KEY ANALOGY) -->
-<section>
-  <h2>El dial de autonomía: ajustalo según reversibilidad</h2>
+<!-- §11.6 · El slash command literal — code-walkthrough (sin mini-strip, zoom-in concreto) -->
+<section class="s11-slide">
+  <h2>Y el slash command que lo dispara</h2>
 
-  <div class="s11-dial-wrap">
-    <div class="s11-dial-spectrum">
-      <div class="s11-dial-zone low">
-        <span class="s11-dial-zone-label">tarea reversible</span>
-        <div class="s11-dial-zone-title">más autonomía</div>
-        <div class="s11-dial-zone-desc">
-          Refactorizar lógica interna, agregar tests, limpiar imports.
-          Si el agente se equivoca, revertís. El costo es bajo.
-        </div>
-      </div>
-      <div class="s11-dial-zone mid">
-        <span class="s11-dial-zone-label">tarea de impacto mixto</span>
-        <div class="s11-dial-zone-title">plan mode</div>
-        <div class="s11-dial-zone-desc">
-          Cambios que tocan múltiples módulos o integran servicios.
-          Plan mode antes de empezar: aprobás el alcance antes de que el loop actúe.
-        </div>
-      </div>
-      <div class="s11-dial-zone high">
-        <span class="s11-dial-zone-label">consecuencias persistentes</span>
-        <div class="s11-dial-zone-title">plan mode + gate</div>
-        <div class="s11-dial-zone-desc">
-          Base de datos, config de producción, cualquier cosa que no se deshace.
-          Callback semana 3: el backend persiste — un bug que escribe datos incorrectos los deja escritos.
-        </div>
-      </div>
-    </div>
-    <div class="s11-dial-arrow-row">
-      <span class="s11-dial-arrow-end">reversible</span>
-      <div class="s11-dial-arrow-line"></div>
-      <span class="s11-dial-arrow-end">persistente</span>
-    </div>
-    <div class="s11-dial-note">
-      No hay un nivel correcto para todos los casos.
-      El dial lo ajustás vos — según <em>cuánto cuesta deshacer</em> si el agente se equivoca.
-    </div>
-  </div>
+  <pre class="s11-slash-block"><span class="s11-code-fence">---</span>
+<span class="s11-code-key">description:</span> <span class="s11-code-val">Agregá un endpoint nuevo siguiendo la skill add-endpoint</span>
+<span class="s11-code-fence">---</span>
+
+El usuario quiere agregar un endpoint al backend del demo-repo. Invocá la skill
+`add-endpoint` y seguí sus fases.
+
+Si el usuario no especificó verbo, path o body, preguntale antes de empezar.</pre>
+
+  <p class="s11-slash-tag">
+    <strong>Nueve líneas.</strong> El procedimiento vive en la skill — fases, anti-patterns, todo lo del slide anterior. El comando solo sabe que tiene que invocarla. Si mañana cambia el procedimiento, se actualiza la skill, no el comando.
+  </p>
 
   <aside class="notes">
-    <p><strong>Señalar la zona verde — reversible, autonomía alta. Señalar la zona central — plan mode. Señalar la zona azul — consecuencias persistentes, plan mode + gate. Leer el callback semana 3. Leer la nota al final.</strong></p>
-    <p><u>Slide de la analogía central — el dial. El espectro visual hace concreto el criterio de ajuste. La zona derecha ancla el callback de semana 3 (el backend persiste) como ejemplo de consecuencias persistentes. La nota cierra con la formulación del criterio.</u></p>
-    <p><em>"El dial de autonomía no tiene una posición correcta universal. Tiene un criterio para ajustarlo."</em></p>
-    <p><em>"Si la tarea es reversible — refactorizar lógica interna, agregar tests, limpiar imports — más autonomía tiene sentido. Si el agente se equivoca, revertís con git. El costo es bajo. El dial puede estar abierto."</em></p>
-    <p><em>"Si la tarea tiene consecuencias persistentes, el cálculo cambia. Recordá lo que vimos la semana pasada: el backend persiste. Un bug que escribe datos incorrectos a la base de datos los deja escritos — multiplicado por cada usuario que pasa por ahí antes de que te des cuenta. Cuando el agente trabaja sobre código que toca la base de datos, o sobre archivos de configuración de producción, el dial se cierra: plan mode antes de empezar, gate en cada escritura."</em></p>
-    <p><em>"No hay un nivel de autonomía correcto. Hay un criterio: ¿cuánto cuesta deshacer si se equivoca? Eso es lo que ajusta el dial."</em></p>
+    <p><strong>Sin mini-strip — es zoom-in al archivo, sigue siendo "cómo se usa". Leer el archivo entero en voz alta, son nueve líneas. Pausa en la tag de abajo. Marcar el contraste de tamaño: SKILL.md son decenas de líneas con fases y anti-patterns; el slash command son nueve líneas. Esa asimetría es deliberada.</strong></p>
+    <p><u>Slide complementario al anterior. Mostrar literal el archivo .claude/commands/add-endpoint.md del demo-repo. Es el contrapunto al SKILL.md: cuerpo mínimo, una sola orden — invocá la skill. Refuerza la separación conocimiento / disparador.</u></p>
+    <p><em>"Y este es el slash command que dispara la skill. Punto .claude barra commands barra add-endpoint punto md. El archivo entero, completo, son nueve líneas — las recorro."</em></p>
+    <p><em>"Frontmatter con un solo campo, description: 'Agregá un endpoint nuevo siguiendo la skill add-endpoint'. Eso es lo que aparece en el autocomplete cuando el alumno escribe slash. Cuerpo: tres líneas. 'El usuario quiere agregar un endpoint al backend del demo-repo. Invocá la skill add-endpoint y seguí sus fases.' Y un addendum: 'Si el usuario no especificó verbo, path o body, preguntale antes de empezar.' Eso es todo."</em></p>
+    <p><em>"Nueve líneas. El procedimiento entero — las seis fases, los checkpoints, los anti-patterns — vive en la skill. El comando solo sabe que tiene que invocarla. Si mañana cambia el procedimiento de cómo agregamos un endpoint, se actualiza el SKILL.md y el slash command no se toca. Esa asimetría es la razón estructural por la que existen los dos."</em></p>
   </aside>
 </section>
 
-<!-- §11.7 · La formalización del rol — comparison-2col -->
-<section>
-  <h2>La formalización del rol de supervisor</h2>
+<!-- §11.7 · Qué confunde — 3 casos (bullets) -->
+<section class="s11-slide">
+  <ol class="s11-five-q-grid is-mini">
+    <li class="s11-five-q-card"><span class="s11-five-q-num">1</span><span class="s11-five-q-label">Qué es</span></li>
+    <li class="s11-five-q-card"><span class="s11-five-q-num">2</span><span class="s11-five-q-label">Dónde vive</span></li>
+    <li class="s11-five-q-card"><span class="s11-five-q-num">3</span><span class="s11-five-q-label">Cuándo se carga</span></li>
+    <li class="s11-five-q-card"><span class="s11-five-q-num">4</span><span class="s11-five-q-label">Cómo se usa</span></li>
+    <li class="s11-five-q-card is-active"><span class="s11-five-q-num">5</span><span class="s11-five-q-label">Qué confunde</span></li>
+  </ol>
 
-  <div class="s11-rol-wrap">
-    <div class="s11-rol-cols">
-      <div class="s11-rol-col audit-col">
-        <span class="s11-rol-col-label">revisión al final</span>
-        <div class="s11-rol-col-title">Auditoría</div>
-        <div class="s11-rol-col-body">
-          Mirás la salida cuando el loop terminó. Evaluás si el resultado es correcto.
-          Si hay un error, el loop ya acumuló consecuencias — archivos modificados,
-          decisiones tomadas, trabajo que tal vez hay que deshacer.
-          <br><br>
-          No es supervisión: es revisión posterior. El supervisor llega cuando el loop ya actuó.
-        </div>
-      </div>
-      <div class="s11-rol-col super-col">
-        <span class="s11-rol-col-label">entrar antes de la primera acción</span>
-        <div class="s11-rol-col-title">Supervisión</div>
-        <div class="s11-rol-col-body">
-          Mirás el plan antes de que el loop actúe. Aprobás o corregís.
-          Monitoreás en las acciones que no se deshacen.
-          El supervisor entra <strong>en el proceso</strong>, no solo al final.<br><br>
-          La diferencia no es cuánto revisás — es <strong>cuándo</strong> entrás.
-        </div>
-      </div>
-    </div>
-    <div class="s11-rol-callout">
-      No es solo leer la salida: es decidir cuándo entrás al proceso.
-    </div>
-  </div>
+  <h2>Tres cosas que confunden de skills y slash commands</h2>
+
+  <ul class="s11-gotchas-list">
+    <li><strong>No todo slash command invoca una skill.</strong> <code>/memory</code>, <code>/context</code>, <code>/permissions</code> son atajos a comportamientos built-in del runtime. No hay skill detrás de ellos. El mecanismo es el mismo — un archivo en <code>.claude/commands/</code> — pero el cuerpo ejecuta instrucciones directas o llama features del sistema.</li>
+    <li><strong>El <code>description</code> es contrato de activación, no estilo.</strong> Cuando Claude decide si una skill aplica, lee ese campo. Vago activa mal — la skill entra cuando no corresponde, o no entra cuando sí. La convención <code>Use when X</code> no es preferencia estética: es la forma del contrato.</li>
+    <li><strong>El flow de ejecución es lineal.</strong> Cuando Claude entra en una skill, lee <code>SKILL.md</code> completo y ejecuta las fases en orden. Seis fases, las seis. No saltea, no reordena, no improvisa dentro del procedimiento. Esa garantía es la razón de usar una skill en lugar de escribir un prompt libre.</li>
+  </ul>
 
   <aside class="notes">
-    <p><strong>Señalar la columna izquierda — auditoría. Señalar la columna derecha — supervisión. Subrayar "cuándo" con pausa. Leer el callout.</strong></p>
-    <p><u>Slide de la formalización del rol. La comparación materializa una distinción que aparece en §5 pero acá adquiere nombre propio: auditoría vs. supervisión. El callout formula el rol del supervisor en una línea.</u></p>
-    <p><em>"§5 lo dijo de una manera: la revisión al final es auditoría, no supervisión. Acá podemos ser más precisos."</em></p>
-    <p><em>"Auditoría: llegás cuando el loop terminó. Mirás si el resultado es correcto. Si hay un error, el loop ya actuó — archivos modificados, decisiones irreversibles, trabajo que tal vez hay que deshacer por completo."</em></p>
-    <p><em>"Supervisión: entrás antes de la primera acción. Aprobás el plan. En las acciones que no se deshacen, el gate te da la oportunidad de cancelar antes de que ocurran. El supervisor no lee el output — el supervisor está en el proceso."</em></p>
-    <p><em>"La diferencia no es cuánto revisás. Es cuándo entrás. Eso es lo que plan mode y los permisos le dan al supervisor: un punto de entrada antes de que el loop actúe."</em></p>
+    <p><strong>Recorrer los tres bullets. El primero desarma una falsa equivalencia común. El segundo es operativo — si escribís skills propias, este es el punto que más impacta su utilidad. El tercero es la propiedad estructural — la razón por la que vale la pena empaquetar un procedimiento como skill.</strong></p>
+    <p><u>Slide de quinta pregunta. Tres confusiones en formato bullet list — siguen la regla de bullets: items peer cortos, misma estructura. Eligiendo tres en vez de cuatro porque cubren lo esencial sin diluir.</u></p>
+    <p><em>"Quinta pregunta. Qué confunde. Tres cosas, en orden de cuánto cuestan cuando te olvidás de cada una."</em></p>
+    <p><em>"Una. No todo slash command invoca una skill. Slash memory, slash context, slash permissions — los que vinimos usando esta sección y las anteriores — son atajos a comportamientos built-in del runtime de Claude Code. No hay ninguna skill detrás de ellos. El mecanismo del archivo es el mismo — un archivo markdown en .claude/commands — pero el cuerpo ejecuta instrucciones directas o llama features del sistema, no invoca una skill. Es importante porque la equivalencia 'slash command igual a skill' suena natural y no es cierta."</em></p>
+    <p><em>"Dos. El description del frontmatter de la skill no es estilo: es contrato de activación. Cuando Claude decide si una skill aplica a la tarea actual, lo único que lee del cuerpo es ese campo. Si dice 'add endpoint' y nada más, Claude la va a activar para cualquier pedido que tenga las palabras endpoint o add — incluyendo cosas que no son backend. Si dice 'Use when the user asks to add a new REST endpoint to the demo-repo backend', el match es específico. La convención 'Use when X' no es preferencia estética, es la forma del contrato. Vago activa mal — la skill entra cuando no corresponde, o no entra cuando sí."</em></p>
+    <p><em>"Y tres. El flow de ejecución es lineal. Cuando Claude entra en una skill, lee el SKILL.md completo y ejecuta las fases en orden. Si la skill tiene seis fases, Claude ejecuta las seis, en el orden listado. No saltea, no reordena, no improvisa dentro del procedimiento. Esa garantía es la razón estructural de usar una skill en lugar de un prompt libre: el prompt libre es lotería sobre qué fases hace y en qué orden; la skill es determinismo sobre el procedimiento. Lo vamos a ver explícito en el demo."</em></p>
   </aside>
 </section>
 
-<!-- §11.8 · Hooks y MCP, al pasar -->
-<section>
-  <h2>Hooks y MCP — dos herramientas más, al pasar</h2>
-
-  <div class="s11-tools-wrap">
-    <div class="s11-tools-cols">
-      <div class="s11-tool-card hook-card">
-        <div class="s11-tool-card-title">Hooks</div>
-        <div class="s11-tool-card-body">
-          Scripts de shell que el runtime ejecuta en eventos del ciclo de vida —
-          antes de una herramienta, después de una herramienta, al inicio o al cierre de sesión.<br><br>
-          La diferencia con <code>CLAUDE.md</code> es de naturaleza:
-          <code>CLAUDE.md</code> es contexto — instrucciones que el modelo lee
-          <strong>y puede ignorar en deriva</strong>.
-          Un hook es <strong>ejecución real</strong>: si el hook bloquea la herramienta,
-          la herramienta no corre, sin importar lo que el modelo haya decidido.
-        </div>
-      </div>
-      <div class="s11-tool-card mcp-card">
-        <div class="s11-tool-card-title">MCP — Model Context Protocol</div>
-        <div class="s11-tool-card-body">
-          Un protocolo para conectar herramientas externas al agente — bases de datos, APIs,
-          servicios propios — como si fueran tools nativas del loop.<br><br>
-          Actúa sobre <strong>qué puede hacer</strong> el agente, no sobre cuándo lo hace.
-          Amplía el set de herramientas disponibles en el loop,
-          sin cambiar la mecánica de plan mode ni de permisos.
-        </div>
-      </div>
-    </div>
-    <div class="s11-tools-coda">
-      Se ven en otra clase.
-    </div>
-  </div>
-
-  <aside class="notes">
-    <p><strong>Señalar la tarjeta izquierda — Hooks — enfatizar la distinción con CLAUDE.md. Señalar la tarjeta derecha — MCP — subrayar "qué puede hacer, no cuándo". Leer la coda en tono casual.</strong></p>
-    <p><u>Slide de herramientas adicionales, deliberadamente breve. Dos tarjetas compactas, sin listas. El punto es nombrarlas con suficiente precisión para que no se confundan, no enseñarlas en profundidad.</u></p>
-    <p><em>"Hay dos herramientas más que vale la pena nombrar aunque no entren en el alcance de hoy."</em></p>
-    <p><em>"Hooks: scripts de shell que el runtime ejecuta en eventos concretos del ciclo de vida del agente — antes de que corra una herramienta, después, al inicio de sesión. La diferencia con CLAUDE.md es de naturaleza. CLAUDE.md es contexto: instrucciones que el modelo lee y puede ignorar si está en deriva. Un hook es ejecución real. Si el hook bloquea la herramienta, la herramienta no corre — sin importar lo que el modelo haya decidido. No es contexto. Es control de ejecución."</em></p>
-    <p><em>"MCP — Model Context Protocol: un protocolo para conectar herramientas externas al agente. Bases de datos, APIs, servicios propios — como si fueran tools nativas. Actúa sobre qué puede hacer el agente, no sobre cuándo. No cambia plan mode ni los permisos. Amplía el set de herramientas."</em></p>
-    <p><em>"Los dos se ven en otra clase."</em></p>
-  </aside>
-</section>
-
-<!-- §11.9 · section-divider — Demo D7 -->
+<!-- §11.9 · Demo · sin skill → con skill (section-divider + clickable-steps) -->
 <section class="section-divider">
-  <h2>Demo D7 · Plan mode como freno</h2>
-  <p style="font-size:0.72em; color:var(--text-muted); margin-top:14px; font-style:italic;">El objetivo es ver el loop detenido deliberadamente — el supervisor entrando entre pensar y actuar.</p>
-
-  <aside class="notes">
-    <p><u>Divider de demo D7. El frame correcto para este demo: no es demostrar que el agente falla o que plan mode evita errores. Es demostrar que el supervisor puede entrar antes de la primera acción. El resultado puede ser correcto en ambos casos — lo que cambia es si el supervisor estuvo en el proceso.</u></p>
-    <p><em>"Vamos al demo. Este demo es de coreografía, no de concepto. El objetivo no es demostrar que el agente se equivoca sin plan mode — puede que no se equivoque. El objetivo es ver el loop detenido antes de tocar un archivo, con el supervisor en el medio."</em></p>
-  </aside>
-</section>
-
-<!-- §11.10 · Demo D7 beats — clickable-steps -->
-<section>
-  <h2>D7 · Tres beats: el supervisor en el proceso</h2>
+  <h2>Demo · invocar skill vs sesión sin skill</h2>
+  <p style="font-size:0.72em; color:var(--text-muted); margin-top:14px; font-style:italic;">Ver la diferencia entre un procedimiento garantizado y un flow improvisado por el modelo.</p>
 
   <div class="s11-demo-wrap">
     <div id="s11-demo-steps"></div>
   </div>
 
   <aside class="notes">
-    <p><strong>Setup: repo de demo con archivos Python con imports desordenados (puede ser el mismo de semanas anteriores). Claude Code abierto. Click recorre los 3 beats.</strong></p>
-    <p><u>Beat 1 — qué mirar: dar la tarea sin plan mode: "reorganizá los imports del proyecto". Dejar que el agente arranque. Señalar las ediciones que aparecen en el workspace — archivos que el agente eligió modificar, el orden que eligió. El punto no es que el resultado sea malo: es que el agente tomó todas esas decisiones antes de mostrártelas. Beat 2 — qué mirar: misma tarea con plan mode habilitado. El plan que presenta el agente — qué archivos piensa tocar, en qué orden, qué convención va a aplicar. El workspace no cambió. Cero ediciones. El loop está detenido entre pensar y actuar. Beat 3 — qué mirar: leer el plan con el curso. Identificar algo para corregir — por ejemplo, el agente quiere tocar los archivos de tests, pero solo queremos los módulos de negocio. Corregir antes de aprobar. El plan corregido ejecutándose acotado. Plan B si Beat 1 sale limpio por azar: cambiar la tarea por algo con más superficie — "reorganizá todos los archivos del proyecto por dominio, mové los tests a una carpeta separada y actualizá los imports". Mantenerlo en el repo de demo para que sea reversible con `git checkout .`, pero la aparente destructividad hace visible la diferencia entre tener el plan antes y no tenerlo.</u></p>
-    <p><em>"Beat 1. Sin freno. Le doy la tarea a Claude Code sin plan mode: 'reorganizá los imports del proyecto'. Dejo que arranque. Miren dónde toca, en qué orden, qué decidió. El agente tomó todas esas decisiones antes de mostrármelas."</em></p>
-    <p><em>"Beat 2. Misma tarea, plan mode habilitado. Ahora propone primero. Miren: no tocó nada todavía. El workspace está igual. El loop está detenido entre pensar y actuar, esperando."</em></p>
-    <p><em>"Beat 3. Leo el plan con ustedes. Encuentro algo para corregir — dice que va a tocar los archivos de tests también, y yo solo quiero los módulos de negocio. Corrijo antes de aprobar. Acá entro yo, entre pensar y actuar. Eso es controlar el loop."</em></p>
+    <p><strong>Setup antes del slide: terminal con dos sesiones de Claude Code listas en pestañas separadas — una abierta en el demo-repo (que tiene .claude/skills/add-endpoint/), otra abierta en un directorio temporal vacío sin skill instalada. VS Code abierto al lado con backend/routers/ visible. Plan B en el último paso si la activación por relevancia falla.</strong></p>
+    <p><u>Demo de cierre de la sección. Tres pasos en orden: primero mostrar que la skill existe en el repo pero no está cargada en la sesión nueva; después invocarla y ver el flow lineal de las seis fases; finalmente repetir la misma tarea en una sesión sin skill y mostrar el contraste — sin garantía de procedimiento. El objetivo es ver en pantalla la diferencia entre "procedimiento empaquetado" y "el modelo decide qué hacer".</u></p>
+    <p><em>"Vamos al demo. Tres pasos. El objetivo es hacer visible la diferencia entre un procedimiento garantizado y un flow improvisado. Misma tarea — agregar un endpoint POST barra comments — ejecutada con la skill y sin ella."</em></p>
+    <hr>
+    <p><strong>Acciones (copiables):</strong></p>
+    <p><strong>Paso 1 — La skill existe, la sesión no la conoce</strong></p>
+    <ul>
+      <li>Terminal: <code>cd ~/demo-repo</code></li>
+      <li>Terminal: <code>claude</code> (sesión nueva)</li>
+      <li>En Claude: <code>/context</code></li>
+      <li>Mirar: <code>SKILL.md</code> NO aparece como fuente cargada — solo <code>CLAUDE.md</code> + rules activas</li>
+    </ul>
+    <p><strong>Paso 2 — Invocar la skill: ejecuta las 6 fases en orden</strong></p>
+    <ul>
+      <li>En Claude: <code>/add-endpoint POST /comments</code> (o en prosa: "agregá un endpoint POST /comments con title y body")</li>
+      <li>Mirar: Claude confirma verbo + path → schema → router → test → openapi → pytest</li>
+      <li>Mirar: las seis fases del <code>SKILL.md</code>, en orden, sin saltear</li>
+    </ul>
+    <p><strong>Paso 3 — La misma tarea sin la skill</strong></p>
+    <ul>
+      <li>Terminal: <code>cd ~/tmp-sin-skill</code> (sesión limpia, sin <code>.claude/skills/</code>)</li>
+      <li>Terminal: <code>claude</code></li>
+      <li>En Claude: "agregá un endpoint POST /comments"</li>
+      <li>Mirar: flow inventado — puede agregar el endpoint, puede olvidar tests, puede olvidar regenerar openapi</li>
+    </ul>
+    <p><em>Plan B (si la activación por relevancia no entra al pedido en prosa del paso 2): usar el slash command directo <code>/add-endpoint</code> — fuerza la entrada de la skill al contexto sin depender del match por descripción. El argumento se sostiene: invocada explícitamente, el procedimiento es el mismo.</em></p>
   </aside>
 </section>
 
-<!-- §11.11 · Cierre parte 2 — master table "dos cosas, no quince" -->
-<section>
-  <h2>El cierre de la parte 2 — dos cosas, no quince</h2>
+<!-- §11.10 · Cierre + bridge a §12 -->
+<section class="s11-slide">
+  <h2>Skills aíslan un procedimiento — entran cuando se necesitan</h2>
 
-  <div class="s11-table-wrap">
-    <div class="s11-table-header">
-      <div class="s11-table-cell" style="flex:2">Herramienta</div>
-      <div class="s11-table-cell" style="flex:1">Actúa sobre</div>
-    </div>
-    <div class="s11-table-row ctx-row">
-      <div class="s11-table-td" style="flex:2"><code>CLAUDE.md</code> jerárquico <span style="color:var(--text-muted); font-size:0.88em;">(§7)</span></div>
-      <div class="s11-table-td ctx-pill" style="flex:1">Context — instrucciones que entran a la ventana</div>
-    </div>
-    <div class="s11-table-row ctx-row">
-      <div class="s11-table-td" style="flex:2">Rules y auto-memory <span style="color:var(--text-muted); font-size:0.88em;">(§8)</span></div>
-      <div class="s11-table-td ctx-pill" style="flex:1">Context — qué se preserva entre sesiones</div>
-    </div>
-    <div class="s11-table-row ctx-row">
-      <div class="s11-table-td" style="flex:2">Skills y slash commands <span style="color:var(--text-muted); font-size:0.88em;">(§9)</span></div>
-      <div class="s11-table-td ctx-pill" style="flex:1">Context — procedimientos reutilizables sin inundar</div>
-    </div>
-    <div class="s11-table-row ctx-row">
-      <div class="s11-table-td" style="flex:2">Sub-agents <span style="color:var(--text-muted); font-size:0.88em;">(§10)</span></div>
-      <div class="s11-table-td ctx-pill" style="flex:1">Context — aísla el contexto de un loop entero para que el ruido no llegue al padre</div>
-    </div>
-    <div class="s11-table-row harness-row">
-      <div class="s11-table-td" style="flex:2">Plan mode <span style="color:var(--text-muted); font-size:0.88em;">(§11)</span></div>
-      <div class="s11-table-td harness-pill" style="flex:1">Harness — separa "pensar" de "actuar" para que el supervisor entre en el medio</div>
-    </div>
-    <div class="s11-table-row harness-row">
-      <div class="s11-table-td" style="flex:2">Permisos <span style="color:var(--text-muted); font-size:0.88em;">(§11)</span></div>
-      <div class="s11-table-td harness-pill" style="flex:1">Harness — gate antes de cada acción que actúa sobre el mundo</div>
-    </div>
-  </div>
-  <div class="s11-table-coda">
-    No son quince features sueltas. Son dos cosas — <em>context</em> y <em>harness</em> — y formas de entrar al proceso.
-  </div>
-
-  <aside class="notes">
-    <p><strong>Señalar cada fila mientras se lee. Las cuatro filas de CONTEXT en azul tenue — nombrar la sección de origen. Las dos filas de HARNESS en verde — remarcar que son las primeras en esa columna. Pausa larga antes de la coda.</strong></p>
-    <p><u>Slide de cierre de la parte 2. La tabla es el payoff del dispositivo lens-tracker que recorrió §7 a §11. El patrón visual importa: cuatro filas de CONTEXT, dos de HARNESS — el peso refleja la estructura de la parte 2. La coda es la tesis del through-line en su forma más directa, conectando con las tres ingenierías de §3.3.</u></p>
-    <p><em>"Durante la parte 2 vimos muchas herramientas. La tentación es memorizarlas como una lista de features. Pero si usaron la lente que propusimos en §6, ya ven algo diferente."</em></p>
-    <p><em>"CLAUDE.md — context. Rules y auto-memory — context. Skills — context. Sub-agents — context. Cuatro secciones, cuatro formas distintas de actuar sobre lo mismo: lo que entra a la ventana del agente."</em></p>
-    <p><em>"Plan mode — harness. Permisos — harness. Dos mecanismos que actúan sobre el entorno: cuándo y cómo el supervisor entra al proceso. No sobre qué sabe el agente — sobre cuánto le dejás hacer."</em></p>
-    <p><em>"No son quince features sueltas. Son dos cosas — context y harness — y formas de entrar al proceso. Si aparece una herramienta que no conocen, la pregunta es siempre la misma: ¿actúa sobre el context o sobre el harness?"</em></p>
-  </aside>
-</section>
-
-<!-- §11.12 · Bridge a §12 -->
-<section>
-  <h2>Hoy terminamos de armar el runtime — §12 es el para qué</h2>
-
-  <div class="s11-bridge-card">
-    <p class="s11-bridge-main">
-      Parte 1 — el modelo: cómo piensa, cómo predice, qué significa que "razone".<br>
-      Semanas 2–3 — el rol: supervisor arquitectónico del frontend y del backend.<br>
-      Parte 2 de hoy — el runtime: el loop, el contexto, y las herramientas para actuar sobre cada uno.
+  <div class="s11-close-card">
+    <p class="s11-close-main">
+      Las skills <strong>aíslan un procedimiento</strong>: fases, checkpoints, anti-patterns, todo empaquetado. Entran al contexto <strong>cuando se invocan</strong>, no antes. Lo que el agente no usó <strong>no paga tokens</strong>. Y cuando entran, el flow es lineal — fases en orden, sin improvisación.
     </p>
-    <p class="s11-bridge-sub">
-      Lo que falta no es otra herramienta.
-      Es el <em>para qué</em>. ¿Qué construís con todo esto?
-      ¿Cómo articulás modelo + rol + runtime en un proyecto real, de principio a fin?<br><br>
-      Eso es <em>§12</em>.
+    <p class="s11-close-bridge">
+      Las skills aíslan <em>un procedimiento</em>. Los <em>sub-agents</em> aíslan un loop entero — el mismo principio (aislar para proteger el contexto del padre) aplicado a una unidad más grande.
     </p>
   </div>
 
   <aside class="notes">
-    <p><strong>Leer las tres líneas del párrafo principal con cadencia — una pausa entre cada una. Pausa larga antes del párrafo del bridge. Leer "§12" al final con énfasis tranquilo, sin grandilocuencia.</strong></p>
-    <p><u>Slide de bridge a §12. El párrafo principal hace el arco completo del curso visible en tres líneas. El bridge formula la pregunta que §12 responde. El tono es de apertura, no de cierre dramático — §12 es el paso siguiente, no una revelación.</u></p>
-    <p><em>"Miremos qué armamos. En la parte 1 de hoy entendieron el modelo — cómo piensa, cómo predice, qué significa que 'razone' sobre un problema. En semanas 2 y 3 entendieron el rol — supervisor arquitectónico del frontend, supervisor del backend, con un vocabulario para dictar en lugar de reaccionar. En la parte 2 de hoy entendieron el runtime — el loop, el contexto, y las herramientas para actuar sobre cada uno."</em></p>
-    <p><em>"Lo que falta no es otra herramienta. Tenemos el modelo. Tenemos el rol. Tenemos el runtime. Lo que falta es el para qué. ¿Qué construís con todo esto junto? ¿Cómo agarrás modelo + rol + runtime y los usás al mismo tiempo en un proyecto real, de principio a fin?"</em></p>
-    <p><em>"Eso es §12."</em></p>
+    <p><strong>Leer el párrafo principal apoyando "aíslan un procedimiento" y "no paga tokens" — las dos frases a retener. Pausa antes del bridge. Marcar el paralelismo con la voz: skills aíslan un procedimiento, sub-agents aíslan un loop entero.</strong></p>
+    <p><u>Cierre de §11 + bridge a §12. La línea principal consolida la propiedad central: skills son la primera pieza del runtime con costo de contexto opt-in por tarea. El bridge a §12 abre la idea de aislamiento a escala mayor — sub-agents aplican el mismo principio a una unidad más grande.</u></p>
+    <p><em>"Cerramos §11. La propiedad central a retener: las skills aíslan un procedimiento. Fases, checkpoints, anti-patterns, todo empaquetado. Entran al contexto cuando se invocan, no antes. Lo que el agente no usó no paga tokens. Y cuando entran, el flow es lineal — las fases se ejecutan en el orden listado, sin improvisación dentro del procedimiento."</em></p>
+    <p><em>"Y el bridge a la próxima sección. Las skills aíslan un procedimiento. Los sub-agents aíslan un loop entero. Mismo principio — aislar para proteger el contexto del padre — aplicado a una unidad más grande. Una skill empaqueta un how-to; un sub-agent empaqueta una sesión completa con su propia ventana de contexto. La unidad escala; el motivo es el mismo."</em></p>
   </aside>
 </section>
 </section>
@@ -8706,50 +8579,21 @@ Cuando trabajes con código del backend:
 
   <!-- init §11 -->
 <script>
-  // §11 animated flip: context → harness (the first lens flip in Part 2)
-  Reveal.on('fragmentshown', function(e) {
-    if (e.fragment.dataset && e.fragment.dataset.flipTracker === 'harness') {
-      setTimeout(function() {
-        var t = document.getElementById('s11-tracker');
-        if (t) {
-          t.classList.remove('on-context');
-          t.classList.add('on-harness');
-        }
-        var sub = document.getElementById('s11-flip-sublabel');
-        if (sub) sub.textContent = e.fragment.dataset.flipSublabel || sub.textContent;
-      }, 200);
-    }
-  });
-
-  Reveal.on('fragmenthidden', function(e) {
-    if (e.fragment.dataset && e.fragment.dataset.flipTracker === 'harness') {
-      var t = document.getElementById('s11-tracker');
-      if (t) {
-        t.classList.remove('on-harness');
-        t.classList.add('on-context');
-      }
-      var sub = document.getElementById('s11-flip-sublabel');
-      if (sub) sub.textContent = 'hasta acá, todo aterrizó acá';
-    }
-  });
-
-  initFourLoop({containerId: 's11-loop-planmode', mode: 'planmode'});
-  initFourLoop({containerId: 's11-loop-gate', mode: 'gate'});
   initClickableSteps({containerId: 's11-demo-steps', steps: [
     {
-      title: 'Beat 1 — Sin plan mode: el agente actúa',
-      summary: 'Tarea: "reorganizá los imports del proyecto". Sin plan mode habilitado. Dejar que el agente arranque sin intervención y señalar las ediciones que aparecen en el workspace.',
-      example: 'Qué mirar: los archivos que el agente eligió modificar, el orden que eligió, las decisiones que tomó antes de mostrártelas. El punto no es que el resultado sea malo — es que el agente tomó todas esas decisiones solo, antes de que pudieras mirar. Plan B si el resultado sale limpio por azar: cambiar la tarea por "reorganizá todos los archivos del proyecto por dominio, mové los tests a una carpeta separada y actualizá los imports" — mantenerlo reversible con `git checkout .`.'
+      title: 'Paso 1 — La skill existe, la sesión no la conoce',
+      summary: '<ul style="font-size:0.88em;padding-left:16px;margin:4px 0 0;line-height:1.5;text-align:left;"><li><strong>Terminal:</strong> <code>cd ~/demo-repo</code></li><li><strong>Terminal:</strong> <code>claude</code> (sesión nueva)</li><li><strong>En Claude:</strong> <code>/context</code></li><li><strong>Mirar:</strong> <code>SKILL.md</code> NO aparece como fuente cargada — solo <code>CLAUDE.md</code> + rules activas</li></ul>',
+      example: 'El punto del paso uno: la skill add-endpoint existe en el repo, está instalada, está disponible — pero no está en el contexto. La ventana solo tiene el nombre y la descripción, no las seis fases. Hasta que la invoquemos, para esta sesión la skill no existe. Esa es la propiedad operativa de "no paga tokens hasta que se usa".'
     },
     {
-      title: 'Beat 2 — Con plan mode: propone primero',
-      summary: 'Misma tarea, plan mode habilitado. El agente presenta el plan — qué archivos piensa tocar, en qué orden, qué convención de imports va a aplicar.',
-      example: 'Qué mirar: el workspace no cambió — cero ediciones. El loop está detenido entre "pensar" y "actuar", esperando. Todo lo que el agente haría está visible antes de que lo haga.'
+      title: 'Paso 2 — Invocar la skill: ejecuta las 6 fases en orden',
+      summary: '<ul style="font-size:0.88em;padding-left:16px;margin:4px 0 0;line-height:1.5;text-align:left;"><li><strong>En Claude:</strong> <code>/add-endpoint POST /comments</code> (o en prosa: "agregá un endpoint POST /comments con title y body")</li><li><strong>Mirar:</strong> Claude confirma verbo + path → schema → router → test → openapi → pytest</li><li><strong>Mirar:</strong> las seis fases del <code>SKILL.md</code>, en orden, sin saltear</li></ul>',
+      example: 'Recién ahora la skill paga su lugar en el contexto. Y miren el flow: Claude no inventa un orden propio. Confirma verbo y path primero — fase uno. Revisa schemas — fase dos. Agrega el router con response_model — fase tres. Tests — fase cuatro. Regenera openapi — fase cinco. Corre pytest — fase seis. Las seis fases del SKILL.md, en el orden listado. Esa es la garantía estructural: el procedimiento no depende de que Claude se acuerde de cada paso.'
     },
     {
-      title: 'Beat 3 — Corrección antes de aprobar',
-      summary: 'Leer el plan con el curso. Encontrar algo para corregir — el agente quiere tocar también archivos de tests; nosotros solo queremos los módulos de negocio. Corregir antes de aprobar.',
-      example: 'Qué mirar: el plan corregido ejecutándose acotado — solo los archivos aprobados, con la convención pedida. La diferencia respecto al Beat 1 no es solo el resultado: es que el supervisor estuvo en el proceso desde antes de la primera acción.'
+      title: 'Paso 3 — La misma tarea sin la skill',
+      summary: '<ul style="font-size:0.88em;padding-left:16px;margin:4px 0 0;line-height:1.5;text-align:left;"><li><strong>Terminal:</strong> <code>cd ~/tmp-sin-skill</code> (sesión limpia, sin <code>.claude/skills/</code>)</li><li><strong>Terminal:</strong> <code>claude</code></li><li><strong>En Claude:</strong> "agregá un endpoint POST /comments"</li><li><strong>Mirar:</strong> flow inventado — puede agregar el endpoint, puede olvidar tests, puede olvidar regenerar openapi</li></ul>',
+      example: 'Sin la skill, Claude inventa un flow propio. Puede agregar el endpoint, puede no agregar los tests, puede olvidar regenerar openapi.yaml. El resultado puede ser correcto o puede no serlo. No es que el modelo sea peor — es que sin el procedimiento empaquetado, no hay garantía de que las seis fases ocurran. La skill no agrega capacidad nueva: agrega garantía sobre un procedimiento que el modelo ya podía improvisar.\n\nPLAN B (si la activación por relevancia no responde al pedido en prosa del paso 2): usar el slash command directo /add-endpoint. Eso fuerza la entrada de la skill al contexto sin depender del match por descripción. El argumento se sostiene: invocada explícitamente, el procedimiento es exactamente el mismo.'
     }
   ]});
 </script>

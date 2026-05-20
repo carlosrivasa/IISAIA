@@ -923,6 +923,27 @@
   <aside class="notes">
     <p><strong>Setup antes del slide: terminal con cwd en una copia del demo-repo, Claude Code instalado. Una pestaña del file explorer apuntando a ~/.claude/projects/. Click recorre los tres pasos; en cada uno hablo en vivo, los notes acá son el guion mínimo.</strong></p>
     <p><u>Demo de la sección. Tres pasos. Paso 1: /memory lista las fuentes cargadas, user y project con sus paths. Paso 2: /context muestra el delta atribuible a CLAUDE.md. Paso 3: navego a la carpeta de auto memory del demo-repo y abro MEMORY.md si existe — si no existe, explico que aparece cuando Claude aprende algo. El plan B vive en el paso 3 por si /context no coopera.</u></p>
+    <hr>
+    <p><strong>Acciones (copiables):</strong></p>
+    <p><strong>Paso 1 — /memory: las fuentes cargadas</strong></p>
+    <ul>
+      <li>Terminal: <code>cd ~/demo-repo</code></li>
+      <li>Terminal: <code>claude</code></li>
+      <li>En Claude: <code>/memory</code></li>
+      <li>Mirar: nivel user + project con paths completos</li>
+    </ul>
+    <p><strong>Paso 2 — /context: el delta atribuible</strong></p>
+    <ul>
+      <li>En Claude: <code>/context</code></li>
+      <li>Mirar: delta de contexto atribuible a CLAUDE.md (folder map, convenciones, workflow)</li>
+    </ul>
+    <p><strong>Paso 3 — Auto memory: la carpeta paralela</strong></p>
+    <ul>
+      <li>File explorer: ir a <code>~/.claude/projects/&lt;demo-repo&gt;/memory/</code></li>
+      <li>Si existe <code>MEMORY.md</code>: abrirlo</li>
+      <li>Mirar: contraste con CLAUDE.md — esto lo escribió Claude, no vos</li>
+    </ul>
+    <p><em>Plan B (si /context no funciona en la versión instalada): sostener el punto con /memory solo. Narrar: "todo lo que ven en esta lista entró a la ventana antes de mi primer mensaje".</em></p>
     <p><em>"Vamos al demo. Tres pasos. El objetivo es hacer visible algo que hasta acá fue verbal: CLAUDE.md ocupa contexto desde el arranque, y la auto memory es un sistema separado que vive en otro archivo."</em></p>
   </aside>
 </section>

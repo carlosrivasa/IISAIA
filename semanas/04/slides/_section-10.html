@@ -864,6 +864,31 @@
     <p><strong>Setup antes del slide: terminal con cwd en una copia del demo-repo, en una sesión nueva. El .claude/settings.json del demo-repo, abierto en VS Code en una pestaña al lado, para mostrar los cambios que /permissions va escribiendo (en settings.local.json). Plan B en notes del último paso si algo falla en vivo.</strong></p>
     <p><u>Demo de la sección. Tres pasos sobre la misma sesión, sin reiniciar. El primer paso muestra el comportamiento default cuando no hay regla; el segundo, allow agregado en vivo elimina el prompt; el tercero, deny agregado en vivo bloquea sin opción a confirmar. El objetivo es ver la diferencia entre ask y deny en pantalla, no contártela. Si el flujo en vivo falla, el Plan B sostiene el argumento leyendo las tres listas del settings.json — la lógica se sostiene sin ver el runtime ejecutarse.</u></p>
     <p><em>"Vamos al demo. Tres pasos sobre una misma sesión, sin reiniciar. La idea es ver en pantalla el ciclo completo: un comando que pregunta, una regla que lo libera, una regla que lo bloquea."</em></p>
+    <hr>
+    <p><strong>Acciones (copiables):</strong></p>
+    <p><strong>Paso 1 — Sin permiso: el prompt aparece</strong></p>
+    <ul>
+      <li>Setup: sesión nueva en el demo-repo, sin <code>Bash(uv run pytest)</code> en allow</li>
+      <li>En Claude: "corré los tests"</li>
+      <li>Mirar: prompt "¿Permitir Bash uv run pytest?"</li>
+      <li>Negar — Claude no ejecuta pero no rompe</li>
+    </ul>
+    <p><strong>Paso 2 — /permissions agrega allow: pasa sin prompt</strong></p>
+    <ul>
+      <li>En Claude: <code>/permissions</code></li>
+      <li>Agregar <code>Bash(uv run pytest)</code> a <code>allow</code> (escribe en <code>.local.json</code>)</li>
+      <li>En Claude: "corré los tests" (de nuevo)</li>
+      <li>Mirar: corre sin prompt</li>
+      <li>VS Code: ver el diff en <code>.local.json</code> abierto al lado</li>
+    </ul>
+    <p><strong>Paso 3 — /permissions agrega deny: bloqueado sin opción</strong></p>
+    <ul>
+      <li>En Claude: <code>/permissions</code></li>
+      <li>Agregar <code>Read(./.env)</code> a <code>deny</code></li>
+      <li>En Claude: "mostrame el contenido de <code>.env</code>"</li>
+      <li>Mirar: bloqueado, sin prompt — Claude no puede rodearlo</li>
+    </ul>
+    <p><em>Plan B (si el flujo en vivo no coopera): abrir el .claude/settings.json del demo-repo y leer las tres listas — allow, deny, ask — en voz alta. Para cada entrada, explicar qué cubre y por qué está en esa lista.</em></p>
   </aside>
 </section>
 

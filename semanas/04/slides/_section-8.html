@@ -851,6 +851,28 @@ Cuando trabajes con código del backend:
     <p><strong>Setup antes del slide: terminal con cwd en una copia del demo-repo, Claude Code abierto. VS Code con el árbol .claude/rules/ visible y api.md abierto en una pestaña. Click recorre los tres pasos; hablo en vivo en cada uno, las notas son guion mínimo.</strong></p>
     <p><u>Demo de la sección. Tres pasos progresivos sobre la misma sesión: /memory sin tocar nada → leer un archivo de frontend → leer un archivo de backend, con /memory entre cada paso para mostrar el cambio. La consigna entera es ver aparecer api.md en la lista solo en el último paso. Plan B vive en notes del paso 3 por si /memory no expone la lista con suficiente detalle.</u></p>
     <p><em>"Vamos al demo. Tres pasos sobre la misma sesión. El objetivo es ver, con el mismo comando /memory, cómo api.md cambia de estado: no cargada, no cargada, cargada — y en qué momento exacto se activa."</em></p>
+    <hr>
+    <p><strong>Acciones (copiables):</strong></p>
+    <p><strong>Paso 1 — La rule existe, pero no está cargada</strong></p>
+    <ul>
+      <li>VS Code: abrir árbol <code>.claude/rules/</code> — ver los 4 archivos</li>
+      <li>Abrir <code>api.md</code>: señalar frontmatter <code>paths: ["backend/**/*.py"]</code></li>
+      <li>En Claude: <code>/memory</code></li>
+      <li>Mirar: <code>api.md</code> NO aparece en la lista</li>
+    </ul>
+    <p><strong>Paso 2 — Tocar un archivo que no matchea</strong></p>
+    <ul>
+      <li>En Claude: "leé <code>frontend/index.html</code>"</li>
+      <li>En Claude: <code>/memory</code></li>
+      <li>Mirar: <code>api.md</code> sigue sin aparecer — no matchea el glob</li>
+    </ul>
+    <p><strong>Paso 3 — Tocar un archivo que sí matchea</strong></p>
+    <ul>
+      <li>En Claude: "leé <code>backend/routers/users.py</code>"</li>
+      <li>En Claude: <code>/memory</code></li>
+      <li>Mirar: <code>api.md</code> ahora SÍ aparece cargada</li>
+    </ul>
+    <p><em>Plan B (si /memory no muestra el detalle): demostrar por comportamiento. Pedirle a Claude que edite un archivo cualquiera del frontend — no propone regenerar el openapi. Pedirle que toque backend/routers/users.py — ahora sí lo propone.</em></p>
   </aside>
 </section>
 

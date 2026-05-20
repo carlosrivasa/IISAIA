@@ -844,6 +844,29 @@
     <p><strong>Setup antes del slide: VS Code con tres archivos abiertos en paneles lado a lado — ~/.claude/settings.json (usuario), .claude/settings.json del demo-repo (proyecto), .claude/settings.local.json (local, o el .example si el local no existe en esta máquina). Terminal con cwd en una copia del demo-repo, Claude Code listo para abrir nueva sesión. Click recorre los tres pasos; la narración vive en vivo.</strong></p>
     <p><u>Demo de la sección. Tres pasos sobre los archivos abiertos en paralelo: recorrer qué va en cada nivel (Paso 1), cambiar un campo y mostrar que toma efecto en próxima sesión (Paso 2), abrir el .gitignore y mostrar que el .local no se trackea (Paso 3). El objetivo del demo no es la mecánica de cada paso — es asentar la convención de qué decisión va en qué nivel. Plan B vive en notes del Paso 3.</u></p>
     <p><em>"Vamos al demo. Tres pasos sobre los mismos tres archivos abiertos en paralelo. El objetivo no es ver el runtime hacer fuegos artificiales — es ver con qué criterio decidís qué va en cada nivel."</em></p>
+    <hr>
+    <p><strong>Acciones (copiables):</strong></p>
+    <p><strong>Paso 1 — Los tres archivos abiertos en paralelo</strong></p>
+    <ul>
+      <li>VS Code: abrir lado a lado <code>~/.claude/settings.json</code>, <code>.claude/settings.json</code>, <code>.claude/settings.local.json</code></li>
+      <li>Narrar: qué campo va en cada nivel y por qué</li>
+      <li>Mirar: tres niveles, tres responsabilidades</li>
+    </ul>
+    <p><strong>Paso 2 — Cambiar el model y ver el efecto en próxima sesión</strong></p>
+    <ul>
+      <li>VS Code: editar <code>.claude/settings.json</code></li>
+      <li>Cambiar <code>"model"</code> de <code>claude-sonnet-4-6</code> a <code>claude-haiku-4-5</code>, guardar</li>
+      <li>Terminal: cerrar Claude Code y abrir sesión nueva</li>
+      <li>Mirar: barra inferior muestra Haiku 4.5</li>
+      <li>Revertir el cambio</li>
+    </ul>
+    <p><strong>Paso 3 — El .gitignore lo confirma</strong></p>
+    <ul>
+      <li>VS Code: abrir <code>.gitignore</code>, buscar línea <code>.claude/settings.local.json</code></li>
+      <li>Terminal: <code>git status</code></li>
+      <li>Mirar: el <code>.local.json</code> no aparece — git lo ignora</li>
+    </ul>
+    <p><em>Plan B (si el demo se traba en algún paso): los tres archivos abiertos sostienen el argumento solos. Leer cada uno en voz alta — proyecto define la base compartida, local agrega lo específico de la máquina, usuario persiste entre proyectos.</em></p>
   </aside>
 </section>
 
