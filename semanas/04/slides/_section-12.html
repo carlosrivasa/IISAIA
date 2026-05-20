@@ -1,681 +1,789 @@
 <style>
 /* Scoped styles for §12 only */
 
-/* Hook card — opening slide */
-.s12-hook-card {
-  max-width: 680px;
-  margin: 28px auto 0;
-  background: var(--bg-secondary);
-  border: 1px solid #2a3a5a;
-  border-left: 3px solid var(--accent);
-  border-radius: 8px;
-  padding: 30px 38px;
-  text-align: center;
-}
-.s12-hook-card-main {
-  font-size: 0.92em;
-  font-weight: 700;
-  color: var(--text-primary);
-  line-height: 1.75;
-  margin: 0 0 20px;
-}
-.s12-hook-tres {
-  display: flex;
-  gap: 14px;
-  justify-content: center;
-  flex-wrap: wrap;
-}
-.s12-hook-pieza {
-  background: var(--bg-code);
-  border: 1px solid #2a3a5a;
-  border-radius: 7px;
-  padding: 10px 22px;
-  font-size: 0.78em;
-  font-family: var(--font-mono);
-  color: var(--accent);
-  font-weight: 700;
-  letter-spacing: 0.04em;
-}
-
-/* Pipeline de las tres piezas */
-.s12-pipeline-wrap {
-  max-width: 720px;
-  margin: 26px auto 0;
-  display: flex;
-  flex-direction: column;
-  gap: 14px;
-}
-.s12-pipeline-row {
-  display: flex;
-  align-items: center;
-  gap: 0;
-}
-.s12-pieza-box {
-  flex: 1;
-  background: var(--bg-secondary);
-  border: 1px solid #2a3a5a;
-  border-radius: 8px;
-  padding: 18px 22px;
-}
-.s12-pieza-box.modelo-box {
-  border-left: 3px solid var(--accent);
-}
-.s12-pieza-box.rol-box {
-  border-left: 3px solid var(--accent-secondary);
-}
-.s12-pieza-box.runtime-box {
-  border-left: 3px solid #c792ea;
-}
-.s12-pieza-label {
-  font-size: 0.52em;
-  font-family: var(--font-mono);
-  text-transform: uppercase;
-  letter-spacing: 0.1em;
-  color: var(--text-muted);
-  display: block;
-  margin-bottom: 5px;
-}
-.s12-pieza-title {
+/* Heading override scoped to §12 slides */
+.reveal .slides .s12-slide { text-align: center; }
+.reveal .slides .s12-slide h2 {
   font-size: 0.82em;
-  font-weight: 700;
-  margin-bottom: 7px;
-}
-.s12-pieza-box.modelo-box .s12-pieza-title { color: var(--accent); }
-.s12-pieza-box.rol-box .s12-pieza-title { color: var(--accent-secondary); }
-.s12-pieza-box.runtime-box .s12-pieza-title { color: #c792ea; }
-.s12-pieza-sin {
-  font-size: 0.67em;
-  color: var(--text-muted);
-  line-height: 1.6;
-  font-style: italic;
-}
-.s12-pipeline-arrow-v {
+  line-height: 1.2;
+  margin: 0 0 6px;
   text-align: center;
-  font-size: 1.0em;
-  color: var(--text-muted);
-  padding: 2px 0;
-  line-height: 1;
-}
-.s12-pipeline-coda {
-  background: rgba(100, 255, 218, 0.06);
-  border: 1px solid rgba(100, 255, 218, 0.22);
-  border-radius: 7px;
-  padding: 13px 22px;
-  font-size: 0.76em;
-  color: var(--accent);
-  font-weight: 600;
-  text-align: center;
-  line-height: 1.6;
+  text-transform: none;
+  letter-spacing: 0;
 }
 
-/* Qué vas a construir — single focus card */
-.s12-construir-wrap {
-  max-width: 640px;
-  margin: 30px auto 0;
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-}
-.s12-forma-card {
-  background: var(--bg-secondary);
-  border: 1px solid #2a3a5a;
-  border-radius: 8px;
-  padding: 26px 32px;
+/* --- Five-questions card (full + mini) — calibrated identically to §11 --- */
+.reveal .slides .s12-slide h2.s12-five-q-title {
+  font-size: 1.05em;
   text-align: center;
+  margin: 0 0 16px;
+  line-height: 1.2;
 }
-.s12-forma-tagline {
-  font-size: 0.76em;
-  font-family: var(--font-mono);
-  text-transform: uppercase;
-  letter-spacing: 0.1em;
-  color: var(--text-muted);
-  display: block;
-  margin-bottom: 14px;
+.s12-five-q-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 7px;
+  list-style: none;
+  padding: 0;
+  margin: 0 auto;
+  max-width: 900px;
 }
-.s12-forma-spec {
-  display: flex;
-  gap: 10px;
-  justify-content: center;
-  flex-wrap: wrap;
-  margin-bottom: 18px;
-}
-.s12-forma-tag {
-  background: var(--bg-code);
+.s12-five-q-card {
+  background: var(--bg-secondary);
   border: 1px solid #2a3a5a;
   border-radius: 6px;
-  padding: 8px 18px;
-  font-size: 0.74em;
-  font-family: var(--font-mono);
-  color: var(--text-primary);
-}
-.s12-forma-nota {
-  font-size: 0.72em;
-  color: var(--text-muted);
-  line-height: 1.7;
-}
-.s12-construir-callout {
-  background: rgba(100, 255, 218, 0.06);
-  border: 1px solid rgba(100, 255, 218, 0.22);
-  border-radius: 7px;
-  padding: 14px 24px;
-  font-size: 0.82em;
-  font-weight: 700;
-  color: var(--accent);
-  text-align: center;
-  line-height: 1.6;
-}
-
-/* Por qué conecta — cards layout */
-.s12-conexion-wrap {
-  max-width: 720px;
-  margin: 22px auto 0;
+  padding: 9px 10px 9px;
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  align-items: flex-start;
+  gap: 3px;
+  opacity: 0.45;
+  transition: opacity 0.3s ease, transform 0.3s ease, border-color 0.3s ease;
 }
-.s12-conexion-card {
-  background: var(--bg-secondary);
-  border: 1px solid #2a3a5a;
-  border-radius: 8px;
-  padding: 18px 24px;
-  display: flex;
-  align-items: baseline;
-  gap: 18px;
+.s12-five-q-card.is-active {
+  opacity: 1;
+  border-color: var(--accent);
+  border-left: 3px solid var(--accent);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 14px rgba(100, 255, 218, 0.08);
 }
-.s12-conexion-card-label {
+.s12-five-q-num {
+  font-family: var(--font-mono);
+  font-size: 0.5em;
+  letter-spacing: 0.08em;
+  color: var(--text-muted);
+}
+.s12-five-q-card.is-active .s12-five-q-num {
+  color: var(--accent);
+}
+.s12-five-q-label {
   font-size: 0.56em;
-  font-family: var(--font-mono);
-  text-transform: uppercase;
-  letter-spacing: 0.09em;
-  color: var(--text-muted);
-  flex-shrink: 0;
-  width: 90px;
-  padding-top: 2px;
-}
-.s12-conexion-card-body {
-  font-size: 0.76em;
-  color: var(--text-primary);
-  line-height: 1.75;
-}
-.s12-conexion-card-body em {
-  color: var(--accent);
-  font-style: normal;
-  font-weight: 700;
-}
-.s12-conexion-callout {
-  background: rgba(100, 255, 218, 0.06);
-  border: 1px solid rgba(100, 255, 218, 0.22);
-  border-radius: 7px;
-  padding: 13px 22px;
-  font-size: 0.76em;
-  color: var(--accent);
-  font-weight: 600;
-  text-align: center;
-  line-height: 1.6;
-}
-
-/* Qué se evalúa — three verbs */
-.s12-eval-wrap {
-  max-width: 680px;
-  margin: 28px auto 0;
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-}
-.s12-eval-card {
-  background: var(--bg-secondary);
-  border: 1px solid #2a3a5a;
-  border-radius: 8px;
-  padding: 22px 30px;
-}
-.s12-eval-card-intro {
-  font-size: 0.78em;
-  color: var(--text-muted);
-  line-height: 1.75;
-  margin-bottom: 18px;
-}
-.s12-eval-verbs {
-  display: flex;
-  gap: 12px;
-}
-.s12-eval-verb {
-  flex: 1;
-  background: var(--bg-code);
-  border-radius: 7px;
-  padding: 14px 10px;
-  text-align: center;
-  border-top: 2px solid var(--accent);
-}
-.s12-eval-verb-word {
-  font-size: 0.85em;
-  font-weight: 700;
-  color: var(--accent);
-  font-family: var(--font-mono);
-  display: block;
-  margin-bottom: 6px;
-}
-.s12-eval-verb-desc {
-  font-size: 0.62em;
-  color: var(--text-muted);
-  line-height: 1.55;
-}
-.s12-eval-nota {
-  font-size: 0.72em;
-  color: var(--text-muted);
-  line-height: 1.7;
-  font-style: italic;
-  text-align: center;
-}
-
-/* Lo que NO se decide hoy — cards */
-.s12-nodecide-wrap {
-  max-width: 720px;
-  margin: 22px auto 0;
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-}
-.s12-nodecide-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 12px;
-}
-.s12-nodecide-card {
-  background: var(--bg-secondary);
-  border: 1px solid #2a3a5a;
-  border-radius: 8px;
-  padding: 16px 20px;
-}
-.s12-nodecide-card-title {
-  font-size: 0.68em;
   font-weight: 700;
   color: var(--text-primary);
-  margin-bottom: 6px;
-  font-family: var(--font-mono);
+  line-height: 1.3;
 }
-.s12-nodecide-card-body {
-  font-size: 0.66em;
+.s12-five-q-hint {
+  font-size: 0.44em;
   color: var(--text-muted);
-  line-height: 1.6;
+  line-height: 1.4;
 }
-.s12-nodecide-coda {
-  background: var(--bg-code);
-  border: 1px solid #2a3a5a;
-  border-radius: 7px;
-  padding: 14px 22px;
-  font-size: 0.74em;
-  color: var(--text-muted);
-  line-height: 1.75;
-  text-align: center;
-  font-style: italic;
+/* Mini variant */
+.s12-five-q-grid.is-mini {
+  grid-template-columns: repeat(5, auto);
+  justify-content: center;
+  gap: 4px;
+  max-width: 100%;
+  margin: 0 auto 8px;
 }
-.s12-nodecide-coda em {
-  color: var(--text-primary);
-  font-style: normal;
-}
-
-/* El arco — closing slide */
-.s12-arco-wrap {
-  max-width: 700px;
-  margin: 22px auto 0;
-  display: flex;
-  flex-direction: column;
-  gap: 18px;
-}
-.s12-arco-steps {
-  display: flex;
+.s12-five-q-grid.is-mini .s12-five-q-card {
+  padding: 3px 9px;
+  border-radius: 999px;
+  border-left-width: 1px;
+  flex-direction: row;
   align-items: center;
-  gap: 0;
+  gap: 5px;
 }
-.s12-arco-step {
-  flex: 1;
+.s12-five-q-grid.is-mini .s12-five-q-card.is-active {
+  border-left: 1px solid var(--accent);
+}
+.s12-five-q-grid.is-mini .s12-five-q-num {
+  font-size: 0.42em;
+}
+.s12-five-q-grid.is-mini .s12-five-q-label {
+  font-size: 0.5em;
+}
+
+/* Qué es — bullets + callout */
+.s12-qe-list {
+  list-style: disc;
+  display: inline-block;
+  text-align: left;
+  max-width: 720px;
+  margin: 16px auto 0;
+  padding-left: 36px;
+  font-size: 0.6em;
+  line-height: 1.6;
+  color: var(--text-muted);
+}
+.s12-qe-list li {
+  padding-left: 6px;
+  margin-bottom: 10px;
+}
+.s12-qe-list li::marker { color: var(--accent); }
+.s12-qe-list strong { color: var(--text-primary); font-weight: 700; }
+.s12-qe-list code {
+  font-family: var(--font-mono);
+  color: var(--accent);
+  font-size: 0.95em;
+}
+.s12-qe-list li.s12-qe-callout {
+  list-style: none;
+  margin-left: -32px;
+  margin-top: 10px;
+  background: rgba(100, 255, 218, 0.06);
+  border-left: 3px solid var(--accent);
+  border-radius: 4px;
+  padding: 8px 14px;
+  color: var(--accent);
+  font-weight: 700;
+}
+
+/* Dónde viven — 3-row table (alcance) */
+.s12-where-wrap {
+  max-width: 820px;
+  margin: 12px auto 0;
   background: var(--bg-secondary);
   border: 1px solid #2a3a5a;
   border-radius: 8px;
-  padding: 14px 16px;
-  text-align: center;
+  overflow: hidden;
 }
-.s12-arco-step-num {
+.s12-where-table {
+  width: 100%;
+  border-collapse: collapse;
   font-size: 0.52em;
+  line-height: 1.5;
+  text-align: left;
+}
+.s12-where-table thead th {
+  background: var(--bg-code);
+  color: var(--text-muted);
   font-family: var(--font-mono);
-  text-transform: uppercase;
-  letter-spacing: 0.09em;
-  color: var(--text-muted);
-  display: block;
-  margin-bottom: 5px;
-}
-.s12-arco-step-label {
-  font-size: 0.76em;
+  font-size: 0.95em;
   font-weight: 700;
-  color: var(--text-primary);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  padding: 8px 14px;
+  border-bottom: 1px solid #2a3a5a;
 }
-.s12-arco-step-sub {
-  font-size: 0.6em;
+.s12-where-table thead th.s12-where-pathhead { width: 56%; }
+.s12-where-table tbody td {
+  padding: 10px 14px;
+  vertical-align: middle;
+  border-bottom: 1px solid #1e2a48;
   color: var(--text-muted);
-  margin-top: 4px;
-  display: block;
+}
+.s12-where-table tbody tr:last-child td { border-bottom: none; }
+.s12-where-table tbody td code {
+  font-family: var(--font-mono);
+  color: var(--accent);
+  font-size: 0.98em;
+}
+.s12-where-table tbody td.s12-where-scope {
+  color: var(--text-primary);
+  font-weight: 700;
+}
+.s12-where-note {
+  display: inline-block;
+  max-width: 760px;
+  margin: 10px 0 0;
+  font-size: 0.5em;
+  color: var(--text-muted);
+  text-align: center;
+  font-style: italic;
   line-height: 1.5;
 }
-.s12-arco-arrow {
-  font-size: 1.0em;
-  color: var(--text-muted);
-  padding: 0 6px;
-  flex-shrink: 0;
-}
-.s12-arco-tracker-row {
-  display: flex;
-  align-items: center;
-  gap: 20px;
-  justify-content: center;
-}
-.s12-arco-tracker-caption {
-  font-size: 0.68em;
-  color: var(--text-muted);
-  font-style: italic;
-}
-.s12-arco-closer {
-  background: rgba(100, 255, 218, 0.05);
-  border: 1px solid rgba(100, 255, 218, 0.18);
-  border-radius: 8px;
-  padding: 20px 28px;
-  text-align: center;
-}
-.s12-arco-closer-main {
-  font-size: 0.84em;
-  font-weight: 700;
-  color: var(--text-primary);
-  line-height: 1.75;
-  margin: 0;
-}
-.s12-arco-closer-main em {
+.s12-where-note strong { color: var(--text-primary); font-style: normal; }
+.s12-where-note code {
+  font-family: var(--font-mono);
   color: var(--accent);
   font-style: normal;
+}
+
+/* Cuándo se invocan — bullets */
+.s12-when-list {
+  list-style: disc;
+  display: inline-block;
+  text-align: left;
+  max-width: 740px;
+  margin: 14px auto 0;
+  padding-left: 36px;
+  font-size: 0.58em;
+  line-height: 1.6;
+  color: var(--text-muted);
+}
+.s12-when-list li {
+  padding-left: 4px;
+  margin-bottom: 10px;
+}
+.s12-when-list li::marker { color: var(--accent); }
+.s12-when-list strong { color: var(--text-primary); }
+.s12-when-list code {
+  font-family: var(--font-mono);
+  color: var(--accent);
+  font-size: 0.95em;
+}
+
+/* Cómo se usa — code-walkthrough frontmatter + bullets */
+.s12-code-block {
+  display: block;
+  max-width: 760px;
+  margin: 12px auto 0;
+  background: var(--bg-code);
+  border: 1px solid #2a3a5a;
+  border-radius: 8px;
+  padding: 12px 18px;
+  font-family: var(--font-mono);
+  font-size: 0.5em;
+  line-height: 1.55;
+  color: var(--text-muted);
+  text-align: left;
+  overflow: hidden;
+}
+.s12-code-block .s12-code-key { color: var(--accent-secondary); }
+.s12-code-block .s12-code-val { color: var(--text-primary); }
+.s12-code-block .s12-code-fence { color: var(--text-muted); opacity: 0.7; }
+.s12-code-block .s12-code-comment { color: var(--text-muted); font-style: italic; }
+.s12-fields-list {
+  list-style: disc;
+  display: inline-block;
+  text-align: left;
+  max-width: 720px;
+  margin: 12px auto 0;
+  padding-left: 36px;
+  font-size: 0.54em;
+  line-height: 1.55;
+  color: var(--text-muted);
+}
+.s12-fields-list li {
+  padding-left: 4px;
+  margin-bottom: 6px;
+}
+.s12-fields-list li::marker { color: var(--accent); }
+.s12-fields-list strong { color: var(--text-primary); }
+.s12-fields-list code {
+  font-family: var(--font-mono);
+  color: var(--accent);
+  font-size: 0.96em;
+}
+.s12-fields-list li.s12-fields-key strong { color: var(--accent); }
+
+/* Diagrama padre / sub-agent — static CSS */
+.s12-diagram-wrap {
+  max-width: 720px;
+  margin: 18px auto 0;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 4px;
+}
+.s12-window {
+  background: var(--bg-secondary);
+  border: 1px solid #2a3a5a;
+  border-radius: 8px;
+  padding: 14px 18px;
+  position: relative;
+}
+.s12-window-parent {
+  border-left: 3px solid var(--accent);
+  min-height: 110px;
+  padding-bottom: 18px;
+}
+.s12-window-sub {
+  border-left: 3px solid var(--accent-secondary);
+  min-height: 70px;
+  margin-top: 4px;
+}
+.s12-window-label {
+  font-family: var(--font-mono);
+  font-size: 0.5em;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin: 0 0 8px;
+  text-align: left;
+}
+.s12-window-parent .s12-window-label { color: var(--accent); }
+.s12-window-sub .s12-window-label { color: var(--accent-secondary); }
+.s12-window-content {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+}
+.s12-ctx-chip {
+  background: var(--bg-code);
+  border: 1px solid #2a3a5a;
+  border-radius: 4px;
+  padding: 3px 9px;
+  font-family: var(--font-mono);
+  font-size: 0.42em;
+  color: var(--text-muted);
+  letter-spacing: 0.03em;
+}
+.s12-ctx-chip.is-result {
+  border-color: var(--accent);
+  color: var(--accent);
+  font-weight: 700;
+}
+.s12-ctx-chip.is-discard {
+  border-color: #ff7676;
+  color: #ff7676;
+  text-decoration: line-through;
+  opacity: 0.7;
+}
+.s12-arrow {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-mono);
+  font-size: 0.46em;
+  color: var(--text-muted);
+  letter-spacing: 0.05em;
+  line-height: 1.3;
+  padding: 4px 0;
+}
+.s12-arrow .s12-arrow-glyph {
+  font-size: 1.6em;
+  color: var(--accent);
+  font-weight: 700;
+}
+.s12-arrow.is-return .s12-arrow-glyph {
+  color: var(--accent);
+  transform: rotate(180deg);
+}
+.s12-arrow-label { font-style: italic; }
+.s12-diagram-note {
+  display: inline-block;
+  max-width: 720px;
+  margin: 12px auto 0;
+  font-size: 0.52em;
+  color: var(--text-muted);
+  font-style: italic;
+  line-height: 1.55;
+  text-align: center;
+}
+.s12-diagram-note strong { color: var(--text-primary); font-style: normal; }
+.s12-diagram-note code {
+  font-family: var(--font-mono);
+  color: var(--accent);
+  font-style: normal;
+}
+
+/* Qué confunde — 4 bullets */
+.s12-gotchas-list {
+  list-style: disc;
+  display: inline-block;
+  text-align: left;
+  max-width: 780px;
+  margin: 14px auto 0;
+  padding-left: 36px;
+  font-size: 0.56em;
+  line-height: 1.6;
+  color: var(--text-muted);
+}
+.s12-gotchas-list li {
+  padding-left: 4px;
+  margin-bottom: 10px;
+}
+.s12-gotchas-list li::marker { color: var(--accent); }
+.s12-gotchas-list strong { color: var(--text-primary); font-weight: 700; }
+.s12-gotchas-list code {
+  font-family: var(--font-mono);
+  color: var(--accent);
+  font-size: 0.95em;
+}
+
+/* Demo wrap */
+.s12-demo-wrap {
+  max-width: 760px;
+  margin: 16px auto 0;
+}
+
+/* Cierre */
+.s12-close-card {
+  max-width: 740px;
+  margin: 18px auto 0;
+  background: var(--bg-secondary);
+  border: 1px solid #2a3a5a;
+  border-radius: 8px;
+  padding: 16px 24px;
+  text-align: center;
+}
+.s12-close-main {
+  font-size: 0.64em;
+  line-height: 1.65;
+  color: var(--text-primary);
+  margin: 0 0 12px;
+}
+.s12-close-main strong { color: var(--accent); }
+.s12-close-bridge {
+  font-size: 0.56em;
+  color: var(--text-muted);
+  line-height: 1.6;
+  border-top: 1px solid #2a3a5a;
+  padding-top: 11px;
+  margin: 0;
+}
+.s12-close-bridge em {
+  color: var(--accent);
+  font-style: normal;
+  font-weight: 700;
+}
+.s12-close-bridge code {
+  font-family: var(--font-mono);
+  color: var(--accent);
+  font-size: 0.95em;
 }
 </style>
 
-<!-- §12.1 · Hook — las tres cosas -->
-<section>
-  <h2>Cuatro semanas. Tres cosas. Todo al mismo tiempo.</h2>
+<!-- §12.1 · Apertura — Tarjeta de 5 preguntas (full opener) -->
+<section class="s12-slide">
+  <h2 class="s12-five-q-title">Sub-agents</h2>
 
-  <div class="s12-hook-card">
-    <p class="s12-hook-card-main">
-      Hace cuatro semanas no sabías qué era un token.<br>
-      Hoy terminaste de armar tres cosas que, juntas, cambian cómo construís software.
+  <ol class="s12-five-q-grid">
+    <li class="s12-five-q-card is-active">
+      <span class="s12-five-q-num">1</span>
+      <span class="s12-five-q-label">Qué es</span>
+      <span class="s12-five-q-hint">definición en una línea</span>
+    </li>
+    <li class="s12-five-q-card">
+      <span class="s12-five-q-num">2</span>
+      <span class="s12-five-q-label">Dónde vive</span>
+      <span class="s12-five-q-hint">paths / niveles</span>
+    </li>
+    <li class="s12-five-q-card">
+      <span class="s12-five-q-num">3</span>
+      <span class="s12-five-q-label">Cuándo se carga</span>
+      <span class="s12-five-q-hint">momento + trigger</span>
+    </li>
+    <li class="s12-five-q-card">
+      <span class="s12-five-q-num">4</span>
+      <span class="s12-five-q-label">Cómo se usa</span>
+      <span class="s12-five-q-hint">sintaxis + ejemplos</span>
+    </li>
+    <li class="s12-five-q-card">
+      <span class="s12-five-q-num">5</span>
+      <span class="s12-five-q-label">Qué confunde</span>
+      <span class="s12-five-q-hint">casos límite</span>
+    </li>
+  </ol>
+
+  <aside class="notes">
+    <p><strong>Sexta vuelta con el mismo dispositivo. Ritmo muy rápido — no leer las cinco preguntas. El título de arriba alcanza para encuadrar.</strong></p>
+    <p><u>Apertura de §12. Skills empaquetaron un procedimiento; sub-agents empaquetan algo más grande — un loop entero con su propia ventana. Misma plantilla, objeto más grande.</u></p>
+    <p><em>"Sub-agents. Sexta vuelta con la misma plantilla."</em></p>
+    <p><em>"Las skills aíslan un procedimiento. Los sub-agents van un paso más: aíslan un loop entero, con su propia ventana de contexto. Mismas cinco preguntas para entenderlos."</em></p>
+  </aside>
+</section>
+
+<!-- §12.2 · Qué es — bullets + callout -->
+<section class="s12-slide">
+  <ol class="s12-five-q-grid is-mini">
+    <li class="s12-five-q-card is-active"><span class="s12-five-q-num">1</span><span class="s12-five-q-label">Qué es</span></li>
+    <li class="s12-five-q-card"><span class="s12-five-q-num">2</span><span class="s12-five-q-label">Dónde vive</span></li>
+    <li class="s12-five-q-card"><span class="s12-five-q-num">3</span><span class="s12-five-q-label">Cuándo se carga</span></li>
+    <li class="s12-five-q-card"><span class="s12-five-q-num">4</span><span class="s12-five-q-label">Cómo se usa</span></li>
+    <li class="s12-five-q-card"><span class="s12-five-q-num">5</span><span class="s12-five-q-label">Qué confunde</span></li>
+  </ol>
+
+  <h2>Una instancia separada del mismo loop, con su propia ventana</h2>
+
+  <ul class="s12-qe-list">
+    <li>Instancia separada del <strong>mismo loop</strong>: mismo modelo, mismas tools disponibles, su propia <strong>ventana de contexto</strong>.</li>
+    <li>Al padre solo le vuelve el <strong>resultado</strong> — no el razonamiento, no los archivos leídos, no los pasos intermedios.</li>
+    <li>La ventana del sub-agent <strong>nace y muere con la tarea</strong>: todo lo que leyó y razonó desaparece al terminar.</li>
+    <li class="s12-qe-callout">→ No es "otra IA". Es la misma lógica — <code>LLM + loop + tools + entorno</code> — instanciada aparte.</li>
+  </ul>
+
+  <aside class="notes">
+    <p><strong>Tres bullets con pausa entre cada uno. El segundo es el que define el aislamiento — marcarlo. Pausa antes del callout. El callout desarma el malentendido principal: no es "otro asistente".</strong></p>
+    <p><u>Slide de definición. Mini-strip con "Qué es" lit. Tres bullets + callout, mismo patrón que §11.2. El objetivo es fijar que el sub-agent no es un objeto nuevo conceptualmente — es la misma máquina de §2 (LLM + loop + tools + entorno), corriendo en paralelo con ventana propia.</u></p>
+    <p><em>"Primera pregunta. Qué es. Y la respuesta arranca con una palabra clave: instancia."</em></p>
+    <p><em>"Un sub-agent es una instancia separada del mismo loop. Mismo modelo, mismas tools disponibles — todo lo que el padre podía hacer, el sub-agent en principio también. Lo único nuevo es la ventana de contexto: tiene la suya propia, independiente de la del padre."</em></p>
+    <p><em>"Al padre solo le vuelve el resultado. No el razonamiento, no los archivos que leyó, no los pasos intermedios. El sub-agent puede leer cincuenta archivos, generar mil tokens de razonamiento interno — al padre le llega un párrafo. Eso es lo que define el aislamiento."</em></p>
+    <p><em>"Y la ventana del sub-agent nace y muere con la tarea. Cuando termina, todo lo que leyó, todo lo que razonó, desaparece. No queda almacenado en ningún lado. Es exploración descartable."</em></p>
+    <p><em>"Y el callout, que desarma el malentendido más común: esto no es 'otra IA'. No es un asistente diferente con otra personalidad. Es la misma lógica de siempre — LLM más loop más tools más entorno, las cuatro piezas del §2 — instanciada aparte. La diferencia es de aislamiento, no de naturaleza."</em></p>
+  </aside>
+</section>
+
+<!-- §12.3 · Dónde viven — tabla de 3 filas -->
+<section class="s12-slide">
+  <ol class="s12-five-q-grid is-mini">
+    <li class="s12-five-q-card"><span class="s12-five-q-num">1</span><span class="s12-five-q-label">Qué es</span></li>
+    <li class="s12-five-q-card is-active"><span class="s12-five-q-num">2</span><span class="s12-five-q-label">Dónde vive</span></li>
+    <li class="s12-five-q-card"><span class="s12-five-q-num">3</span><span class="s12-five-q-label">Cuándo se carga</span></li>
+    <li class="s12-five-q-card"><span class="s12-five-q-num">4</span><span class="s12-five-q-label">Cómo se usa</span></li>
+    <li class="s12-five-q-card"><span class="s12-five-q-num">5</span><span class="s12-five-q-label">Qué confunde</span></li>
+  </ol>
+
+  <h2>Markdown con frontmatter — tres orígenes posibles</h2>
+
+  <div class="s12-where-wrap">
+    <table class="s12-where-table">
+      <thead>
+        <tr>
+          <th class="s12-where-pathhead">Path</th>
+          <th>Alcance</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><code>.claude/agents/&lt;nombre&gt;.md</code></td>
+          <td class="s12-where-scope">Solo el proyecto — se commitea con el repo</td>
+        </tr>
+        <tr>
+          <td><code>~/.claude/agents/&lt;nombre&gt;.md</code></td>
+          <td class="s12-where-scope">Todos los proyectos del usuario</td>
+        </tr>
+        <tr>
+          <td>Plugins instalados</td>
+          <td class="s12-where-scope">Built-in del runtime — <code>Explore</code>, <code>Plan</code>, etc.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <p class="s12-where-note">
+    El demo-repo tiene <code>researcher</code> en <code>.claude/agents/researcher.md</code> — alcance de proyecto, visible solo dentro del repo.
+  </p>
+
+  <aside class="notes">
+    <p><strong>Recorrer la tabla por filas. Marcar que la estructura user vs proyecto es la misma idea ya vista en CLAUDE.md, settings.json, skills. Cerrar nombrando el archivo del demo-repo que vamos a abrir más adelante.</strong></p>
+    <p><u>Slide de jerarquía. Tres orígenes posibles para un sub-agent: proyecto, usuario, plugins built-in. La estructura es paralela a las jerarquías de las secciones anteriores — la diferencia es solo qué objeto se define en el archivo markdown.</u></p>
+    <p><em>"Segunda pregunta. Dónde viven. Archivos markdown con frontmatter YAML, en tres ubicaciones posibles."</em></p>
+    <p><em>"Primera fila. Punto .claude barra agents barra nombre punto md, dentro del repo. Alcance de proyecto — solo ese repo lo ve, y se commitea con el equipo. Es lo más común para sub-agents específicos del proyecto."</em></p>
+    <p><em>"Segunda. Tilde punto .claude barra agents barra nombre punto md, en el home del usuario. Alcance de usuario — el sub-agent está disponible en cualquier proyecto donde abras Claude Code."</em></p>
+    <p><em>"Tercera. Plugins instalados. Sub-agents built-in del runtime, como Explore o Plan, que vienen empaquetados en plugins. No los definís vos — ya están listos para invocar."</em></p>
+    <p><em>"El demo-repo tiene el sub-agent researcher en .claude/agents/researcher.md, alcance de proyecto. Lo vamos a abrir en el slide del cómo se usa."</em></p>
+  </aside>
+</section>
+
+<!-- §12.4 · Cuándo se invocan -->
+<section class="s12-slide">
+  <ol class="s12-five-q-grid is-mini">
+    <li class="s12-five-q-card"><span class="s12-five-q-num">1</span><span class="s12-five-q-label">Qué es</span></li>
+    <li class="s12-five-q-card"><span class="s12-five-q-num">2</span><span class="s12-five-q-label">Dónde vive</span></li>
+    <li class="s12-five-q-card is-active"><span class="s12-five-q-num">3</span><span class="s12-five-q-label">Cuándo se invoca</span></li>
+    <li class="s12-five-q-card"><span class="s12-five-q-num">4</span><span class="s12-five-q-label">Cómo se usa</span></li>
+    <li class="s12-five-q-card"><span class="s12-five-q-num">5</span><span class="s12-five-q-label">Qué confunde</span></li>
+  </ol>
+
+  <h2>El padre llama al tool <code>Agent</code> — o una skill lo hace por él</h2>
+
+  <ul class="s12-when-list">
+    <li>El padre invoca el tool <code>Agent</code> con un <code>subagent_type</code> — el nombre del sub-agent a instanciar.</li>
+    <li>Algunas skills lo invocan <strong>automáticamente</strong>: <code>Explore</code> entra solo ante preguntas exploratorias amplias, sin que el usuario lo pida.</li>
+    <li>El sub-agent toma el control de esa sub-tarea: <strong>corre su propio loop</strong>, usa sus tools, produce un resultado, y se lo devuelve al padre.</li>
+  </ul>
+
+  <aside class="notes">
+    <p><strong>Tres bullets en orden. El segundo es el menos obvio — marcar que la invocación puede ser implícita. El tercero refuerza el loop dentro del loop: el sub-agent es un agente completo corriendo en paralelo, no una función.</strong></p>
+    <u>Slide de mecánica. Mini-strip con "Cuándo se invoca" (adaptado del rótulo estándar "Cuándo se carga" — sub-agents se invocan, no se cargan al arranque). Tres ítems: invocación explícita, invocación implícita por skill, control del sub-loop. Esto prepara el slide del cómo se usa, donde vemos el archivo concreto.</u>
+    <p><em>"Tercera pregunta. Cuándo se invocan. Y la respuesta tiene dos formas: la explícita y la implícita."</em></p>
+    <p><em>"La explícita. El padre llama al tool Agent y le pasa un campo, subagent_type, que es el nombre del sub-agent a instanciar. Desde ese momento, el padre delega la sub-tarea al sub-agent y se queda esperando el resultado."</em></p>
+    <p><em>"La implícita. Algunas skills built-in invocan sub-agents de forma automática. Explore, por ejemplo, se activa solo ante preguntas exploratorias amplias — 'cómo está organizada la auth en este repo' — sin que el usuario pida nada de sub-agents. Para el alumno es transparente; lo que ve es que Claude responde sin inflar la ventana. Por debajo, Explore instanció un sub-agent."</em></p>
+    <p><em>"Y la línea de cierre: cuando el sub-agent se instancia, toma el control de esa sub-tarea. Corre su propio loop — pensar, actuar, observar, igual que el §2 — usa sus tools, produce un resultado, y se lo devuelve al padre. Es un agente completo corriendo en paralelo, no una función con un return."</em></p>
+  </aside>
+</section>
+
+<!-- §12.5 · Cómo se usa — walkthrough del frontmatter de researcher.md -->
+<section class="s12-slide">
+  <ol class="s12-five-q-grid is-mini">
+    <li class="s12-five-q-card"><span class="s12-five-q-num">1</span><span class="s12-five-q-label">Qué es</span></li>
+    <li class="s12-five-q-card"><span class="s12-five-q-num">2</span><span class="s12-five-q-label">Dónde vive</span></li>
+    <li class="s12-five-q-card"><span class="s12-five-q-num">3</span><span class="s12-five-q-label">Cuándo se carga</span></li>
+    <li class="s12-five-q-card is-active"><span class="s12-five-q-num">4</span><span class="s12-five-q-label">Cómo se usa</span></li>
+    <li class="s12-five-q-card"><span class="s12-five-q-num">5</span><span class="s12-five-q-label">Qué confunde</span></li>
+  </ol>
+
+  <h2>Anatomía de <code style="font-family:var(--font-mono);color:var(--accent);font-size:0.95em;">.claude/agents/researcher.md</code> — frontmatter del demo-repo</h2>
+
+  <pre class="s12-code-block"><span class="s12-code-fence">---</span>
+<span class="s12-code-key">name:</span> <span class="s12-code-val">researcher</span>
+<span class="s12-code-key">description:</span> <span class="s12-code-val">Use when the user asks where something is implemented, how a concept is wired across files, or any exploratory question that requires reading many files. Returns a concise answer; does not modify code.</span>
+<span class="s12-code-key">tools:</span>
+  <span class="s12-code-key">-</span> <span class="s12-code-val">Read</span>
+  <span class="s12-code-key">-</span> <span class="s12-code-val">Grep</span>
+  <span class="s12-code-key">-</span> <span class="s12-code-val">Glob</span>
+<span class="s12-code-fence">---</span></pre>
+
+  <ul class="s12-fields-list">
+    <li><strong><code>name</code></strong> — identificador del sub-agent. Es lo que el padre pasa como <code>subagent_type</code>.</li>
+    <li><strong><code>description</code></strong> — contrato de activación, mismo rol que en skills. Convención <code>Use when X</code>.</li>
+    <li class="s12-fields-key"><strong><code>tools</code></strong> — <strong>lista restringida</strong>. El sub-agent <strong>no hereda</strong> todas las tools del padre por default; solo puede usar las que se declaran acá. <code>researcher</code> tiene <code>Read</code>, <code>Grep</code>, <code>Glob</code> — puede leer y buscar, no puede escribir ni ejecutar comandos.</li>
+    <li><strong><code>model</code></strong> — opcional. Si se omite, usa el mismo modelo que el padre.</li>
+    <li><strong>Cuerpo del archivo</strong> — el system prompt del sub-agent. Define qué hace, qué no hace, en qué formato devuelve el resultado.</li>
+  </ul>
+
+  <aside class="notes">
+    <p><strong>Recorrer arriba a abajo. Frontmatter primero, leer name y description. Pausa larga en el bullet de tools — es el punto que define el aislamiento de capacidades. Marcar que sin Bash, este sub-agent no puede modificar código aunque quiera.</strong></p>
+    <p><u>Slide de walkthrough. La pieza concreta que materializa todas las definiciones anteriores. Frontmatter YAML con cuatro campos clave + cuerpo como system prompt. El bullet de tools es el más importante: define el alcance de capacidades del sub-agent.</u></p>
+    <p><em>"Cuarta pregunta. Cómo se usa. Y la mejor forma es abrir el archivo concreto. Punto .claude barra agents barra researcher punto md, del demo-repo."</em></p>
+    <p><em>"Arriba, el frontmatter YAML entre triple guion. Cuatro campos a notar."</em></p>
+    <p><em>"name. researcher. El identificador del sub-agent. Es lo que el padre pasa como subagent_type cuando llama al tool Agent."</em></p>
+    <p><em>"description. La frase que el runtime lee para decidir si el sub-agent aplica. Mismo rol que en skills, misma convención: 'Use when X'. Vago activa mal."</em></p>
+    <p><em>"tools. Y este es el campo central. Es una lista restringida — Read, Grep, Glob, nada más. El punto clave es lo que no aparece: el sub-agent no hereda todas las tools del padre por default. El padre puede tener Bash, Edit, Write, lo que sea — el sub-agent solo puede usar lo que aparece en su frontmatter. researcher puede leer archivos y buscar patrones; no puede escribir, no puede ejecutar comandos, no puede llamar a APIs. La restricción es intencional: define el alcance de lo que el sub-agent puede hacer y reduce el riesgo de efectos secundarios."</em></p>
+    <p><em>"model. Es opcional. Si se omite, usa el mismo modelo que el padre. Sirve cuando querés que un sub-agent corra con un modelo más chico — o más grande — para una sub-tarea específica."</em></p>
+    <p><em>"Y el cuerpo del archivo, abajo del frontmatter, es el system prompt del sub-agent. Es donde se define qué hace, qué no hace, en qué formato devuelve el resultado. En el caso de researcher: 'investigador de solo-lectura, devolvé respuesta corta — dónde está, en qué función, una frase de cómo se conecta'. El cuerpo es lo que da el carácter al sub-agent."</em></p>
+  </aside>
+</section>
+
+<!-- §12.6 · Diagrama padre / sub-agent — zoom-in al mecanismo de aislamiento -->
+<section class="s12-slide">
+  <h2>El padre delega la tarea — solo recibe el resultado</h2>
+
+  <div class="s12-diagram-wrap">
+    <div class="s12-window s12-window-parent">
+      <p class="s12-window-label">Ventana del padre</p>
+      <div class="s12-window-content">
+        <span class="s12-ctx-chip">CLAUDE.md</span>
+        <span class="s12-ctx-chip">rules</span>
+        <span class="s12-ctx-chip">conversación</span>
+        <span class="s12-ctx-chip is-result">resultado del sub-agent</span>
+      </div>
+    </div>
+
+    <div class="s12-arrow">
+      <span class="s12-arrow-glyph">↓</span>
+      <span class="s12-arrow-label">invocación con la tarea</span>
+    </div>
+
+    <div class="s12-window s12-window-sub">
+      <p class="s12-window-label">Ventana del sub-agent · nace con la tarea, muere al terminar</p>
+      <div class="s12-window-content">
+        <span class="s12-ctx-chip is-discard">archivo 1</span>
+        <span class="s12-ctx-chip is-discard">archivo 2</span>
+        <span class="s12-ctx-chip is-discard">archivo 3</span>
+        <span class="s12-ctx-chip is-discard">razonamiento intermedio</span>
+        <span class="s12-ctx-chip is-discard">tool calls</span>
+      </div>
+    </div>
+
+    <div class="s12-arrow is-return">
+      <span class="s12-arrow-glyph">↓</span>
+      <span class="s12-arrow-label">solo el resultado vuelve al padre</span>
+    </div>
+  </div>
+
+  <p class="s12-diagram-note">
+    Todo lo que el sub-agent lee y razona vive <strong>solo en su ventana</strong>. Cuando termina, esa ventana desaparece. Al padre llega <code>un párrafo</code>, no <code>cincuenta archivos</code>.
+  </p>
+
+  <aside class="notes">
+    <p><strong>Sin mini-strip — es zoom-in al mecanismo. No avanzar la quinta pregunta todavía. Recorrer el diagrama de arriba a abajo. Marcar el contraste visual: en la ventana del padre solo entra el resultado (verde); en la del sub-agent vive todo lo intermedio (rojo, tachado, porque se descarta). La flecha de retorno es chica, deliberadamente.</strong></p>
+    <p><u>Slide de zoom-in al mecanismo de aislamiento. Reemplaza el typical mini-strip porque no responde una pregunta nueva — visualiza la respuesta de la pregunta 1 que ya dimos en bullets. Diagrama CSS estático, no animado: dos ventanas con contenido distinto, dos flechas que muestran invocación + retorno asimétrico.</u></p>
+    <p><em>"Antes de pasar a la última pregunta, un slide de mecanismo. Ya dijimos que el padre recibe solo el resultado, pero verlo dibujado fija el porqué."</em></p>
+    <p><em>"Arriba, la ventana del padre. Lo que ya tiene: CLAUDE.md, rules, la conversación que vinieron teniendo. Y lo que va a recibir cuando el sub-agent termine: el resultado, marcado en verde."</em></p>
+    <p><em>"En el medio, una flecha hacia abajo: la invocación. El padre llama al tool Agent y le pasa la tarea — 'investigá dónde se maneja la auth'."</em></p>
+    <p><em>"Abajo, la ventana del sub-agent. Esta ventana es nueva, nace con la invocación. Mientras el sub-agent corre, su ventana se llena: leyó el archivo uno, el dos, el tres; razonó pasos intermedios; hizo tool calls. Todo eso vive ahí, en rojo y tachado, porque cuando el sub-agent termine, todo ese contenido desaparece. La ventana muere con la tarea."</em></p>
+    <p><em>"Y la flecha de retorno, hacia arriba. Notar que es la misma flecha — pero solo viaja una cosa: el resultado. Los cincuenta archivos que el sub-agent leyó no viajan. El razonamiento intermedio no viaja. Los tool calls no viajan. Al padre le llega un párrafo. La asimetría entre las dos flechas — bajó una tarea, subió un párrafo — es exactamente lo que protege el contexto del padre."</em></p>
+  </aside>
+</section>
+
+<!-- §12.7 · Qué confunde — 4 casos (bullets) -->
+<section class="s12-slide">
+  <ol class="s12-five-q-grid is-mini">
+    <li class="s12-five-q-card"><span class="s12-five-q-num">1</span><span class="s12-five-q-label">Qué es</span></li>
+    <li class="s12-five-q-card"><span class="s12-five-q-num">2</span><span class="s12-five-q-label">Dónde vive</span></li>
+    <li class="s12-five-q-card"><span class="s12-five-q-num">3</span><span class="s12-five-q-label">Cuándo se carga</span></li>
+    <li class="s12-five-q-card"><span class="s12-five-q-num">4</span><span class="s12-five-q-label">Cómo se usa</span></li>
+    <li class="s12-five-q-card is-active"><span class="s12-five-q-num">5</span><span class="s12-five-q-label">Qué confunde</span></li>
+  </ol>
+
+  <h2>Cuatro cosas que confunden de sub-agents</h2>
+
+  <ul class="s12-gotchas-list">
+    <li><strong>No es "otra IA".</strong> Es la misma lógica de <code>LLM + loop + tools + entorno</code>, instanciada aparte. La diferencia es de aislamiento, no de naturaleza — mismo modelo, mismas capacidades en principio.</li>
+    <li><strong>La delegación no exime de supervisar.</strong> Al padre llega solo el resultado, no los pasos. Eso cambia el trabajo del supervisor: ya no leés cada paso del sub-agent, leés el resumen y juzgás si es coherente con lo que sabés del proyecto.</li>
+    <li><strong>Paralelización es beneficio secundario.</strong> El padre puede invocar varios sub-agents en una sola respuesta y corren en paralelo — pero el motivo principal de usar sub-agents no es velocidad, es <strong>proteger el contexto del padre</strong>.</li>
+    <li><strong>El sub-agent no hereda tools por default.</strong> Hay que declararlas explícitamente en el frontmatter. Sin <code>Bash</code> en la lista, el sub-agent no puede ejecutar comandos aunque el padre pueda hacerlo — y esa restricción es deliberada.</li>
+  </ul>
+
+  <aside class="notes">
+    <p><strong>Recorrer los cuatro bullets. El primero desarma el malentendido más común. El segundo cambia el rol del supervisor. El tercero es contraintuitivo. El cuarto es operativo — si escribís un sub-agent, este es el campo en el que pensar primero.</strong></p>
+    <p><u>Slide de quinta pregunta. Cuatro confusiones en formato bullet list — siguen la regla de bullets: items peer cortos, misma estructura. Cada bullet aborda un malentendido frecuente y le da el reframe correcto.</u></p>
+    <p><em>"Quinta pregunta. Qué confunde. Cuatro cosas, las más comunes."</em></p>
+    <p><em>"Una. No es 'otra IA'. La intuición natural cuando te dicen 'sub-agent' es 'otro asistente diferente, con otra personalidad'. No. Es la misma lógica de loop, el mismo modelo, las mismas capacidades en principio. Lo único nuevo es que corre con su propia ventana de contexto, aislada. La diferencia es de aislamiento, no de naturaleza."</em></p>
+    <p><em>"Dos. La delegación no exime de supervisar. Al contrario — cambia cómo supervisás. Cuando trabajás inline, ves cada paso del agente: leyó este archivo, dijo esto, ejecutó este comando. Con un sub-agent, todo eso vive en su ventana y desaparece; al padre solo llega el resumen. Tu trabajo deja de ser leer cada paso y pasa a ser juzgar si el resumen es coherente con lo que vos sabés del proyecto. Es supervisión de output, no supervisión de proceso."</em></p>
+    <p><em>"Tres. La paralelización es un beneficio secundario. Es real: el padre puede invocar tres sub-agents en una sola respuesta y los tres corren en paralelo. Es útil. Pero no es la razón principal para usar sub-agents. La razón principal es proteger el contexto del padre. Si la tarea exploratoria se hace inline, todo lo que el agente lee queda en la ventana; con sub-agent, ese ruido nunca llega."</em></p>
+    <p><em>"Y cuatro. El sub-agent no hereda tools por default. Si en el frontmatter no aparece Bash, el sub-agent no puede ejecutar comandos — aunque el padre sí pueda. Hay que declarar explícitamente qué puede usar. Esta restricción es deliberada: el sub-agent define su alcance de capacidades. Si lo querés solo-lectura, le ponés Read, Grep, Glob y nada más. Si lo querés full-stack, le declarás Bash, Edit, Write. La omisión es la herramienta de control."</em></p>
+  </aside>
+</section>
+
+<!-- §12.8 · Demo · inline vs delegado al sub-agent (section-divider + clickable-steps) -->
+<section class="section-divider">
+  <h2>Demo · inline vs delegado, /context antes y después</h2>
+  <p style="font-size:0.72em; color:var(--text-muted); margin-top:14px; font-style:italic;">Misma pregunta, dos formas de resolverla. La diferencia se ve en el delta de <code>/context</code>.</p>
+
+  <div class="s12-demo-wrap">
+    <div id="s12-demo-steps"></div>
+  </div>
+
+  <aside class="notes">
+    <p><strong>Setup antes del slide: dos terminales con Claude Code listas, ambas en demo-repo. VS Code abierto al lado con <code>.claude/agents/researcher.md</code> en una pestaña. Plan B preparado: dos transcripts grabados de /context (uno inline con contexto inflado, uno con sub-agent con contexto casi sin cambios).</strong></p>
+    <p><u>Demo de cierre de §12. Tres pasos: primero la búsqueda inline con /context al final (la ventana se infla), después la misma búsqueda delegada al sub-agent researcher con /context (la ventana crece lo mínimo), finalmente abrir researcher.md y mostrar que tools está restringido a Read/Grep/Glob — no puede modificar código aunque quiera.</u></p>
+    <p><em>"Vamos al demo. Tres pasos. La misma pregunta — '¿dónde se maneja la auth en este repo?' — resuelta de dos formas, con /context entre medio para medir el costo en ventana."</em></p>
+    <hr>
+    <p><strong>Acciones (copiables):</strong></p>
+    <p><strong>Paso 1 — Búsqueda inline, sin delegar</strong></p>
+    <ul>
+      <li>Terminal: <code>cd ~/demo-repo</code></li>
+      <li>Terminal: <code>claude</code> (sesión nueva)</li>
+      <li>En Claude: <code>"encontrá dónde se maneja la auth en este repo"</code></li>
+      <li>Esperar: Claude busca, abre archivos, lee, rastrea imports</li>
+      <li>En Claude: <code>/context</code></li>
+      <li>Mirar: el delta respecto al inicio — los archivos leídos quedaron todos en la ventana</li>
+    </ul>
+    <p><strong>Paso 2 — La misma búsqueda delegada al sub-agent <code>researcher</code></strong></p>
+    <ul>
+      <li>Terminal: <code>claude</code> (sesión nueva, otra pestaña)</li>
+      <li>En Claude: <code>"usando el sub-agent researcher, ¿dónde se maneja la auth en este repo?"</code></li>
+      <li>Mirar: el padre invoca el tool <code>Agent</code> → el sub-agent corre su loop con Read/Grep/Glob</li>
+      <li>Esperar: cuando el sub-agent termina, devuelve solo la respuesta</li>
+      <li>En Claude: <code>/context</code></li>
+      <li>Mirar: el delta es <strong>significativamente menor</strong> — la exploración vivió en la ventana del sub-agent, no en la del padre</li>
+    </ul>
+    <p><strong>Paso 3 — El archivo detrás del sub-agent</strong></p>
+    <ul>
+      <li>VS Code: abrir <code>.claude/agents/researcher.md</code></li>
+      <li>Mirar: <code>tools: [Read, Grep, Glob]</code> en el frontmatter</li>
+      <li>Marcar: no aparece <code>Bash</code>, no aparece <code>Edit</code>, no aparece <code>Write</code></li>
+      <li>Cerrar: el sub-agent no puede modificar código aunque quiera — el frontmatter lo limita</li>
+    </ul>
+    <p><em>Plan B (si el delta de /context no es dramático en vivo): sostener con dos transcripts preparados — uno de sesión inline con la ventana inflada al final, otro de sesión con sub-agent con la ventana casi sin cambios y el resultado devuelto. El cierre del Paso 3, mostrando researcher.md con tools restringidos, funciona en ambos casos.</em></p>
+  </aside>
+</section>
+
+<!-- §12.9 · Cierre + bridge a §13 -->
+<section class="s12-slide">
+  <h2>Los sub-agents aíslan el contexto del padre</h2>
+
+  <div class="s12-close-card">
+    <p class="s12-close-main">
+      Los sub-agents <strong>aíslan el contexto del padre</strong>. Lo que el sub-agent explora y descarta <strong>nunca llega</strong> a la ventana principal. El padre recibe el resultado — y nada más.
     </p>
-    <div class="s12-hook-tres">
-      <div class="s12-hook-pieza">modelo</div>
-      <div class="s12-hook-pieza">rol / vocabulario</div>
-      <div class="s12-hook-pieza">runtime</div>
-    </div>
+    <p class="s12-close-bridge">
+      Sub-agents aíslan el contexto: gestión de <em>cuánto ruido entra</em>. Plan mode hace algo distinto — <em>detiene el loop antes de actuar</em>. No es gestión de contexto, es gestión de autonomía.
+    </p>
   </div>
 
   <aside class="notes">
-    <p><strong>Leer la línea principal despacio. Pausa entre las dos frases. Señalar los tres chips en orden mientras se nombran.</strong></p>
-    <p><u>Opener de §12. El hook viene textual de la fuente. Los tres chips anticipan la estructura de la próxima slide sin explicar nada todavía — funcionan como promesa visual del arco que se va a cerrar.</u></p>
-    <p><em>"Hace cuatro semanas no sabías qué era un token. No era ignorancia — era simplemente que eso no era parte de tu vocabulario todavía."</em></p>
-    <p><em>"Hoy es distinto. Hoy terminaste de armar tres cosas. Tres cosas que no funcionan bien por separado — que funcionan juntas. Un modelo que entendés. Un rol con el vocabulario para ejercerlo. Un runtime que podés controlar."</em></p>
-    <p><em>"§12 es el para qué de todo eso. El trabajo final es donde las tres se usan al mismo tiempo. Vamos a ver qué significa eso en concreto."</em></p>
+    <p><strong>Leer el párrafo principal apoyando "aíslan el contexto" y "nunca llega". Pausa antes del bridge. El bridge separa explícitamente dos dimensiones distintas — contexto vs autonomía — para preparar el cambio de eje de §13.</strong></p>
+    <p><u>Cierre de §12 + bridge a §13. La línea principal consolida la propiedad central: aislamiento del contexto. El bridge a §13 cambia el eje de discusión — pasa de "cuánto del entorno ve el agente" a "cuánta autonomía tiene para actuar". Plan mode no agrega aislamiento; agrega un gate antes de la acción.</u></p>
+    <p><em>"Cerramos §12. La propiedad central a retener: los sub-agents aíslan el contexto del padre. Lo que el sub-agent explora, lee, razona y descarta nunca llega a la ventana principal. El padre recibe el resultado y nada más. Es la forma más fuerte de gestión de contexto que vimos hasta acá."</em></p>
+    <p><em>"Y el bridge a la próxima sección. Hasta ahora venimos hablando de gestión de contexto: cuánto le entra al agente, qué carga, qué descarta, cómo evitar el ruido. Plan mode cambia de eje. No habla de cuánto ve el agente — habla de cuánto puede hacer sin pedir permiso. Detiene el loop antes de actuar y obliga a aprobar el plan. Es gestión de autonomía, no de contexto. Eso es §13."</em></p>
   </aside>
 </section>
 
-<!-- §12.2 · Las tres piezas — pipeline vertical con "sin ella, qué pasa" -->
-<section>
-  <h2>Las tres piezas — por qué cada una es necesaria</h2>
-
-  <div class="s12-pipeline-wrap">
-    <div class="s12-pipeline-row">
-      <div class="s12-pieza-box modelo-box">
-        <span class="s12-pieza-label">S1 — fundamentos</span>
-        <div class="s12-pieza-title">Modelo</div>
-        <div class="s12-pieza-sin">Sin él: el agente es una caja negra. No podés anticipar cuándo falla ni por qué.</div>
-      </div>
-    </div>
-    <div class="s12-pipeline-arrow-v">↓</div>
-    <div class="s12-pipeline-row">
-      <div class="s12-pieza-box rol-box">
-        <span class="s12-pieza-label">S2–S3 — vocabulario</span>
-        <div class="s12-pieza-title">Rol / vocabulario</div>
-        <div class="s12-pieza-sin">Sin él: aceptás lo primero que el modelo tira. No hay especificación sin vocabulario.</div>
-      </div>
-    </div>
-    <div class="s12-pipeline-arrow-v">↓</div>
-    <div class="s12-pipeline-row">
-      <div class="s12-pieza-box runtime-box">
-        <span class="s12-pieza-label">S4 — runtime</span>
-        <div class="s12-pieza-title">Runtime</div>
-        <div class="s12-pieza-sin">Sin él: el proyecto largo da vueltas. El contexto se fragmenta y el loop deriva.</div>
-      </div>
-    </div>
-    <div class="s12-pipeline-coda">
-      El trabajo final es donde las tres se usan al mismo tiempo.
-    </div>
-  </div>
-
-  <aside class="notes">
-    <p><strong>Señalar cada pieza y leer su "sin ella" antes de pasar a la siguiente. Pausa larga antes de la coda.</strong></p>
-    <p><u>La estructura vertical hace visible que las tres piezas son necesarias, no intercambiables. El "sin ella, qué pasa" en cursiva ancla cada pieza a una consecuencia concreta — evita que suenen decorativas.</u></p>
-    <p><em>"La primera pieza es el modelo. La parte 1 de hoy. Cómo predice el siguiente token, qué es la ventana de contexto, por qué sin memoria entre sesiones el agente 'olvida'. Sin eso, el agente es una caja negra — no podés anticipar cuándo falla ni por qué, y empezás a trabajar por intuición."</em></p>
-    <p><em>"La segunda pieza es el rol y el vocabulario. Las semanas 2 y 3. Nombres para las partes: componentes, endpoints, contratos, status codes. Sin eso, el único movimiento disponible es aceptar o rechazar en bloque lo que el agente propone. No hay forma de corregir lo que no podés nombrar."</em></p>
-    <p><em>"La tercera pieza es el runtime. Toda la parte 2 de hoy. El loop, el contexto, y las herramientas para actuar sobre cada uno. Sin eso, el proyecto largo da vueltas — el contexto se fragmenta, el agente pierde el hilo, y las sesiones no se conectan."</em></p>
-    <p><em>"Las tres al mismo tiempo: eso es el trabajo final."</em></p>
-  </aside>
-</section>
-
-<!-- §12.3 · Qué vas a construir — la forma, no el contenido -->
-<section>
-  <h2>La forma del proyecto — no el contenido</h2>
-
-  <div class="s12-construir-wrap">
-    <div class="s12-forma-card">
-      <span class="s12-forma-tagline">lo que importa acá</span>
-      <div class="s12-forma-spec">
-        <span class="s12-forma-tag">frontend</span>
-        <span class="s12-forma-tag">+</span>
-        <span class="s12-forma-tag">backend</span>
-        <span class="s12-forma-tag">+</span>
-        <span class="s12-forma-tag">persistencia</span>
-      </div>
-      <div class="s12-forma-nota">
-        Un producto que corre en un servidor, con una interfaz para el usuario, que persiste datos.<br>
-        El dominio se define aparte — puede ser libre o semi-libre. Eso se comunica por separado.
-      </div>
-    </div>
-    <div class="s12-construir-callout">
-      No vas a escribir este producto línea por línea. Lo vas a dirigir.
-    </div>
-  </div>
-
-  <aside class="notes">
-    <p><strong>Señalar los tres tags — frontend, backend, persistencia — como si se nombrara la forma de un edificio, no su decoración. Leer la nota de dominio en tono casual. Pausa antes del callout.</strong></p>
-    <p><u>Slide de definición de la forma. El punto central es que la forma activa exactamente las decisiones del curso — no se dice todavía, eso es la siguiente slide. Acá solo se planta la forma. La última línea es la tesis en una oración.</u></p>
-    <p><em>"La forma del proyecto son tres cosas: frontend, backend, persistencia. Algo que corre en un servidor, que tiene una interfaz para el usuario, que guarda estado entre sesiones."</em></p>
-    <p><em>"El dominio — de qué trata — se define aparte y lo van a saber por otro canal. Lo que importa hoy no es el tema: es la forma. Porque la forma implica exactamente las decisiones que aprendieron a tomar."</em></p>
-    <p><em>"Y la diferencia de fondo: no van a escribir este producto línea por línea. Lo van a dirigir. Eso cambia qué se evalúa, cómo se trabaja, y cuál es el producto real que terminan entregando."</em></p>
-  </aside>
-</section>
-
-<!-- §12.4 · Por qué conecta con todo — structured cards, no ul -->
-<section>
-  <h2>Por qué conecta con todo lo del curso</h2>
-
-  <div class="s12-conexion-wrap">
-    <div class="s12-conexion-card">
-      <div class="s12-conexion-card-label">S2 / S3<br>vocabulario</div>
-      <div class="s12-conexion-card-body">
-        Componentes, endpoints, contratos, status codes — <em>lo que te permite dictar</em>.
-        Si el agente devuelve una API que no pediste, necesitás las palabras para corregirla.
-        Sin vocabulario, el único movimiento es aceptar o rechazar en bloque.
-      </div>
-    </div>
-    <div class="s12-conexion-card">
-      <div class="s12-conexion-card-label">S4<br>context y harness</div>
-      <div class="s12-conexion-card-body">
-        Entran cuando el proyecto crece. CLAUDE.md persiste las decisiones de arquitectura entre sesiones.
-        Los sub-agents aíslan partes del loop. Plan mode muestra el plan antes de tocar nada.
-        En un proyecto real de varios archivos, <em>dejan de ser opcionales</em>.
-      </div>
-    </div>
-    <div class="s12-conexion-card">
-      <div class="s12-conexion-card-label">S3<br>supervisor</div>
-      <div class="s12-conexion-card-body">
-        El rol de supervisor mantiene la coherencia entre partes.
-        Si el frontend espera un campo y el backend devuelve otro, el agente no lo detecta solo.
-        Supervisar el contrato entre cliente y servidor es <em>exactamente</em> el rol de la semana 3.
-      </div>
-    </div>
-    <div class="s12-conexion-callout">
-      El trabajo final no examina si sabés sintaxis. Examina si sabés dirigir.
-    </div>
-  </div>
-
-  <aside class="notes">
-    <p><strong>Leer cada tarjeta con el label visible — nombrar la semana de origen antes de leer el cuerpo. Pausa deliberada antes del callout.</strong></p>
-    <p><u>Slide de conexión entre piezas del curso y el proyecto. Tres tarjetas horizontales, cada una con el origen semana/sección en la etiqueta — hace que la conexión sea explícita y no declarativa. El callout cierra con la tesis de evaluación.</u></p>
-    <p><em>"El vocabulario de semanas 2 y 3 no era teoría. Era el instrumento para dictar. Si el agente devuelve una API con status codes distintos a los que pediste, necesitás las palabras exactas para corregirla. Sin vocabulario, no podés especificar — y sin especificación, el agente elige por defecto."</em></p>
-    <p><em>"El loop y la gestión del contexto de hoy entran cuando el proyecto crece. Un archivo, una sesión — eso no activa el problema. Pero un proyecto con frontend, backend y base de datos, que se extiende a lo largo de varias semanas: ahí el contexto se fragmenta, el agente pierde el hilo, y las herramientas de hoy se vuelven la diferencia entre un proyecto que avanza y uno que da vueltas."</em></p>
-    <p><em>"Y el rol de supervisor — semana 3 — se aplica literalmente: si el frontend espera un campo que el backend no devuelve, esa brecha no aparece sola en los tests. Alguien tiene que detectarla. Ese alguien sos vos."</em></p>
-    <p><em>"El trabajo final no examina si sabés sintaxis. Examina si sabés dirigir."</em></p>
-  </aside>
-</section>
-
-<!-- §12.5 · Qué se evalúa en espíritu — tres verbos -->
-<section>
-  <h2>Qué se evalúa — en espíritu</h2>
-
-  <div class="s12-eval-wrap">
-    <div class="s12-eval-card">
-      <div class="s12-eval-card-intro">
-        No es solo que funcione. Un producto que funciona pero cuyos caminos no podés explicar
-        no dice nada sobre tu rol como supervisor.
-        El término para esto es <strong>apropiación</strong>: que el producto sea tuyo aunque el agente
-        haya escrito la mayoría del código.
-      </div>
-      <div class="s12-eval-verbs">
-        <div class="s12-eval-verb">
-          <span class="s12-eval-verb-word">explicar</span>
-          <div class="s12-eval-verb-desc">por qué se tomaron las decisiones de arquitectura que se tomaron</div>
-        </div>
-        <div class="s12-eval-verb">
-          <span class="s12-eval-verb-word">corregir</span>
-          <div class="s12-eval-verb-desc">cuando el agente derivó o cuando el contrato entre partes se rompió</div>
-        </div>
-        <div class="s12-eval-verb">
-          <span class="s12-eval-verb-word">extender</span>
-          <div class="s12-eval-verb-desc">agregar algo al proyecto sin empezar de cero, gestionando el contexto acumulado</div>
-        </div>
-      </div>
-    </div>
-    <div class="s12-eval-nota">
-      Apropiación no se mide en cuántas líneas escribiste con el teclado.
-    </div>
-  </div>
-
-  <aside class="notes">
-    <p><strong>Leer el párrafo introductorio sin apurar — "apropiación" como palabra nueva, dejar que aterrice. Señalar cada verbo al nombrarlo. Leer la nota final como cierre tranquilo.</strong></p>
-    <p><u>Slide de la definición de evaluación en espíritu. Los tres verbos son el núcleo — están visualmente distintos para que se puedan señalar uno a uno. La introducción planta la palabra "apropiación" antes de que aparezcan los verbos. La nota al pie cierra con la negación de la métrica equivocada.</u></p>
-    <p><em>"Lo primero que van a sentir cuando vean el trabajo final es la tentación de medir si el producto funciona. Eso importa, pero no es suficiente. Un producto que funciona pero cuyos caminos no podés explicar no demuestra nada sobre tu rol como supervisor — demuestra que el agente funcionó, no que vos lo dirigiste."</em></p>
-    <p><em>"El término para lo que sí importa es apropiación. Que el producto sea tuyo aunque el agente haya escrito la mayoría del código. Apropiación se mide en tres verbos."</em></p>
-    <p><em>"Explicar: por qué estos endpoints, por qué esta estructura de datos, por qué este contrato entre cliente y servidor. Esas decisiones tienen que ser tuyas — no las que el agente eligió por defecto porque no especificaste."</em></p>
-    <p><em>"Corregir: cuando el agente derivó, cuando el contexto se fragmentó entre sesiones, cuando el frontend y el backend dejaron de hablar el mismo idioma — que puedas detectarlo y corregirlo."</em></p>
-    <p><em>"Extender: agregarle algo al proyecto sin empezar de cero. Gestionar el contexto acumulado de semanas anteriores para que el agente entienda la arquitectura antes de agregar la próxima feature."</em></p>
-    <p><em>"Eso es apropiación. No cuántas líneas escribiste."</em></p>
-  </aside>
-</section>
-
-<!-- §12.6 · Lo que NO se decide hoy — structured cards -->
-<section>
-  <h2>Lo que no se decide hoy</h2>
-
-  <div class="s12-nodecide-wrap">
-    <div class="s12-nodecide-grid">
-      <div class="s12-nodecide-card">
-        <div class="s12-nodecide-card-title">Equipos</div>
-        <div class="s12-nodecide-card-body">Si es grupal o individual, cómo se forman, de qué tamaño — se anuncia aparte.</div>
-      </div>
-      <div class="s12-nodecide-card">
-        <div class="s12-nodecide-card-title">Fechas y entregas</div>
-        <div class="s12-nodecide-card-body">El calendario de hitos, cuándo se entrega qué, si hay entregas parciales — se comunica por separado.</div>
-      </div>
-      <div class="s12-nodecide-card">
-        <div class="s12-nodecide-card-title">Dominio exacto</div>
-        <div class="s12-nodecide-card-body">Si el tema es libre, semi-libre o acotado a un conjunto de opciones — se define después.</div>
-      </div>
-      <div class="s12-nodecide-card">
-        <div class="s12-nodecide-card-title">Rúbrica formal</div>
-        <div class="s12-nodecide-card-body">Los criterios detallados, el peso de cada parte, Demo Day — se entregan en otro momento.</div>
-      </div>
-    </div>
-    <div class="s12-nodecide-coda">
-      Hoy es <em>el por qué y la forma</em>. Para que llegues a esa conversación con el marco ya puesto,
-      no empezando de cero.
-    </div>
-  </div>
-
-  <aside class="notes">
-    <p><strong>Señalar las cuatro tarjetas rápido — no leerlas en detalle, solo nombrar el tema. Leer la coda con pausa.</strong></p>
-    <p><u>Slide de lo administrativo pendiente. Las cuatro tarjetas en grid 2x2 son deliberadamente compactas — no es el centro de la clase. El tono es de clarificación, no de postergación. La coda formula el propósito de esta slide: que la conversación administrativa llegue cuando el marco ya está.</u></p>
-    <p><em>"Antes de cerrar, un momento de claridad sobre lo que no se define hoy."</em></p>
-    <p><em>"Equipos: si trabajan en grupos o solos, cómo se forman — lo anunciamos por otro canal. Fechas y entregas: el calendario exacto, si hay hitos intermedios — también por separado. Dominio: de qué trata el proyecto, qué opciones hay — se define después. Rúbrica formal: los criterios de evaluación con pesos concretos, el Demo Day — en otro momento."</em></p>
-    <p><em>"Lo que sí pasa hoy es el por qué y la forma. El propósito es que cuando llegue esa conversación administrativa — equipos, fechas, dominio, rúbrica — no la estén empezando desde cero. Ya tienen el marco. Ya saben qué examina el trabajo final y por qué tiene esa forma."</em></p>
-  </aside>
-</section>
-
-<!-- §12.7 · El arco — cierre del curso, lens-tracker neutral -->
-<section>
-  <h2>El arco completo</h2>
-
-  <div class="s12-arco-wrap">
-    <div class="s12-arco-steps">
-      <div class="s12-arco-step">
-        <span class="s12-arco-step-num">inicio</span>
-        <div class="s12-arco-step-label">Modelo</div>
-        <span class="s12-arco-step-sub">predice tokens — la máquina que corre</span>
-      </div>
-      <div class="s12-arco-arrow">→</div>
-      <div class="s12-arco-step">
-        <span class="s12-arco-step-num">S2–S3</span>
-        <div class="s12-arco-step-label">Rol</div>
-        <span class="s12-arco-step-sub">nombrar las piezas — vocabulario para dirigir</span>
-      </div>
-      <div class="s12-arco-arrow">→</div>
-      <div class="s12-arco-step">
-        <span class="s12-arco-step-num">S4</span>
-        <div class="s12-arco-step-label">Runtime</div>
-        <span class="s12-arco-step-sub">controlar el loop — actuar sobre las palancas</span>
-      </div>
-      <div class="s12-arco-arrow">→</div>
-      <div class="s12-arco-step" style="border-color: var(--accent); border-left: 1px solid var(--accent);">
-        <span class="s12-arco-step-num">trabajo final</span>
-        <div class="s12-arco-step-label" style="color:var(--accent);">Los tres</div>
-        <span class="s12-arco-step-sub">al mismo tiempo</span>
-      </div>
-    </div>
-
-    <div class="s12-arco-tracker-row">
-      <div class="lens-tracker">
-        <div class="pole pole-context">CONTEXT</div>
-    <div class="lens-sep">↔</div>
-    <div class="pole pole-harness">HARNESS</div>
-      </div>
-      <span class="s12-arco-tracker-caption">las dos cosas, ya integradas</span>
-    </div>
-
-    <div class="s12-arco-closer">
-      <p class="s12-arco-closer-main">
-        No son herramientas separadas.<br>
-        Son el <em>mismo supervisor</em> trabajando en distintas capas al mismo tiempo.
-      </p>
-    </div>
-  </div>
-
-  <aside class="notes">
-    <p><strong>Señalar cada paso del arco en orden — modelo, rol, runtime, los tres juntos. Señalar el tracker neutral sin agregar explicación. Leer la coda final despacio. Última diapositiva del curso — pausa, sin apurar.</strong></p>
-    <p><u>Slide de cierre del curso. La secuencia horizontal materializa el arco en cuatro pasos. El tracker en estado neutro — sin on-loop ni on-context — aparece aquí por última vez, captionado como "las dos cosas, ya integradas": el punto es que ya no hay que elegir, ya están los dos juntos. La coda cierra con la línea exacta de la fuente. Es la última diapositiva del curso — dejar que respire.</u></p>
-    <p><em>"Empezamos con un modelo que predice tokens. No era una metáfora — era literal. La primera pregunta fue '¿qué va a venir después?' y la respuesta llegó de las probabilidades sobre el vocabulario."</em></p>
-    <p><em>"Después aprendieron a nombrar las piezas de lo que ese modelo construye. Componentes. Endpoints. Contratos. Status codes. Las palabras para dictar en lugar de reaccionar."</em></p>
-    <p><em>"Después aprendieron a controlar el loop con el que trabaja. El contexto finito. Las palancas sobre lo que entra y sobre cuánto le dejás hacer. CLAUDE.md, plan mode, sub-agents, permisos."</em></p>
-    <p><em>"Miren el tracker. Ya no aterriza en ningún polo. Las dos cosas, ya integradas. Esa fue la lente de toda la parte 2 — no para elegir entre context y harness, sino para saber qué estás ajustando cuando ajustás algo."</em></p>
-    <p><em>"No son herramientas separadas. Son el mismo supervisor trabajando en distintas capas al mismo tiempo."</em></p>
-    <p><em>"Eso es todo. Nos vemos en el trabajo final."</em></p>
-  </aside>
-</section>
+<!-- INIT-SCRIPTS-§12-START -->
+<script>
+  initClickableSteps({containerId: 's12-demo-steps', steps: [
+    {
+      title: 'Paso 1 — Búsqueda inline, sin delegar',
+      summary: '<ul style="font-size:0.88em;padding-left:16px;margin:4px 0 0;line-height:1.5;text-align:left;"><li><strong>Terminal:</strong> <code>cd ~/demo-repo</code></li><li><strong>Terminal:</strong> <code>claude</code> (sesión nueva)</li><li><strong>En Claude:</strong> <code>"encontrá dónde se maneja la auth en este repo"</code></li><li><strong>Esperar:</strong> Claude busca, abre archivos, lee, rastrea imports</li><li><strong>En Claude:</strong> <code>/context</code></li><li><strong>Mirar:</strong> el delta respecto al inicio — los archivos leídos quedaron todos en la ventana</li></ul>',
+      example: 'El punto del paso uno: la búsqueda funciona, Claude encuentra la auth, da una respuesta correcta. Pero todo lo que tuvo que leer para responder — los routers, los middlewares, los archivos de config, los imports — queda en la ventana del padre. /context lo hace visible: el delta refleja el volumen de exploración. Esa es la baseline contra la que vamos a comparar el sub-agent.'
+    },
+    {
+      title: 'Paso 2 — La misma búsqueda delegada al sub-agent researcher',
+      summary: '<ul style="font-size:0.88em;padding-left:16px;margin:4px 0 0;line-height:1.5;text-align:left;"><li><strong>Terminal:</strong> <code>claude</code> (sesión nueva, otra pestaña)</li><li><strong>En Claude:</strong> <code>"usando el sub-agent researcher, ¿dónde se maneja la auth en este repo?"</code></li><li><strong>Mirar:</strong> el padre invoca el tool <code>Agent</code> → el sub-agent corre su loop con Read/Grep/Glob</li><li><strong>Esperar:</strong> cuando el sub-agent termina, devuelve solo la respuesta</li><li><strong>En Claude:</strong> <code>/context</code></li><li><strong>Mirar:</strong> el delta es significativamente menor — la exploración vivió en la ventana del sub-agent</li></ul>',
+      example: 'Misma pregunta, mismo repo, misma respuesta — pero el costo en ventana es muy distinto. El sub-agent leyó los mismos archivos que Claude leyó en el paso uno, pero todo ese trabajo vivió en su propia ventana. Cuando terminó, su ventana desapareció y al padre le llegó solo el párrafo final. /context lo confirma: el delta de la ventana del padre es mucho más chico. La exploración pasó, el ruido no llegó.'
+    },
+    {
+      title: 'Paso 3 — El archivo detrás del sub-agent',
+      summary: '<ul style="font-size:0.88em;padding-left:16px;margin:4px 0 0;line-height:1.5;text-align:left;"><li><strong>VS Code:</strong> abrir <code>.claude/agents/researcher.md</code></li><li><strong>Mirar:</strong> <code>tools: [Read, Grep, Glob]</code> en el frontmatter</li><li><strong>Marcar:</strong> no aparece <code>Bash</code>, no aparece <code>Edit</code>, no aparece <code>Write</code></li><li><strong>Cerrar:</strong> el sub-agent no puede modificar código aunque quiera — el frontmatter lo limita</li></ul>',
+      example: 'No es magia: es un archivo de configuración con un system prompt acotado y una lista de tools restringida. Read, Grep, Glob — puede leer, puede buscar, puede listar archivos. No tiene Bash, no tiene Edit, no tiene Write. Aunque el padre tenga acceso a esas tools, el sub-agent no las hereda. Esa restricción se escribe explícitamente en el frontmatter, y es la otra mitad del aislamiento: aísla el contexto y aísla las capacidades.\n\nPLAN B (si el delta de /context no es dramático en vivo, o si el sub-agent no entra al pedido del paso 2): sostener con dos transcripts preparados — uno de sesión inline con la ventana inflada al final, otro de sesión con sub-agent con la ventana casi sin cambios y el resultado devuelto. El cierre del Paso 3, mostrando researcher.md con tools restringidos, funciona en ambos casos.'
+    }
+  ]});
+</script>
+<!-- INIT-SCRIPTS-§12-END -->
