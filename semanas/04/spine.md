@@ -1,156 +1,190 @@
 # Spine — Semana 04: Fundamentos de Agentic AI y Claude Code
 
-**Whole-week through-line:** Una IA que *actúa* (no que sugiere) se dirige entendiendo solo **dos cosas**: el loop que ejecuta (pensar → actuar → observar, hasta una condición de corte) y el contexto finito con el que trabaja. La parte 1 (§1–§5) las enseña agnósticas, sin nombrar ninguna herramienta. La parte 2 (§6–§12) revela que cada feature de Claude Code — CLAUDE.md, rules, skills, sub-agents, plan mode, permisos — **no es una feature más en una lista: es una palanca sobre el loop o sobre el contexto**. El alumno sale de la clase pudiendo clasificar cualquier herramienta nueva con una sola pregunta: *¿actúa sobre el loop o sobre el contexto?*
+**Whole-week through-line:** Una IA que *actúa* (no que sugiere) se dirige con un set de herramientas conceptuales más amplio que "escribir un buen prompt". La parte 1 (§1–§5) construye un marco de **tres ingenierías anidadas** — `prompt ⊂ context ⊂ harness` — sin nombrar ninguna herramienta. La parte 2 (§6–§11) revela que cada feature de Claude Code llena uno de esos niveles, y propone una pregunta-lente que el alumno arrastra slide a slide: *¿esto actúa sobre qué ve el agente dentro de una sesión (context), o sobre el entorno donde el agente opera (harness)?* Prompt engineering ya lo venían practicando; lo que esta clase abre son los dos niveles nuevos.
 
 **Dispositivos pedagógicos de toda la semana:**
-- **Tracker "¿loop o contexto?"**: a partir de §6, cada sección de la parte 2 abre con el mismo visual donde la pregunta-lente aterriza en *contexto* (§7–§10) o *loop* (§11). El flip a *loop* en §11 — el primero de la parte 2 — es deliberado y es el hook de esa sección. Funciona igual que el `pipeline-roadmap` reusado de semana 03: un visual que se re-ilumina por sección.
-- **Animación del loop (bespoke, nueva)**: una sola animación JS nueva en todo el deck. Cicla pensar → actuar → observar → repetir y muestra las 4 condiciones de corte como salidas. Se introduce en §2 y se re-conduce (resaltando otra fase / otro estado) en §3, §4, §5, §6, §10, §11. Es su propia tarea de plan.
-- **Tricotomía construida en 3 tiempos**: §4 planta los 3 rótulos (siempre cargado / condicional / autocurado), §8 cierra dos, §9 completa la tabla con el tercero. Mismo visual, se llena progresivamente entre secciones.
-- **Costura parte 1 / parte 2**: `section-divider` fuerte entre §5 y §6. §1–§5 no nombran Claude Code; §6 revela que el loop abstracto del §2 era Claude Code todo el tiempo.
+- **Las tres ingenierías como marco**: se introducen anidadas en §3.3 (`prompt ⊂ context ⊂ harness`), §4 desarrolla **context engineering** completo, §5 desarrolla **harness engineering** completo, §5.5 cierra Parte 1 con el recap de los 3 niveles. Cada feature de Parte 2 se ubica explícitamente en uno de los dos niveles nuevos.
+- **Lens-tracker `CONTEXT ↔ HARNESS`**: helper visual compartido (`.lens-tracker` en el scaffold). Se introduce neutral en §6.5, aterriza en CONTEXT en §7–§10, **flipea a HARNESS en §11** (primer flip, momento deliberado), y vuelve a neutral en §12 como síntesis. Mismo rol que el `pipeline-roadmap` re-iluminado en semana 03.
+- **Animación del loop (bespoke, nueva)**: una sola animación JS nueva en todo el deck (`four-loop-anim.js`). Cicla pensar → actuar → observar → repetir con las 4 condiciones de corte como chips de salida. Se introduce en §2.2 (ReAct), se re-conduce en §2.3 (fragment-driven highlight de cada fase) y en §6.3 (modo `cc` con los nombres reales de tools de Claude Code).
+- **Costura parte 1 / parte 2**: `section-divider` fuerte entre §5 y §6 ("Parte 2 — Claude Code"). §1–§5 nunca nombran Claude Code. §6 revela que el loop abstracto de §2 era Claude Code todo el tiempo y reaterriza explícitamente en las tres ingenierías de §3.3.
 
-**Nota de escala:** 12 secciones, ~194 min de contenido (suma de bloques de `source_material/index.md`). Con tratamiento estructurado de demos (~9 demos en vivo, cada una divider + beats + cierre) el deck será grande (~100–125 slides). Es una clase larga, probablemente dictada en 2 sesiones; la costura parte 1 / parte 2 es el corte natural si se parte.
+**Nota de escala:** 14 secciones, ~220 min de contenido. Con tratamiento estructurado de 7 demos en vivo (uno por feature de Parte 2) el deck es grande (~120–140 slides). Es una clase larga, dictada en 2 sesiones; la costura parte 1 / parte 2 entre §5 y §6 es el corte natural.
+
+**Nota sobre el rediseño de Parte 2 (2026-05-19):** la Parte 2 se rediseñó para cubrir 7 features de Claude Code como secciones independientes (§7–§13) siguiendo una plantilla documentation-walkthrough (qué es / dónde vive / cuándo se carga / cómo se usa / casos límite / mini-demo). El `.lens-tracker` introducido en §6.5 **ya no se recoge en §7–§13** — la decisión es deliberada (foco en cada feature por su propia anatomía, no por su ubicación en una taxonomía). Se acepta el costo de que el setup del tracker en §6 queda sin payoff. El dispositivo recurrente nuevo es la **tarjeta de 5 preguntas** que abre cada sección. El demo se hace en un repo aparte (`semanas/04/demo-repo/`, FastAPI + frontend) que el profesor copia fuera del repo del curso antes de dictar para aislarlo.
+
+**Nota sobre relación con `source_material/index.md`:** el material fuente todavía organiza Parte 1 alrededor de "loop + contexto" y trata §3 como "Tools — las manos del agente" y §5 como "Modos de falla". El deck reorganizó esos contenidos: las tools entraron en §2 (como bridge de single-turn → ReAct), §3 pasó a ser "Las tres ingenierías" (un slide marco nuevo), y §5 pasó a ser "Harness engineering" (el otro nivel nuevo). El espíritu del material fuente sobrevive (loop, finitud, tools como manos, supervisión, etc.) pero la organización es distinta — el spine es el contrato canónico de qué hay en cada sección.
 
 ---
 
 ## Section 1: De escribir a actuar
-**Source material:** `source_material/01-de-escribir-a-actuar.md`
-**Through-line:** El cambio de paradigma no es que "la IA escriba mejor" — eso sería más de lo mismo. Es que la IA ahora *actúa*: cierra el loop sobre tu repo sin que vos intervengas en cada vuelta. Dirigir algo que actúa exige dos conceptos nuevos (el loop y el contexto), que son el mapa de toda la clase.
+**Source material:** `source_material/01-de-escribir-a-actuar.md` (+ callback a S1)
+**Through-line:** El cambio de paradigma no es "una IA que escribe mejor" — eso sería más de lo mismo. Es que la IA ahora *actúa*: cierra el loop sobre tu repo sin que vos intervengas en cada vuelta. Para dirigir algo que actúa hay que abrir la caja del "programa que envuelve al LLM" — esa caja se va a llenar de piezas en las próximas secciones.
 **Hook:** La última vez que le pediste a una IA que arreglara un endpoint: copiaste el error, lo pegaste, copiaste el código, lo pegaste, corriste, viste un 500 distinto, volviste al chat. Cada vuelta de esa rueda la hacías vos. *Vos eras el que corría el loop.*
 **What students walk away knowing:**
-- Son dos paradigmas distintos, no versiones mejor/peor de lo mismo: IA que sugiere + vos conducís, vs. agente que planifica y ejecuta en loop; el LLM debajo puede ser el mismo, lo que cambia es la arquitectura encima.
-- Traer el modelo mental del chat al agente es peligroso: en el chat el peor caso es alucinar una función inexistente; en el agente, alucinar y ejecutar un comando de borrado.
-- El rol de supervisor (semanas 2–3) no desaparece; se le agregan dos conceptos: el loop y el contexto. Hoy no aprendés una herramienta — aprendés la máquina que vas a dirigir el resto del curso.
-**Animations / interactive:** None new. `comparison-2col` para los dos paradigmas. La animación del loop se introduce recién en §2 (acá todavía no se nombra el ciclo en detalle).
-**Slide budget:** 5–7
+- Recap S1 expandido en 5 estados: la unidad del LLM es predecir un token, pero alrededor siempre hay un **programa externo** que (1) lo mete en un loop con `max_tokens`, (2) le envuelve la entrada con tokens de rol (SFT), (3) filtra los tokens de razonamiento del output (RL), y (4) ensambla `system + historial + mensaje nuevo` turno a turno. La caja punteada es el protagonista de toda la semana.
+- Son dos paradigmas distintos, no versiones mejor/peor: IA que sugiere + vos conducís, vs. agente que planifica y ejecuta en loop; el LLM debajo puede ser el mismo, lo que cambia es la arquitectura encima — el programa externo evoluciona.
+- El rol de supervisor (semanas 2–3) no desaparece; lo que cambia es qué hay para supervisar. Hoy no aprendés una herramienta — aprendés la máquina que vas a dirigir el resto del curso.
+**Animations / interactive:** El recap S1 usa fragments para revelar progresivamente los 5 estados (el primero arranca visible; los stages 2-4 aparecen al costado uno por uno; el stage 5 reemplaza la fila completa para mostrar el ensamblaje conversacional con system / historial / mensaje nuevo). `comparison-2col` para los dos paradigmas + diagrama cíclico CSS de la rueda copy-paste manual con la caja "Chat" dashed que representa al subsistema del slide anterior. Sin animación JS — la del loop entra en §2.
+**Slide budget actual:** 3 slides.
 
 ## Section 2: El loop — pensar, actuar, observar
-**Source material:** `source_material/02-el-loop-agentic.md`
-**Through-line:** La diferencia entre un chat que sugiere y un agente que resuelve no está en el modelo de adentro: está en que el agente no da una respuesta, entra en un loop (pensar → actuar → observar) que se repite hasta una condición de corte. Un agente = LLM + loop + tools + entorno; sin condición de corte el loop no converge.
-**Hook:** "Arreglá el bug." Una sola línea. ¿Por qué eso no alcanza para que el agente termine? Porque el modelo todavía no vio el error — le pediste que arregle algo que no puede ver.
+**Source material:** `source_material/02-el-loop-agentic.md` + `source_material/03-tools-las-manos.md` (las tools entran acá como bridge desde S1)
+**Through-line:** La diferencia entre un chat que sugiere y un agente que resuelve no está en el modelo de adentro: está en que el agente no da una respuesta, entra en un loop (pensar → actuar → observar) que se repite vuelta a vuelta hasta una condición de corte. Las tools — ya conocidas de S1 — eran **una vuelta sola**; ReAct es el paso al **loop**. Un agente = LLM + loop + tools + entorno; sin condición de corte el loop no converge.
+**Hook (§2.1):** Las tools que vieron en S1 ubicadas en el programa externo del §1 — visualmente del mismo idioma (caja punteada + reglas del runtime). El énfasis está en que esa arquitectura es **una sola vuelta del LLM**: aunque llame varias tools dentro de esa vuelta, sigue siendo single-turn. Eso prepara el contraste con ReAct.
 **What students walk away knowing:**
-- El loop tiene 3 fases que se *alternan* (ReAct: razonar y actuar entrelazados), no etapas separadas; se ven concretas en un trace real (correr tests → `AssertionError 200/404` → corregir el path → suite verde).
-- Un agente son 4 piezas necesarias en conjunto (LLM + loop + tools + entorno); cuando algo falla, el diagnóstico empieza por "¿cuál de las 4?".
-- Cuatro condiciones de corte que aparecen en la práctica: objetivo alcanzado / límite de pasos / el agente pide ayuda / falla no recuperable. Sin condición de corte el loop da vueltas sin converger.
-**Animations / interactive:** **Bespoke loop animation — NUEVA, se introduce acá.** Ciclo pensar → actuar → observar → repetir con las 4 salidas (condiciones de corte). Es su propia tarea de plan. El trace concreto (ejemplo pytest) puede ir como `code-walkthrough` o `flow-with-arrows` paso a paso.
-**Mini-demo (estructurado):** "El loop desnudo" (3 beats: tarea verificable → narrar fases en pantalla → señalar la corrección como otra vuelta). Plan B: tarea más abierta o grabación.
-**Slide budget:** 11–14
+- Tools = otra responsabilidad del programa externo (callback explícito a S1): cuando el LLM emite un token de tool call, el programa pausa la generación, ejecuta, inyecta el resultado, el LLM sigue generando. Single-turn — el modelo no decide qué hacer con los resultados.
+- ReAct = cuando una vuelta no alcanza. El programa externo entra en un **loop**: el LLM piensa, actúa usando tools, observa los resultados, y decide la próxima acción. La diferencia con single-turn no es la cantidad de tools — es la **iteración**: el modelo decide entre vuelta y vuelta a partir de lo observado.
+- Tres fases que se *alternan* (Reasoning + Acting entrelazados), no etapas separadas; cada fase tiene una salida concreta: pensar → decisión; actuar → cambio en el entorno; observar → información nueva en el contexto. Slide consolidado: misma animación, tres iluminaciones por fragment.
+- El trace concreto (404 en producción): 2 vueltas — la primera identifica (logs → router con slash duplicado), la segunda corrige y verifica (edit → curl 200). La condición de corte es "objetivo alcanzado".
+- Un agente son 4 piezas necesarias en conjunto (LLM + loop + tools + entorno); cuando algo falla, el diagnóstico empieza por "¿cuál de las 4?". Cierre operativo de la sección.
+- Cuatro condiciones de corte que aparecen en la práctica: objetivo alcanzado / límite de pasos / pide ayuda / falla no recuperable. Ya se adelantaron como chips en la animación al introducir ReAct; este slide las abre.
+**Animations / interactive:** **Bespoke loop animation — NUEVA, se introduce acá** (`four-loop-anim.js`, mode `intro`). Dos instancias en la sección: (a) §2.2 ReAct intro — animación completa con chips de corte, escalada 1.4×, fragment-mounted; (b) §2.3 Tres fases — la misma animación con `phase` cambiando por fragment (pensar → actuar → observar). Bridge §2.1 reusa el idiom visual del §1 (caja punteada + runtime rules). Trace concreto (§2.6) es CSS-only — un trace de 6 filas con color por fase y conectores verticales, sin animación; el puntero del docente lo navega.
+**Slide budget actual:** 6 slides (bridge tools → ReAct intro → tres fases consolidado → trace 404 → 4 piezas → condiciones de corte).
 
-## Section 3: Tools — las manos del agente
-**Source material:** `source_material/03-tools-las-manos.md`
-**Through-line:** Una tool es el mismo mecanismo de la semana 1 (el modelo emite una llamada estructurada → el runtime la ejecuta → el resultado vuelve al contexto), ahora con un set más amplio que no solo *consulta* el mundo sino que lo *modifica*. El ciclo de una tool mapea exactamente a actuar → observar → pensar del loop del §2.
-**Hook:** Callback semana 1: ¿se acuerdan del token especial que pausaba la generación, hacía la búsqueda web y pegaba el resultado de vuelta al contexto? Eso era una tool. Hoy lo mismo, pero las manos llegan más lejos.
-**Key analogy:** Tools = las manos del agente. Sin manos, el agente razona sobre lo que haría pero no toca nada.
+## Section 3: Las tres ingenierías
+**Source material:** **No mapea a un archivo único del source_material** — es un slide marco nuevo que organiza el resto de la clase. Recoge motivación de `03-tools-las-manos.md` (el abanico de capacidades) y `05-cuando-el-agente-falla.md` (gran poder, gran responsabilidad) para justificar por qué prompt engineering ya no alcanza.
+**Through-line:** ReAct + tools no son piezas técnicas aisladas — combinadas abren un rango operativo enorme (escribir código de cero, correr tests, diagnosticar bugs, refactorizar, sintetizar docs, encadenar tools). Ese abanico cambia la pregunta de la clase: ya no es "¿cómo escribo un buen prompt?", es "¿cómo dirijo algo que puede hacer todo eso?". La respuesta es un marco de **tres ingenierías anidadas por alcance** — `prompt ⊂ context ⊂ harness` — donde prompt engineering es lo que ya conocen y los dos niveles exteriores son lo que abre esta clase y la parte 2.
+**Hook (§3.1):** Recorrido visual del abanico de capacidades — seis cards de capacidades concretas (escribir, correr tests, diagnosticar, refactorizar, sintetizar docs, encadenar tools), revelado de una con cierre punzante: "casi cualquier cosa que un developer hace en una terminal y un editor, el agente la puede hacer".
 **What students walk away knowing:**
-- La mecánica no cambió desde S1 (llamada estructurada → runtime ejecuta → resultado al contexto); lo que cambió es que ahora el agente *modifica* el entorno, no solo lo consulta.
-- El ciclo de una tool *es* el loop del §2: la llamada es "actuar", el resultado es "observar", y eso alimenta el próximo "pensar".
-- Cada observación ocupa contexto y no desaparece (semilla del §4); leer = reversible/bajo riesgo, escribir o ejecutar = puede no ser reversible/alto riesgo → el supervisor mira más las tools que actúan sobre el mundo.
-**Animations / interactive:** Reusa la animación del loop (re-conducida, resaltando actuar/observar). `flow-with-arrows` para el ciclo de la tool; `comparison-2col` para leer vs. escribir.
-**Mini-demo (estructurado):** "La observación entra al contexto" (3 beats: tarea que obliga a leer un archivo → señalar el bloque de observación → tamaño del output vs. contexto total). Plan B: apuntar al bloque de tool output sin `/context`.
-**Slide budget:** 9–12
+- Cuando un sistema puede modificar tu repo, ejecutar comandos y tomar decisiones por su cuenta, **lo que sale bien escala — y lo que sale mal también**. Un fix automático vale por diez horas tuyas; un `rm` equivocado las cuesta. Slide bisagra: el alcance abierto por ReAct + tools exige una disciplina más amplia que prompt engineering.
+- **Tres ingenierías por alcance creciente**: (a) **prompt engineering** — alcance: una interacción; ya lo conocen de S2–S3, sigue siendo la base, no desaparece. (b) **context engineering** — alcance: una sesión; la ventana de contexto como recurso a gestionar (qué se carga, qué se mantiene, qué se descarta). (c) **harness engineering** — alcance: múltiples sesiones; el entorno completo (tools disponibles, guardrails, scripts deterministas, feedback loops).
+- Los tres alcances **se anidan**: `prompt ⊂ context ⊂ harness`. Cualquier prompt vive dentro de una sesión, cualquier sesión vive dentro de un harness. Esta línea es la que monta el resto del deck — §4 abre context, §5 abre harness, y toda la Parte 2 ubica cada feature de Claude Code en uno de los tres niveles.
+**Animations / interactive:** CSS-only. §3.1 grilla 3×2 + reveal de la línea de cierre. §3.2 quote slide con peso tipográfico + dos reveals (la línea media, el punch). §3.3 grilla 1×3 con reveals progresivos (prompt → context → harness → línea del anidamiento). Sin JS nuevo.
+**Slide budget actual:** 3 slides (abanico → gran poder, gran responsabilidad → tres ingenierías anidadas).
 
-## Section 4: La ventana de contexto es finita
+## Section 4: Context engineering
 **Source material:** `source_material/04-la-ventana-es-todo.md`
-**Through-line:** La working memory del agente (la ventana de contexto) es finita; el loop la llena vuelta a vuelta. Cuando se llena, algo se va o algo para. El context rot — instrucciones del inicio sepultadas bajo observaciones recientes que pesan más — es la consecuencia. Tesis de la clase: dirigir bien un agente no es escribir el mejor prompt de entrada, es mantener la ventana enfocada en lo que importa.
-**Hook:** ¿Por qué un agente que venía funcionando de maravilla de repente "olvida" lo que le pediste? ¿Por qué después de treinta herramientas ejecutadas empieza a girar en círculos? La respuesta no está en el modelo: está en el espacio donde el modelo trabaja.
-**Key analogy:** Callback semana 1: el conocimiento en los parámetros es un recuerdo vago (algo que leíste hace un mes); lo que está en la ventana es working memory, acceso directo.
+**Through-line:** La working memory del agente (la ventana de contexto) es finita por diseño; el loop la llena vuelta a vuelta más rápido de lo que intuís. Cuando se llena, algo se va o algo para. El **context rot** — instrucciones del inicio sepultadas bajo observaciones recientes que pesan más — es la consecuencia. **Tesis de la disciplina:** quien dirige bien un agente no es el que escribe el mejor prompt, es el que mantiene la ventana enfocada en lo que importa. Y eso importa por dos razones: **calidad** (un prompt brillante no te salva si a la vuelta 40 la ventana está saturada) y **costo** (cada token se factura en cada vuelta del loop).
+**Hook:** Slide opener consolida la definición operativa de context engineering (`alcance: una sesión completa — qué se carga, qué se mantiene, qué se descarta`) con la tesis revelada por fragment. El opener narrativo del material fuente ("¿por qué un agente que venía funcionando 'olvida'?") está absorbido en las anotaciones y en el desarrollo de context rot más adelante.
 **What students walk away knowing:**
-- La ventana es finita por propiedad estructural (no un defecto a corregir en la próxima versión); el loop la consume más rápido de lo que intuís — números concretos: ~300 líneas ≈ 1.5–2.5k tokens, ventana ≈ 200k, 20 archivos ≈ 30–50k solo en observaciones.
-- Context rot: la instrucción del inicio queda sepultada bajo observaciones recientes que dominan; síntomas reconocibles (contradice restricciones explícitas, repite trabajo hecho, respuestas genéricas, "no recuerda" lo que está en el contexto).
-- Gestionar el contexto es la habilidad central. Dos operaciones: compactación (resumir y soltar lastre, no borrar) y reset (empezar limpio cargando solo lo necesario). Adelanto de la tricotomía: **siempre cargado / condicional / autocurado**.
-**Animations / interactive:** Reusa la animación del loop, anotada para mostrar que cada vuelta deposita tokens (la ventana se llena). Barra de llenado en HTML/CSS (sin JS nuevo). `data-table` para los números de tokens. El adelanto de la tricotomía planta el visual que §8 y §9 completan.
-**Mini-demo (estructurado):** "Context rot y qué sobrevive a /compact" (4 beats: plantar instrucción LISTO → context rot en acto → qué sobrevive a `/compact` → cierre archivo vs. dicho al pasar). Plan B: transcripción guardada; el beat de `/compact` siempre en vivo.
-**Slide budget:** 12–15
+- **Parámetros vs ventana** (callback S1): los parámetros son un recuerdo vago (algo que leíste hace un mes); la ventana es working memory — acceso directo, lo que está ahí el modelo **lo ve**, no lo recuerda. La ventana pasa a ser **el recurso que vas a administrar**.
+- **El loop llena la ventana**: barra CSS animada con tres anotaciones progresivas (~150k tokens tarea acotada / ~500k sesión normal / ~900k sesión larga sobre ventana de 1M). **Cada token cuenta dos veces**: ocupa lugar en la ventana **y** se factura en cada llamada al modelo — 50 vueltas con ventana al 90% = ~45M tokens facturados solo en input. La conciencia de costo entra acá, no más adelante.
+- **Finita por diseño, no por descuido**: propiedad estructural de los transformers, no un defecto a corregir. Ventanas más grandes desplazan el límite, no lo eliminan.
+- **Context rot — cómo ocurre**: barra + diagrama de capas mostrando la instrucción original ("no uses dependencias externas") sepultada bajo observaciones de las vueltas 14, 28, 35; vuelta 42 el agente decide `npm install express lodash axios` contradiciendo la instrucción que técnicamente sigue ahí. La señal no desapareció — se diluyó en el ruido.
+- **Síntomas que reconoce un supervisor** (grid 2×2): contradice restricciones / repite trabajo hecho / respuestas genéricas / "no recuerda" lo que está ahí. La línea de cierre invierte el framing: *no es que el modelo falló — la ventana está trabajando contra vos*.
+- **Dos operaciones** (agnósticas de herramienta): **compactar** (resumir y soltar lastre — preserva la señal, descarta los detalles, sigue la sesión) y **resetear** (empezar limpio cargando solo lo necesario — pierde la conversación, arranca fresco). Ninguna es mejor en abstracto; toda estrategia real combina las dos.
+- **Cierre**: "elegir qué entra a la ventana, mantener lo que sirve, soltar lo que pesa". Bridge al siguiente nivel: el modelo opera sobre un entorno — ese entorno también se diseña, y ese es el harness.
+**Animations / interactive:** CSS-only. Dos barras CSS de relleno (una en §4.3 con tres reveals que la llenan al 15/50/90%, otra en §4.5 que crece con cada capa del diagrama de context rot: 25 → 55 → 85 → 95%). Listeners de Reveal (`fragmentshown`/`fragmenthidden`/`slidechanged`) recalculan la altura desde los `data-fill` / `data-rot-fill` visibles para que ir y volver sea consistente. Sin JS de animación nuevo — la animación del loop no se reusa acá.
+**Slide budget actual:** 8 slides (opener + tesis → parámetros vs ventana → el loop llena la ventana → finita por diseño → context rot → síntomas → compactar/resetear → cierre + bridge).
 
-## Section 5: Cuando el agente falla
-**Source material:** `source_material/05-cuando-el-agente-falla.md`
-**Through-line:** Un agente que actúa falla de maneras que uno que solo escribe no puede, y la falla deja rastro en el entorno. Cuatro modos nuevos, cada uno conectado a una pieza ya vista. El supervisor no desaparece con la autonomía: cambia *cuándo* mira. Revisión al final es auditoría, no supervisión. Cierre de la parte 1 y montaje de la lente para la parte 2.
-**Hook:** Cuando el modelo sugería, el peor caso era una sugerencia mala — la rechazabas. Cuando el agente actúa sobre tu repo, el peor caso es un entorno que ya cambió.
+## Section 5: Harness engineering
+**Source material:** **Reorganiza fuerte respecto a `source_material/05-cuando-el-agente-falla.md`.** El archivo del source_material trataba "modos de falla y el rol del supervisor"; el deck lo reemplazó por harness engineering. La motivación de "falla = entorno que ya cambió" sobrevive distribuida (en §3.2 "gran poder, gran responsabilidad", y en el lenguaje de guardrails / verificación de §5.2). No hay sección dedicada a los 4 modos de falla con el detalle del source.
+**Through-line:** Acabamos de cerrar context engineering. **Falta el nivel exterior**: el entorno donde opera el agente. Harness — literalmente, el arnés del caballo: lo que canaliza la potencia del modelo en la dirección que querés. **No es pedirle al modelo que se comporte ("no cometas errores"), es diseñar el entorno para que tire de la carreta**. La disciplina se divide en 6 dimensiones y cada una mapea a una feature concreta de Claude Code, motivando la Parte 2.
+**Hook (§5.1):** Metáfora del caballo en 3 tiempos. Entry: solo la etimología ("harness = arnés"). Primer reveal: imagen `caballo-descontrolado.png` + caption irónico "no cometas errores" (en mono, como prompt fallido). Segundo reveal: imagen `caballlo-harness.png` + caption "Harness Engineering". El contraste visual hace el argumento sin texto explicativo.
 **What students walk away knowing:**
-- Cuatro modos de falla nuevos, cada uno anclado a lo anterior: loop infinito (ninguna condición de corte del §2 se cumple), deriva de objetivo, alucinar tools/resultados (la alucinación de S1 ahora *actúa* sobre la premisa falsa), envenenar el propio contexto (la versión activa del context rot del §4).
-- El rol del supervisor no se quita con la autonomía: cambia *cuándo* mira. Callback semana 3: "no le creés a la IA, creale a la máquina" — ¿los archivos que dice haber editado cambiaron? ¿el test que dice haber pasado corre? Revisión al final = auditoría, no supervisión.
-- Cierre de la parte 1: las 4 piezas (loop / tools con leer-escribir / ventana finita / modos de falla); **todo lo que sigue actúa sobre el loop o sobre el contexto** — esta frase monta la lente de la parte 2.
-**Animations / interactive:** Reusa `clickable-steps` para los 4 modos de falla (click → detalle). Reusa la animación del loop para mostrar "loop infinito" (ninguna salida se dispara) y "deriva" (se va del objetivo). Sin demo (el material fuente no tiene una).
-**Slide budget:** 7–9
+- Harness engineering = **diseñar el arnés que canaliza al modelo**, no pedirle que se comporte solo.
+- **Seis dimensiones** del harness (grid 3×2 con reveals progresivos): (1) estructurás el prompt — instrucciones fijas, voz, prioridades, convenciones; (2) exponés tools — el borde de lo que sabe hacer; (3) cargás contexto — info variable que entra cada turno; (4) armás feedback loops — el canal que devuelve resultados al modelo; (5) verificás outputs — el criterio externo de correctitud (contratos, tests, schemas); (6) descomponés tareas — cómo se rompe el problema en pasos o sub-agentes.
+- **La frontera con context engineering** (slide de honestidad disciplinaria): los límites son difusos — "qué contexto cargás" es parte del harness *y* es lo que define context engineering. La lectura específica que sirve para Claude Code: harness = la capa de runtime que rodea al modelo (system prompt, definiciones de tools, lógica de reintentos, orquestación de sub-agentes, pasos de verificación) — distinta del modelo en sí y de un prompt suelto.
+- **Harness en Claude Code** (mapping bridge a Parte 2, grid 3×2): `CLAUDE.md` (system prompt + contexto que se carga al arrancar) / slash commands custom (prompts reutilizables, atajos a workflows) / servidores MCP (qué tools exponés) / sub-agent workflows (descomposición en contextos aislados) / hooks (scripts antes/después de cada tool call — verificación + feedback automáticos) / eval loops (medir si los cambios al harness sirven, no suponer).
+- **Cierre de Parte 1** (recap tres ingenierías): grilla con prompt / context / harness y la línea bridge — "cada feature de Claude Code que viene llena uno de estos tres niveles. Cuando veas una feature nueva, la pregunta ya no es '¿qué hace?' — es '¿en qué nivel actúa?'". Esa pregunta es exactamente lo que va a aterrizar como tracker en §6.5.
+**Animations / interactive:** CSS-only. Reveals progresivos en la metáfora del caballo (las dos imágenes aparecen una por una), en la grilla de 6 dimensiones (una card por reveal), en el harness CC (todas visibles juntas), y en el recap final (las 3 cards + bridge revealed). Sin JS de animación nuevo. Imágenes en `../img/caballo-descontrolado.png` y `../img/caballlo-harness.png`.
+**Slide budget actual:** 5 slides (opener caballo → 6 dimensiones → frontera con context → harness en Claude Code → cierre tres ingenierías + bridge a Parte 2).
+
+---
+
+# Parte 2 — Claude Code (§6–§13)
+
+> **Rediseño 2026-05-19.** Parte 2 cubre las 7 piezas configurables del runtime de Claude Code, una por sección (§7–§13), siguiendo plantilla documentation-walkthrough: *qué es / dónde vive / cuándo se carga / cómo se usa / casos límite / mini-demo*. La fuente canónica del contenido es `source_material/06-claude-code-es-el-loop.md` y `source_material/07-...md` a `13-...md`. **El `.lens-tracker` introducido en §6.5 ya no se recoge** — decisión deliberada del rediseño. El dispositivo recurrente nuevo es la tarjeta de 5 preguntas como divider de cada sección.
 
 ## Section 6: Claude Code es ese loop
 **Source material:** `source_material/06-claude-code-es-el-loop.md`
-**Through-line:** Claude Code no es un concepto nuevo: es el loop del §2 con nombre propio y pantalla. El desafío la primera vez no es entender qué hace — ya lo sabés — es identificar en qué fase está. Las 4 piezas del §2 mapean 1:1. A partir de acá, cada feature responde la misma pregunta: ¿actúa sobre el loop o sobre el contexto?
-**Hook:** Lo que describimos en §2 como pensar → actuar → observar no era un diagrama abstracto. Era la descripción de algo que podés abrir ahora mismo en la terminal y dejar corriendo.
-**What students walk away knowing:**
-- La pantalla de Claude Code es el loop expuesto vuelta por vuelta: texto razonando (pensar) → tool call `Edit`/`Bash`/`Read`/`Write` (actuar) → resultado (observar) → repetir. No es un log de actividad.
-- Las 4 piezas del §2 con herramienta concreta detrás: LLM = Claude; loop = el motor que no para tras la 1ra respuesta; tools = `Edit`/`Bash`/`Read`/`Write`; entorno = tu repo real (cuando corre `npm test`, los tests corren de verdad).
-- La pregunta-lente para todo lo que viene: ¿esto actúa sobre cómo corre el loop, o sobre qué hay en el contexto cuando el loop arranca? — se introduce el tracker visible.
-**Animations / interactive:** Reusa la animación del loop, ahora anotada con los nombres reales de tools de Claude Code (`Edit`/`Bash`/`Read`). Se **introduce el tracker "¿loop o contexto?"** (dispositivo recurrente del resto de la parte 2). `section-divider` fuerte "Parte 2 — Claude Code" abre la sección (costura parte 1/2).
-**Slide budget:** 6–8
+**Through-line:** Claude Code no es un concepto nuevo: es el loop del §2 con nombre propio y pantalla. Las 4 piezas del §2 mapean 1:1. (Nota del rediseño: el `.lens-tracker` que esta sección introduce ya no se recoge en §7–§13; el setup queda colgado.)
+**Hook (§6.2):** "Lo que describimos en §2 como pensar → actuar → observar no era un diagrama abstracto. Era la descripción de algo que podés abrir ahora mismo en la terminal y dejar corriendo."
+**Animations / interactive:** Re-uso de `four-loop-anim.js` en modo `cc`. Se introduce el `.lens-tracker` neutral (sin recogida posterior). `section-divider` fuerte para abrir la Parte 2.
+**Slide budget actual:** 4 slides.
 
-## Section 7: CLAUDE.md jerárquico
-**Source material:** `source_material/07-CLAUDE-md-jerarquico.md`
-**Through-line:** ¿Loop o contexto? **Contexto.** CLAUDE.md es el mecanismo "siempre cargado": texto tuyo inyectado en la ventana antes del primer mensaje, en cada sesión, con o sin relevancia para la tarea. Jerarquía de 4 niveles concatenados (no sobreescritura). `@import` organiza pero no ahorra ni un token. Costo constante.
-**Hook:** El tracker "¿loop o contexto?" aterriza en CONTEXTO / siempre cargado (este es el dispositivo que abre cada sección de la parte 2, en lugar de un hook narrativo propio).
+## Section 7: CLAUDE.md y memoria automática
+**Source material:** `source_material/07-CLAUDE-md.md`
+**Through-line:** Archivos markdown leídos al arranque de cada sesión; texto del usuario inyectado en la ventana de contexto antes del primer mensaje. Jerarquía de 4 niveles concatenados (no override). Auto memory como sistema distinto que vive en el mismo archivo conceptual.
 **What students walk away knowing:**
-- CLAUDE.md = "siempre cargado": todo lo que ponés ahí cuesta contexto en cada sesión sin excepción → es la herramienta más directa para moldear el comportamiento y la que más disciplina exige.
-- Jerarquía de 4 niveles (managed policy / usuario / proyecto / local) combinados por concatenación caminando hacia arriba en el árbol; las contradicciones entre niveles no dan error, dan comportamiento impredecible.
-- `@import` ayuda a organizar (un archivo por tema, guía <200 líneas) pero los imports se expanden e inyectan igual: no reduce contexto. El CLAUDE.md raíz de este repo como ejemplo vivo.
-**Animations / interactive:** Reusa el tracker (aterriza CONTEXTO / siempre cargado). `pipeline-roadmap` o `flow-with-arrows` para los 4 niveles + orden de carga (caminata hacia la raíz); `code-walkthrough` para `@import`.
-**Mini-demo D3 (estructurado):** "La ventana antes y después" (3 beats: `/context` sin CLAUDE.md → con CLAUDE.md, delta → `/memory` lista de fuentes). Plan B: solo `/memory`.
-**Slide budget:** 8–11
+- CLAUDE.md siempre cuesta contexto. Jerarquía de 4 niveles (managed / user / project / local) concatenados caminando hacia arriba.
+- `@import` no ahorra contexto. Comentarios HTML descartados. Guía <200 líneas.
+- Auto memory: lo escribe Claude, vive en `~/.claude/projects/<project>/memory/`, primeras 200 líneas o 25 KB.
+**Plantilla obligatoria (6 sub-secciones):** Qué es / Dónde vive / Cuándo se carga / Cómo se usa / Casos límite / Mini-demo. Tarjeta de 5 preguntas como divider de apertura.
+**Animations / interactive:** Tarjeta de plantilla. `pipeline-roadmap` o tabla para los 4 niveles. `code-walkthrough` del `CLAUDE.md` del demo-repo.
+**Mini-demo (único bloque al final):** abrir Claude Code en `demo-repo/`, ejecutar `/memory` y `/context`, mostrar las 2 fuentes (user + project), mostrar carpeta de auto memory. Plan B: solo `/memory`.
+**Slide budget objetivo:** 10 slides.
 
-## Section 8: Rules y auto memory
-**Source material:** `source_material/08-rules-y-auto-memory.md`
-**Through-line:** ¿Loop o contexto? **Contexto.** Dos mecanismos que CLAUDE.md no tiene: condicional (path-scoped rules: cuesta cero contexto hasta que tocás un archivo que matchea el glob) y autocurado (auto memory: el agente escribe sus propios aprendizajes entre sesiones). Juntos cierran el adelanto de la tricotomía del §4.
-**Hook:** Tracker en CONTEXTO + reabre la pregunta con la que cerró §7: ¿y si una instrucción pudiera estar en el contexto solo cuando hace falta, y no ocupar espacio el resto del tiempo?
+## Section 8: Rules (`.claude/rules/`)
+**Source material:** `source_material/08-rules.md`
+**Through-line:** Archivos `.md` modulares de instrucciones. Sin frontmatter = siempre cargados (ventaja organizativa sobre CLAUDE.md monolítico). Con frontmatter `paths:` + globs = path-scoped, cero contexto hasta tocar archivo que matchee.
 **What students walk away knowing:**
-- `.claude/rules/` sin frontmatter = igual que CLAUDE.md (siempre cargado, mismo costo, ventaja solo organizativa) y **no** es `.cursorrules` (mecanismo distinto, no compatible). Con frontmatter `paths:` = condicional: entra solo cuando Claude toca un archivo que matchea el glob; cero contexto hasta entonces.
-- Auto memory: la diferencia con CLAUDE.md no es dónde vive el archivo, es *quién lo escribe* (vos vs. Claude). Vive en `~/.claude/projects/<project>/memory/`, local a tu máquina, primeras 200 líneas / 25 KB de `MEMORY.md` al inicio; `/memory` para auditar.
-- La tricotomía operacional: lo que siempre aplica → CLAUDE.md; lo que aplica a un área → path-scoped rule; lo que el agente descubre solo → auto memory. Mecanismo equivocado = pagás contexto de más o la instrucción no está cuando hace falta.
-**Animations / interactive:** Reusa el tracker (CONTEXTO / condicional + autocurado). `code-walkthrough` para el frontmatter `paths:`. **Visual de la tricotomía construida** (cierra 2 de los 3 rótulos plantados en §4) — reusa `clickable-steps` o `data-table` que se llena progresivamente.
-**Mini-demos (estructurado, dos en esta sección):** D8 "La rule condicional" (3 beats: regla existe sin cargar → tocar archivo que no matchea → tocar archivo que matchea); D9 "Auto memory" (3 beats: la corrección que Claude recuerda → nueva sesión, misma corrección aplicada → abrir la carpeta de memoria). Plan B de cada uno: demostrar por comportamiento / sesión previa.
-**Slide budget:** 13–16
+- Estructura de `.claude/rules/` con un archivo por tema (`code-style.md`, `testing.md`, `security.md`, `api.md`).
+- Frontmatter `paths:` activa la rule solo al leer un archivo en el glob.
+- NO es `.cursorrules` (mecanismo distinto, no compatible).
+**Plantilla obligatoria:** misma de 6 sub-secciones.
+**Animations / interactive:** Tarjeta de plantilla. `code-walkthrough` de `api.md` con frontmatter. Tabla con los 4 archivos del demo-repo y su comportamiento.
+**Mini-demo:** el árbol `.claude/rules/`, `/memory` antes/durante/después de tocar `backend/routers/users.py`. Plan B: por comportamiento (la rule prescribe regenerar `openapi.yaml`).
+**Slide budget objetivo:** 9 slides.
 
-## Section 9: Skills y slash commands
-**Source material:** `source_material/09-skills-y-slash-commands.md`
-**Through-line:** ¿Loop o contexto? **Contexto.** Las skills llevan lo condicional un paso más lejos que las path-scoped rules: no instrucciones que aparecen por archivo, sino un *procedimiento completo* que se activa por invocación o relevancia de tarea. No cargada al arranque = cero tokens hasta que se usa. Slash command ≠ skill. La tabla de los 3 mecanismos completa la tricotomía.
-**Hook:** Tracker en CONTEXTO + hilo de §8: ¿puede el contexto condicional ir más lejos? Una path-scoped rule entra por archivo; un procedimiento completo no matchea ningún path.
+## Section 9: `settings.json` (config del runtime)
+**Source material:** `source_material/09-settings-json.md`
+**Through-line:** Archivo JSON que configura el runtime de Claude Code. NO son instrucciones para el agente (eso es CLAUDE.md/rules); son parámetros del programa que envuelve al LLM. 4 niveles: user / project / local (gitignored) / managed.
 **What students walk away knowing:**
-- Una skill = un procedimiento repetible completo (fases, verificaciones, anti-patterns), no una instrucción suelta; no cargada al arranque, cero tokens hasta invocación/relevancia. Ejemplo concreto y meta: `tools/skills/slide-generation/` es la skill que generó esta misma clase.
-- Skill ≠ slash command: la skill es la capacidad/procedimiento; el slash command es el disparador/atajo. `/build-class` es una línea que solo invoca la skill — si cambia el pipeline, actualizás la skill, no el comando. Algunos slash commands (`/memory`, `/context`) no invocan ninguna skill.
-- La tabla que ordena todo: CLAUDE.md (arranque, siempre) | path-scoped rule (al tocar archivo que matchea) | skill (por invocación/relevancia de tarea) = la tricotomía del §8 completa, con un trigger distinto (archivo vs. procedimiento).
-**Animations / interactive:** Reusa el tracker (CONTEXTO / condicional por invocación). **Completa el visual de la tricotomía** del §8 con la tercera fila (mismo visual, ahora cerrado — payoff del adelanto del §4).
-**Mini-demo D6 (estructurado):** "La skill on-demand" (3 beats: skill instalada que la sesión no conoce → invocarla → mapa completo de los 3 mecanismos). Momento meta: el demo puede referenciar este mismo deck siendo generado por slide-generation. Plan B: demostrar por comportamiento con una skill del repo.
-**Slide budget:** 9–11
+- Campos clave: `model`, `env`, `permissions`, `hooks`, `includeCoAuthoredBy`, `cleanupPeriodDays`, `permissionMode`.
+- Precedencia entre niveles. `.local.json` siempre al `.gitignore`.
+- No confundir con `mcp.json`. `permissions` es el campo más impactante (§10).
+**Plantilla obligatoria:** misma de 6 sub-secciones.
+**Animations / interactive:** Tarjeta de plantilla. Walkthrough del `.claude/settings.json` del demo-repo campo por campo.
+**Mini-demo:** abrir los 3 archivos de settings simultáneamente, cambiar `model`, mostrar el `.gitignore` con `.claude/settings.local.json`.
+**Slide budget objetivo:** 9 slides.
 
-## Section 10: Sub-agents — aislar un loop entero
-**Source material:** `source_material/10-sub-agents.md`
-**Through-line:** ¿Loop o contexto? **Contexto.** Los sub-agents aíslan un *loop entero*: el mismo LLM + loop + tools + entorno instanciado aparte, con su propia ventana que nace y muere con la tarea; al padre solo le vuelve el resultado, no lo que leyó en el camino. Protege contra el modo de falla "envenenar el contexto" del §5. Paralelización = beneficio secundario.
-**Hook:** Le pedís a Claude Code que encuentre dónde se maneja la autenticación en un repo mediano. Cuarenta archivos, fácil. ¿Qué pasaría si todo lo que leyó para responder eso viviera en *otra* ventana, y al terminar te diera solo el resultado?
+## Section 10: Permisos (control de tools)
+**Source material:** `source_material/10-permisos.md`
+**Through-line:** Sistema que decide qué tools puede ejecutar Claude sin pedir confirmación. Vive dentro de `permissions` en `settings.json`. Tres listas: `allow` / `deny` / `ask`. **`deny` tiene precedencia sobre `allow`.**
 **What students walk away knowing:**
-- Un sub-agent es el mismo LLM + loop + tools + entorno instanciado aparte con ventana propia; al padre vuelve solo el resultado, no el contexto. No es "otra IA": es la misma lógica de siempre, aislada para una tarea acotada.
-- Protege el contexto contra el "envenenar el contexto" del §5: la sub-tarea puede leer 50 archivos y razonar mil tokens, todo vive en su ventana y desaparece al terminar. Paralelización es beneficio secundario, no el motivo principal.
-- El costo: el padre ve el resumen, no el razonamiento → la delegación no te exime de supervisar (callback §5: no le creés a ciegas, leés la evidencia, evaluás si el resultado es coherente).
-**Animations / interactive:** Reusa el tracker (CONTEXTO / aísla el contexto de un loop entero). Reusa la animación del loop mostrando una instancia separada (sub-loop en su propia ventana que devuelve solo el resultado). Visual `/context` antes/después para el demo.
-**Mini-demo (estructurado):** "El sub-agent aísla" (3 beats: búsqueda inline + `/context` → misma búsqueda delegada + `/context` → cierre mismo resultado, fracción del costo). Plan B: dos transcripts preparados.
-**Slide budget:** 8–10
+- Sintaxis `Tool(pattern)` con ejemplos (`Bash(uv run pytest)`, `Edit(./backend/**)`, `Read(./.env)` en deny).
+- Lógica de evaluación: deny → bloquea; allow + no deny → ejecuta; ask + no allow → pregunta.
+- Permission modes como overlay (`default`, `acceptEdits`, `plan`, `bypassPermissions`) — se introducen acá, `plan` se desarrolla en §13.
+**Plantilla obligatoria:** misma de 6 sub-secciones.
+**Animations / interactive:** Tarjeta de plantilla. Tres code blocks separados (allow / deny / ask) con ejemplos del demo-repo. Tabla de los 4 permission modes.
+**Mini-demo:** prompt de permiso aparece, `/permissions` lo agrega al `allow`, repetir y pasa sin prompt. Cerrar con `deny` que bloquea `Read(./.env)`.
+**Slide budget objetivo:** 11 slides.
 
-## Section 11: Plan mode y control del loop
-**Source material:** `source_material/11-plan-mode-y-control.md`
-**Through-line:** Cambio de eje. Todo lo de §7–§10 actuaba sobre el *contexto*; plan mode y permisos actúan sobre el *loop*. No es "¿qué entra al agente?" sino "¿cuánto le dejás hacer antes de mirar?". Plan mode separa "pensar" de "actuar" (la defensa más barata contra la deriva del §5). Los permisos son un gate por herramienta (callback §3). El nivel de autonomía es un dial que ajustás según reversibilidad. Cierre de la parte 2.
-**Hook:** El tracker, por primera vez en toda la parte 2, **flipea a LOOP**. Hasta acá todo aterrizó en contexto; este flip visible es el hook: "Hoy la pregunta cambia."
-**Key analogy:** El nivel de autonomía como un *dial* que el supervisor ajusta según cuánto cuesta deshacer si el agente se equivoca.
+## Section 11: Skills y slash commands
+**Source material:** `source_material/11-skills-y-slash-commands.md`
+**Through-line:** Skill = procedimiento completo (fases, verificaciones, anti-patterns). Slash command = atajo. Distinción central. Las skills NO están en el contexto al arranque — solo nombre + descripción.
 **What students walk away knowing:**
-- Plan mode actúa sobre el LOOP: un alto deliberado entre "pensar" y "actuar" donde el supervisor entra *antes* de la primera acción; es la defensa más barata contra la deriva de objetivo del §5 (corregís antes de que el loop acumule consecuencias).
-- Los permisos = gate por herramienta antes de cada acción que actúa sobre el mundo; el criterio es la distinción leer/escribir del §3 (reversible vs. no). El dial de autonomía se ajusta según reversibilidad (callback semana 3: el backend persiste).
-- Hooks y MCP nombrados al pasar (se ven en otra clase). Cierre de la parte 2: no son 15 features sueltas, son **dos cosas** (loop + contexto) y formas de entrar al proceso — la tabla maestra que clasifica §7–§11.
-**Animations / interactive:** Tracker con **flip a LOOP** (primer flip de la parte 2, momento visual deliberado). Reusa la animación del loop mostrando la pausa entre pensar/actuar (plan mode) y el gate antes de actuar (permisos). `data-table` para la tabla maestra "Herramienta → Actúa sobre" (el payoff "dos cosas, no quince" hecho literal).
-**Mini-demo D7 (estructurado):** "Plan mode como freno" (3 beats: sin plan mode el agente actúa → con plan mode propone primero → corrección antes de aprobar). Plan B: tarea con más superficie, reversible con `git checkout .`.
-**Slide budget:** 11–14
+- Estructura del SKILL.md (frontmatter + fases + anti-patterns). Ejemplo: `.claude/skills/add-endpoint/` del demo-repo.
+- Slash command como disparador. Ejemplo: `.claude/commands/add-endpoint.md` invoca la skill.
+- Algunos slash commands NO invocan skills (`/memory`, `/context`, `/permissions`).
+**Plantilla obligatoria:** misma de 6 sub-secciones.
+**Animations / interactive:** Tarjeta de plantilla. Tabla "skill vs slash command". `code-walkthrough` del SKILL.md y del slash command.
+**Mini-demo:** sesión nueva, `/context` sin la skill activa, invocar `/add-endpoint`, Claude sigue las 6 fases del SKILL.md. Contrastar con misma tarea sin la skill.
+**Slide budget objetivo:** 11 slides.
 
-## Section 12: El trabajo final
-**Source material:** `source_material/12-trabajo-final.md`
-**Through-line:** El cierre del arco completo del curso: modelo (S1) + rol (S2–3) + runtime (S4) se usan al mismo tiempo en un proyecto real. El trabajo final no examina sintaxis: examina si sabés *dirigir*. Apropiación = poder explicar, corregir y extender, no cuántas líneas tecleaste. Lo administrativo no se decide hoy; hoy es el por qué y la forma.
-**Hook:** Hace cuatro semanas no sabías qué era un token. Hoy terminaste de armar tres cosas que, juntas, cambian cómo podés construir software.
+## Section 12: Sub-agents
+**Source material:** `source_material/12-sub-agents.md`
+**Through-line:** Instancia separada del loop con su propia ventana de contexto. Mismo LLM + loop + tools + entorno instanciado aparte. Al padre solo vuelve el resultado.
+**What students walk away knowing:**
+- Sub-agent NO es "otra IA" — es la misma lógica, aislada.
+- Definición con frontmatter (`name`, `description`, `tools` restringidos). Ejemplo: `.claude/agents/researcher.md`.
+- El padre ve solo el resultado, no el razonamiento → la delegación no exime de supervisar.
+- Paralelización es beneficio secundario; el motivo principal es proteger el contexto.
+**Plantilla obligatoria:** misma de 6 sub-secciones.
+**Animations / interactive:** Tarjeta de plantilla. Diagrama del padre + sub-loop con su ventana propia.
+**Mini-demo:** misma pregunta de auth resuelta inline vs delegada al sub-agent `researcher`; `/context` antes/después en cada caso. Mostrar `researcher.md` con `tools:` restringido.
+**Slide budget objetivo:** 9 slides.
+
+## Section 13: Plan mode (+ permission modes)
+**Source material:** `source_material/13-plan-mode.md`
+**Through-line:** Modo de operación que separa "pensar" de "actuar". Claude lee y propone; las escrituras esperan aprobación. Uno de los 4 permission modes (`default` / `acceptEdits` / `plan` / `bypassPermissions`).
+**What students walk away knowing:**
+- Activación de plan mode (flag al arranque, campo en settings.json, `Shift+Tab` durante sesión).
+- Flujo: tarea → plan → revisión → `ExitPlanMode` → ejecución.
+- Criterios para elegir cada modo según reversibilidad. Plan mode = defensa más barata contra la deriva.
+- Plan mode NO es sandbox. El gate de permisos (§10) y el modo son ortogonales.
+**Plantilla obligatoria:** misma de 6 sub-secciones.
+**Animations / interactive:** Tarjeta de plantilla. Tabla de los 4 permission modes con criterios. Diagrama del loop con la pausa entre pensar/actuar.
+**Mini-demo:** refactor multi-archivo. Sin plan mode: edita de inmediato (cancelar). Con plan mode: propone, corregir, aprobar, ejecuta.
+**Slide budget objetivo:** 11 slides.
+
+## Section 14: El trabajo final
+**Source material:** `source_material/14-trabajo-final.md`
+**Through-line:** El cierre del arco completo del curso: modelo (S1) + rol (S2–3) + runtime (S4) se usan al mismo tiempo en un proyecto real. El trabajo final no examina sintaxis: examina si sabés *dirigir*. Apropiación = poder explicar, corregir y extender.
 **What students walk away knowing:**
 - Las tres piezas del curso y por qué cada una es necesaria: el modelo (sin él el agente es caja negra), el rol/vocabulario (sin él aceptás lo primero que el modelo tira), el runtime (sin él el proyecto largo da vueltas). El trabajo final las usa a la vez.
-- La forma del proyecto (frontend + backend + persistencia; el dominio se define aparte) activa exactamente las decisiones aprendidas: vocabulario de S2/S3 para dictar, herramientas de hoy (CLAUDE.md persiste arquitectura, sub-agents aíslan, plan mode muestra antes de tocar) cuando el proyecto crece.
-- Apropiación: el producto es tuyo aunque el agente escriba la mayoría del código; se mide en explicar/corregir/extender. Lo administrativo (equipos, fechas, dominio exacto, rúbrica) se comunica aparte — hoy es el por qué y la forma.
-**Animations / interactive:** None new. Reusa `pipeline-roadmap` para el arco del curso (modelo → rol → runtime convergiendo en el trabajo final). Posible última aparición del tracker loop/contexto junto al arco, como síntesis.
-**Slide budget:** 6–8
+- La forma del proyecto (frontend + backend + persistencia; el dominio se define aparte) activa exactamente las decisiones aprendidas.
+- Apropiación: el producto es tuyo aunque el agente escriba la mayoría del código.
+**Animations / interactive:** Reusa `pipeline-roadmap` para el arco del curso. (Nota: la última aparición del tracker neutral ya no aplica — el tracker se descartó en §7–§13.)
+**Slide budget actual:** se mantiene.
