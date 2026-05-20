@@ -3013,116 +3013,76 @@
   </aside>
 </section>
 
-<!-- §6.3 · La pantalla mapeada al loop — animación cc -->
+<!-- §6.3 · Qué es Claude Code -->
 <section>
-  <h2>La pantalla, fase por fase</h2>
+  <h2>Qué es Claude Code</h2>
 
-  <div class="s6-loop-wrap">
-    <div class="s6-cc-loop-host">
-      <div id="s6-cc-loop"></div>
-    </div>
-    <div class="s6-map-list">
-      <div class="s6-map-row">
-        <span class="s6-map-phase">Pensar</span>
-        <span class="s6-map-value">Texto razonando</span>
-        <span class="s6-map-detail">El modelo formula la próxima acción a partir del contexto acumulado. No es una respuesta para vos.</span>
-      </div>
-      <div class="s6-map-row">
-        <span class="s6-map-phase">Actuar</span>
-        <span class="s6-map-value">Edit · Bash · Read · Write</span>
-        <span class="s6-map-detail">Una tool call con nombre, argumentos y archivo o comando. Algo en el entorno cambia.</span>
-      </div>
-      <div class="s6-map-row">
-        <span class="s6-map-phase">Observar</span>
-        <span class="s6-map-value">Resultado</span>
-        <span class="s6-map-detail">La salida del comando, el contenido leído, el error del proceso. Entra al contexto y alimenta la próxima vuelta.</span>
-      </div>
-    </div>
-  </div>
-
-  <p class="s6-map-note">No es un log de actividad: es el loop corriendo, vuelta por vuelta.</p>
+  <ul style="display:inline-block;text-align:left;max-width:760px;margin:18px auto 0;padding-left:34px;font-size:0.64em;line-height:1.65;color:var(--text-muted);list-style:disc;">
+    <li>Una <strong style="color:var(--text-primary);">CLI</strong>: la instalás una vez, la ejecutás como cualquier comando — <code style="font-family:var(--font-mono);color:var(--accent);">claude</code> en la terminal.</li>
+    <li>Abre una <strong style="color:var(--text-primary);">sesión interactiva</strong> con el modelo. Vos escribís, el modelo trabaja, te respondés en el mismo prompt.</li>
+    <li>Adentro de esa sesión corre el <strong style="color:var(--text-primary);">loop de §2</strong> — pensar, actuar, observar, repetir — con tu repo como entorno real (no simulación).</li>
+    <li>Las <strong style="color:var(--text-primary);">tools</strong> que el modelo puede ejecutar son las del agente: <code style="font-family:var(--font-mono);color:var(--accent);">Read</code>, <code style="font-family:var(--font-mono);color:var(--accent);">Edit</code>, <code style="font-family:var(--font-mono);color:var(--accent);">Write</code>, <code style="font-family:var(--font-mono);color:var(--accent);">Bash</code>, <code style="font-family:var(--font-mono);color:var(--accent);">Grep</code>, <code style="font-family:var(--font-mono);color:var(--accent);">Glob</code>, <code style="font-family:var(--font-mono);color:var(--accent);">WebFetch</code>, entre otras.</li>
+  </ul>
 
   <aside class="notes">
-    <p><strong>Señalar la animación a la izquierda — dejar que cicle una vuelta antes de pasar a las columnas de la derecha. Recorrer las tres filas de arriba hacia abajo.</strong></p>
-    <p><u>Slide de mapeo. La animación mode 'cc' muestra los tres nodos con sublabels de herramientas reales. Las filas de la derecha son el mapping literal pantalla → loop. No hay lista — son cards estructurados.</u></p>
-    <p><em>"Cuando abrís Claude Code y le das una tarea, lo primero que aparece es texto del modelo razonando. No es una respuesta para vos: es el modelo formulando la próxima acción en función de lo que tiene en contexto. Eso es pensar."</em></p>
-    <p><em>"Después aparece una tool call. Edit, Bash, Read, Write — el nombre de la herramienta, los argumentos, el archivo o el comando. Algo en el entorno cambia. Eso es actuar."</em></p>
-    <p><em>"Después aparece el resultado: la salida del comando, el contenido del archivo, el error. Esa información nueva entra al contexto y alimenta la próxima vuelta. Eso es observar."</em></p>
-    <p><em>"La pantalla no es un log de actividad. Es el loop corriendo, vuelta por vuelta. Pensar, actuar, observar, repetir."</em></p>
+    <p><strong>Recorrer los cuatro bullets terse. Marcar fuerte "entorno real, no simulación".</strong></p>
+    <p><u>Slide de definición directa. Qué es Claude Code en operación, sin metáforas. CLI + sesión interactiva + loop corriendo + tools concretas. Setup para los siguientes dos slides (sesión, y qué pasa al ejecutar claude).</u></p>
+    <p><em>"Claude Code es una CLI. La instalás una vez y la corrés desde la terminal escribiendo claude. Cuando la ejecutás, abre una sesión interactiva con el modelo: vos escribís, el modelo trabaja, te responde, y seguís en la misma sesión."</em></p>
+    <p><em>"Adentro de esa sesión, lo que corre es exactamente el loop que vimos en la parte 1. Pensar, actuar, observar, repetir. Con tu repo como entorno — entorno real, no simulación: cuando ejecuta tests, los tests corren de verdad; cuando edita un archivo, el archivo cambia."</em></p>
+    <p><em>"Las herramientas que tiene disponibles son las del agente: Read, Edit, Write, Bash para ejecutar comandos, Grep y Glob para buscar, WebFetch para traer documentación. Cada vez que el modelo decide actuar, elige una de esas. Las vamos a ver una y otra vez en todo lo que sigue."</em></p>
   </aside>
 </section>
 
-<!-- §6.4 · Las 4 piezas con herramienta concreta -->
+<!-- §6.4 · Qué pasa cuando ejecutás `claude` -->
 <section>
-  <h2>Las 4 piezas, con nombre propio</h2>
+  <h2>Qué pasa cuando ejecutás <code style="font-family:var(--font-mono);color:var(--accent);font-size:0.95em;">claude</code></h2>
 
-  <div class="s6-pieces-grid">
-    <div class="s6-piece-card">
-      <span class="s6-piece-label">Pieza 1 — LLM</span>
-      <div class="s6-piece-name">Claude</div>
-      <p class="s6-piece-desc">Decide qué hacer en cada vuelta a partir del contexto acumulado: tarea original, historial, última observación.</p>
-    </div>
-    <div class="s6-piece-card">
-      <span class="s6-piece-label">Pieza 2 — Loop</span>
-      <div class="s6-piece-name">El motor que no para</div>
-      <p class="s6-piece-desc">Claude Code no se detiene después de la primera respuesta. Sigue hasta que el objetivo se cumple o una condición de corte lo detiene.</p>
-    </div>
-    <div class="s6-piece-card">
-      <span class="s6-piece-label">Pieza 3 — Tools</span>
-      <div class="s6-piece-name">Edit · Bash · Read · Write</div>
-      <p class="s6-piece-desc">Las manos del agente. Sin ellas el LLM razonaría sobre qué hacer en tu repo pero no podría tocar nada.</p>
-    </div>
-    <div class="s6-piece-card">
-      <span class="s6-piece-label">Pieza 4 — Entorno</span>
-      <div class="s6-piece-name">Tu repo real</div>
-      <p class="s6-piece-desc">Cuando corre <code style="font-family:var(--font-mono);font-size:0.9em;color:var(--accent);">npm test</code>, los tests corren de verdad. No es una simulación.</p>
-    </div>
-  </div>
+  <ul style="display:inline-block;text-align:left;max-width:780px;margin:18px auto 0;padding-left:34px;font-size:0.62em;line-height:1.7;color:var(--text-muted);list-style:decimal;">
+    <li>Camina hacia arriba desde el CWD recolectando los <code style="font-family:var(--font-mono);color:var(--accent);">CLAUDE.md</code> que encuentra — managed, user, project, local.</li>
+    <li>Lee <code style="font-family:var(--font-mono);color:var(--accent);">.claude/settings.json</code> (mergeado entre niveles): modelo, permisos, hooks, environment.</li>
+    <li>Carga las <code style="font-family:var(--font-mono);color:var(--accent);">.claude/rules/</code> sin frontmatter (las que tienen <code style="font-family:var(--font-mono);color:var(--accent);">paths:</code> entran on-demand cuando matchean).</li>
+    <li>Carga el <strong style="color:var(--text-primary);">índice</strong> de skills y sub-agents disponibles (name + description), no el cuerpo.</li>
+    <li>Carga las primeras 200 líneas o 25 KB de <code style="font-family:var(--font-mono);color:var(--accent);">MEMORY.md</code> (auto memory).</li>
+    <li>Abre una <strong style="color:var(--text-primary);">ventana de contexto fresca</strong> con todo eso ya adentro, y queda esperando tu primer mensaje.</li>
+  </ul>
 
-  <p class="s6-piece-sub">El mismo diagrama de antes, con una herramienta concreta detrás de cada pieza.</p>
+  <p style="font-size:0.62em;color:var(--accent);text-align:center;margin:16px auto 0;font-style:italic;max-width:680px;">
+    Todo esto está cargado <em>antes</em> de que escribas la primera tecla.
+  </p>
 
   <aside class="notes">
-    <p><strong>Recorrer las cuatro piezas por nombre. Pausa en "Entorno" — enfatizar "de verdad". Leer la línea de cierre despacio.</strong></p>
-    <p><u>Slide de mapeo de 4 piezas. Grid 2×2. La parte 1 definió LLM + loop + tools + entorno; este slide ancla las cuatro piezas a sus equivalentes concretos en Claude Code. La línea final reitera la costura.</u></p>
-    <p><em>"Vimos antes que un agente son cuatro piezas. Las cuatro aparecen en Claude Code."</em></p>
-    <p><em>"El LLM es Claude. Decide qué hacer en cada vuelta a partir de todo lo que tiene en contexto: la tarea original, el historial de la sesión, la última observación."</em></p>
-    <p><em>"El loop es el motor. Claude Code no para después de la primera respuesta. Sigue. Eso es lo que lo convierte en algo que termina tareas en lugar de describirlas."</em></p>
-    <p><em>"Las tools son las manos: Edit, Bash, Read, Write. Sin ellas el LLM razonaría brillantemente sobre qué habría que hacer, pero no podría tocar nada."</em></p>
-    <p><em>"El entorno es tu repo real, tu terminal, tu filesystem. No una simulación. Cuando Claude Code ejecuta npm test, los tests corren de verdad. Lo que el agente observa y modifica es tuyo."</em></p>
-    <p><em>"El mismo diagrama de antes. Con una herramienta concreta detrás de cada pieza."</em></p>
+    <p><strong>Recorrer los seis pasos en orden. Pausa al final — la frase italic es la idea operativa.</strong></p>
+    <p><u>Slide concreto: qué hace el runtime al arrancar. Los seis pasos son el orden literal de lectura. Cada uno conecta con una sección que viene en la Parte 2 — por eso vale la pena nombrarlos ahora aunque no entren al detalle todavía.</u></p>
+    <p><em>"Cuando escribís claude y dale enter, el runtime hace seis cosas antes de pedirte el primer mensaje."</em></p>
+    <p><em>"Uno: camina hacia arriba desde el directorio donde estás recolectando los CLAUDE.md que encuentra. Managed del sistema, user de tu home, project del repo, local si existe. Todos entran al contexto."</em></p>
+    <p><em>"Dos: lee el .claude/settings.json — mergeado entre niveles. De ahí saca qué modelo usar, qué permisos están configurados, qué hooks correr, qué environment variables inyectar."</em></p>
+    <p><em>"Tres: carga las rules de .claude/rules/. Las que no tienen frontmatter entran al arranque, igual que CLAUDE.md. Las que tienen paths declarados esperan: entran cuando el agente toca un archivo que matchee el glob."</em></p>
+    <p><em>"Cuatro: carga el índice de skills y sub-agents disponibles. Ojo: solo el name y description, no el cuerpo de cada uno. El cuerpo entra cuando se invoca."</em></p>
+    <p><em>"Cinco: carga las primeras doscientas líneas o veinticinco kilobytes del MEMORY.md — la auto memory que Claude se escribe solo entre sesiones."</em></p>
+    <p><em>"Y seis: con todo eso en la ventana, queda esperando tu primer mensaje. Lo que importa retener: todo lo que enumeré ya está cargado antes de que vos escribas una letra. La sesión arranca con una ventana de contexto que ya tiene contenido."</em></p>
   </aside>
 </section>
 
-<!-- §6.5 · La pregunta-lente — intro al lens-tracker (context vs harness) -->
+<!-- §6.5 · Qué es una sesión -->
 <section>
-  <h2>La pregunta que lleva toda la parte 2</h2>
+  <h2>Qué es una sesión</h2>
 
-  <div class="s6-lens-wrap">
-    <p class="s6-lens-question">
-      ¿Esto actúa sobre <em>qué ve el agente</em> dentro de una sesión,<br>
-      o sobre <em>el entorno</em> donde el agente opera?
-    </p>
-
-    <div class="lens-tracker">
-      <div class="pole pole-context">CONTEXT</div>
-      <div class="lens-sep">↔</div>
-      <div class="pole pole-harness">HARNESS</div>
-    </div>
-
-    <p class="s6-lens-explain">
-      Este visual abre cada sección de la parte 2. En cada una aterriza en un polo — <strong>context</strong> (§7–§10) o <strong>harness</strong> (§11).
-      Por ahora ninguno está activo: la pregunta todavía está abierta.
-      Llevala a cada sección y las conexiones se hacen solas.
-    </p>
-  </div>
+  <ul style="display:inline-block;text-align:left;max-width:760px;margin:18px auto 0;padding-left:34px;font-size:0.64em;line-height:1.7;color:var(--text-muted);list-style:disc;">
+    <li>Una <strong style="color:var(--text-primary);">conversación con su propia ventana de contexto</strong>. Todo lo que se acumula durante la sesión (tu input, las respuestas del modelo, los resultados de tools) vive ahí.</li>
+    <li>Mientras la terminal esté abierta, la sesión <strong style="color:var(--text-primary);">mantiene el historial</strong>. Vos seguís haciendo tareas y el modelo recuerda lo anterior.</li>
+    <li>Al <strong style="color:var(--text-primary);">cerrar</strong> la sesión (Ctrl+C o cerrar terminal), la ventana <strong style="color:var(--text-primary);">desaparece</strong>. La próxima vez que ejecutes <code style="font-family:var(--font-mono);color:var(--accent);">claude</code>, arrancás con una ventana nueva.</li>
+    <li>Lo único que <strong style="color:var(--text-primary);">sobrevive entre sesiones</strong> es la auto memory (<code style="font-family:var(--font-mono);color:var(--accent);">MEMORY.md</code>) — lo que Claude consideró que valía la pena guardar.</li>
+    <li>Podés correr <strong style="color:var(--text-primary);">múltiples sesiones en paralelo</strong> (varias terminales). Cada una con su ventana propia, independientes entre sí.</li>
+  </ul>
 
   <aside class="notes">
-    <p><strong>Leer la pregunta central en voz alta. Pausa. Señalar el tracker — "ninguno iluminado todavía". Leer la explicación al pie.</strong></p>
-    <p><u>Slide de introducción al tracker. El .lens-tracker está en estado neutral (sin .on-context ni .on-harness — ambos polos dimmed). Es el primer momento que aparece; cada sección siguiente lo reusa con un polo iluminado. Conecta directo con las tres ingenierías de §3.3: prompt ya lo conocían, hoy abrimos context y harness — esos dos son los polos del tracker.</u></p>
-    <p><em>"El resto de la clase recorre las decisiones de diseño de Claude Code una por una. Y todas responden la misma pregunta."</em></p>
-    <p><em>"¿Esto actúa sobre qué ve el agente dentro de una sesión — eso es context engineering —, o sobre el entorno donde el agente opera — eso es harness engineering? Las dos ingenierías que abrimos en la parte 1 son los dos polos del tracker."</em></p>
-    <p><em>"Este visual va a abrir cada sección de la parte 2. En cada una va a aterrizar en un polo. Por ahora no aterriza en ninguno: la pregunta está abierta."</em></p>
-    <p><em>"Llevá esa pregunta a cada sección. No como un ejercicio — como el organizador real. Si sabés dónde aterriza cada feature, el mapa de Claude Code se arma solo."</em></p>
+    <p><strong>Recorrer los cinco bullets. Marcar fuerte "la ventana desaparece" en el bullet 3 — es la confusión más frecuente.</strong></p>
+    <p><u>Slide de definición de sesión. Cinco propiedades operativas. La que más confunde es la mortalidad de la ventana: la gente cree que Claude "recuerda" entre sesiones y arma estrategias asumiendo eso. La auto memory es la única excepción, y es acotada.</u></p>
+    <p><em>"Una sesión es una conversación con su propia ventana de contexto. Todo lo que pasa dentro de la sesión — tu input, las respuestas del modelo, los outputs de los comandos que ejecutó — vive en esa ventana."</em></p>
+    <p><em>"Mientras la terminal esté abierta, la sesión mantiene el historial. Podés trabajar en cosas que se conectan: pedirle algo, ver el resultado, pedirle algo más basado en lo anterior. El modelo se acuerda porque todo está en la ventana."</em></p>
+    <p><em>"Cuando cerrás la sesión — Ctrl+C, cerrar terminal, lo que sea — esa ventana desaparece. La próxima vez que abrís claude, arrancás con una ventana nueva. El modelo no se acuerda de la sesión anterior."</em></p>
+    <p><em>"Lo único que sobrevive entre sesiones es la auto memory, el MEMORY.md que vimos al principio. Pero eso lo escribe el propio Claude cuando decide que algo vale la pena recordar — no es el historial entero."</em></p>
+    <p><em>"Y un detalle práctico: podés correr varias sesiones en paralelo, en distintas terminales. Cada una tiene su propia ventana, independientes. Para tareas paralelas o experimentos en ramas distintas, abrís otra terminal y listo."</em></p>
   </aside>
 </section>
 
