@@ -8367,7 +8367,832 @@ Si el usuario no especificó verbo, path o body, preguntale antes de empezar.</p
       <!-- /§12 -->
 
       <!-- ===== §13 — Plan mode + permission modes ===== -->
-      <!-- INJECT_SECTION_13 -->
+      <style>
+/* Scoped styles for §13 only */
+
+/* Heading override scoped to §13 slides */
+.reveal .slides .s13-slide { text-align: center; }
+.reveal .slides .s13-slide h2 {
+  font-size: 0.82em;
+  line-height: 1.2;
+  margin: 0 0 6px;
+  text-align: center;
+  text-transform: none;
+  letter-spacing: 0;
+}
+
+/* --- Five-questions card (full + mini) — calibrated identically to §12 --- */
+.reveal .slides .s13-slide h2.s13-five-q-title {
+  font-size: 1.05em;
+  text-align: center;
+  margin: 0 0 16px;
+  line-height: 1.2;
+}
+.s13-five-q-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 7px;
+  list-style: none;
+  padding: 0;
+  margin: 0 auto;
+  max-width: 900px;
+}
+.s13-five-q-card {
+  background: var(--bg-secondary);
+  border: 1px solid #2a3a5a;
+  border-radius: 6px;
+  padding: 9px 10px 9px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 3px;
+  opacity: 0.45;
+  transition: opacity 0.3s ease, transform 0.3s ease, border-color 0.3s ease;
+}
+.s13-five-q-card.is-active {
+  opacity: 1;
+  border-color: var(--accent);
+  border-left: 3px solid var(--accent);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 14px rgba(100, 255, 218, 0.08);
+}
+.s13-five-q-num {
+  font-family: var(--font-mono);
+  font-size: 0.5em;
+  letter-spacing: 0.08em;
+  color: var(--text-muted);
+}
+.s13-five-q-card.is-active .s13-five-q-num {
+  color: var(--accent);
+}
+.s13-five-q-label {
+  font-size: 0.56em;
+  font-weight: 700;
+  color: var(--text-primary);
+  line-height: 1.3;
+}
+.s13-five-q-hint {
+  font-size: 0.44em;
+  color: var(--text-muted);
+  line-height: 1.4;
+}
+/* Mini variant */
+.s13-five-q-grid.is-mini {
+  grid-template-columns: repeat(5, auto);
+  justify-content: center;
+  gap: 4px;
+  max-width: 100%;
+  margin: 0 auto 8px;
+}
+.s13-five-q-grid.is-mini .s13-five-q-card {
+  padding: 3px 9px;
+  border-radius: 999px;
+  border-left-width: 1px;
+  flex-direction: row;
+  align-items: center;
+  gap: 5px;
+}
+.s13-five-q-grid.is-mini .s13-five-q-card.is-active {
+  border-left: 1px solid var(--accent);
+}
+.s13-five-q-grid.is-mini .s13-five-q-num {
+  font-size: 0.42em;
+}
+.s13-five-q-grid.is-mini .s13-five-q-label {
+  font-size: 0.5em;
+}
+
+/* Qué es — bullets + callout */
+.s13-qe-list {
+  list-style: disc;
+  display: inline-block;
+  text-align: left;
+  max-width: 720px;
+  margin: 16px auto 0;
+  padding-left: 36px;
+  font-size: 0.6em;
+  line-height: 1.6;
+  color: var(--text-muted);
+}
+.s13-qe-list li {
+  padding-left: 6px;
+  margin-bottom: 10px;
+}
+.s13-qe-list li::marker { color: var(--accent); }
+.s13-qe-list strong { color: var(--text-primary); font-weight: 700; }
+.s13-qe-list code {
+  font-family: var(--font-mono);
+  color: var(--accent);
+  font-size: 0.95em;
+}
+.s13-qe-list li.s13-qe-callout {
+  list-style: none;
+  margin-left: -32px;
+  margin-top: 10px;
+  background: rgba(100, 255, 218, 0.06);
+  border-left: 3px solid var(--accent);
+  border-radius: 4px;
+  padding: 8px 14px;
+  color: var(--accent);
+  font-weight: 700;
+}
+
+/* Modes table — focus on plan */
+.s13-modes-wrap {
+  max-width: 860px;
+  margin: 10px auto 0;
+  background: var(--bg-secondary);
+  border: 1px solid #2a3a5a;
+  border-radius: 8px;
+  overflow: hidden;
+}
+.s13-modes-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.52em;
+  line-height: 1.5;
+  text-align: left;
+}
+.s13-modes-table thead th {
+  background: var(--bg-code);
+  color: var(--text-muted);
+  font-family: var(--font-mono);
+  font-size: 0.95em;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  padding: 8px 14px;
+  border-bottom: 1px solid #2a3a5a;
+}
+.s13-modes-table thead th.s13-modehead { width: 28%; }
+.s13-modes-table tbody td {
+  padding: 9px 14px;
+  vertical-align: middle;
+  border-bottom: 1px solid #1e2a48;
+  color: var(--text-muted);
+}
+.s13-modes-table tbody tr:last-child td { border-bottom: none; }
+.s13-modes-table tbody td.s13-mode-name {
+  font-family: var(--font-mono);
+  color: var(--accent-secondary);
+  font-weight: 700;
+  white-space: nowrap;
+}
+.s13-modes-table tbody td.s13-mode-name.is-focus { color: var(--accent); font-size: 1.08em; }
+.s13-modes-table tbody td.s13-mode-name.is-danger { color: #ff7676; }
+.s13-modes-table tbody td.s13-mode-what code {
+  font-family: var(--font-mono);
+  color: var(--accent);
+  font-size: 0.96em;
+}
+.s13-modes-table tbody td.s13-mode-what strong { color: var(--text-primary); }
+.s13-modes-table tbody tr.is-focus td {
+  background: rgba(100, 255, 218, 0.07);
+}
+.s13-modes-table tbody tr.is-focus td.s13-mode-what {
+  color: var(--text-primary);
+  font-weight: 600;
+}
+.s13-modes-note {
+  display: inline-block;
+  max-width: 780px;
+  margin: 10px 0 0;
+  font-size: 0.5em;
+  color: var(--text-muted);
+  text-align: center;
+  font-style: italic;
+  line-height: 1.5;
+}
+.s13-modes-note strong { color: var(--text-primary); font-style: normal; }
+.s13-modes-note code {
+  font-family: var(--font-mono);
+  color: var(--accent);
+  font-style: normal;
+}
+
+/* Cuándo se activa — 3 vías como bullets con bloque inline de código */
+.s13-when-list {
+  list-style: disc;
+  display: inline-block;
+  text-align: left;
+  max-width: 760px;
+  margin: 14px auto 0;
+  padding-left: 36px;
+  font-size: 0.58em;
+  line-height: 1.6;
+  color: var(--text-muted);
+}
+.s13-when-list li {
+  padding-left: 4px;
+  margin-bottom: 12px;
+}
+.s13-when-list li::marker { color: var(--accent); }
+.s13-when-list strong { color: var(--text-primary); }
+.s13-when-list code {
+  font-family: var(--font-mono);
+  color: var(--accent);
+  font-size: 0.95em;
+}
+.s13-when-list .s13-when-snippet {
+  display: block;
+  margin-top: 4px;
+  background: var(--bg-code);
+  border: 1px solid #2a3a5a;
+  border-radius: 4px;
+  padding: 5px 12px;
+  font-family: var(--font-mono);
+  font-size: 0.96em;
+  color: var(--accent);
+  width: fit-content;
+  max-width: 100%;
+}
+.s13-when-note {
+  display: inline-block;
+  max-width: 740px;
+  margin: 10px 0 0;
+  font-size: 0.5em;
+  color: var(--text-muted);
+  text-align: center;
+  font-style: italic;
+  line-height: 1.5;
+}
+.s13-when-note strong { color: var(--text-primary); font-style: normal; }
+
+/* Cómo se usa — flujo numerado en 6 pasos */
+.s13-flow-list {
+  list-style: decimal;
+  display: inline-block;
+  text-align: left;
+  max-width: 740px;
+  margin: 14px auto 0;
+  padding-left: 36px;
+  font-size: 0.56em;
+  line-height: 1.6;
+  color: var(--text-muted);
+}
+.s13-flow-list li {
+  padding-left: 6px;
+  margin-bottom: 6px;
+}
+.s13-flow-list li::marker {
+  color: var(--accent);
+  font-family: var(--font-mono);
+  font-weight: 700;
+}
+.s13-flow-list strong { color: var(--text-primary); }
+.s13-flow-list code {
+  font-family: var(--font-mono);
+  color: var(--accent);
+  font-size: 0.96em;
+}
+.s13-flow-close {
+  display: inline-block;
+  max-width: 760px;
+  margin: 14px auto 0;
+  background: rgba(100, 255, 218, 0.06);
+  border-left: 3px solid var(--accent);
+  border-radius: 4px;
+  padding: 8px 16px;
+  font-size: 0.54em;
+  color: var(--text-primary);
+  line-height: 1.6;
+  text-align: left;
+}
+.s13-flow-close strong { color: var(--accent); }
+.s13-flow-close code {
+  font-family: var(--font-mono);
+  color: var(--accent);
+  font-size: 0.96em;
+}
+
+/* Plantilla del plan — code walkthrough */
+.s13-plan-block {
+  display: block;
+  max-width: 700px;
+  margin: 14px auto 0;
+  background: var(--bg-code);
+  border: 1px solid #2a3a5a;
+  border-radius: 8px;
+  padding: 14px 22px;
+  font-family: var(--font-mono);
+  font-size: 0.55em;
+  line-height: 1.7;
+  color: var(--text-muted);
+  text-align: left;
+  overflow: hidden;
+}
+.s13-plan-block .s13-plan-key { color: var(--accent-secondary); font-weight: 700; }
+.s13-plan-block .s13-plan-val { color: var(--text-primary); }
+.s13-plan-block .s13-plan-check { color: var(--accent); }
+.s13-plan-block .s13-plan-comment { color: var(--text-muted); font-style: italic; }
+.s13-plan-note {
+  display: inline-block;
+  max-width: 700px;
+  margin: 12px 0 0;
+  font-size: 0.52em;
+  color: var(--text-muted);
+  text-align: center;
+  font-style: italic;
+  line-height: 1.55;
+}
+.s13-plan-note strong { color: var(--text-primary); font-style: normal; }
+.s13-plan-note em {
+  color: var(--accent);
+  font-style: normal;
+  font-weight: 700;
+}
+
+/* Criterio por mode — tabla con criterio por fila */
+.s13-criteria-table tbody td.s13-crit-mode {
+  font-family: var(--font-mono);
+  font-weight: 700;
+  white-space: nowrap;
+  width: 26%;
+}
+.s13-criteria-table tbody td.s13-crit-mode.is-plan { color: var(--accent); }
+.s13-criteria-table tbody td.s13-crit-mode.is-edits { color: var(--accent-secondary); }
+.s13-criteria-table tbody td.s13-crit-mode.is-default { color: var(--text-primary); }
+.s13-criteria-table tbody td.s13-crit-mode.is-bypass { color: #ff7676; }
+.s13-criteria-table tbody td.s13-crit-when {
+  color: var(--text-muted);
+  width: 74%;
+}
+.s13-criteria-table tbody td.s13-crit-when strong { color: var(--text-primary); }
+.s13-criteria-table tbody td.s13-crit-when code {
+  font-family: var(--font-mono);
+  color: var(--accent);
+  font-size: 0.96em;
+}
+.s13-criteria-callout {
+  display: inline-block;
+  max-width: 760px;
+  margin: 12px 0 0;
+  background: rgba(100, 255, 218, 0.06);
+  border-left: 3px solid var(--accent);
+  border-radius: 4px;
+  padding: 8px 16px;
+  font-size: 0.54em;
+  color: var(--text-primary);
+  line-height: 1.6;
+  text-align: left;
+}
+.s13-criteria-callout strong { color: var(--accent); }
+
+/* Qué confunde — bullets */
+.s13-gotchas-list {
+  list-style: disc;
+  display: inline-block;
+  text-align: left;
+  max-width: 780px;
+  margin: 14px auto 0;
+  padding-left: 36px;
+  font-size: 0.56em;
+  line-height: 1.6;
+  color: var(--text-muted);
+}
+.s13-gotchas-list li {
+  padding-left: 4px;
+  margin-bottom: 10px;
+}
+.s13-gotchas-list li::marker { color: var(--accent); }
+.s13-gotchas-list strong { color: var(--text-primary); font-weight: 700; }
+.s13-gotchas-list code {
+  font-family: var(--font-mono);
+  color: var(--accent);
+  font-size: 0.95em;
+}
+
+/* Demo wrap */
+.s13-demo-wrap {
+  max-width: 760px;
+  margin: 16px auto 0;
+}
+
+/* Cierre */
+.s13-close-card {
+  max-width: 740px;
+  margin: 18px auto 0;
+  background: var(--bg-secondary);
+  border: 1px solid #2a3a5a;
+  border-radius: 8px;
+  padding: 16px 24px;
+  text-align: center;
+}
+.s13-close-main {
+  font-size: 0.64em;
+  line-height: 1.65;
+  color: var(--text-primary);
+  margin: 0 0 12px;
+}
+.s13-close-main strong { color: var(--accent); }
+.s13-close-bridge {
+  font-size: 0.56em;
+  color: var(--text-muted);
+  line-height: 1.6;
+  border-top: 1px solid #2a3a5a;
+  padding-top: 11px;
+  margin: 0;
+}
+.s13-close-bridge em {
+  color: var(--accent);
+  font-style: normal;
+  font-weight: 700;
+}
+.s13-close-bridge code {
+  font-family: var(--font-mono);
+  color: var(--accent);
+  font-size: 0.95em;
+}
+</style>
+<section>
+<!-- §13.1 · Apertura — Tarjeta de 5 preguntas (full opener) -->
+<section class="s13-slide">
+  <h2 class="s13-five-q-title">Plan mode</h2>
+
+  <ol class="s13-five-q-grid">
+    <li class="s13-five-q-card is-active">
+      <span class="s13-five-q-num">1</span>
+      <span class="s13-five-q-label">Qué es</span>
+      <span class="s13-five-q-hint">definición en una línea</span>
+    </li>
+    <li class="s13-five-q-card">
+      <span class="s13-five-q-num">2</span>
+      <span class="s13-five-q-label">Dónde vive</span>
+      <span class="s13-five-q-hint">paths / niveles</span>
+    </li>
+    <li class="s13-five-q-card">
+      <span class="s13-five-q-num">3</span>
+      <span class="s13-five-q-label">Cuándo se activa</span>
+      <span class="s13-five-q-hint">momento + trigger</span>
+    </li>
+    <li class="s13-five-q-card">
+      <span class="s13-five-q-num">4</span>
+      <span class="s13-five-q-label">Cómo se usa</span>
+      <span class="s13-five-q-hint">sintaxis + ejemplos</span>
+    </li>
+    <li class="s13-five-q-card">
+      <span class="s13-five-q-num">5</span>
+      <span class="s13-five-q-label">Qué confunde</span>
+      <span class="s13-five-q-hint">casos límite</span>
+    </li>
+  </ol>
+
+  <aside class="notes">
+    <p><strong>Séptima vuelta con el mismo dispositivo. Ritmo muy rápido — el título de arriba ya nombra el tema. La tercera pregunta hoy es "Cuándo se activa" (no "se carga"); marcarlo de pasada en la voz, no detenerse.</strong></p>
+    <p><u>Apertura de §13. Última sección antes del trabajo final. Plan mode tiene dos personalidades: es uno de los cuatro permission modes que aparecieron en §10, pero también es el dispositivo que cambia el orden del loop. Las mismas cinco preguntas para desarmarlo.</u></p>
+    <p><em>"Plan mode. Séptima y última vuelta con la misma plantilla."</em></p>
+    <p><em>"Es la pieza que faltaba del runtime. Tiene la particularidad de ser, al mismo tiempo, uno de los cuatro permission modes que dejamos nombrados en §10 y el dispositivo más fuerte para controlar cuándo arranca el agente. Las mismas cinco preguntas."</em></p>
+  </aside>
+</section>
+
+<!-- §13.2 · Qué es — bullets + callout -->
+<section class="s13-slide">
+  <ol class="s13-five-q-grid is-mini">
+    <li class="s13-five-q-card is-active"><span class="s13-five-q-num">1</span><span class="s13-five-q-label">Qué es</span></li>
+    <li class="s13-five-q-card"><span class="s13-five-q-num">2</span><span class="s13-five-q-label">Dónde vive</span></li>
+    <li class="s13-five-q-card"><span class="s13-five-q-num">3</span><span class="s13-five-q-label">Cuándo se activa</span></li>
+    <li class="s13-five-q-card"><span class="s13-five-q-num">4</span><span class="s13-five-q-label">Cómo se usa</span></li>
+    <li class="s13-five-q-card"><span class="s13-five-q-num">5</span><span class="s13-five-q-label">Qué confunde</span></li>
+  </ol>
+
+  <h2>Un alto deliberado entre pensar y actuar</h2>
+
+  <ul class="s13-qe-list">
+    <li>Modo que <strong>detiene el loop</strong> entre <em style="font-style:normal;color:var(--text-primary);">pensar</em> y <em style="font-style:normal;color:var(--text-primary);">actuar</em>. La primera acción no arranca hasta que vos aprobás.</li>
+    <li>Claude puede <strong>leer, buscar y razonar</strong> — no puede escribir, editar ni ejecutar comandos con efecto sobre el mundo hasta el OK.</li>
+    <li>Es un alto <strong>deliberado</strong>, no un resumen a posteriori. El supervisor entra <em style="font-style:normal;color:var(--text-primary);">antes</em> de la primera acción, no después.</li>
+    <li class="s13-qe-callout">→ Defensa más barata contra la deriva: si el plan está mal, lo corregís antes de que el loop toque nada.</li>
+  </ul>
+
+  <aside class="notes">
+    <p><strong>Tres bullets con pausa entre cada uno. El primero da la mecánica; el segundo aterriza qué puede y qué no; el tercero marca que esto es deliberado, no un side-effect. Pausa antes del callout — es la línea operativa a retener.</strong></p>
+    <p><u>Slide de definición. Mini-strip con "Qué es" lit. Tres bullets + callout, mismo patrón que §12.2. El objetivo es fijar que plan mode no es "Claude más cuidadoso" — es un gate en el loop, una pausa explícita entre dos fases que normalmente se encadenan sin intervención.</u></p>
+    <p><em>"Primera pregunta. Qué es. Y la respuesta arranca con la mecánica."</em></p>
+    <p><em>"Plan mode es un modo de operación que detiene el loop entre 'pensar' y 'actuar'. Recuerden la animación del §2: pensar, actuar, observar, repetir. En modo normal, el agente pasa de 'pensar' a 'actuar' sin pedirte permiso — le diste la tarea, eligió la primera acción, y cuando te diste cuenta ya tocó tres archivos. Plan mode interrumpe eso antes de la primera acción."</em></p>
+    <p><em>"Qué puede y qué no. El agente puede leer archivos, buscar patrones, razonar sobre el código. Read, Grep, Glob — todo lo que no toca el mundo. Lo que no puede: escribir, editar, ejecutar comandos con efecto. Eso queda en pausa hasta que vos apruebes el plan explícitamente."</em></p>
+    <p><em>"Y la propiedad que define el dispositivo: es un alto deliberado, no un resumen a posteriori. La diferencia importa. Un resumen a posteriori sería 'Claude hace cosas, después te explica qué hizo'. Plan mode es lo contrario: 'Claude te explica qué va a hacer, vos aprobás, recién después actúa'. El supervisor entra antes de la primera acción, no después."</em></p>
+    <p><em>"Y el callout: defensa más barata contra la deriva. Recuerden la §5, cuando hablamos de deriva de objetivo — el agente empieza en A, la tarea es llegar a B, y a la décima iteración está en D. Si esa deriva pasa después de que el agente ya escribió archivos, corregirla cuesta caro. Plan mode te muestra el rumbo antes de que el loop acumule consecuencias. Si entendió mal la tarea, lo ves en el plan, no en el diff."</em></p>
+  </aside>
+</section>
+
+<!-- §13.3 · Dónde vive — tabla resumida de los 4 modes, foco en plan -->
+<section class="s13-slide">
+  <ol class="s13-five-q-grid is-mini">
+    <li class="s13-five-q-card"><span class="s13-five-q-num">1</span><span class="s13-five-q-label">Qué es</span></li>
+    <li class="s13-five-q-card is-active"><span class="s13-five-q-num">2</span><span class="s13-five-q-label">Dónde vive</span></li>
+    <li class="s13-five-q-card"><span class="s13-five-q-num">3</span><span class="s13-five-q-label">Cuándo se activa</span></li>
+    <li class="s13-five-q-card"><span class="s13-five-q-num">4</span><span class="s13-five-q-label">Cómo se usa</span></li>
+    <li class="s13-five-q-card"><span class="s13-five-q-num">5</span><span class="s13-five-q-label">Qué confunde</span></li>
+  </ol>
+
+  <h2>Uno de los cuatro permission modes — el dial de autonomía</h2>
+
+  <div class="s13-modes-wrap">
+    <table class="s13-modes-table">
+      <thead>
+        <tr>
+          <th class="s13-modehead">Mode</th>
+          <th>Cuánta autonomía da</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="s13-mode-name">default</td>
+          <td class="s13-mode-what">Pregunta antes de cualquier acción sin regla <code>allow</code>. El modo del día a día.</td>
+        </tr>
+        <tr>
+          <td class="s13-mode-name">acceptEdits</td>
+          <td class="s13-mode-what">Auto-acepta <code>Edit</code> y <code>Write</code>. Sigue preguntando para <code>Bash</code>.</td>
+        </tr>
+        <tr class="is-focus">
+          <td class="s13-mode-name is-focus">plan</td>
+          <td class="s13-mode-what"><strong>Solo lectura</strong> hasta que aprobás un plan con <code>ExitPlanMode</code>. No escribe, no ejecuta.</td>
+        </tr>
+        <tr>
+          <td class="s13-mode-name is-danger">bypassPermissions</td>
+          <td class="s13-mode-what">Sin gates. Sin confirmaciones. Solo entornos efímeros donde "perder todo" es barato.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <p class="s13-modes-note">
+    Los cuatro modes <strong>configuran cuánto puede actuar el agente sin pedir confirmación</strong>. La fila destacada es la que desarmamos en esta sección — los otros tres aparecen para entender el rango.
+  </p>
+
+  <aside class="notes">
+    <p><strong>Recorrer la tabla rápido — los modes ya aparecieron en §10. El énfasis está en la tercera fila: plan, destacada. Marcar que los otros tres están acá como contraste, para entender que plan es el extremo conservador del dial. No repetir la advertencia detallada de bypassPermissions — §10 ya la dio.</strong></p>
+    <p><u>Slide de jerarquía. Tabla de los cuatro modes con foco visual en plan. Esto complementa la tabla de §10.9 — más corta, una línea por mode, con la fila plan resaltada en accent (no en is-future como en §10). El propósito no es introducir los modes — es ubicar a plan mode dentro del dial de autonomía antes de desarmarlo.</u></p>
+    <p><em>"Segunda pregunta. Dónde vive. Y la respuesta corta: plan mode es uno de los cuatro permission modes que ya nombramos en §10. Vale la pena verlos juntos otra vez, ahora con el foco en el que nos importa."</em></p>
+    <p><em>"Los cuatro modes son un dial. De arriba a abajo va de más control humano a menos control humano."</em></p>
+    <p><em>"default. Pregunta antes de cualquier acción sin regla allow. Es el modo del día a día — control razonable, fricción baja."</em></p>
+    <p><em>"acceptEdits. Auto-acepta Edit y Write sin preguntar. Bash sigue preguntando. Útil cuando ya iteraste varias veces y querés que las ediciones fluyan."</em></p>
+    <p><em>"plan. Solo lectura hasta que aprobás el plan con ExitPlanMode. No escribe, no ejecuta. Es el modo más conservador — el agente puede investigar todo lo que quiera, pero no puede actuar sin tu OK."</em></p>
+    <p><em>"bypassPermissions. Sin gates, sin confirmaciones. Lo nombramos en §10 con la advertencia que va — solo entornos efímeros. No volvemos sobre eso acá."</em></p>
+    <p><em>"La fila destacada es la que nos ocupa. Los otros tres están acá para entender el rango: plan mode no es un modo más, es el extremo conservador del dial. Es el único que rompe la secuencia normal del loop."</em></p>
+  </aside>
+</section>
+
+<!-- §13.4 · Cuándo se activa — 3 vías -->
+<section class="s13-slide">
+  <ol class="s13-five-q-grid is-mini">
+    <li class="s13-five-q-card"><span class="s13-five-q-num">1</span><span class="s13-five-q-label">Qué es</span></li>
+    <li class="s13-five-q-card"><span class="s13-five-q-num">2</span><span class="s13-five-q-label">Dónde vive</span></li>
+    <li class="s13-five-q-card is-active"><span class="s13-five-q-num">3</span><span class="s13-five-q-label">Cuándo se activa</span></li>
+    <li class="s13-five-q-card"><span class="s13-five-q-num">4</span><span class="s13-five-q-label">Cómo se usa</span></li>
+    <li class="s13-five-q-card"><span class="s13-five-q-num">5</span><span class="s13-five-q-label">Qué confunde</span></li>
+  </ol>
+
+  <h2>Tres vías para activar plan mode</h2>
+
+  <ul class="s13-when-list">
+    <li>
+      <strong>Flag al arranque</strong> — cuando ya sabés que la tarea pide la pausa antes de empezar.
+      <code class="s13-when-snippet">claude --permission-mode plan</code>
+    </li>
+    <li>
+      <strong>Campo en <code>settings.json</code></strong> — para fijar el mode por default en este proyecto o para tu usuario.
+      <code class="s13-when-snippet">"permissionMode": "plan"</code>
+    </li>
+    <li>
+      <strong><code>Shift+Tab</code> durante la sesión</strong> — cicla entre los cuatro modes sin reiniciar. La UI muestra el mode activo en el banner.
+    </li>
+  </ul>
+
+  <p class="s13-when-note">
+    Regla de fondo: cuanto <strong>menos reversible</strong> es la tarea, más vale entrar al proceso <strong>antes</strong> de la primera acción.
+  </p>
+
+  <aside class="notes">
+    <p><strong>Tres vías en orden — la primera y la segunda son configuración, la tercera es operación en vivo. La tercera es la más útil en la práctica: empezás en default, ves que el agente está por hacer algo costoso, Shift+Tab a plan, sin perder la sesión. La nota final es la regla de oro: la reversibilidad de la tarea define cuándo querés la pausa.</strong></p>
+    <p><u>Slide de mecánica. Mini-strip con "Cuándo se activa" (adaptado del rótulo estándar "Cuándo se carga" — los modes se activan, no se cargan al arranque del runtime). Tres vías con snippet inline de código en las dos primeras. La nota cierra con la regla operativa: reversibilidad de la tarea = decisión de cuándo entrar al mode.</u></p>
+    <p><em>"Tercera pregunta. Cuándo se activa. Plan mode tiene tres formas de prenderse, y vale la pena saber las tres porque sirven para momentos distintos."</em></p>
+    <p><em>"Una. Flag al arranque. claude guion guion permission-mode plan. La sesión arranca directamente en plan. Es la opción para cuando ya sabés, antes de tirar el primer prompt, que la tarea pide la pausa — refactor grande, cambio multi-archivo, algo donde no querés que el agente decida nada sin mostrártelo primero."</em></p>
+    <p><em>"Dos. Campo en settings.json. permissionMode dos puntos plan. Esto fija el mode por default — todas las sesiones de Claude Code en ese proyecto, o todas las tuyas si lo ponés en user, van a arrancar en plan. Es para cuando querés que el comportamiento conservador sea el default, no la excepción."</em></p>
+    <p><em>"Y tres, la más útil en la práctica. Shift más Tab durante la sesión. Cicla entre los cuatro modes — default, acceptEdits, plan, bypassPermissions — sin reiniciar nada. La UI te muestra cuál es el mode activo en el banner. Esto es lo que usás cuando estás en default, ves que el agente está por hacer algo costoso o que no esperabas, y querés frenar antes de la próxima acción. Shift Tab a plan, y la siguiente cosa que haga va a venir como propuesta, no como ejecución."</em></p>
+    <p><em>"La regla de fondo, la nota de abajo: cuanto menos reversible es la tarea, más vale entrar al proceso antes de la primera acción. Si la consecuencia de un error es 'lo arreglo en un commit', plan mode es overkill. Si es 'tengo que revertir cinco archivos y rezar que el rollback no rompa otra cosa', plan mode vale los treinta segundos que cuesta leer el plan."</em></p>
+  </aside>
+</section>
+
+<!-- §13.5 · Cómo se usa — flujo en 6 pasos -->
+<section class="s13-slide">
+  <ol class="s13-five-q-grid is-mini">
+    <li class="s13-five-q-card"><span class="s13-five-q-num">1</span><span class="s13-five-q-label">Qué es</span></li>
+    <li class="s13-five-q-card"><span class="s13-five-q-num">2</span><span class="s13-five-q-label">Dónde vive</span></li>
+    <li class="s13-five-q-card"><span class="s13-five-q-num">3</span><span class="s13-five-q-label">Cuándo se activa</span></li>
+    <li class="s13-five-q-card is-active"><span class="s13-five-q-num">4</span><span class="s13-five-q-label">Cómo se usa</span></li>
+    <li class="s13-five-q-card"><span class="s13-five-q-num">5</span><span class="s13-five-q-label">Qué confunde</span></li>
+  </ol>
+
+  <h2>El flujo del plan — seis pasos, un contrato</h2>
+
+  <ol class="s13-flow-list">
+    <li><strong>Activar plan mode</strong> — cualquiera de las tres vías.</li>
+    <li><strong>Describir la tarea</strong> al agente, como siempre.</li>
+    <li><strong>Claude propone un plan</strong>: qué archivos va a tocar, en qué orden, qué tools va a usar.</li>
+    <li><strong>Revisar</strong>. Corregir si hace falta — <code>"no toques tests/"</code>, <code>"empezá por el módulo X"</code>.</li>
+    <li><strong>Aprobar con <code>ExitPlanMode</code></strong>.</li>
+    <li><strong>Claude ejecuta la versión aprobada.</strong></li>
+  </ol>
+
+  <p class="s13-flow-close">
+    <strong>El plan es el contrato.</strong> Una vez aprobado, Claude ejecuta sin volver a parar en cada acción — salvo que un <code>deny</code> del bloque de §10 lo detenga.
+  </p>
+
+  <aside class="notes">
+    <p><strong>Recorrer los seis pasos sin detenerse en cada uno — son lineales. Pausa larga en el paso 4 (revisar y corregir), que es donde el supervisor hace su trabajo. La línea de cierre conecta plan mode con permisos: los dos sistemas juntos, no por separado.</strong></p>
+    <p><u>Slide del flujo operativo. Lista numerada de seis pasos. El protagonista es el paso 4 — corregir antes de aprobar es lo que diferencia plan mode de "Claude más prolijo". La línea de cierre cierra el círculo con §10: el mode determina cuándo arranca la ejecución; los permisos determinan qué tools puede usar mientras ejecuta.</u></p>
+    <p><em>"Cuarta pregunta. Cómo se usa. Y la respuesta es un flujo de seis pasos."</em></p>
+    <p><em>"Uno. Activar plan mode, cualquiera de las tres vías que vimos."</em></p>
+    <p><em>"Dos. Describir la tarea al agente, como siempre. No cambia nada del prompt."</em></p>
+    <p><em>"Tres. Claude responde con un plan, no con una acción. El plan tiene una forma reconocible: qué archivos va a tocar, en qué orden, qué tools va a usar. Es texto, no código ejecutado."</em></p>
+    <p><em>"Cuatro. Y este es el paso clave. Revisar. Y si hace falta, corregir antes de aprobar. Le podés decir 'no toques tests barra'. Le podés decir 'empezá por el módulo X que es el que más me importa'. Le podés decir 'esto que proponés no me convence, replantealo'. El plan no es algo que aceptás o rechazás — es algo que negociás antes de que se ejecute."</em></p>
+    <p><em>"Cinco. Cuando el plan está como lo querés, aprobás con ExitPlanMode. Es el momento del contrato."</em></p>
+    <p><em>"Seis. Claude ejecuta la versión aprobada. A partir de acá, vuelve al loop normal — pensar, actuar, observar — pero ya con el plan como guía."</em></p>
+    <p><em>"Y la línea de cierre, importante: el plan es el contrato. Una vez aprobado, Claude ejecuta sin volver a parar en cada acción. Si querés un control más fino durante la ejecución — 'no toques este archivo nunca', 'no corras git push' — eso vive en el bloque de permisos del §10, que sigue actuando durante el plan. Los dos sistemas juntos. Mode controla cuándo arranca; permisos controlan qué hace mientras está arrancado."</em></p>
+  </aside>
+</section>
+
+<!-- §13.6 · Plantilla de un plan típico — code walkthrough (sin mini-strip) -->
+<section class="s13-slide">
+  <h2>La forma de un plan — el contrato que aprobás</h2>
+
+  <pre class="s13-plan-block"><span class="s13-plan-key">Goal:</span> <span class="s13-plan-val">extraer el middleware de auth a un módulo compartido</span>
+
+<span class="s13-plan-key">Files to touch:</span>
+  <span class="s13-plan-val">- backend/routers/users.py</span>
+  <span class="s13-plan-val">- backend/routers/orders.py</span>
+  <span class="s13-plan-val">- backend/middleware/auth.py (ya existe — agregar export)</span>
+
+<span class="s13-plan-key">Steps:</span>
+  <span class="s13-plan-check">[ ]</span> <span class="s13-plan-val">1. Leer la implementación actual en cada router</span>
+  <span class="s13-plan-check">[ ]</span> <span class="s13-plan-val">2. Mover la lógica común a middleware/auth.py</span>
+  <span class="s13-plan-check">[ ]</span> <span class="s13-plan-val">3. Reemplazar el inline por el import en cada router</span>
+  <span class="s13-plan-check">[ ]</span> <span class="s13-plan-val">4. Correr la suite de tests</span>
+
+<span class="s13-plan-key">Verification:</span> <span class="s13-plan-val">uv run pytest pasa sin regresiones</span></pre>
+
+  <p class="s13-plan-note">
+    Sin <code style="font-family:var(--font-mono);color:var(--accent);font-style:normal;">Files to touch</code> explícito, no sabés qué se va a tocar. Sin <code style="font-family:var(--font-mono);color:var(--accent);font-style:normal;">Verification</code>, no sabés cómo te enterás de que terminó bien. <em>El plan es lo que se aprueba — si está flojo, corregilo antes del <code style="font-family:var(--font-mono);font-style:normal;">ExitPlanMode</code>.</em>
+  </p>
+
+  <aside class="notes">
+    <p><strong>Sin mini-strip — es zoom-in a la forma del artefacto, no responde una pregunta nueva. Recorrer el bloque de arriba a abajo, leyendo los cuatro campos. Marcar fuerte que los campos no son cosmética: si falta Files to touch, no sabés qué firmaste; si falta Verification, no sabés cuándo termina el contrato.</strong></p>
+    <p><u>Slide de walkthrough. Reemplaza el typical mini-strip porque visualiza la respuesta del slide anterior (el flujo) en un artefacto concreto. Code block estático en formato pseudo-YAML con cuatro campos: Goal, Files to touch, Steps, Verification. Es la forma genérica de un plan que Claude propone — sirve como check para evaluar si el plan que el agente te muestra tiene la información que necesitás antes de aprobar.</u></p>
+    <p><em>"Antes de pasar a la última pregunta, un slide de forma. Ya vimos el flujo en seis pasos; ahora vemos el artefacto que el agente produce en el paso 3."</em></p>
+    <p><em>"Un plan típico tiene cuatro campos. No es un formato rígido — Claude no siempre los va a poner con estos nombres exactos — pero la información está, en una forma o en otra."</em></p>
+    <p><em>"Goal. El objetivo en una línea. Extraer el middleware de auth a un módulo compartido. Si el goal no coincide con lo que pediste, ya sabés que entendió mal — frenás ahí."</em></p>
+    <p><em>"Files to touch. La lista de archivos que va a tocar. Acá: dos routers y un módulo que ya existe al que va a agregar un export. Si ves que va a tocar tests cuando vos no querías, este es el lugar donde lo corregís. Sin esta lista, no sabés qué firmaste."</em></p>
+    <p><em>"Steps. Los pasos concretos, marcados con checkbox vacío. Leer, mover, reemplazar, correr tests. El orden importa — si el orden está mal, lo corregís acá."</em></p>
+    <p><em>"Y Verification. Cómo te enterás de que terminó bien. uv run pytest pasa sin regresiones. Sin este campo, el plan no tiene cierre — Claude va a ejecutar y vos no vas a saber cómo medir si funcionó."</em></p>
+    <p><em>"La línea de abajo es operativa: el plan es lo que se aprueba. Si está flojo, si le falta uno de estos campos, si los pasos no convencen — corregilo antes del ExitPlanMode. Una vez que apretaste ExitPlanMode, el contrato está firmado."</em></p>
+  </aside>
+</section>
+
+<!-- §13.7 · Cómo elegir cada mode — tabla de criterios por reversibilidad -->
+<section class="s13-slide">
+  <h2>Cuál mode usar — la pregunta es cuán caro es un error</h2>
+
+  <div class="s13-modes-wrap">
+    <table class="s13-modes-table s13-criteria-table">
+      <thead>
+        <tr>
+          <th class="s13-modehead">Mode</th>
+          <th>Cuándo tiene sentido</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="s13-crit-mode is-plan">plan</td>
+          <td class="s13-crit-when">Tareas <strong>grandes, multi-archivo</strong>, o cuando no estás seguro de que Claude entendió la consigna.</td>
+        </tr>
+        <tr>
+          <td class="s13-crit-mode is-edits">acceptEdits</td>
+          <td class="s13-crit-when">Refactors <strong>acotados</strong> con suite de tests rápida que detecta regresiones.</td>
+        </tr>
+        <tr>
+          <td class="s13-crit-mode is-default">default</td>
+          <td class="s13-crit-when">El resto: tareas intermedias, exploración, confianza alta pero sin querer ir sin red.</td>
+        </tr>
+        <tr>
+          <td class="s13-crit-mode is-bypass">bypassPermissions</td>
+          <td class="s13-crit-when">Solo en <strong>containers o sandboxes efímeros</strong> — entornos donde tirar todo es barato.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <p class="s13-criteria-callout">
+    La pregunta no es <strong>"¿qué tan rápido quiero ir?"</strong> — es <strong>"¿qué tan caro es un error?"</strong>.
+  </p>
+
+  <aside class="notes">
+    <p><strong>Recorrer la tabla por fila — no leer cada celda, ir al criterio. La línea de cierre es la heurística operativa: cambia la pregunta. La mayoría de los alumnos arranca con el reflejo "qué tan rápido quiero ir" — el reframe a "qué tan caro es un error" cambia la decisión.</strong></p>
+    <p><u>Slide de criterio de selección. Sin mini-strip — es zoom-in a una decisión, no responde una pregunta de la plantilla. La tabla mapea cada mode a un escenario donde tiene sentido, ordenados por nivel de control (de más control humano a menos). El callout invierte el framing usual y es la línea operativa a retener.</u></p>
+    <p><em>"Una pieza más antes de cerrar. Si los cuatro modes son un dial, ¿cuándo movés el dial a cada posición? Cuatro criterios."</em></p>
+    <p><em>"plan. Tareas grandes, multi-archivo, o cuando no estás seguro de que Claude entendió bien la consigna. El costo de la pausa es bajo — treinta segundos para leer un plan. El costo de un loop mal orientado que ya escribió veinte archivos, no lo es."</em></p>
+    <p><em>"acceptEdits. Refactors acotados, con una suite de tests rápida que detecta regresiones. El agente fluye, las ediciones no te interrumpen, los tests te cubren. Es la combinación que mejor funciona cuando el cambio es pequeño y la red de seguridad es buena."</em></p>
+    <p><em>"default. El resto. Tareas intermedias, exploración, trabajo donde el nivel de confianza es alto pero no querés ir sin red. La fricción de los prompts es baja; el control sobre cada acción se mantiene."</em></p>
+    <p><em>"bypassPermissions. Solo en containers o sandboxes efímeros. Entornos donde tirar todo es barato — un container que vas a destruir cuando termine la tarea, un sandbox sin acceso a credenciales reales. En un proyecto con código de producción, no tiene justificación."</em></p>
+    <p><em>"Y el callout. La pregunta no es 'qué tan rápido quiero ir' — es 'qué tan caro es un error'. La mayoría arranca con el primer reflejo, eligiendo bypassPermissions porque saca prompts. El segundo reflejo, el correcto, es elegir el mode por el costo del error que querés evitar."</em></p>
+  </aside>
+</section>
+
+<!-- §13.8 · Qué confunde — 3 cosas (bullets) -->
+<section class="s13-slide">
+  <ol class="s13-five-q-grid is-mini">
+    <li class="s13-five-q-card"><span class="s13-five-q-num">1</span><span class="s13-five-q-label">Qué es</span></li>
+    <li class="s13-five-q-card"><span class="s13-five-q-num">2</span><span class="s13-five-q-label">Dónde vive</span></li>
+    <li class="s13-five-q-card"><span class="s13-five-q-num">3</span><span class="s13-five-q-label">Cuándo se activa</span></li>
+    <li class="s13-five-q-card"><span class="s13-five-q-num">4</span><span class="s13-five-q-label">Cómo se usa</span></li>
+    <li class="s13-five-q-card is-active"><span class="s13-five-q-num">5</span><span class="s13-five-q-label">Qué confunde</span></li>
+  </ol>
+
+  <h2>Tres cosas que confunden de plan mode</h2>
+
+  <ul class="s13-gotchas-list">
+    <li><strong>Plan mode no es sandbox.</strong> Una vez aprobado el plan, Claude ejecuta — incluyendo <code>Bash</code> con consecuencias reales. El gate es de <strong>proceso</strong> (cuándo empieza la ejecución), no de capacidad (qué puede hacer mientras ejecuta).</li>
+    <li><strong>Modes y permisos son ortogonales.</strong> El mode controla <strong>cuándo</strong> arranca la ejecución; el <code>deny</code> de §10 controla <strong>qué tools</strong> puede usar durante la ejecución. Los dos juntos = control fino. Cada uno por separado es parcial.</li>
+    <li><strong>Plan mode protege contra deriva, no contra mal código.</strong> Si el plan es bueno pero el código que escribe el agente tiene un bug, el mode no lo va a atajar — para eso están los tests, el code review, y el ojo del supervisor sobre el diff final.</li>
+  </ul>
+
+  <aside class="notes">
+    <p><strong>Recorrer los tres bullets. El primero desarma la confusión más frecuente — la gente asume que plan mode es un modo seguro de ejecutar, no un modo de pausar antes de ejecutar. El segundo separa explícitamente dos sistemas que la gente tiende a confundir. El tercero acota qué problema resuelve y cuál no — plan mode no es una panacea, es una pieza específica del runtime.</strong></p>
+    <p><u>Slide de quinta pregunta. Tres confusiones en formato bullet list — siguen la regla de bullets: items peer cortos, misma estructura. Cada bullet aborda un malentendido específico y le da el reframe correcto.</u></p>
+    <p><em>"Quinta pregunta. Qué confunde. Tres cosas, las más frecuentes."</em></p>
+    <p><em>"Una. Plan mode no es sandbox. Esta es la confusión más común. La intuición natural es 'si está en plan mode, está protegido contra errores'. No. Plan mode pone un gate antes de que empiece la ejecución — aprobás el plan, el agente ejecuta. Y lo que ejecuta puede incluir comandos Bash con consecuencias reales: rm, git push, npm install, lo que sea. El gate es de proceso, cuándo empieza la ejecución, no de capacidad, qué puede hacer mientras ejecuta. Si querés limitar la capacidad, eso vive en deny — la sección que ya vimos."</em></p>
+    <p><em>"Dos. Modes y permisos son ortogonales. Y este es el punto fuerte de la sección. Los dos sistemas — los permission modes que vimos acá y los permisos allow/deny/ask de §10 — son ejes distintos. El mode controla cuándo arranca la ejecución. Los permisos controlan qué tools puede usar mientras ejecuta. Los dos juntos te dan el control fino. Cada uno por separado es parcial: plan mode sin deny te deja vulnerable durante la ejecución; deny sin plan mode te deja sin la oportunidad de revisar antes de que arranque."</em></p>
+    <p><em>"Y tres. Plan mode protege contra deriva, no contra mal código. Si el plan es bueno — los archivos correctos, los pasos correctos, el orden correcto — pero el código que escribe el agente cuando ejecuta tiene un bug, el mode no lo va a atajar. Plan mode resuelve un problema específico: que el agente no entendió la tarea y empieza a hacer algo distinto de lo que pediste. Para detectar bugs en el código que sí entendió bien, están los tests, el code review, y el ojo del supervisor sobre el diff final. Plan mode no es panacea — es una pieza del runtime que resuelve una cosa, no todas."</em></p>
+  </aside>
+</section>
+
+<!-- §13.9 · Demo · refactor multi-archivo con y sin plan mode (section-divider + clickable-steps) -->
+<section class="section-divider">
+  <h2>Demo · refactor multi-archivo con y sin plan mode</h2>
+  <p style="font-size:0.72em; color:var(--text-muted); margin-top:14px; font-style:italic;">Misma tarea, dos órdenes. La diferencia se ve en <strong>dónde entra el supervisor</strong>.</p>
+
+  <div class="s13-demo-wrap">
+    <div id="s13-demo-steps"></div>
+  </div>
+
+  <aside class="notes">
+    <p><strong>Setup antes del slide: dos terminales con Claude Code listas, ambas en demo-repo. Verificar que el módulo backend/middleware/auth.py ya existe — el demo es realista sin riesgo de romper nada. Si algo sale mal en cualquiera de las sesiones: git checkout punto y listo. Plan B preparado si la UI del mode no se ve clara: narrar el banner.</strong></p>
+    <p><u>Demo de cierre de §13 — y de cierre de Parte 2. Tres pasos: primero el comportamiento default que muestra al agente decidiendo antes de mostrarte; segundo, la misma tarea en plan mode que muestra el plan en lugar de empezar a editar; tercero, corregir el plan antes de aprobar para mostrar que el supervisor entra entre pensar y actuar. El objetivo no es mostrar que el agente falla sin plan mode — es mostrar dónde entra el supervisor en cada caso.</u></p>
+    <p><em>"Último demo de la Parte 2. Tres pasos sobre la misma tarea — extraer el middleware de auth de cada router a un módulo compartido — para ver cómo cambia el momento en que entra el supervisor."</em></p>
+    <hr>
+    <p><strong>Acciones (copiables):</strong></p>
+    <p><strong>Paso 1 — Modo <code>default</code>: el agente actúa</strong></p>
+    <ul>
+      <li>Terminal: <code>cd ~/demo-repo</code></li>
+      <li>Terminal: <code>claude</code> (sesión nueva, modo default)</li>
+      <li>En Claude: <code>"extraé el middleware de auth de cada router a un módulo compartido"</code></li>
+      <li>Mirar: el agente empieza a leer archivos y casi de inmediato propone ediciones</li>
+      <li>Cancelar: antes de aprobar la primera escritura</li>
+      <li>Marcar: el agente eligió qué archivos tocar y en qué orden antes de mostrártelo</li>
+    </ul>
+    <p><strong>Paso 2 — <code>Shift+Tab</code> a <code>plan</code>: propone antes de actuar</strong></p>
+    <ul>
+      <li>Terminal: <code>claude</code> (sesión nueva, otra pestaña)</li>
+      <li>En Claude: <code>Shift+Tab</code> hasta que el banner muestre <code>plan</code></li>
+      <li>En Claude: <code>"extraé el middleware de auth de cada router a un módulo compartido"</code> (misma consigna)</li>
+      <li>Mirar: Claude responde con un plan, no con ediciones</li>
+      <li>Workspace: sin cambios — <code>git status</code> en otra terminal lo confirma</li>
+      <li>Marcar: el loop está detenido entre "pensar" y "actuar"</li>
+    </ul>
+    <p><strong>Paso 3 — Corregir antes de aprobar</strong></p>
+    <ul>
+      <li>Leer el plan en voz alta</li>
+      <li>Encontrar algo a ajustar: el agente quiere tocar también <code>tests/routers/</code></li>
+      <li>En Claude: <code>"no toques tests/, esos están bien — solo los módulos de negocio"</code></li>
+      <li>Mirar: Claude actualiza el plan</li>
+      <li>En Claude: aprobar con <code>ExitPlanMode</code></li>
+      <li>Mirar: ahora sí, Claude ejecuta la versión corregida</li>
+    </ul>
+    <p><em>Plan B (si la UI del mode no se ve clara en grabación): narrar el banner — "estamos en plan mode, en default, ahora pasamos a plan". La diferencia conductual — editó vs propuso — se ve igual en cualquier caso, sin importar si la UI del mode se distingue bien en pantalla.</em></p>
+  </aside>
+</section>
+
+<!-- §13.10 · Cierre + bridge a §14 -->
+<section class="s13-slide">
+  <h2>Controlar el loop antes de la primera acción</h2>
+
+  <div class="s13-close-card">
+    <p class="s13-close-main">
+      Plan mode = <strong>controlar el loop antes de la primera acción</strong>. Defensa más barata contra la deriva, gate de <strong>proceso</strong> ortogonal al gate de <strong>capacidad</strong> de §10. Los dos juntos: el supervisor decide cuándo empieza y qué herramientas se usan.
+    </p>
+    <p class="s13-close-bridge">
+      Con esto cerramos la Parte 2 — el runtime entero. La última sección cierra el arco completo: el momento de articular <em>modelo</em> + <em>rol</em> + <em>runtime</em> en un proyecto propio, de principio a fin.
+    </p>
+  </div>
+
+  <aside class="notes">
+    <p><strong>Leer el párrafo principal apoyando "controlar el loop antes de la primera acción" y la distinción "proceso vs capacidad". Pausa antes del bridge. El bridge es ancho: cierra Parte 2 entera y arma el cierre del curso.</strong></p>
+    <p><u>Cierre de §13 + cierre operativo de Parte 2 + bridge a §14. La línea principal consolida la propiedad central de plan mode y la conecta con permisos (proceso vs capacidad). El bridge a §14 cierra Parte 2 y abre el cierre del arco completo del curso — modelo, rol, runtime — para el trabajo final.</u></p>
+    <p><em>"Cerramos §13. La propiedad central a retener: plan mode es controlar el loop antes de la primera acción. Es la defensa más barata contra la deriva — corregís el rumbo cuando el costo es leer un plan, no cuando el costo es revertir veinte archivos. Y es gate de proceso, ortogonal al gate de capacidad que vimos en §10. Mode decide cuándo empieza la ejecución; permisos deciden qué tools puede usar mientras ejecuta. Los dos juntos: el supervisor controla la totalidad."</em></p>
+    <p><em>"Y con esto cerramos toda la Parte 2. Tenés el runtime completo: el loop, el contexto, las instrucciones, las reglas, los procedimientos, la delegación, y ahora el control sobre cuándo arranca cada acción. La última sección no agrega ninguna pieza más — cierra el arco completo. Modelo, rol, runtime. Las tres piezas del curso, articuladas en un proyecto propio, de principio a fin. Eso es §14, el trabajo final."</em></p>
+  </aside>
+</section>
+</section>
       <!-- /§13 -->
 
       <!-- ===== §14 — El trabajo final ===== -->
@@ -8701,6 +9526,27 @@ Si el usuario no especificó verbo, path o body, preguntale antes de empezar.</p
       title: 'Paso 3 — El archivo detrás del sub-agent',
       summary: '<ul style="font-size:0.88em;padding-left:16px;margin:4px 0 0;line-height:1.5;text-align:left;"><li><strong>VS Code:</strong> abrir <code>.claude/agents/researcher.md</code></li><li><strong>Mirar:</strong> <code>tools: [Read, Grep, Glob]</code> en el frontmatter</li><li><strong>Marcar:</strong> no aparece <code>Bash</code>, no aparece <code>Edit</code>, no aparece <code>Write</code></li><li><strong>Cerrar:</strong> el sub-agent no puede modificar código aunque quiera — el frontmatter lo limita</li></ul>',
       example: 'No es magia: es un archivo de configuración con un system prompt acotado y una lista de tools restringida. Read, Grep, Glob — puede leer, puede buscar, puede listar archivos. No tiene Bash, no tiene Edit, no tiene Write. Aunque el padre tenga acceso a esas tools, el sub-agent no las hereda. Esa restricción se escribe explícitamente en el frontmatter, y es la otra mitad del aislamiento: aísla el contexto y aísla las capacidades.\n\nPLAN B (si el delta de /context no es dramático en vivo, o si el sub-agent no entra al pedido del paso 2): sostener con dos transcripts preparados — uno de sesión inline con la ventana inflada al final, otro de sesión con sub-agent con la ventana casi sin cambios y el resultado devuelto. El cierre del Paso 3, mostrando researcher.md con tools restringidos, funciona en ambos casos.'
+    }
+  ]});
+</script>
+
+  <!-- init §13 -->
+<script>
+  initClickableSteps({containerId: 's13-demo-steps', steps: [
+    {
+      title: 'Paso 1 — Modo default: el agente actúa',
+      summary: '<ul style="font-size:0.88em;padding-left:16px;margin:4px 0 0;line-height:1.5;text-align:left;"><li><strong>Terminal:</strong> <code>cd ~/demo-repo</code></li><li><strong>Terminal:</strong> <code>claude</code> (sesión nueva, modo default)</li><li><strong>En Claude:</strong> <code>"extraé el middleware de auth de cada router a un módulo compartido"</code></li><li><strong>Mirar:</strong> el agente empieza a leer archivos y casi de inmediato propone ediciones</li><li><strong>Cancelar:</strong> antes de aprobar la primera escritura</li><li><strong>Marcar:</strong> el agente eligió qué archivos tocar y en qué orden antes de mostrártelo</li></ul>',
+      example: 'El punto del paso uno no es que el agente falla — la tarea está bien planteada, el agente la entendió, y si lo dejás corriendo probablemente sale algo razonable. El punto es dónde entró el supervisor. En default, el agente leyó el primer archivo, decidió la estrategia de extracción, eligió en qué router empezar, eligió el nombre del módulo destino — todo antes de mostrártelo. Vos entraste a aprobar la primera escritura, pero las decisiones ya estaban tomadas. La supervisión llegó después de los hechos.'
+    },
+    {
+      title: 'Paso 2 — Shift+Tab a plan: propone antes de actuar',
+      summary: '<ul style="font-size:0.88em;padding-left:16px;margin:4px 0 0;line-height:1.5;text-align:left;"><li><strong>Terminal:</strong> <code>claude</code> (sesión nueva, otra pestaña)</li><li><strong>En Claude:</strong> <code>Shift+Tab</code> hasta que el banner muestre <code>plan</code></li><li><strong>En Claude:</strong> <code>"extraé el middleware de auth de cada router a un módulo compartido"</code> (misma consigna)</li><li><strong>Mirar:</strong> Claude responde con un plan, no con ediciones</li><li><strong>Workspace:</strong> sin cambios — <code>git status</code> en otra terminal lo confirma</li><li><strong>Marcar:</strong> el loop está detenido entre "pensar" y "actuar"</li></ul>',
+      example: 'Misma tarea, mismo modelo, misma sesión recién iniciada — pero el comportamiento es completamente distinto. En default, el agente leyó y empezó a editar. En plan, el agente leyó y devolvió un plan: archivos a tocar, orden, pasos. git status en otra terminal lo confirma — el workspace no cambió. El loop está detenido en la frontera entre pensar y actuar. Ese es el dispositivo: una pausa explícita en un punto del loop que normalmente no tiene pausa.'
+    },
+    {
+      title: 'Paso 3 — Corregir antes de aprobar',
+      summary: '<ul style="font-size:0.88em;padding-left:16px;margin:4px 0 0;line-height:1.5;text-align:left;"><li><strong>Leer el plan</strong> en voz alta</li><li><strong>Encontrar algo a ajustar:</strong> el agente quiere tocar también <code>tests/routers/</code></li><li><strong>En Claude:</strong> <code>"no toques tests/, esos están bien — solo los módulos de negocio"</code></li><li><strong>Mirar:</strong> Claude actualiza el plan</li><li><strong>En Claude:</strong> aprobar con <code>ExitPlanMode</code></li><li><strong>Mirar:</strong> ahora sí, Claude ejecuta la versión corregida</li></ul>',
+      example: 'Acá es donde se ve el valor real. El agente propuso tocar también tests barra routers — razonable, los tests probablemente importan el middleware viejo y van a romperse. Pero vos sabés algo que el agente no sabe: los tests están bien como están, esa decisión la querés tomar después de ver si los tests rompen, no antes. Le decís "no toques tests barra". El plan se actualiza. Aprobás con ExitPlanMode. El agente ejecuta la versión corregida. El resultado puede ser idéntico al del paso 1 — pero el proceso fue distinto: el supervisor estuvo adentro desde antes de la primera acción, no después.\n\nPLAN B (si la UI del mode no se ve clara en grabación): narrar el banner — "estamos en plan, ahora paso a default", "ahora vuelvo a plan". La diferencia conductual entre paso 1 y paso 2 — editó vs propuso — se ve igual en cualquier caso, sin importar si la UI del mode se distingue bien en pantalla. Lo que importa es el contraste entre los dos comportamientos, no el banner.'
     }
   ]});
 </script>
