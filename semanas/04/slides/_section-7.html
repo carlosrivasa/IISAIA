@@ -2,10 +2,12 @@
 /* Scoped styles for §7 only */
 
 /* Heading override scoped to §7 slides (reveal default h2 is ~2em — too tall for dense slides) */
+.reveal .slides .s7-slide { text-align: center; }
 .reveal .slides .s7-slide h2 {
   font-size: 0.82em;
   line-height: 1.2;
   margin: 0 0 6px;
+  text-align: center;
   text-transform: none;
   letter-spacing: 0;
 }
@@ -20,10 +22,51 @@
   text-align: center;
   margin: 0 0 3px;
 }
-.s7-five-q-title {
-  font-size: 0.74em;
+.reveal .slides .s7-slide h2.s7-five-q-title {
+  font-size: 1.05em;
   text-align: center;
-  margin: 0 0 12px;
+  margin: 0 0 16px;
+  line-height: 1.2;
+}
+
+/* Qué es — bulletpoint list para §7.2 */
+.s7-qe-list {
+  list-style: disc;
+  display: inline-block;
+  text-align: left;
+  max-width: 720px;
+  margin: 16px auto 0;
+  padding-left: 36px;
+  font-size: 0.64em;
+  line-height: 1.65;
+  color: var(--text-muted);
+}
+.s7-qe-list li {
+  padding-left: 6px;
+  margin-bottom: 10px;
+}
+.s7-qe-list li::marker {
+  color: var(--accent);
+}
+.s7-qe-list strong {
+  color: var(--text-primary);
+  font-weight: 700;
+}
+.s7-qe-list code {
+  font-family: var(--font-mono);
+  color: var(--accent);
+  font-size: 0.95em;
+}
+.s7-qe-list li.s7-qe-callout {
+  list-style: none;
+  margin-left: -32px;
+  margin-top: 10px;
+  background: rgba(100, 255, 218, 0.06);
+  border-left: 3px solid var(--accent);
+  border-radius: 4px;
+  padding: 8px 14px;
+  color: var(--accent);
+  font-weight: 700;
 }
 .s7-five-q-grid {
   display: grid;
@@ -274,86 +317,43 @@
   text-align: center;
 }
 
-/* Cómo se usa — tres decisiones independientes al escribir el archivo */
-.s7-howto-stack {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
+/* Cómo se usa — tres decisiones independientes (lista numerada) */
+.s7-howto-list {
   max-width: 720px;
-  margin: 8px auto 0;
-}
-.s7-howto-row {
-  display: grid;
-  grid-template-columns: 22px 1fr;
-  gap: 10px;
-  align-items: start;
-}
-.s7-howto-num {
-  background: var(--bg-code);
-  border: 1px solid var(--accent);
-  border-radius: 50%;
-  width: 22px;
-  height: 22px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-family: var(--font-mono);
-  font-size: 0.5em;
-  color: var(--accent);
-  font-weight: 700;
-}
-.s7-howto-body {
-  background: var(--bg-secondary);
-  border: 1px solid #2a3a5a;
-  border-radius: 7px;
-  padding: 8px 12px;
-}
-.reveal .slides .s7-slide .s7-howto-h3 {
-  font-size: 0.84em;
-  font-weight: 700;
-  color: var(--text-primary);
-  margin: 0 0 5px;
-  line-height: 1.25;
-  text-transform: none;
-  letter-spacing: 0;
-}
-.s7-howto-text {
-  font-size: 0.48em;
+  margin: 12px auto 0;
+  padding-left: 38px;
+  font-size: 0.62em;
+  line-height: 1.6;
   color: var(--text-muted);
-  line-height: 1.5;
-  margin: 0;
 }
-.s7-howto-text code {
+.s7-howto-list li {
+  padding-left: 6px;
+  margin-bottom: 14px;
+}
+.s7-howto-list li::marker {
+  color: var(--accent);
+  font-family: var(--font-mono);
+  font-weight: 700;
+}
+.s7-howto-list strong {
+  color: var(--text-primary);
+  font-weight: 700;
+  font-size: 1.08em;
+}
+.s7-howto-list code {
   font-family: var(--font-mono);
   color: var(--accent);
   font-size: 0.95em;
 }
-.s7-howto-inline {
-  display: grid;
-  grid-template-columns: auto 1fr;
-  gap: 10px;
-  align-items: center;
-  margin: 0 0 6px;
-}
-.s7-howto-syntax {
-  background: var(--bg-code);
-  border-radius: 5px;
-  padding: 4px 10px;
-  font-family: var(--font-mono);
-  font-size: 0.5em;
-  color: var(--accent);
-  white-space: nowrap;
-}
-.s7-howto-callout {
+.s7-howto-list .s7-howto-callout {
+  display: inline-block;
   background: rgba(100, 255, 218, 0.06);
   border-left: 2px solid var(--accent);
   border-radius: 4px;
-  padding: 5px 10px;
-  font-size: 0.48em;
+  padding: 3px 9px;
   color: var(--accent);
   font-weight: 700;
-  margin: 5px 0 0;
-  line-height: 1.4;
+  margin-top: 4px;
 }
 
 /* Casos límite — 4 confusion cards grid (2×2) */
@@ -553,8 +553,7 @@
 
 <!-- §7.1 · Apertura — Tarjeta de 5 preguntas (full opener) -->
 <section class="s7-slide">
-  <p class="s7-five-q-eyebrow">Cada sección de Parte 2</p>
-  <h2 class="s7-five-q-title">Cinco preguntas, en este orden</h2>
+  <h2 class="s7-five-q-title">CLAUDE.md y memoria automática</h2>
 
   <ol class="s7-five-q-grid">
     <li class="s7-five-q-card is-active">
@@ -584,13 +583,11 @@
     </li>
   </ol>
 
-  <p class="s7-five-q-section-label">§7 · CLAUDE.md y memoria automática</p>
-
   <aside class="notes">
-    <p><strong>Presentar la tarjeta como dispositivo recurrente. No leer las cinco preguntas — son la guía visual. Anunciar la sección con el rótulo de abajo.</strong></p>
-    <p><u>Apertura de §7 y, a la vez, el dispositivo que abre las siete secciones de Parte 2. Cinco preguntas fijas, en orden fijo. Qué es / dónde vive / cuándo se carga / cómo se usa / qué confunde. En el opener las cinco están a la vista; durante la sección aparece arriba la versión mini con la pregunta activa iluminada.</u></p>
-    <p><em>"Cambio de tono. Las próximas siete secciones siguen todas la misma plantilla. Son siete piezas del runtime de Claude Code — CLAUDE.md, rules, settings.json, permisos, skills, sub-agents, plan mode — y a cada una le vamos a hacer las mismas cinco preguntas en el mismo orden."</em></p>
-    <p><em>"Qué es. Dónde vive. Cuándo se carga. Cómo se usa. Y qué confunde. Si al final de cada sección podés responder esas cinco, sabés operar la pieza. Si te falta alguna, la pieza te va a sorprender en algún momento."</em></p>
+    <p><strong>Presentar la tarjeta como dispositivo recurrente. No leer las cinco preguntas — son la guía visual. El título arriba anuncia la sección.</strong></p>
+    <p><u>Apertura de §7 y, a la vez, el dispositivo que abre las siete secciones de Parte 2. El título de la sección queda como h2; las cinco preguntas fijas, en orden, debajo. Durante la sección aparece arriba la versión mini con la pregunta activa iluminada.</u></p>
+    <p><em>"CLAUDE.md y memoria automática. Empieza acá la Parte 2 propiamente dicha — siete piezas del runtime de Claude Code, una por sección, todas con la misma plantilla."</em></p>
+    <p><em>"Cinco preguntas, en este orden: qué es, dónde vive, cuándo se carga, cómo se usa, y qué confunde. Si al final de cada sección podés responder esas cinco, sabés operar la pieza. Si te falta alguna, la pieza te va a sorprender en algún momento."</em></p>
     <p><em>"Arrancamos por la más visible — la que está más cerca del usuario y la que más se confunde con 'configurar' al agente. CLAUDE.md y su pariente cercano, la memoria automática."</em></p>
   </aside>
 </section>
@@ -607,21 +604,12 @@
 
   <h2>CLAUDE.md es texto tuyo en la ventana desde el arranque</h2>
 
-  <div class="s7-focus-card">
-    <p>
-      Antes de que escribas el primer mensaje de una sesión, Claude Code ya leyó un conjunto de archivos de texto plano.
-      Esos archivos son los <code style="font-family:var(--font-mono);color:var(--accent);font-size:0.95em;">CLAUDE.md</code>,
-      y su contenido aparece inyectado en la ventana de contexto desde el primer intercambio.
-      No hay prompts implícitos: es texto tuyo, cargado automáticamente, siempre.
-    </p>
-    <p>
-      La consecuencia directa de esa propiedad: todo lo que ponés ahí ocupa contexto en cada sesión,
-      sin importar si la instrucción tiene algo que ver con la tarea del momento.
-    </p>
-    <p class="s7-focus-callout">
-      CLAUDE.md cuesta contexto siempre → es la herramienta más directa para moldear el comportamiento, y la que más disciplina exige.
-    </p>
-  </div>
+  <ul class="s7-qe-list">
+    <li><strong>Archivos <code>.md</code> que Claude Code lee al arranque</strong> de cada sesión, antes del primer mensaje.</li>
+    <li><strong>Su contenido aparece inyectado en la ventana de contexto</strong> desde el primer intercambio — es texto tuyo, sin prompts implícitos.</li>
+    <li><strong>Cuesta contexto siempre</strong>, sin importar si la instrucción tiene que ver con la tarea del momento.</li>
+    <li class="s7-qe-callout">→ Herramienta más directa para moldear comportamiento, y la que más disciplina exige.</li>
+  </ul>
 
   <aside class="notes">
     <p><strong>Señalar la mini tarjeta — "Qué es" iluminada. Leer los dos párrafos del card. Pausa antes del callout. Leer el callout despacio — es la tesis de §7.</strong></p>
@@ -765,35 +753,21 @@
 
   <h2>Tres decisiones al escribir el archivo</h2>
 
-  <div class="s7-howto-stack">
-    <div class="s7-howto-row">
-      <span class="s7-howto-num">1</span>
-      <div class="s7-howto-body">
-        <h3 class="s7-howto-h3"><code style="font-family:var(--font-mono);color:var(--accent);">@import</code> &nbsp;— partir el archivo en varios</h3>
-        <div class="s7-howto-inline">
-          <span class="s7-howto-syntax">@ruta/al/archivo</span>
-          <p class="s7-howto-text">Path relativo al archivo que importa, o absoluto. Recursivo hasta 5 niveles.</p>
-        </div>
-        <p class="s7-howto-callout">No ahorra contexto: los importados se expanden e inyectan igual.</p>
-      </div>
-    </div>
-
-    <div class="s7-howto-row">
-      <span class="s7-howto-num">2</span>
-      <div class="s7-howto-body">
-        <h3 class="s7-howto-h3">Comentarios HTML &nbsp;— anotar sin pagar tokens</h3>
-        <p class="s7-howto-text">Los bloques <code>&lt;!-- … --&gt;</code> se descartan antes de inyectar. Útil para notas a otros mantenedores del archivo.</p>
-      </div>
-    </div>
-
-    <div class="s7-howto-row">
-      <span class="s7-howto-num">3</span>
-      <div class="s7-howto-body">
-        <h3 class="s7-howto-h3">Tamaño &nbsp;— menos de 200 líneas por archivo</h3>
-        <p class="s7-howto-text">Archivos más largos tienden a reducir la adherencia del agente a las instrucciones que contienen.</p>
-      </div>
-    </div>
-  </div>
+  <ol class="s7-howto-list">
+    <li>
+      <strong><code>@import</code> — partir el archivo en varios.</strong><br>
+      Sintaxis <code>@ruta/al/archivo</code>; relativa al archivo que importa o absoluta; recursivo hasta 5 niveles.
+      <span class="s7-howto-callout">No ahorra contexto: los importados se expanden e inyectan igual.</span>
+    </li>
+    <li>
+      <strong>Comentarios HTML — anotar sin pagar tokens.</strong><br>
+      Los bloques <code>&lt;!-- … --&gt;</code> se descartan antes de inyectar. Útil para notas a otros mantenedores del archivo.
+    </li>
+    <li>
+      <strong>Tamaño — menos de 200 líneas por archivo.</strong><br>
+      Archivos más largos tienden a reducir la adherencia del agente a las instrucciones que contienen.
+    </li>
+  </ol>
 
   <aside class="notes">
     <p><strong>Recorrer las tres filas de arriba hacia abajo. En la 1, leer la sintaxis y dejar caer el callout. Las 2 y 3 son una línea cada una — no demorarlas.</strong></p>
