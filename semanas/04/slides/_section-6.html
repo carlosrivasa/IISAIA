@@ -1,0 +1,337 @@
+<style>
+/* Scoped styles for §6 only */
+.s6-hook-card {
+  max-width: 680px;
+  margin: 24px auto 0;
+  background: var(--bg-secondary);
+  border: 1px solid #2a3a5a;
+  border-left: 3px solid var(--accent);
+  border-radius: 8px;
+  padding: 28px 34px;
+  text-align: left;
+}
+.s6-hook-card .s6-hook-main {
+  font-size: 0.88em;
+  line-height: 1.75;
+  color: var(--text-primary);
+  margin: 0 0 18px;
+}
+.s6-hook-card .s6-hook-reveal {
+  font-size: 0.96em;
+  font-weight: 700;
+  color: var(--accent);
+  margin: 0;
+  line-height: 1.5;
+  border-top: 1px solid #2a3a5a;
+  padding-top: 16px;
+}
+
+/* Loop + mapping layout */
+.s6-loop-wrap {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+  max-width: 800px;
+  margin: 20px auto 0;
+  align-items: start;
+}
+.s6-cc-loop-host {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  min-height: 180px;
+}
+.s6-map-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.s6-map-row {
+  background: var(--bg-secondary);
+  border: 1px solid #2a3a5a;
+  border-radius: 6px;
+  padding: 12px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+.s6-map-phase {
+  font-size: 0.6em;
+  font-family: var(--font-mono);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text-muted);
+}
+.s6-map-value {
+  font-size: 0.72em;
+  font-weight: 700;
+  color: var(--accent);
+}
+.s6-map-detail {
+  font-size: 0.64em;
+  color: var(--text-muted);
+  margin: 2px 0 0;
+  line-height: 1.5;
+}
+.s6-map-note {
+  max-width: 800px;
+  margin: 16px auto 0;
+  font-size: 0.68em;
+  color: var(--text-muted);
+  text-align: center;
+  line-height: 1.6;
+}
+
+/* 4-piece grid */
+.s6-pieces-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  max-width: 740px;
+  margin: 20px auto 0;
+}
+.s6-piece-card {
+  background: var(--bg-secondary);
+  border: 1px solid #2a3a5a;
+  border-radius: 7px;
+  padding: 18px 20px;
+}
+.s6-piece-card .s6-piece-label {
+  font-size: 0.58em;
+  font-family: var(--font-mono);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text-muted);
+  display: block;
+  margin-bottom: 5px;
+}
+.s6-piece-card .s6-piece-name {
+  font-size: 0.8em;
+  font-weight: 700;
+  color: var(--accent);
+  margin: 0 0 7px;
+}
+.s6-piece-card .s6-piece-desc {
+  font-size: 0.66em;
+  color: var(--text-primary);
+  line-height: 1.6;
+  margin: 0;
+}
+.s6-piece-sub {
+  max-width: 740px;
+  margin: 16px auto 0;
+  font-size: 0.7em;
+  color: var(--text-muted);
+  text-align: center;
+  line-height: 1.6;
+}
+
+/* Lens-tracker slide */
+.s6-lens-wrap {
+  max-width: 680px;
+  margin: 28px auto 0;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  align-items: center;
+}
+.s6-lens-question {
+  font-size: 1.0em;
+  font-weight: 700;
+  color: var(--text-primary);
+  text-align: center;
+  line-height: 1.55;
+  max-width: 600px;
+}
+.s6-lens-question em {
+  color: var(--accent);
+  font-style: normal;
+}
+.s6-lens-explain {
+  font-size: 0.68em;
+  color: var(--text-muted);
+  text-align: center;
+  line-height: 1.65;
+  max-width: 580px;
+  margin: 0;
+}
+
+/* Preview flow */
+.s6-preview-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+  max-width: 780px;
+  margin: 24px auto 0;
+  justify-content: center;
+}
+.s6-preview-card {
+  background: var(--bg-secondary);
+  border: 1px solid #2a3a5a;
+  border-radius: 7px;
+  padding: 14px 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  text-align: center;
+}
+.s6-preview-card .s6-prev-sec {
+  font-size: 0.55em;
+  font-family: var(--font-mono);
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+}
+.s6-preview-card .s6-prev-title {
+  font-size: 0.66em;
+  font-weight: 700;
+  color: var(--text-primary);
+  line-height: 1.4;
+}
+.s6-preview-sub {
+  max-width: 780px;
+  margin: 16px auto 0;
+  font-size: 0.7em;
+  color: var(--text-muted);
+  text-align: center;
+  line-height: 1.6;
+}
+</style>
+
+<!-- §6.1 · section-divider — costura Parte 1 / Parte 2 -->
+<section class="section-divider">
+  <h2>Parte 2 — Claude Code</h2>
+  <p style="font-size:0.72em; color:var(--text-muted); margin-top:14px; font-style:italic;">El loop que describiste en §2 tiene nombre propio y pantalla.</p>
+
+  <aside class="notes">
+    <p><u>Seam fuerte entre Parte 1 y Parte 2. Los §1–§5 nunca nombraron Claude Code. Este slide es el primer momento en que aparece el nombre — deliberadamente, después de haber construido todo el marco conceptual sin él. La pausa acá es intencional: dejar que el título caiga solo antes de hablar.</u></p>
+    <p><em>"Parte 2. Todo lo que construimos en la primera parte — el loop, las tools, la ventana finita, los modos de falla — lo aprendimos sin nombrar ninguna herramienta. Ahora sí lo nombramos."</em></p>
+  </aside>
+</section>
+
+<!-- §6.3 · Qué es Claude Code -->
+<section>
+  <h2>Qué es Claude Code</h2>
+
+  <ul style="display:inline-block;text-align:left;max-width:760px;margin:18px auto 0;padding-left:34px;font-size:0.64em;line-height:1.65;color:var(--text-muted);list-style:disc;">
+    <li>Una <strong style="color:var(--text-primary);">CLI</strong>: la instalás una vez, la ejecutás como cualquier comando — <code style="font-family:var(--font-mono);color:var(--accent);">claude</code> en la terminal.</li>
+    <li>Abre una <strong style="color:var(--text-primary);">sesión interactiva</strong> con el modelo. Vos escribís, el modelo trabaja, te respondés en el mismo prompt.</li>
+    <li>Adentro de esa sesión corre el <strong style="color:var(--text-primary);">loop de §2</strong> — pensar, actuar, observar, repetir — con tu repo como entorno real (no simulación).</li>
+    <li>Las <strong style="color:var(--text-primary);">tools</strong> que el modelo puede ejecutar son las del agente: <code style="font-family:var(--font-mono);color:var(--accent);">Read</code>, <code style="font-family:var(--font-mono);color:var(--accent);">Edit</code>, <code style="font-family:var(--font-mono);color:var(--accent);">Write</code>, <code style="font-family:var(--font-mono);color:var(--accent);">Bash</code>, <code style="font-family:var(--font-mono);color:var(--accent);">Grep</code>, <code style="font-family:var(--font-mono);color:var(--accent);">Glob</code>, <code style="font-family:var(--font-mono);color:var(--accent);">WebFetch</code>, entre otras.</li>
+  </ul>
+
+  <aside class="notes">
+    <p><strong>Recorrer los cuatro bullets terse. Marcar fuerte "entorno real, no simulación".</strong></p>
+    <p><u>Slide de definición directa. Qué es Claude Code en operación, sin metáforas. CLI + sesión interactiva + loop corriendo + tools concretas. Setup para los siguientes dos slides (sesión, y qué pasa al ejecutar claude).</u></p>
+    <p><em>"Claude Code es una CLI. La instalás una vez y la corrés desde la terminal escribiendo claude. Cuando la ejecutás, abre una sesión interactiva con el modelo: vos escribís, el modelo trabaja, te responde, y seguís en la misma sesión."</em></p>
+    <p><em>"Adentro de esa sesión, lo que corre es exactamente el loop que vimos en la parte 1. Pensar, actuar, observar, repetir. Con tu repo como entorno — entorno real, no simulación: cuando ejecuta tests, los tests corren de verdad; cuando edita un archivo, el archivo cambia."</em></p>
+    <p><em>"Las herramientas que tiene disponibles son las del agente: Read, Edit, Write, Bash para ejecutar comandos, Grep y Glob para buscar, WebFetch para traer documentación. Cada vez que el modelo decide actuar, elige una de esas. Las vamos a ver una y otra vez en todo lo que sigue."</em></p>
+  </aside>
+</section>
+
+<!-- §6.4 · Qué pasa cuando ejecutás `claude` -->
+<section>
+  <h2>Qué pasa cuando ejecutás <code style="font-family:var(--font-mono);color:var(--accent);font-size:0.95em;">claude</code></h2>
+
+  <ul style="display:inline-block;text-align:left;max-width:780px;margin:18px auto 0;padding-left:34px;font-size:0.62em;line-height:1.7;color:var(--text-muted);list-style:decimal;">
+    <li>Camina hacia arriba desde el CWD recolectando los <code style="font-family:var(--font-mono);color:var(--accent);">CLAUDE.md</code> que encuentra — managed, user, project, local.</li>
+    <li>Lee <code style="font-family:var(--font-mono);color:var(--accent);">.claude/settings.json</code> (mergeado entre niveles): modelo, permisos, hooks, environment.</li>
+    <li>Carga las <code style="font-family:var(--font-mono);color:var(--accent);">.claude/rules/</code> sin frontmatter (las que tienen <code style="font-family:var(--font-mono);color:var(--accent);">paths:</code> entran on-demand cuando matchean).</li>
+    <li>Carga el <strong style="color:var(--text-primary);">índice</strong> de skills y sub-agents disponibles (name + description), no el cuerpo.</li>
+    <li>Carga las primeras 200 líneas o 25 KB de <code style="font-family:var(--font-mono);color:var(--accent);">MEMORY.md</code> (auto memory).</li>
+    <li>Abre una <strong style="color:var(--text-primary);">ventana de contexto fresca</strong> con todo eso ya adentro, y queda esperando tu primer mensaje.</li>
+  </ul>
+
+  <p style="font-size:0.62em;color:var(--accent);text-align:center;margin:16px auto 0;font-style:italic;max-width:680px;">
+    Todo esto está cargado <em>antes</em> de que escribas la primera tecla.
+  </p>
+
+  <aside class="notes">
+    <p><strong>Recorrer los seis pasos en orden. Pausa al final — la frase italic es la idea operativa.</strong></p>
+    <p><u>Slide concreto: qué hace el runtime al arrancar. Los seis pasos son el orden literal de lectura. Cada uno conecta con una sección que viene en la Parte 2 — por eso vale la pena nombrarlos ahora aunque no entren al detalle todavía.</u></p>
+    <p><em>"Cuando escribís claude y dale enter, el runtime hace seis cosas antes de pedirte el primer mensaje."</em></p>
+    <p><em>"Uno: camina hacia arriba desde el directorio donde estás recolectando los CLAUDE.md que encuentra. Managed del sistema, user de tu home, project del repo, local si existe. Todos entran al contexto."</em></p>
+    <p><em>"Dos: lee el .claude/settings.json — mergeado entre niveles. De ahí saca qué modelo usar, qué permisos están configurados, qué hooks correr, qué environment variables inyectar."</em></p>
+    <p><em>"Tres: carga las rules de .claude/rules/. Las que no tienen frontmatter entran al arranque, igual que CLAUDE.md. Las que tienen paths declarados esperan: entran cuando el agente toca un archivo que matchee el glob."</em></p>
+    <p><em>"Cuatro: carga el índice de skills y sub-agents disponibles. Ojo: solo el name y description, no el cuerpo de cada uno. El cuerpo entra cuando se invoca."</em></p>
+    <p><em>"Cinco: carga las primeras doscientas líneas o veinticinco kilobytes del MEMORY.md — la auto memory que Claude se escribe solo entre sesiones."</em></p>
+    <p><em>"Y seis: con todo eso en la ventana, queda esperando tu primer mensaje. Lo que importa retener: todo lo que enumeré ya está cargado antes de que vos escribas una letra. La sesión arranca con una ventana de contexto que ya tiene contenido."</em></p>
+  </aside>
+</section>
+
+<!-- §6.5 · Qué es una sesión -->
+<section>
+  <h2>Qué es una sesión</h2>
+
+  <ul style="display:inline-block;text-align:left;max-width:760px;margin:18px auto 0;padding-left:34px;font-size:0.64em;line-height:1.7;color:var(--text-muted);list-style:disc;">
+    <li>Una <strong style="color:var(--text-primary);">conversación con su propia ventana de contexto</strong>. Todo lo que se acumula durante la sesión (tu input, las respuestas del modelo, los resultados de tools) vive ahí.</li>
+    <li>Mientras la terminal esté abierta, la sesión <strong style="color:var(--text-primary);">mantiene el historial</strong>. Vos seguís haciendo tareas y el modelo recuerda lo anterior.</li>
+    <li>Al <strong style="color:var(--text-primary);">cerrar</strong> la sesión (Ctrl+C o cerrar terminal), la ventana <strong style="color:var(--text-primary);">desaparece</strong>. La próxima vez que ejecutes <code style="font-family:var(--font-mono);color:var(--accent);">claude</code>, arrancás con una ventana nueva.</li>
+    <li>Lo único que <strong style="color:var(--text-primary);">sobrevive entre sesiones</strong> es la auto memory (<code style="font-family:var(--font-mono);color:var(--accent);">MEMORY.md</code>) — lo que Claude consideró que valía la pena guardar.</li>
+    <li>Podés correr <strong style="color:var(--text-primary);">múltiples sesiones en paralelo</strong> (varias terminales). Cada una con su ventana propia, independientes entre sí.</li>
+  </ul>
+
+  <aside class="notes">
+    <p><strong>Recorrer los cinco bullets. Marcar fuerte "la ventana desaparece" en el bullet 3 — es la confusión más frecuente.</strong></p>
+    <p><u>Slide de definición de sesión. Cinco propiedades operativas. La que más confunde es la mortalidad de la ventana: la gente cree que Claude "recuerda" entre sesiones y arma estrategias asumiendo eso. La auto memory es la única excepción, y es acotada.</u></p>
+    <p><em>"Una sesión es una conversación con su propia ventana de contexto. Todo lo que pasa dentro de la sesión — tu input, las respuestas del modelo, los outputs de los comandos que ejecutó — vive en esa ventana."</em></p>
+    <p><em>"Mientras la terminal esté abierta, la sesión mantiene el historial. Podés trabajar en cosas que se conectan: pedirle algo, ver el resultado, pedirle algo más basado en lo anterior. El modelo se acuerda porque todo está en la ventana."</em></p>
+    <p><em>"Cuando cerrás la sesión — Ctrl+C, cerrar terminal, lo que sea — esa ventana desaparece. La próxima vez que abrís claude, arrancás con una ventana nueva. El modelo no se acuerda de la sesión anterior."</em></p>
+    <p><em>"Lo único que sobrevive entre sesiones es la auto memory, el MEMORY.md que vimos al principio. Pero eso lo escribe el propio Claude cuando decide que algo vale la pena recordar — no es el historial entero."</em></p>
+    <p><em>"Y un detalle práctico: podés correr varias sesiones en paralelo, en distintas terminales. Cada una tiene su propia ventana, independientes. Para tareas paralelas o experimentos en ramas distintas, abrís otra terminal y listo."</em></p>
+  </aside>
+</section>
+
+<!-- §6.6 · Lo que viene — preview §7–§13 (7 piezas configurables) -->
+<section>
+  <h2>El mapa de lo que viene</h2>
+
+  <div class="s6-preview-grid">
+    <div class="s6-preview-card">
+      <span class="s6-prev-sec">§7</span>
+      <span class="s6-prev-title">CLAUDE.md y memoria automática</span>
+    </div>
+    <div class="s6-preview-card">
+      <span class="s6-prev-sec">§8</span>
+      <span class="s6-prev-title">Rules</span>
+    </div>
+    <div class="s6-preview-card">
+      <span class="s6-prev-sec">§9</span>
+      <span class="s6-prev-title">settings.json</span>
+    </div>
+    <div class="s6-preview-card">
+      <span class="s6-prev-sec">§10</span>
+      <span class="s6-prev-title">Permisos</span>
+    </div>
+    <div class="s6-preview-card">
+      <span class="s6-prev-sec">§11</span>
+      <span class="s6-prev-title">Skills y slash commands</span>
+    </div>
+    <div class="s6-preview-card">
+      <span class="s6-prev-sec">§12</span>
+      <span class="s6-prev-title">Sub-agents</span>
+    </div>
+    <div class="s6-preview-card">
+      <span class="s6-prev-sec">§13</span>
+      <span class="s6-prev-title">Plan mode y permission modes</span>
+    </div>
+  </div>
+
+  <p class="s6-preview-sub">Cada sección abre con las mismas cinco preguntas — qué es, dónde vive, cuándo se carga, cómo se usa, qué confunde.</p>
+
+  <aside class="notes">
+    <p><strong>Recorrer las siete tarjetas brevemente, sin leerlas una por una. Usar el slide para anunciar el alcance de la Parte 2, no para presentar cada feature.</strong></p>
+    <p><u>Slide de preview. Siete piezas configurables del runtime de Claude Code, una por sección. La taxonomía del slide no es "qué tipo de cosa es cada una" — es "anatomía". Cada sección recorre la misma plantilla: qué es, dónde vive, cuándo se carga, cómo se usa, qué confunde. El demo va al final de cada sección, un único bloque.</u></p>
+    <p><em>"Lo que viene son siete piezas configurables del runtime. CLAUDE.md, rules, settings.json, permisos, skills, sub-agents, plan mode. Una por sección."</em></p>
+    <p><em>"Cada una con la misma plantilla — cinco preguntas. Qué es. Dónde vive. Cuándo se carga. Cómo se usa. Qué confunde. Y al cierre, un demo corto en VS Code."</em></p>
+    <p><em>"La promesa al final no es 'aprendiste siete features'. Es poder abrir cualquier proyecto con Claude Code instalado, mirar la carpeta .claude, y ubicar cada pieza. Saber qué archivo es responsable de qué."</em></p>
+  </aside>
+</section>
+
+<!-- INIT-SCRIPTS-§6-START -->
+<script>
+  if (document.getElementById('s6-cc-loop')) {
+    initFourLoop({ containerId: 's6-cc-loop', mode: 'cc' });
+  }
+</script>
+<!-- INIT-SCRIPTS-§6-END -->
