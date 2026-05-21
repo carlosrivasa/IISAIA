@@ -1,0 +1,513 @@
+<style>
+/* Scoped styles for §1 only */
+.s1-loop-diagram {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0;
+  margin: 0 auto;
+  max-width: 680px;
+}
+.s1-loop-row {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  width: 100%;
+  justify-content: center;
+}
+.s1-loop-row.reverse {
+  flex-direction: row-reverse;
+}
+.s1-loop-step {
+  background: var(--bg-secondary);
+  border: 1px solid var(--text-muted);
+  border-radius: 8px;
+  padding: 9px 14px;
+  font-size: 0.72em;
+  text-align: center;
+  min-width: 130px;
+}
+.s1-loop-step strong {
+  display: block;
+  color: var(--accent);
+  font-size: 1.05em;
+  margin-bottom: 2px;
+}
+.s1-loop-step span {
+  color: var(--text-muted);
+  font-size: 0.9em;
+}
+.s1-loop-step.subsystem {
+  border: 1px dashed var(--accent-secondary);
+  background: rgba(130,170,255,0.06);
+}
+.s1-loop-step.subsystem strong {
+  color: var(--accent-secondary);
+}
+.s1-loop-step.subsystem .s1-loop-callback {
+  display: block;
+  color: var(--accent-secondary);
+  font-size: 0.78em;
+  font-style: italic;
+  margin: 2px 0 4px;
+  font-family: var(--font-sans);
+}
+.s1-loop-h-arrow {
+  color: var(--text-muted);
+  font-size: 1.3em;
+  padding: 0 6px;
+  line-height: 1;
+}
+.s1-loop-v-arrows {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  padding: 4px 28px;
+  color: var(--text-muted);
+  font-size: 1.1em;
+  line-height: 1;
+  box-sizing: border-box;
+}
+/* Paradigm card headers */
+.s1-paradigm-label {
+  font-size: 0.65em;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text-muted);
+  margin-bottom: 6px;
+}
+.s1-paradigm-title {
+  font-size: 0.95em;
+  font-weight: 700;
+  color: var(--accent-secondary);
+  margin-bottom: 10px;
+}
+.s1-paradigm-title.right-col {
+  color: var(--accent);
+}
+.s1-paradigm-body {
+  font-size: 0.72em;
+  color: var(--text-primary);
+  line-height: 1.55;
+}
+/* S1 recap — LLM evolution (predict token → loop → SFT → RL) */
+.s1-recap-section h2 {
+  font-size: 1.3em;
+  margin-bottom: 6px;
+}
+.s1-recap-cols {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 8px;
+  max-width: 1240px;
+  margin: 8px auto 0;
+}
+.s1-recap-stage {
+  background: var(--bg-secondary);
+  border: 1px solid #2a3a5a;
+  border-radius: 7px;
+  padding: 8px 10px 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+}
+.s1-recap-label {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: 0.5em;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-bottom: 6px;
+  text-align: center;
+}
+.s1-recap-pipe {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3px;
+  flex: 1;
+}
+.s1-recap-io {
+  font-family: var(--font-mono);
+  font-size: 0.52em;
+  color: var(--text-muted);
+  text-align: center;
+}
+.s1-recap-arrow {
+  color: var(--text-muted);
+  font-size: 0.78em;
+  line-height: 1;
+}
+.s1-recap-box {
+  background: var(--bg-code);
+  border: 1px solid var(--text-muted);
+  border-radius: 5px;
+  padding: 4px 10px;
+  font-size: 0.6em;
+  color: var(--text-primary);
+  font-family: var(--font-mono);
+  text-align: center;
+  min-width: 60px;
+}
+.s1-recap-box.llm {
+  border-color: var(--accent);
+  color: var(--accent);
+  font-weight: 700;
+}
+.s1-recap-box.end-tok {
+  border-color: var(--accent-secondary);
+  color: var(--accent-secondary);
+}
+.s1-recap-runtime {
+  border: 1px dashed var(--accent-secondary);
+  border-radius: 6px;
+  padding: 6px 8px 8px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+  background: rgba(130,170,255,0.04);
+}
+.s1-recap-runtime-label {
+  font-family: var(--font-mono);
+  font-size: 0.46em;
+  color: var(--accent-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+.s1-recap-runtime-rule {
+  font-size: 0.5em;
+  color: var(--accent-secondary);
+  text-align: center;
+  margin: 0;
+  line-height: 1.35;
+}
+.s1-recap-runtime-rule code {
+  font-family: var(--font-mono);
+  color: var(--accent);
+  font-size: 0.95em;
+}
+.s1-recap-caption {
+  margin: 6px 0 0;
+  font-size: 0.5em;
+  color: var(--text-muted);
+  text-align: center;
+  font-style: italic;
+  line-height: 1.4;
+  border-top: 1px solid #2a3a5a;
+  padding-top: 6px;
+}
+
+/* Stage 4 — appears alone, full width, replaces the 3-col view */
+.s1-recap-body {
+  position: relative;
+  min-height: 460px;
+}
+.s1-recap-stage4 {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 12px;
+  max-width: 1180px;
+  margin: 14px auto 0;
+}
+.s1-recap-stage4-label {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: 0.6em;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  text-align: center;
+}
+.s1-recap-stage4-context {
+  display: grid;
+  grid-template-columns: 1fr 1.6fr 1fr;
+  gap: 10px;
+  align-items: stretch;
+}
+.s1-recap-stage4-block {
+  background: var(--bg-code);
+  border: 1px solid #2a3a5a;
+  border-radius: 7px;
+  padding: 10px 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+.s1-recap-stage4-block.sys {
+  border-color: var(--accent-secondary);
+}
+.s1-recap-stage4-block.new-msg {
+  border-color: var(--accent);
+}
+.s1-recap-stage4-blocklabel {
+  font-family: var(--font-mono);
+  font-size: 0.55em;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+.s1-recap-stage4-block.sys .s1-recap-stage4-blocklabel { color: var(--accent-secondary); }
+.s1-recap-stage4-block.new-msg .s1-recap-stage4-blocklabel { color: var(--accent); }
+.s1-recap-stage4-block p {
+  margin: 0;
+  font-size: 0.62em;
+  color: var(--text-primary);
+  line-height: 1.5;
+}
+.s1-recap-stage4-block p strong {
+  color: var(--text-muted);
+  font-weight: 700;
+  font-family: var(--font-mono);
+  font-size: 0.92em;
+}
+.s1-recap-stage4-plus {
+  align-self: center;
+  font-size: 1.1em;
+  color: var(--text-muted);
+  padding: 0 4px;
+}
+.s1-recap-stage4-arrow {
+  text-align: center;
+  font-size: 0.7em;
+  color: var(--accent-secondary);
+}
+.s1-recap-runtime.wide {
+  width: 100%;
+  max-width: 720px;
+  margin: 0 auto;
+}
+.s1-recap-stage4-output {
+  text-align: center;
+  font-size: 0.7em;
+  color: var(--text-primary);
+  font-family: var(--font-mono);
+  border: 1px dashed var(--text-muted);
+  border-radius: 6px;
+  padding: 8px 14px;
+  max-width: 720px;
+  margin: 0 auto;
+}
+.s1-recap-stage4-output .annot {
+  display: block;
+  font-family: var(--font-sans);
+  font-size: 0.78em;
+  color: var(--accent-secondary);
+  font-style: italic;
+  margin-top: 4px;
+}
+</style>
+
+<!-- §1.1 · Callback S1 — el programa que envuelve al LLM -->
+<section class="s1-recap-section">
+  <h2>El LLM y el programa que lo controla</h2>
+
+  <div class="s1-recap-body">
+    <!-- 4-column phase: visible at start, fades out when stage 5 (detail) appears -->
+    <div class="s1-recap-cols fragment fade-out" data-fragment-index="4">
+      <!-- Stage 1: single-shot, no runtime -->
+      <div class="s1-recap-stage">
+        <span class="s1-recap-label">1 · predecir un token</span>
+        <div class="s1-recap-pipe">
+          <div class="s1-recap-io">texto de entrada</div>
+          <div class="s1-recap-arrow">↓</div>
+          <div class="s1-recap-box llm">LLM</div>
+          <div class="s1-recap-arrow">↓</div>
+          <div class="s1-recap-io">próximo token</div>
+        </div>
+        <p class="s1-recap-caption">Una sola predicción. No hace falta nada afuera.</p>
+      </div>
+
+      <!-- Stage 2: external runtime with max_tokens cutoff -->
+      <div class="s1-recap-stage fragment fade-in" data-fragment-index="1">
+        <span class="s1-recap-label">2 · loop con tope externo</span>
+        <div class="s1-recap-pipe">
+          <div class="s1-recap-io">texto de entrada</div>
+          <div class="s1-recap-arrow">↓</div>
+          <div class="s1-recap-runtime">
+            <span class="s1-recap-runtime-label">programa externo</span>
+            <div class="s1-recap-box llm">LLM</div>
+            <p class="s1-recap-runtime-rule">↺ concatena la salida a la entrada · corta al <code>max_tokens</code></p>
+          </div>
+          <div class="s1-recap-arrow">↓</div>
+          <div class="s1-recap-io">texto de entrada + max_tokens</div>
+        </div>
+        <p class="s1-recap-caption">El LLM no decide parar — un programa cuenta tokens.</p>
+      </div>
+
+      <!-- Stage 3: program wraps input with role tokens; SFT-tuned LLM understands them -->
+      <div class="s1-recap-stage fragment fade-in" data-fragment-index="2">
+        <span class="s1-recap-label">3 · el LLM maneja tokens especiales</span>
+        <div class="s1-recap-pipe">
+          <div class="s1-recap-io">texto de entrada</div>
+          <div class="s1-recap-arrow">↓</div>
+          <div class="s1-recap-runtime">
+            <span class="s1-recap-runtime-label">programa externo</span>
+            <p class="s1-recap-runtime-rule">envuelve el mensaje: <code>&lt;|user|&gt;</code> antes, <code>&lt;|assistant|&gt;</code> para pedir respuesta</p>
+            <div class="s1-recap-box llm">LLM + SFT</div>
+            <p class="s1-recap-runtime-rule">↺ concatena la salida a la entrada · corta si emite <code>&lt;END&gt;</code></p>
+          </div>
+          <div class="s1-recap-arrow">↓</div>
+          <div class="s1-recap-io">respuesta completa</div>
+        </div>
+        <p class="s1-recap-caption">Vía SFT el LLM aprendió vocabulario especial: roles + fin de respuesta.</p>
+      </div>
+
+      <!-- Stage 4: RL teaches the model to reason with thinking tokens; program filters them -->
+      <div class="s1-recap-stage fragment fade-in" data-fragment-index="3">
+        <span class="s1-recap-label">4 · razonamiento interno (RL)</span>
+        <div class="s1-recap-pipe">
+          <div class="s1-recap-io">texto de entrada</div>
+          <div class="s1-recap-arrow">↓</div>
+          <div class="s1-recap-runtime">
+            <span class="s1-recap-runtime-label">programa externo</span>
+            <p class="s1-recap-runtime-rule">envuelve con tokens de rol (igual que antes)</p>
+            <div class="s1-recap-box llm">LLM + SFT + RL</div>
+            <p class="s1-recap-runtime-rule">↺ corta al <code>&lt;END&gt;</code> · filtra los <code>&lt;thinking&gt;</code> del output</p>
+          </div>
+          <div class="s1-recap-arrow">↓</div>
+          <div class="s1-recap-io">respuesta final (sin pensamiento)</div>
+        </div>
+        <p class="s1-recap-caption">RL entrena al modelo a razonar antes de responder. El programa filtra el pensamiento.</p>
+      </div>
+    </div>
+
+    <!-- Stage 5: appears alone with full width when the 4-col view fades out -->
+    <div class="s1-recap-stage4 fragment fade-in" data-fragment-index="4">
+      <span class="s1-recap-stage4-label">5 · conversación: el programa arma el contexto turno tras turno</span>
+
+      <div class="s1-recap-stage4-context">
+        <div class="s1-recap-stage4-block sys">
+          <span class="s1-recap-stage4-blocklabel">system prompt — inyectado una vez</span>
+          <p>"Sos un asistente útil que responde con precisión y brevedad."</p>
+        </div>
+        <div class="s1-recap-stage4-block">
+          <span class="s1-recap-stage4-blocklabel">historial — crece turno tras turno</span>
+          <p><strong>&lt;|user|&gt;</strong> ¿qué es Python?</p>
+          <p><strong>&lt;|assistant|&gt;</strong> Un lenguaje de programación interpretado…</p>
+        </div>
+        <div class="s1-recap-stage4-block new-msg">
+          <span class="s1-recap-stage4-blocklabel">mensaje nuevo</span>
+          <p><strong>&lt;|user|&gt;</strong> ¿cómo lo instalo?</p>
+        </div>
+      </div>
+
+      <div class="s1-recap-stage4-arrow">↓ el programa envuelve cada mensaje con tokens de rol y concatena los tres bloques</div>
+
+      <div class="s1-recap-runtime wide">
+        <span class="s1-recap-runtime-label">programa externo</span>
+        <div class="s1-recap-box llm">LLM + SFT + RL</div>
+        <p class="s1-recap-runtime-rule">↺ concatena la salida a la entrada · corta al <code>&lt;END&gt;</code> · filtra los <code>&lt;thinking&gt;</code> del output · guarda el intercambio en el historial</p>
+      </div>
+
+      <div class="s1-recap-stage4-arrow">↓</div>
+
+      <div class="s1-recap-stage4-output">
+        "Para instalar Python, descargá el instalador desde python.org…"
+        <span class="annot">se concatena al historial para el próximo turno</span>
+      </div>
+    </div>
+  </div>
+
+  <aside class="notes">
+    <p><strong>Cinco estados, cuatro reveals. Los cuatro primeros viven juntos en columnas; el quinto los reemplaza para dar lugar a la vista detallada de cómo el programa arma la conversación. Énfasis siempre en el recuadro punteado: el programa externo.</strong></p>
+    <p><u>Callback a S1 expandido. Stages 1-4 muestran la evolución mecánica del LLM y su programa externo (single-shot → max_tokens → SFT → RL). Stage 5 abre la capa de conversación: cómo el mismo programa externo ensambla el contexto turno tras turno. Stage 5 aparece solo, sin compartir espacio con los otros, para que la estructura system prompt / historial / mensaje nuevo se vea bien.</u></p>
+    <p><em>"Antes de empezar §1, un refresco de la semana 1. La unidad básica del modelo es esta: le pasás un texto, te devuelve el próximo token. Una sola predicción. No hace falta nada más alrededor."</em></p>
+    <p><em>"Lo que vimos después es que esa predicción se mete en un loop. Y acá empieza algo importante: el loop no lo corre el LLM. Lo corre un programa afuera — la rutina del provider, del SDK, del runtime — que toma la salida del LLM, la concatena a la entrada, le vuelve a pedir el próximo token, y corta cuando se alcanza un tope explícito como max_tokens. Esa caja punteada es lo nuevo que tienen que ver."</em></p>
+    <p><em>"La versión madura del loop introduce dos usos de tokens especiales que el LLM aprendió en una etapa puntual de su entrenamiento: el supervised fine-tuning, o SFT. Por eso ahora la caja dice 'LLM + SFT'. El primer token especial, en la salida: durante SFT el modelo aprende a emitir un token especial — end-of-text — que el programa afuera interpreta como 'terminé'. La señal viene de adentro del LLM, pero quien la lee y detiene la generación sigue siendo el programa. El segundo, en la entrada: el usuario manda texto plano, sin nada raro. Es el programa el que envuelve ese texto con tokens de rol — pone `&lt;|user|&gt;` antes del mensaje y `&lt;|assistant|&gt;` al final, como diciéndole 'acá te toca a vos'. El LLM aprendió en SFT a leer esos marcadores y saber qué parte del texto es entrada y qué parte tiene que generar."</em></p>
+    <p><em>"El siguiente paso del entrenamiento agrega una capa más: reinforcement learning, RL. Por eso la caja dice 'LLM + SFT + RL'. Lo que aprende el modelo con RL — entre otras cosas — es a razonar antes de responder. Genera una cadena de pensamiento envuelta en tokens especiales como `&lt;thinking&gt;...&lt;/thinking&gt;` que es trabajo interno del modelo, y después la respuesta final para el usuario. El programa externo lidia con esto: lee el output completo, filtra los tokens de razonamiento, y solo le muestra al usuario la respuesta final. El usuario ve un mensaje limpio; el pensamiento queda detrás de bambalinas. Otra responsabilidad nueva del programa, y otra cosa que el LLM aprendió en una etapa específica de entrenamiento."</em></p>
+    <p><em>"Ahora dejá que los cuatro se vayan y mirá esto solo. El programa afuera hace una cosa más que es lo que arma la dinámica de conversación que conocen. Tres bloques: el system prompt — un texto que el programa inyecta una sola vez al principio de la sesión y que el LLM va a tener delante en cada turno. El historial — todo lo que el usuario y el modelo se dijeron antes, que el programa guarda. Y el mensaje nuevo. El programa concatena los tres bloques en un solo texto y eso es lo que el LLM recibe. El LLM genera la respuesta — siempre con su loop, su `&lt;END&gt;` y su razonamiento interno — y el programa toma esa respuesta y la suma al historial. Próximo turno, el historial es un poco más largo. El LLM por sí solo no recuerda nada entre turnos; el que recuerda es el programa. La semana 4 entera trata sobre cómo evoluciona este programa: empezó contando tokens, aprendió a mantener una conversación, va a terminar siendo un agente."</em></p>
+  </aside>
+</section>
+
+<!-- §1.2 · Hook — la rueda copy-paste -->
+<section>
+  <h2>El loop manual</h2>
+
+  <div class="s1-loop-diagram">
+    <!-- Top row: Error → copiar → chat -->
+    <div class="s1-loop-row">
+      <div class="s1-loop-step">
+        <strong>Error</strong>
+        <span>en tu código</span>
+      </div>
+      <div class="s1-loop-h-arrow">→</div>
+      <div class="s1-loop-step">
+        <strong>Copiar</strong>
+        <span>seleccionar, ⌘C</span>
+      </div>
+      <div class="s1-loop-h-arrow">→</div>
+      <div class="s1-loop-step subsystem">
+        <strong>Chat</strong>
+        <span class="s1-loop-callback">todo lo del slide anterior</span>
+        <span>pegar, preguntar</span>
+      </div>
+    </div>
+
+    <!-- Vertical arrows between rows: ↑ on left closes loop (Código→Error), ↓ on right continues (Chat→Correr) -->
+    <div class="s1-loop-v-arrows">
+      <span>↑</span>
+      <span>↓</span>
+    </div>
+
+    <!-- Bottom row (reversed): DOM [Pegar, ←, Correr] → visual [Correr, ←, Pegar].
+         Flow follows the ← arrows: Pegar (right) → Correr (left). -->
+    <div class="s1-loop-row reverse">
+      <div class="s1-loop-step">
+        <strong>Pegar</strong>
+        <span>al editor, guardar</span>
+      </div>
+      <div class="s1-loop-h-arrow">←</div>
+      <div class="s1-loop-step">
+        <strong>Correr</strong>
+        <span>resultado distinto</span>
+      </div>
+    </div>
+  </div>
+
+  <aside class="notes">
+    <p><strong>Dejar que el diagrama hable 5 segundos antes de hablar. Revelar la línea final con un click.</strong></p>
+    <p><u>Diagrama cíclico de 5 pasos que reproduce la rueda copy-paste manual del alumno. La caja Chat va con borde dashed azul para marcar que representa todo el subsistema del slide anterior (LLM + programa). La generación de código ocurre adentro de Chat, no es un paso aparte. Sin texto explicativo — la estructura visual hace el argumento.</u></p>
+    <p><em>"Pensá en la última vez que le pediste a una IA que te ayudara con tu código. Algo no funcionaba como esperabas. Copiaste el problema, lo pegaste en el chat, la IA te devolvió código, lo pegaste en tu editor, lo corriste, viste un resultado distinto, y volviste al chat. Cada vuelta de esa rueda la hacías vos: leías la salida, decidías qué llevar de vuelta al modelo, ejecutabas el próximo paso. La caja Chat dibujada con borde azul punteado es exactamente el sistema que desplegamos antes: el LLM con su programa afuera generando la respuesta — todo eso, en una sola caja del loop que estás vos corriendo."</em></p>
+    <p><em>"Esto no es un defecto del modelo — es cómo funciona el paradigma más básico. La IA escribía. Vos corrías el loop."</em></p>
+  </aside>
+</section>
+
+<!-- §1.2 · Dos paradigmas -->
+<section>
+  <h2>Nuevo paradigma</h2>
+
+  <div class="comparison-2col" style="margin-top:18px;">
+    <div class="bg-secondary-card">
+      <p class="s1-paradigm-label">Paradigma 1</p>
+      <p class="s1-paradigm-title">La IA sugiere,<br>vos conducís</p>
+      <p class="s1-paradigm-body">
+        El modelo completa una línea, propone un bloque, ofrece una alternativa. Vos abrís el archivo, aceptás o rechazás la sugerencia, ejecutás el test.
+        <br><br>
+        La IA opera en modo reactivo: responde cuando la invocás. Vos manejás el flujo.
+      </p>
+    </div>
+    <div class="bg-secondary-card fragment fade-in">
+      <p class="s1-paradigm-label">Paradigma 2</p>
+      <p class="s1-paradigm-title right-col">El agente planifica<br>y ejecuta en loop</p>
+      <p class="s1-paradigm-body">
+        Recibe un objetivo, arma un plan, ejecuta pasos, observa resultados, ajusta y sigue.
+        <br><br>
+        La IA conduce el flujo; vos supervisás el proceso. El modelo no espera que le traigas el error: va a buscarlo.
+      </p>
+    </div>
+  </div>
+
+  <aside class="notes">
+    <p><strong>Arranca solo con Paradigma 1 visible. Click revela Paradigma 2 al lado, para que el contraste se construya en vivo.</strong></p>
+    <p><u>Comparación 2 columnas: no versiones mejor/peor, sino arquitecturas distintas.</u></p>
+    <p><em>"Hay dos formas en que una IA puede colaborar con código, y vale la pena verlas como paradigmas distintos, no como versiones mejores y peores de lo mismo. El primero: la IA sugiere y vos conducís. Autocomplete, chat — el flujo lo manejás vos."</em></p>
+    <p><em>"El segundo: el agente planifica y ejecuta en un loop. Recibe un objetivo, arma un plan, itera. El modelo no espera que le traigas el error: va a buscarlo. La IA tiene acceso al sistema de archivos, puede correr comandos, puede leer resultados. No te describe lo que habría que hacer: lo hace."</em></p>
+  </aside>
+</section>
+
