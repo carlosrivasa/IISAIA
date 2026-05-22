@@ -22,7 +22,7 @@ El spec que sale de esta skill es el contrato; en la próxima skill vemos por qu
 
 ## El punto crítico
 
-Una pregunta por vez. Multiple choice cuando se puede. Nunca implementar nada — ni un scaffold, ni un archivo vacío — antes de que vos hayas aprobado el diseño escrito. Esto aplica a todo proyecto sin importar cuán simple parezca.
+Una pregunta por vez. Multiple choice cuando se puede. Nunca implementar nada — ni un esqueleto del proyecto, ni un archivo vacío — antes de que vos hayas aprobado el diseño escrito. Esto aplica a todo proyecto sin importar cuán simple parezca.
 
 ## El artefacto: el spec en disco
 
