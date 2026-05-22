@@ -148,17 +148,17 @@
 
 2. **Recap visual de las 7 piezas de S04.** Pattern: grid (no `pipeline-roadmap`) — 7 cards en gris claro con los nombres (`CLAUDE.md`, `rules`, `settings.json`, `permisos`, `skills`, `sub-agents`, `slash commands`, `plan mode` — verificar cuáles son las 7 reales del scaffold de S04 leyendo `semanas/04/spine.md` §§7-13). Subtítulo: "Lo que armaste vos pieza por pieza. Hoy llega ya empaquetado." Sin reveals o uno solo para el subtítulo.
 
-3. **Los tres dolores sin formato común.** Pattern: grid 3×1 con reveals progresivos (uno por dolor). Cada card es título + frase corta:
+3. **Las tres complicaciones sin formato común.** Pattern: grid 3×1 con reveals progresivos (uno por complicación). Cada card es título + frase corta:
    - **Descubrimiento** — "No sabés dónde buscar. ¿GitHub? ¿Discord? ¿Blogs?"
    - **Bajada** — "Cada autor organiza distinto. Cada vez es un puzzle nuevo."
    - **Mantenimiento** — "No hay versión. Tenés una foto inmóvil."
-   Speaker notes desarrollan cada dolor con el ejemplo del source.
+   Speaker notes desarrollan cada complicación con el ejemplo del source.
 
 4. **El nombre del formato.** Slide de cierre/bridge:
    > "La respuesta tiene nombre: **plugin**."
    Subtítulo: "Un formato estándar que junta esas piezas en un paquete reconocible. El autor lo publica; vos lo instalás con un comando." Bridge al §2.
 
-**Patterns:** opener visual (frase grande), grid 7×1 para recap, grid 3×1 para los dolores. Sin pipeline-roadmap (todavía).
+**Patterns:** opener visual (frase grande), grid 7×1 para recap, grid 3×1 para las complicaciones. Sin pipeline-roadmap (todavía).
 **Animations:** Ninguna JS. Reveals CSS only.
 **Speaker-note target:** ~150–200 palabras/slide para los slides 1 y 4; ~120–160 para 2 y 3.
 
@@ -198,7 +198,7 @@
    ```
    Highlight: sólo `name` es obligatorio. El resto suma metadata útil. Notas: si no ponés `plugin.json`, Claude Code autodescubre y deriva el nombre del folder.
 
-4. **El mapping dolor → respuesta.** Pattern: tabla 3-col o `comparison` extendido. Tres filas, columnas: **Dolor (de §1)** / **Respuesta del formato** / **Cómo funciona (preview)**.
+4. **El mapping complicación → respuesta.** Pattern: tabla 3-col o `comparison` extendido. Tres filas, columnas: **Complicación (de §1)** / **Respuesta del formato** / **Cómo funciona (preview)**.
    - Descubrimiento / habilita marketplaces / "Lo vemos en §3"
    - Bajada / layout estandarizado / "Skills siempre en `skills/`, agents siempre en `agents/`, …"
    - Mantenimiento / versión declarada en `plugin.json` / "Con campo `version` o SHA del commit como cache key"

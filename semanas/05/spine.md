@@ -1,6 +1,6 @@
 # Spine — Semana 05: Plugins de Claude Code y Superpowers
 
-**Whole-week through-line:** Semana 04 te dio las piezas escribibles del runtime de Claude Code. Semana 05 hace un zoom-out en tres tiempos. **Parte 1 (§§1-3)**: existe un formato común — el **plugin** — que junta esas piezas en un paquete instalable y resuelve tres dolores predecibles (descubrimiento, bajada, mantenimiento). **Parte 2 (§§4-5)**: usamos ese formato para instalar el plugin más completo que existe — **Superpowers** — y vemos el happy-path entero como mapa. **Parte 3 (§§6-13)**: bajamos a cada skill del happy-path como **metodología en acción** sobre el demo-repo de semana 04. **Cierre (§§14-15)**: el resto del cinturón al pasar y la bajada al trabajo final. La cadena es *pieza → paquete → metodología*, y cada bloque cierra cuando entra el siguiente.
+**Whole-week through-line:** Semana 04 te dio las piezas escribibles del runtime de Claude Code. Semana 05 hace un zoom-out en tres tiempos. **Parte 1 (§§1-3)**: existe un formato común — el **plugin** — que junta esas piezas en un paquete instalable y resuelve tres complicaciones predecibles (descubrimiento, bajada, mantenimiento). **Parte 2 (§§4-5)**: usamos ese formato para instalar el plugin más completo que existe — **Superpowers** — y vemos el happy-path entero como mapa. **Parte 3 (§§6-13)**: bajamos a cada skill del happy-path como **metodología en acción** sobre el demo-repo de semana 04. **Cierre (§§14-15)**: el resto del cinturón al pasar y la bajada al trabajo final. La cadena es *pieza → paquete → metodología*, y cada bloque cierra cuando entra el siguiente.
 
 **Dispositivos pedagógicos de toda la semana:**
 
@@ -22,23 +22,23 @@
 
 ## Section 1: De piezas sueltas a paquetes
 **Source material:** `source_material/01-de-piezas-a-paquetes.md`
-**Through-line:** Semana 04 te enseñó a *escribir* las piezas del runtime. La pregunta inversa abre la clase: *¿tenés que escribirlas siempre vos?* Hay gente que ya empaquetó su solución, pero sin un formato común aparecen tres dolores predecibles (**descubrimiento**, **bajada**, **mantenimiento**). El plugin es el nombre del formato común que los resuelve.
+**Through-line:** Semana 04 te enseñó a *escribir* las piezas del runtime. La pregunta inversa abre la clase: *¿tenés que escribirlas siempre vos?* Hay gente que ya empaquetó su solución, pero sin un formato común aparecen tres complicaciones predecibles (**descubrimiento**, **bajada**, **mantenimiento**). El plugin es el nombre del formato común que las resuelve.
 **Hook:** La pregunta-inversa apenas se abre la sección — *"Sabés que podés escribir cada una. ¿Tenés que escribirlas siempre vos?"* — funciona como apertura cognitiva: invierte la dirección de la pregunta de S04 y hace explícito que el supuesto "lo escribo yo" es opcional.
 **What students walk away knowing:**
 - La pregunta inversa: las piezas del runtime de S04 no siempre las escribís vos, y hay un ecosistema que ya las publica.
-- Tres dolores predecibles sin formato común: descubrimiento (no sabés dónde buscar), bajada (cada autor organiza distinto), mantenimiento (no hay versión, tenés una foto inmóvil).
+- Tres complicaciones predecibles sin formato común: descubrimiento (no sabés dónde buscar), bajada (cada autor organiza distinto), mantenimiento (no hay versión, tenés una foto inmóvil).
 - El **plugin** es el nombre del formato que resuelve los tres. Los detalles de cómo los resuelve llegan en §§2-3.
-**Animations / interactive:** Ninguna. CSS-only. Recap visual del runtime de S04 (las 7 piezas como cards en gris claro, callback discreto al deck anterior) + grid 3×1 de los tres dolores con reveals progresivos.
+**Animations / interactive:** Ninguna. CSS-only. Recap visual del runtime de S04 (las 7 piezas como cards en gris claro, callback discreto al deck anterior) + grid 3×1 de las tres complicaciones con reveals progresivos.
 **Slide budget:** 3–4 slides.
 
 ## Section 2: Qué es un plugin de Claude Code
 **Source material:** `source_material/02-plugins-que-son.md`
-**Through-line:** Un plugin es un **directorio autocontenido de componentes** con layout estandarizado (`.claude-plugin/`, `skills/`, `agents/`, `hooks/`, `commands/`). El `plugin.json` es opcional y sólo `name` es obligatorio. Ese formato común resuelve los tres dolores que aparecieron en §1: descubrimiento (habilita marketplaces), bajada (layout único), mantenimiento (versión explícita).
+**Through-line:** Un plugin es un **directorio autocontenido de componentes** con layout estandarizado (`.claude-plugin/`, `skills/`, `agents/`, `hooks/`, `commands/`). El `plugin.json` es opcional y sólo `name` es obligatorio. Ese formato común resuelve las tres complicaciones que aparecieron en §1: descubrimiento (habilita marketplaces), bajada (layout único), mantenimiento (versión explícita).
 **What students walk away knowing:**
 - La definición literal de la doc (*directorio autocontenido + componentes*) y por qué cada palabra importa.
 - La anatomía mínima del folder y qué va dónde. El `plugin.json` es opcional; sólo `name` es obligatorio cuando se incluye.
-- El mapping explícito **tres dolores → tres respuestas del formato**: descubrimiento ↔ marketplaces (preview de §3), bajada ↔ layout estandarizado, mantenimiento ↔ versión declarada (con el detalle del SHA-fallback).
-**Animations / interactive:** Ninguna. CSS-only. `code-walkthrough` del árbol de directorios y del manifest mínimo. Tabla o `comparison` para el mapping dolor → respuesta del formato.
+- El mapping explícito **tres complicaciones → tres respuestas del formato**: descubrimiento ↔ marketplaces (preview de §3), bajada ↔ layout estandarizado, mantenimiento ↔ versión declarada (con el detalle del SHA-fallback).
+**Animations / interactive:** Ninguna. CSS-only. `code-walkthrough` del árbol de directorios y del manifest mínimo. Tabla o `comparison` para el mapping complicación → respuesta del formato.
 **Slide budget:** 4–5 slides.
 
 ## Section 3: Marketplaces e instalación
