@@ -172,13 +172,34 @@
     color: var(--accent);
   }
 
-  /* Slide 5: Scopes table */
+  /* Slide 5: Scopes — syntax block + table */
+  .s3-scope-syntax {
+    max-width: 900px;
+    margin: var(--spacing-lg) auto var(--spacing-md) auto;
+    background: var(--bg-secondary);
+    border-radius: 6px;
+    padding: var(--spacing-sm) var(--spacing-md);
+    font-family: var(--font-mono);
+    font-size: 1.05rem;
+    color: var(--text-primary);
+    text-align: center;
+    line-height: 1.55;
+  }
+  .s3-scope-syntax .s3-scope-flag {
+    color: var(--accent);
+    font-weight: 700;
+  }
+  .s3-scope-syntax .s3-scope-comment {
+    color: var(--text-muted);
+    font-size: 0.85em;
+    margin-left: var(--spacing-sm);
+  }
   .s3-scopes {
     display: grid;
-    grid-template-columns: 0.8fr 1.3fr 1.4fr;
+    grid-template-columns: 1.1fr 1.3fr 1.4fr;
     gap: 0;
     max-width: 1100px;
-    margin: var(--spacing-lg) auto 0 auto;
+    margin: 0 auto;
     border: 1px solid var(--text-muted);
     border-radius: 8px;
     overflow: hidden;
@@ -208,13 +229,19 @@
     font-family: var(--font-mono);
     font-weight: 700;
   }
-  .s3-scope-cell.is-name .s3-scope-default {
+  .s3-scope-cell.is-name .s3-scope-flag-inline {
+    display: block;
     color: var(--text-muted);
-    font-size: 0.8rem;
+    font-size: 0.85rem;
     font-family: var(--font-mono);
+    font-weight: 400;
+    letter-spacing: 0;
+    margin-top: 4px;
+  }
+  .s3-scope-cell.is-name .s3-scope-flag-inline.is-default {
     text-transform: uppercase;
     letter-spacing: 0.08em;
-    margin-left: var(--spacing-xs);
+    font-size: 0.78rem;
   }
   .s3-scope-cell code {
     background: var(--bg-primary);
@@ -342,20 +369,34 @@
 <section>
   <h2 style="text-align: center; max-width: 900px; margin: 0 auto;">El scope decide quién ve el plugin</h2>
 
+  <div class="s3-scope-syntax">
+    /plugin install &lt;plugin&gt;@&lt;marketplace&gt; <span class="s3-scope-flag">--scope &lt;user|project|local&gt;</span>
+    <div class="s3-scope-comment">El flag es opcional. Sin él, va a <code>user</code>.</div>
+  </div>
+
   <div class="s3-scopes">
     <div class="s3-scope-cell is-head">Scope</div>
     <div class="s3-scope-cell is-head">Dónde se registra</div>
     <div class="s3-scope-cell is-head">Cuándo usarlo</div>
 
-    <div class="s3-scope-cell is-name">user<span class="s3-scope-default">default</span></div>
+    <div class="s3-scope-cell is-name">
+      user
+      <span class="s3-scope-flag-inline is-default">sin flag (default)</span>
+    </div>
     <div class="s3-scope-cell"><code>~/.claude/settings.json</code></div>
     <div class="s3-scope-cell">Uso personal. Te sirve para todos tus proyectos.</div>
 
-    <div class="s3-scope-cell is-name">project</div>
+    <div class="s3-scope-cell is-name">
+      project
+      <span class="s3-scope-flag-inline">--scope project</span>
+    </div>
     <div class="s3-scope-cell"><code>.claude/settings.json</code> del repo</div>
     <div class="s3-scope-cell">Plugins de equipo. Queda versionado — viaja con el repo.</div>
 
-    <div class="s3-scope-cell is-name">local</div>
+    <div class="s3-scope-cell is-name">
+      local
+      <span class="s3-scope-flag-inline">--scope local</span>
+    </div>
     <div class="s3-scope-cell"><code>.claude/settings.local.json</code> (gitignored)</div>
     <div class="s3-scope-cell">Cosas que sólo querés en tu copia, no en la del equipo.</div>
   </div>
