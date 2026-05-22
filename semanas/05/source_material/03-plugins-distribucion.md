@@ -9,7 +9,7 @@ Un **marketplace** es un registro de plugins que Claude Code sabe consultar. Es 
 Hay dos tipos. Existe el oficial, `claude-plugins-official`, mantenido por Anthropic, que viene pre-registrado: no hace falta agregarlo, está disponible desde el momento en que abrís Claude Code. Y existen marketplaces comunitarios: cualquiera puede armar uno y publicarlo, típicamente como repo de GitHub. Para usar uno comunitario, primero lo registrás en tu cliente con un comando.
 
 ```text
-/plugin marketplace add obra/superpowers-marketplace
+/plugin marketplace add <usuario-github>/<repo-del-marketplace>
 ```
 
 A partir de ese momento, los plugins de ese marketplace están disponibles para instalar igual que los del oficial.
