@@ -103,6 +103,11 @@ esta skill. 2-4 oraciones. Sin bullets. Acá entra la voz del docente.>
 <1 idea central, extraída del SKILL.md. Una oración o un párrafo corto.
 Sin bullets.>
 
+## El artefacto: <X> en disco              ← OPCIONAL — sólo §06 brainstorming y §07 writing-plans
+<Path exacto donde la skill persiste su output (spec o plan), formato de
+nombre, qué skill lo lee después. Refuerza la disciplina spec-driven dev
+con un anclaje tangible. 1 párrafo.>
+
 ## Punto de auto-review                    ← OPCIONAL — sólo si la skill tiene una
 <Qué se autorrevisa, cuándo en el flujo de la skill, y qué busca. Acá las
 auto-reviews dentro de la skill (Spec Self-Review, Plan Self-Review,
@@ -415,13 +420,14 @@ Aplicar la plantilla del header del plan. Valores específicos para esta skill:
 - **Cuándo se activa:** antes de feature nueva, refactor, modificación de comportamiento. Si hay 1% de chance de que aplique, se invoca.
 - **Por qué importa (autoral):** sin esta skill, los agentes saltan a escribir código antes de saber qué construís. La conversación termina produciendo el spec — el artefacto que después dirige todo el flujo. Es ingeniería de prompts aplicada al diseño: detectás el mismatch de intención cuando es barato (palabras), no cuando es caro (código). Plantar la semilla de spec-driven dev: "el spec que sale de acá es el contrato; en la próxima skill vemos por qué tener un spec separado del código importa".
 - **El punto crítico:** una pregunta por vez. Multiple choice cuando se puede. Nunca implementar antes de que el usuario apruebe el diseño escrito.
+- **El artefacto en disco (sub-sección extra):** el spec aprobado se persiste en `docs/superpowers/specs/YYYY-MM-DD-<topic>-design.md` y se commitea. No es un documento descartable de la conversación — es un archivo de primera clase del repo. Las próximas skills (writing-plans, subagent-driven-dev) lo leen desde ahí. Esto va como sub-sección propia entre "El punto crítico" y "Punto de auto-review", con título `## El artefacto: el spec en disco`.
 - **Punto de auto-review (★):** después de escribir el spec en disco, antes de mostrarlo al usuario, la skill ejecuta un Spec Self-Review: escanea placeholders ("TBD", "TODO"), contradicciones internas, scope (¿esto es un spec o cinco specs?), ambigüedades. Lo arregla en el momento sin pedirle al usuario. El humano nunca debería leer un placeholder en su spec.
 - **Anti-patrones a evitar:**
   - "Esto es muy simple, no necesita diseño" — todo proyecto pasa por el proceso.
   - Combinar 3 preguntas en un mensaje — satura al usuario y abrevia calidad.
   - Invocar implementation skills antes de tener spec aprobado.
 - **Fuente canónica:** `semanas/05/source_material/superpowers/skills/brainstorming/SKILL.md`
-- **Captura:** `<!-- Captura real: screenshot de las preguntas socráticas recibidas al pedir un feature al demo-repo de S04. Opcional: notas del Spec Self-Review previo a entregar. -->`
+- **Captura:** `<!-- Captura real: screenshot de las preguntas socráticas recibidas al pedir un feature al demo-repo de S04 + el archivo de spec resultante abierto en VS Code (path docs/superpowers/specs/YYYY-MM-DD-<topic>-design.md). Opcional: notas del Spec Self-Review previo a entregar. -->`
 
 - [ ] **Step 2: Commit**
 
@@ -453,13 +459,14 @@ Orden del archivo:
    - **Cuándo se activa:** después del brainstorming, antes de tocar código. Si tenés un spec, esta skill convierte spec → plan.
    - **Por qué importa (autoral):** el plan es lo que permite que cualquier agente (vos en otra sesión, un subagente, un colega) ejecute la implementación sin re-deducir nada. Es el contrato técnico. Sin esta skill, el "plan" queda en tu cabeza y se pierde cuando el contexto se acaba o cambia el agente.
    - **El punto crítico:** tareas de 2-5 minutos cada una, con archivos exactos y código completo en cada step. Nada de "implementar similar al Task N" — el ingeniero puede leer las tareas fuera de orden.
+   - **El artefacto en disco (sub-sección extra):** el plan se persiste en `docs/superpowers/plans/YYYY-MM-DD-<feature>.md` y se commitea junto al spec. Ese par (spec + plan) es lo que después lee `subagent-driven-development` para ejecutar autónomamente. Ya tenés un ejemplo concreto a mano: el spec de esta semana 05 está en `docs/superpowers/specs/2026-05-21-semana-05-source-material-design.md` y el plan que estamos ejecutando está en `docs/superpowers/plans/2026-05-21-semana-05-source-material.md` — son los mismos archivos que Superpowers produjo armando esta clase. Esto va como sub-sección propia entre "El punto crítico" y "Punto de auto-review", con título `## El artefacto: el plan en disco`.
    - **Punto de auto-review (★):** después de escribir el plan, antes de pasárselo al usuario, hay un Plan Self-Review: spec coverage (¿cada requisito del spec tiene una tarea?), placeholder scan, type consistency (¿`clearLayers()` en una tarea sigue siendo `clearLayers()` en la siguiente?). Issues se arreglan inline.
    - **Anti-patrones a evitar:**
      - "TBD", "TODO", "implement later" — son fallas del plan, no pendientes legítimos.
      - "Add appropriate error handling" — vago. Mostrar el error handling concreto.
      - "Similar to Task N" — repetir el código. La gente lee fuera de orden.
    - **Fuente canónica:** `semanas/05/source_material/superpowers/skills/writing-plans/SKILL.md`
-   - **Captura:** `<!-- Captura real: screenshot del implementation plan generado por Superpowers al pedir agregar un feature al demo-repo de S04. -->`
+   - **Captura:** `<!-- Captura real: screenshot del archivo de plan resultante abierto en VS Code (path docs/superpowers/plans/YYYY-MM-DD-<feature>.md) — mostrando la estructura task-by-task con archivos exactos y steps. -->`
 
 - [ ] **Step 2: Commit**
 

@@ -25,6 +25,7 @@
 | Cierre | "Resto del cinturón" (§14) nombrando skills off-path + bajada al TP final (§15) con callback explícito a §14 de S04. |
 | Fuente de verdad | Cada SKILL.md del plugin clonado en `semanas/05/source_material/superpowers/skills/` es la fuente canónica para la skill correspondiente. Para §§02-03 (plugins genérico) la fuente es la doc oficial `https://code.claude.com/docs/en/plugins-reference`. |
 | Visibilidad de auto-review | Las etapas de self-review son disciplina central de Superpowers y reciben tratamiento explícito: (a) sub-sección **"Punto de auto-review"** en la plantilla de skill, presente sólo cuando la skill tenga una auto-review interna (aplica a §06 brainstorming, §07 writing-plans, §09 subagent-driven-dev); (b) `verification-before-completion` **promovida del "resto del cinturón" al happy-path** como §12 (entre code-review y finishing-branch). |
+| Artefactos en disco | `brainstorming` y `writing-plans` producen **archivos persistentes** que se commitean al repo: spec en `docs/superpowers/specs/YYYY-MM-DD-<topic>-design.md`, plan en `docs/superpowers/plans/YYYY-MM-DD-<feature>.md`. §06 y §07 mencionan estos paths explícitamente — son evidencia tangible, no abstracción. Las capturas reales de Enzo en esas secciones pueden ser literalmente sus propios archivos de spec/plan generados al armar el feature del demo-repo. |
 
 ## Hilo conductor
 
