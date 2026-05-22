@@ -4,7 +4,7 @@
 
 Un plugin es un directorio autocontenido de componentes que extiende Claude Code con funcionalidad personalizada. Esa es la definición de la doc oficial, palabra por palabra, y conviene leerla despacio: *directorio autocontenido* (todo lo del plugin vive bajo una sola carpeta, sin paths que apunten afuera) y *componentes* (no una sola cosa, varias piezas conocidas que Claude Code ya sabe cargar).
 
-Adentro de ese directorio puede haber skills, agents, hooks, MCP servers, LSP servers, monitors, themes y slash commands. Un plugin no está obligado a traer todos esos componentes. Puede ser sólo skills. Puede ser sólo un slash command. Puede ser un MCP server y nada más. Lo que lo convierte en plugin no es la cantidad de piezas que junta, sino el formato común que Claude Code reconoce y carga.
+Adentro de ese directorio puede haber skills, agents, hooks, monitors, themes y slash commands. Un plugin no está obligado a traer todos esos componentes. Puede ser sólo skills. Puede ser sólo un slash command. Puede ser sólo un set de hooks. Lo que lo convierte en plugin no es la cantidad de piezas que junta, sino el formato común que Claude Code reconoce y carga.
 
 ## La anatomía mínima
 
@@ -21,7 +21,7 @@ mi-plugin/
 └── commands/              # slash commands como .md sueltos
 ```
 
-Para MCP y LSP, los archivos viven directo en la raíz del plugin: `.mcp.json` y `.lsp.json`. Si el plugin trae un binario, va en `bin/` y queda disponible como comando bare dentro del Bash tool mientras el plugin esté activo.
+Si el plugin trae un binario, va en `bin/` y queda disponible como comando bare dentro del Bash tool mientras el plugin esté activo.
 
 El `plugin.json` es opcional. Si no lo ponés, Claude Code autodescubre componentes en las ubicaciones por defecto y deriva el nombre del plugin desde el nombre de la carpeta. Lo ponés cuando necesitás declarar metadata o apuntar a paths customizados. Un manifest mínimo se ve así:
 
