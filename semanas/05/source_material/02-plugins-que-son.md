@@ -36,18 +36,18 @@ El `plugin.json` es opcional. Si no lo ponés, Claude Code autodescubre componen
 
 De todos esos campos, el único realmente obligatorio es `name`. El resto suma metadata útil para que el plugin se encuentre y se versione, pero no es lo que lo hace cargar.
 
-## Por qué empaquetar
+## Por qué este formato resuelve los tres dolores
 
 Hay tres cosas que el formato plugin resuelve, y son exactamente los tres dolores que aparecieron antes.
 
-El copy-paste manual deja de existir porque el layout está estandarizado. Vos ya no decidís dónde poner cada cosa. Claude Code sabe que las skills van en `skills/`, los agents en `agents/`, los hooks en `hooks/hooks.json`. El compañero que instala el plugin no tiene que enterarse de esa estructura: bastan con que esté.
+El **descubrimiento** deja de ser una búsqueda a ciegas porque el formato habilita marketplaces: registros consultables donde el autor publica y vos buscás por nombre. No hace falta seguir blogs ni preguntar en Discord. Hay un lugar canónico al que Claude Code le pregunta "¿qué plugins están disponibles?" — eso lo vemos al detalle en la próxima sección.
 
-La sincronización de versiones deja de ser un favor que se pide por mensaje. Si el `plugin.json` declara `"version": "2.1.0"`, ese string es la versión, y Claude Code la usa de cache key: cuando subís a `2.1.1`, el comando `/plugin update` ofrece la actualización; mientras no la bumpees, todos siguen en la `2.1.0` aunque pushees commits. Si preferís iterar más rápido y omitís el campo, Claude Code cae al commit SHA del repo como versión, y cada commit es tratado como release nuevo. Dos modos, los dos explícitos.
+La **bajada** deja de ser un puzzle nuevo cada vez porque el layout está estandarizado. No importa quién publicó el plugin: las skills siempre van en `skills/`, los agents en `agents/`, los hooks en `hooks/hooks.json`. Vos no decidís dónde se instala cada cosa porque ya está decidido. Claude Code sabe leer cualquier plugin que respete el formato, venga de Anthropic, de un equipo open source, o de un desarrollador independiente.
 
-Los conflictos al actualizar dejan de ser un merge manual porque el plugin se actualiza con un comando. La estructura del directorio no es algo que el usuario haya tocado a mano: vino así. Cuando vos movés una skill o renombrás un slash command en tu repo, el cambio llega al compañero como cambio de versión, no como diff de archivos que tiene que aplicar él.
+El **mantenimiento** deja de ser una foto inmóvil porque el plugin lleva versión explícita. Si el `plugin.json` declara `"version": "2.1.0"`, ese string es la versión que Claude Code conserva como cache key. Cuando el autor sube `2.1.1`, el comando `/plugin update` ofrece la actualización y vos sabés exactamente qué cambió. Si el autor prefiere iterar más rápido y omite el campo, Claude Code cae al commit SHA del repo como versión, y cada commit es tratado como release nuevo. Dos modos, los dos explícitos, los dos visibles para el que instala.
 
-El cierre del trato: no tenés que pensar dónde poner cada cosa, porque el layout es estándar; no tenés que pensar cómo versionar, porque hay dos maneras y elegís una; no tenés que explicar cómo instalar, porque eso es un comando.
+El cierre del trato: no tenés que adivinar qué existe, porque hay marketplaces; no tenés que aprender el layout de cada autor, porque el layout es uno solo; no tenés que rastrear cambios a mano, porque hay versión.
 
-Lo único que falta es ese comando, y de dónde lo saca el compañero. Eso viene ya.
+Lo único que falta saber es de dónde sale el comando que instala, y cómo se accede a esos marketplaces. Eso viene ya.
 
 > Fuente canónica: https://code.claude.com/docs/en/plugins-reference
