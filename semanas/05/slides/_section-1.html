@@ -40,6 +40,14 @@
     margin: var(--spacing-xs) auto 0 auto;
     max-width: 700px;
   }
+  /* Takeaway line that sits BELOW a grid/box block, not above it. */
+  .s1-takeaway {
+    text-align: center;
+    color: var(--text-muted);
+    font-size: 1rem;
+    margin: var(--spacing-lg) auto 0 auto;
+    max-width: 700px;
+  }
 
   /* Recap grid: 7 cards in muted gray (callback to previous deck) */
   .s1-recap-grid {
@@ -161,7 +169,6 @@
 <!-- §1.2 — Recap: las 7 piezas, ahora empaquetadas -->
 <section>
   <h2 class="s1-h2">Cada una de éstas la escribiste vos.</h2>
-  <p class="s1-h2-sub">Ahora llegan ya armadas.</p>
   <div class="s1-recap-grid">
     <div class="s1-recap-card">
       <span class="s1-recap-icon">pieza 1</span>
@@ -192,6 +199,8 @@
       slash commands
     </div>
   </div>
+
+  <p class="s1-takeaway">Ahora llegan ya armadas.</p>
 
   <aside class="notes">
     <p><u>Recap visual. Las 7 piezas en gris claro para señalar "ya las vieron, no las re-discutimos". Cada card es nominal: nombre + número.</u></p>
