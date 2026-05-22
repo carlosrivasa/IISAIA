@@ -39,12 +39,18 @@
     background: var(--bg-secondary);
     border-top: 3px solid var(--accent);
     padding: var(--spacing-md) var(--spacing-lg);
-    max-width: 880px;
+    max-width: 780px;
     margin: 0 auto var(--spacing-lg) auto;
+  }
+  .s3-mkt-def-line {
     color: var(--text-primary);
     font-size: 1.2rem;
-    line-height: 1.55;
-    text-align: center;
+    line-height: 1.5;
+    margin: 0 0 var(--spacing-sm) 0;
+    text-align: center !important;
+  }
+  .s3-mkt-def-line:last-child {
+    margin-bottom: 0;
   }
   .s3-mkt-types {
     display: grid;
@@ -244,9 +250,10 @@
 <section>
   <h2 style="text-align: center; max-width: 900px; margin: 0 auto;">Marketplace</h2>
 
-  <p class="s3-mkt-def">
-    Un <strong>marketplace</strong> es un registro de plugins que Claude Code sabe consultar. Es el lugar al que el cliente le pregunta &quot;¿qué plugins están disponibles, y dónde están?&quot; cuando vos escribís un comando de install.
-  </p>
+  <div class="s3-mkt-def">
+    <p class="s3-mkt-def-line">Un <strong>marketplace</strong> es un registro de plugins que Claude Code sabe consultar.</p>
+    <p class="s3-mkt-def-line">Es el lugar al que le pregunta &quot;¿qué plugins hay y dónde están?&quot; cuando vos escribís un comando de install.</p>
+  </div>
 
   <div class="s3-mkt-types">
     <div class="s3-mkt-card is-official">
