@@ -1,7 +1,7 @@
 # Diseño — Source material Semana 05: Plugins de Claude Code y Superpowers
 
 **Fecha:** 2026-05-21
-**Output esperado:** `semanas/05/source_material/` (index.md + 14 archivos numerados) que la fase `/build-class` convierte en slides.
+**Output esperado:** `semanas/05/source_material/` (index.md + 15 archivos numerados) que la fase `/build-class` convierte en slides.
 **Reemplaza:** el `semanas/05/source_material/index.md` placeholder (heredado de `programa.md` como "Proyecto Integrador I: Ideación e Ingeniería de Prompts"), descartado de común acuerdo. La bajada al TP final queda en la sección de cierre como callback a §14 de S04, no como eje central de la clase.
 
 ## Contexto del curso
@@ -22,8 +22,9 @@
 | Nivel git en §08 | Mini-refresher (qué es commit, branch, PR) + GitHub Flow. Sección un poco más larga (~15-18 min) para compensar el spread de niveles. |
 | Profundidad plugins | **Intermedia** (dos secciones, no una): §02 concepto + anatomía mínima, §03 marketplaces + `/plugin install`. Suficiente para que el alumno pueda explorar otros plugins después, sin entrar a crear uno propio. |
 | Spec-driven development | Concepto meta que une brainstorming + writing-plans + subagent-driven-dev. **Semilla** en §06 (brainstorming, una línea), **desarrollo completo** en §07 (writing-plans, dos sub-bloques), **callback** en §09 (subagent-driven-dev). No tiene sección propia. |
-| Cierre | "Resto del cinturón" (§13) nombrando skills off-path + bajada al TP final (§14) con callback explícito a §14 de S04. |
+| Cierre | "Resto del cinturón" (§14) nombrando skills off-path + bajada al TP final (§15) con callback explícito a §14 de S04. |
 | Fuente de verdad | Cada SKILL.md del plugin clonado en `semanas/05/source_material/superpowers/skills/` es la fuente canónica para la skill correspondiente. Para §§02-03 (plugins genérico) la fuente es la doc oficial `https://code.claude.com/docs/en/plugins-reference`. |
+| Visibilidad de auto-review | Las etapas de self-review son disciplina central de Superpowers y reciben tratamiento explícito: (a) sub-sección **"Punto de auto-review"** en la plantilla de skill, presente sólo cuando la skill tenga una auto-review interna (aplica a §06 brainstorming, §07 writing-plans, §09 subagent-driven-dev); (b) `verification-before-completion` **promovida del "resto del cinturón" al happy-path** como §12 (entre code-review y finishing-branch). |
 
 ## Hilo conductor
 
@@ -33,7 +34,7 @@
 
 ## Mapa de secciones (`source_material/`)
 
-Mismo esquema que S02-S04: `index.md` + archivos numerados. Budget total ~160 min de material para una clase de 180 min (con buffer). Slides per file los afina la fase spine de `/build-class`.
+Mismo esquema que S02-S04: `index.md` + archivos numerados. Budget total ~170 min de material para una clase de 180 min (con buffer mínimo). Slides per file los afina la fase spine de `/build-class`.
 
 ### Apertura (~10 min)
 
@@ -55,28 +56,29 @@ Mismo esquema que S02-S04: `index.md` + archivos numerados. Budget total ~160 mi
 | 4 | `04-superpowers-que-es.md` | Qué problema resuelve (de ad-hoc a metodología). El happy-path como diagrama. Filosofía del plugin: TDD, evidencia sobre claims, simplicidad como objetivo. Fuente: README de Superpowers + `skills/using-superpowers/SKILL.md`. | 5-6 |
 | 5 | `05-instalar-superpowers.md` | Demo en vivo: `/plugin install superpowers@claude-plugins-official`. Verificar que las skills cargaron. | 3-4 |
 
-### Recorrido happy-path (~90 min, ~12-15 min cada una)
+### Recorrido happy-path (~100 min, ~12-14 min cada una)
 
-Todas siguen la plantilla uniforme (ver sección "Plantilla de secciones de skill" abajo).
+Todas siguen la plantilla uniforme (ver sección "Plantilla de secciones de skill" abajo). Las skills marcadas con ★ tienen sub-sección "Punto de auto-review".
 
 | # | Archivo | Núcleo | Notas |
 |---|---------|--------|-------|
-| 6 | `06-brainstorming.md` | Refinación socrática del diseño. Una pregunta por vez. Produce el spec. **Planta la semilla de spec-driven dev** (una línea, "en la próxima skill vemos por qué tener un spec separado del código importa"). | Fuente: `skills/brainstorming/SKILL.md`. Captura: screenshot de las preguntas socráticas recibidas. |
-| 7 | `07-writing-plans.md` | Convierte spec → implementation plan. Tareas de 2-5 min, archivos exactos, verificación. **Desarrolla spec-driven development completo:** (a) qué es (spec como source of truth, separa qué/por qué del cómo); (b) cómo Superpowers lo operacionaliza concretamente. | Fuente: `skills/writing-plans/SKILL.md`. Captura: implementation plan generado. |
+| 6 | `06-brainstorming.md` ★ | Refinación socrática del diseño. Una pregunta por vez. Produce el spec. **Planta la semilla de spec-driven dev** (una línea, "en la próxima skill vemos por qué tener un spec separado del código importa"). Sub-sección de auto-review: el **Spec Self-Review** interno (escaneo de placeholders, contradicciones, scope, ambigüedad) antes de mostrar el spec al usuario. | Fuente: `skills/brainstorming/SKILL.md`. Captura: screenshot de las preguntas socráticas recibidas + opcional, las notas del Spec Self-Review. |
+| 7 | `07-writing-plans.md` ★ | Convierte spec → implementation plan. Tareas de 2-5 min, archivos exactos, verificación. **Desarrolla spec-driven development completo:** (a) qué es (spec como source of truth, separa qué/por qué del cómo); (b) cómo Superpowers lo operacionaliza concretamente. Sub-sección de auto-review: el **Plan Self-Review** interno antes de entregarlo. | Fuente: `skills/writing-plans/SKILL.md`. Captura: implementation plan generado. |
 | 8 | `08-github-flow.md` | **Sustituye `using-git-worktrees`.** Mini-refresher de git (commit, branch, PR). GitHub Flow: `git checkout -b feature/foo` antes de la session → commits granulares → push → PR via UI de GitHub. Por qué este patrón se lleva bien con Superpowers (cada session tiene su branch, el PR queda como contrato visible). Mención honesta: "Superpowers trae `using-git-worktrees` para flujos paralelos avanzados — no lo usamos en este curso". | ~15-18 min, un poco más larga que el resto para compensar nivel disperso de git. Captura: PR de Enzo en el demo-repo. |
-| 9 | `09-subagent-driven-development.md` | Despacha un subagent fresco por tarea con review en dos etapas (spec compliance + calidad). El corazón del "autonomous coding" de Superpowers. **Callback a spec-driven dev** ("el subagent lee el plan y el spec — por eso podés correr el flujo casi autónomo"). | Fuente: `skills/subagent-driven-development/SKILL.md`. Captura: terminal con subagents ejecutando tareas. |
+| 9 | `09-subagent-driven-development.md` ★ | Despacha un subagent fresco por tarea con review en dos etapas (spec compliance + calidad). El corazón del "autonomous coding" de Superpowers. **Callback a spec-driven dev** ("el subagent lee el plan y el spec — por eso podés correr el flujo casi autónomo"). Sub-sección de auto-review: el **two-stage review** (spec compliance, después calidad) que corre el agente coordinador antes de pasar a la siguiente tarea. | Fuente: `skills/subagent-driven-development/SKILL.md`. Captura: terminal con subagents ejecutando tareas y el output de un two-stage review. |
 | 10 | `10-test-driven-development.md` | RED-GREEN-REFACTOR sin excepciones. Borra código escrito antes de los tests. Por qué es central en el flujo Superpowers. | Fuente: `skills/test-driven-development/SKILL.md`. Captura: ciclo TDD en acción durante el demo. |
 | 11 | `11-requesting-code-review.md` | Pre-merge checklist por severidad. Issues críticos bloquean progreso. | Fuente: `skills/requesting-code-review/SKILL.md`. Captura: report de review generado. |
-| 12 | `12-finishing-a-development-branch.md` | Verificación final + opciones (merge / PR / keep / discard) + cleanup. Continuidad de vocabulario con §08 (en GitHub Flow, "finishing" = abrir el PR). | Fuente: `skills/finishing-a-development-branch/SKILL.md`. Captura: PR final mergeado en el demo-repo. |
+| 12 | `12-verification-before-completion.md` | **Promovida del "resto del cinturón" al happy-path.** Disciplina central: no claimear "está listo / arreglado / pasa" sin evidencia. Correr los verification commands y citar el output antes de afirmar éxito. Por qué este beat no se puede saltear (cierra el ciclo de spec-driven dev: el plan dijo qué verificar, ahora se verifica). | Fuente: `skills/verification-before-completion/SKILL.md`. Captura: comandos de verificación corridos + output citado. |
+| 13 | `13-finishing-a-development-branch.md` | Opciones (merge / PR / keep / discard) + cleanup. Continuidad de vocabulario con §08 (en GitHub Flow, "finishing" = abrir el PR). | Fuente: `skills/finishing-a-development-branch/SKILL.md`. Captura: PR final mergeado en el demo-repo. |
 
 ### Cierre (~15 min)
 
 | # | Archivo | Núcleo | Slides |
 |---|---------|--------|--------|
-| 13 | `13-resto-del-cinturon.md` | Skills off-path nombradas con una frase cada una: `systematic-debugging` (4 fases de root cause), `dispatching-parallel-agents`, `writing-skills` (crear las tuyas), `verification-before-completion`, `receiving-code-review`, `executing-plans`, `using-git-worktrees`. Mensaje: "existe esto, lo abrís cuando lo necesitás". No se desarrollan. | 4-5 |
-| 14 | `14-bajada-al-tp-final.md` | "El TP final lo arman con este flujo". Callback explícito a §14 de S04. Sin re-definir consignas — solo conectar la herramienta con el deliverable que ya conocen. | 3-4 |
+| 14 | `14-resto-del-cinturon.md` | Skills off-path nombradas con una frase cada una: `systematic-debugging` (4 fases de root cause), `dispatching-parallel-agents`, `writing-skills` (crear las tuyas), `receiving-code-review`, `executing-plans`, `using-git-worktrees`. Mensaje: "existe esto, lo abrís cuando lo necesitás". No se desarrollan. (`verification-before-completion` ya **no** aparece acá: pasó al happy-path como §12.) | 4-5 |
+| 15 | `15-bajada-al-tp-final.md` | "El TP final lo arman con este flujo". Callback explícito a §14 de S04. Sin re-definir consignas — solo conectar la herramienta con el deliverable que ya conocen. | 3-4 |
 
-## Plantilla de las secciones de skill (§§06-12)
+## Plantilla de las secciones de skill (§§06-13)
 
 Cada archivo de skill sigue el mismo molde. **Se apoya fuertemente en el SKILL.md canónico, no en paráfrasis.**
 
@@ -98,6 +100,13 @@ La pregunta que responde: "si saco esta skill del flujo, qué se rompe?"]
 "tareas de 2-5 min con archivos exactos". Para TDD: "RED antes de GREEN, sin excepciones".
 Extraído de SKILL.md.]
 
+## Punto de auto-review            ← OPCIONAL (sólo si la skill tiene una)
+[Qué se autorrevisa, cuándo (en qué momento del flujo de la skill), y qué se busca
+(placeholders / contradicciones / scope / ambigüedad / spec compliance).
+Aplica a §06 brainstorming (Spec Self-Review), §07 writing-plans (Plan Self-Review),
+§09 subagent-driven-dev (two-stage review). En las demás skills esta sub-sección
+se omite directamente.]
+
 ## Anti-patrones a evitar
 [2-3 bullets concretos sacados de SKILL.md — qué NO hacer]
 
@@ -111,13 +120,15 @@ Extraído de SKILL.md.]
      Esta marca queda como hueco para que Enzo la rellene al generar slides -->
 ```
 
-**Justificación:** la parte "Por qué importa" es la única 100% del autor; el resto es cita/extracción del SKILL.md. Esto hace que el source material **enmarque** la fuente canónica en lugar de competir con ella. El placeholder `<!-- INSERT-USER-CAPTURE -->` queda explícito en el markdown para que la fase de generación de slides lo encuentre y lo trate como "image-and-text slide vacía a rellenar".
+**Justificación:** la parte "Por qué importa" es la única 100% del autor; el resto es cita/extracción del SKILL.md. Esto hace que el source material **enmarque** la fuente canónica en lugar de competir con ella. El placeholder `<!-- INSERT-USER-CAPTURE -->` queda explícito en el markdown para que la fase de generación de slides lo encuentre y lo trate como "image-and-text slide vacía a rellenar". La sub-sección "Punto de auto-review" es opcional y se omite limpiamente cuando la skill no tenga una auto-review interna definida en su SKILL.md.
 
 ## Excepciones a la plantilla
 
 - **§04 (`04-superpowers-que-es.md`):** no es una skill, es overview. Sigue otro molde — diagrama del happy-path, problema que resuelve, filosofía. Sin placeholder de captura.
 - **§05 (`05-instalar-superpowers.md`):** demo de instalación. Formato beat-sheet tipo S04 (qué hago / qué digo / qué mirar), no plantilla de skill.
 - **§08 (`08-github-flow.md`):** no es una skill de Superpowers — es un workflow externo. Sigue otro molde — mini-refresher + workflow + por qué encaja con Superpowers. Cita honesta de que `using-git-worktrees` existe en el plugin pero no se enseña.
+
+**Skills con sub-sección de auto-review activa:** §06 brainstorming, §07 writing-plans, §09 subagent-driven-dev. Las demás skills del happy-path (§10 TDD, §11 code-review, §12 verification-before-completion, §13 finishing-branch) **omiten** esa sub-sección — code-review y verification-before-completion **son** ellas mismas pasos de review, así que reduplicar internamente sería ruido. (§08 no usa la plantilla, ver excepción anterior.)
 
 ## Fuentes canónicas
 
@@ -145,6 +156,6 @@ Extraído de SKILL.md.]
 | Riesgo | Mitigación |
 |--------|------------|
 | Las capturas de Enzo no están listas el día de armar slides | Los placeholders quedan visibles. Si falta una, la sección de la skill puede dictarse igual sólo con el contenido conceptual. La captura es enriquecimiento, no infraestructura. |
-| 14 secciones puede ser denso (lo fue en S04) | El target es 160 min de material para 180 min de clase, dejando buffer. Las secciones de skill son cortas (~12 min cada una) por la repetición de plantilla. |
+| 15 secciones puede ser denso (lo fue en S04 con 14) | El target es ~170 min de material para 180 min de clase, buffer ajustado. Las secciones de skill son cortas (~12 min cada una) por la repetición de plantilla. Si en spine se ve muy apretado, candidatos a comprimir: §05 instalación (3 min mínimos) o §14 resto del cinturón. |
 | Plugins de Claude Code es feature relativamente reciente; la doc puede cambiar | Fetch de `code.claude.com/docs/en/plugins-reference` se hace al generar el contenido, no se cachea en el spec. |
 | `using-git-worktrees` se menciona en la README pero no se enseña | Mensaje explícito en §08: "existe en el plugin, no lo usamos en este curso, acá tenés el link si querés explorar después". Disclosure honesta, sin esconder. |
