@@ -100,7 +100,7 @@
 
 ## Section 6: brainstorming
 **Source material:** `source_material/06-brainstorming.md`
-**Through-line:** Convierte una idea cruda en un design spec a través de diálogo socrático. NO toca código antes de que vos apruebes el diseño escrito. Aplica a todo proyecto sin importar cuán simple parezca (regla del 1% del frontmatter). El spec aprobado se persiste en disco (`docs/superpowers/specs/YYYY-MM-DD-<topic>-design.md`) y queda como contrato versionado.
+**Through-line:** Convierte una idea cruda en un design spec a través de preguntas dirigidas. NO toca código antes de que vos apruebes el diseño escrito. Aplica a todo proyecto sin importar cuán simple parezca (regla del 1% del frontmatter). El spec aprobado se persiste en disco (`docs/superpowers/specs/YYYY-MM-DD-<topic>-design.md`) y queda como contrato versionado.
 **Hook:** La regla deliberadamente paranoica del frontmatter — *"si hay un 1% de probabilidad de que el pedido implique construir algo, la skill se invoca"*. Es contraintuitiva y engancha (todo proyecto va por el flujo, incluso los "simples" — sobre todo los simples).
 **What students walk away knowing:**
 - Qué hace concretamente: diálogo de una pregunta por vez para explorar propósito, restricciones y criterios de éxito, antes de proponer approaches y armar el spec.
@@ -109,7 +109,7 @@
 - El **punto de auto-review** previo (Spec Self-Review): la skill caza placeholders, contradicciones, scope creep y ambigüedad antes de pedirte que revises.
 - Anti-patrones: "esto es muy simple", combinar varias preguntas en un mensaje, invocar implementación antes de aprobación.
 **Animations / interactive:** Pipeline-roadmap re-iluminado en el opener. `code-walkthrough` del path del spec en disco. Si hace falta, `clickable-steps` para el flow exploración → approaches → spec → self-review → aprobación.
-**Captura del flujo:** preguntas socráticas recibidas al pedir un feature al demo-repo de S04 + el archivo de spec resultante abierto en VS Code.
+**Captura del flujo:** preguntas dirigidas recibidas al pedir un feature al demo-repo de S04 + el archivo de spec resultante abierto en VS Code.
 **Slide budget:** 7–8 slides.
 
 ## Section 7: writing-plans (+ spec-driven development)
