@@ -228,27 +228,65 @@
     line-height: 1.45;
   }
 
-  /* Captura (slide propio) */
-  .s6-capture {
-    margin: var(--spacing-md) auto 0 auto;
+  /* Sesión real: prompt inicial + Q&A pairs */
+  .s6-session {
     max-width: 1100px;
-    text-align: center;
+    margin: var(--spacing-md) auto 0 auto;
   }
-  .s6-capture-placeholder {
+  .s6-session-prompt {
     background: var(--bg-secondary);
-    border: 1px dashed var(--text-muted);
-    border-radius: 8px;
-    padding: 90px var(--spacing-lg);
-    color: var(--text-muted);
-    font-size: 1.1rem;
-    line-height: 1.6;
-    font-style: italic;
-  }
-  .s6-capture-caption {
-    color: var(--text-muted);
+    border-left: 4px solid var(--accent-secondary);
+    border-radius: 6px;
+    padding: var(--spacing-sm) var(--spacing-md);
+    margin-bottom: var(--spacing-md);
+    color: var(--text-primary);
     font-size: 1.05rem;
-    margin: var(--spacing-md) 0 0 0;
-    text-align: center;
+    line-height: 1.55;
+    text-align: left;
+  }
+  .s6-session-prompt-tag {
+    display: block;
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--accent-secondary);
+    margin-bottom: 4px;
+  }
+  .s6-session-qa {
+    background: var(--bg-secondary);
+    border-radius: 6px;
+    padding: var(--spacing-xs) var(--spacing-md);
+    margin-bottom: var(--spacing-xs);
+    border-left: 3px solid var(--text-muted);
+    text-align: left;
+  }
+  .s6-session-q {
+    display: block;
+    color: var(--text-muted);
+    font-size: 1rem;
+    line-height: 1.45;
+    margin: 4px 0;
+  }
+  .s6-session-q::before {
+    content: "Q. ";
+    color: var(--text-muted);
+    font-weight: 700;
+    font-family: var(--font-mono);
+  }
+  .s6-session-a {
+    display: block;
+    color: var(--accent);
+    font-size: 1rem;
+    line-height: 1.45;
+    margin: 4px 0;
+    font-weight: 600;
+  }
+  .s6-session-a::before {
+    content: "A. ";
+    color: var(--accent);
+    font-weight: 700;
+    font-family: var(--font-mono);
   }
 </style>
 
@@ -431,21 +469,57 @@
   </aside>
 </section>
 
-<!-- §6.6 — Caso real: brainstorming aplicado al demo-repo S04 -->
+<!-- §6.6 — Caso real: una sesión de brainstorming, pregunta por pregunta -->
 <section>
-  <h2 style="text-align: center; max-width: 1000px; margin: 0 auto;">Brainstorming sobre el demo-repo</h2>
+  <h2 style="text-align: center; max-width: 1000px; margin: 0 auto;">Una sesión real, pregunta por pregunta</h2>
 
-  <div class="s6-capture">
-    <div class="s6-capture-placeholder">
-      [Captura: las preguntas que la skill hizo al pedir un feature al demo-repo de S04 (izquierda) + el archivo de spec resultante abierto en VS Code, mostrando el path <code>docs/superpowers/specs/YYYY-MM-DD-...-design.md</code> (derecha).]
+  <div class="s6-session">
+    <div class="s6-session-prompt">
+      <span class="s6-session-prompt-tag">Prompt inicial</span>
+      &laquo;Necesito que los usuarios admin puedan importar ítems en masa desde un archivo CSV. Quiero ver cómo manejás filas inválidas, duplicados y rollback. El frontend también debe tener elementos que permitan usar este nuevo feature.&raquo;
     </div>
-    <p class="s6-capture-caption">El flujo aplicado a un caso real, con el artefacto final en disco.</p>
+
+    <div class="s6-session-qa fragment fade-in" data-fragment-index="0">
+      <span class="s6-session-q">¿Qué representa un &quot;ítem&quot; en este import? El repo hoy tiene <code>users</code> y <code>posts</code>, pero no hay un recurso llamado <code>items</code>.</span>
+      <span class="s6-session-a">Cuando decía ítem me refería tanto a posts como a users.</span>
+    </div>
+
+    <div class="s6-session-qa fragment fade-in" data-fragment-index="1">
+      <span class="s6-session-q">La auth hoy es un único bearer token (no hay roles). ¿Cómo modelamos el &quot;admin&quot;?</span>
+      <span class="s6-session-a">Bearer existente = admin.</span>
+    </div>
+
+    <div class="s6-session-qa fragment fade-in" data-fragment-index="2">
+      <span class="s6-session-q">Cuando el CSV tiene filas válidas e inválidas mezcladas, ¿qué hacemos?</span>
+      <span class="s6-session-a">Configurable por request.</span>
+    </div>
+
+    <div class="s6-session-qa fragment fade-in" data-fragment-index="3">
+      <span class="s6-session-q">¿Qué cuenta como duplicado? Aplica tanto a filas repetidas dentro del CSV como a filas que ya existen en el store.</span>
+      <span class="s6-session-a">Users por email; posts por título, autor y body.</span>
+    </div>
+
+    <div class="s6-session-qa fragment fade-in" data-fragment-index="4">
+      <span class="s6-session-q">¿Dónde vive el feature en el frontend?</span>
+      <span class="s6-session-a">Página <code>admin.html</code> separada.</span>
+    </div>
+
+    <div class="s6-session-qa fragment fade-in" data-fragment-index="5">
+      <span class="s6-session-q">Para posts, si una fila trae <code>author_id</code> que no existe en el store, ¿cómo lo trato?</span>
+      <span class="s6-session-a">Error de fila (igual que validación).</span>
+    </div>
   </div>
 
   <aside class="notes">
-    <p><strong>Slide dedicado a la captura — se queda en pantalla un par de minutos para que los alumnos lean el contenido del spec.</strong></p>
-    <p><u>Caso real del flujo aplicado al demo-repo de S04.</u></p>
-    <p><em>"Para cerrar la sección, miremos un caso real. Este es brainstorming aplicado al demo-repo de la clase pasada. A la izquierda, las preguntas que la skill me hizo cuando le pedí un feature — fíjense en que aparecen una por vez, multiple-choice cuando se podía. A la derecha, el archivo de spec que quedó al final, commiteado al repo bajo el path estándar de Superpowers."</em></p>
-    <p><em>"Si miran el contenido del spec, van a ver que arranca con propósito y criterios de éxito, sigue con los approaches que la skill propuso, y termina con la decisión que tomamos. No hay 'TBD' en ninguna sección — el Self-Review los cazó antes."</em></p>
+    <p><strong>Seis reveals — una pregunta+respuesta por click. La sesión real con Superpowers en el demo-repo.</strong></p>
+    <p><u>Caso real. La sesión existe en logs; las 6 preguntas son las que la skill me hizo, las respuestas son las que le di.</u></p>
+    <p><em>"Para cerrar, miremos cómo se vio esto en la realidad. Le pedí al agente que agregue una funcionalidad de importar items en masa desde un CSV — ahí arriba está el prompt original. Y miren lo que pasó."</em></p>
+    <p><em>"Primera pregunta: la skill detectó que mi pedido tenía una palabra ambigua. Yo dije 'ítems' pero el repo tiene users y posts, no items. La skill no asumió cuál; me preguntó. Yo aclaré que era ambos."</em></p>
+    <p><em>"Segunda: 'admin' tampoco existía como rol en el sistema. La skill me dio tres opciones para modelarlo. Yo elegí la más barata — el bearer actual cuenta como admin."</em></p>
+    <p><em>"Tercera: cómo manejar el caso mixto. La skill me ofreció tres modos: all-or-nothing, best-effort, o configurable. Elegí configurable."</em></p>
+    <p><em>"Cuarta: la definición de duplicado. Para users es claro — email. Para posts no había clave natural. La skill propuso opciones; yo amplié una de ellas: título, autor, y body."</em></p>
+    <p><em>"Quinta: dónde poner el UI. Tres opciones: integrado al index, página aparte, modal. Elegí página aparte."</em></p>
+    <p><em>"Sexta: caso borde — si un post viene con autor inexistente, ¿qué hacemos? Elegí tratarlo como error de validación, no inventar un user vacío."</em></p>
+    <p><em>"Con eso, la skill tenía suficiente contexto. Propuso tres approaches arquitecturales, me dijo cuál recomendaba y por qué. Yo elegí A. A partir de ahí, escribió el spec en disco. Está en el repo, commiteado, listo para que writing-plans lo lea en la próxima sección."</em></p>
   </aside>
 </section>
