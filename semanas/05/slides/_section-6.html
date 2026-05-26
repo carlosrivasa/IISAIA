@@ -1,1 +1,482 @@
-<section><h2>§6 — TODO</h2></section>
+<style>
+  /* §6 — brainstorming (primera skill del happy-path) */
+
+  /* Section-skill opener — used across §§6-13 */
+  .s-skill-opener {
+    text-align: center;
+    margin: 0 auto;
+  }
+  .s-skill-opener-eyebrow {
+    color: var(--text-muted);
+    font-size: 0.9rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    margin: var(--spacing-md) 0 var(--spacing-xs) 0;
+    text-align: center;
+  }
+  .s-skill-opener-name {
+    color: var(--accent);
+    font-size: 3rem;
+    font-weight: 700;
+    margin: 0 0 var(--spacing-md) 0;
+    letter-spacing: -0.01em;
+    text-align: center;
+    font-family: var(--font-mono);
+  }
+  .s-skill-opener-tag {
+    color: var(--text-primary);
+    font-size: 1.2rem;
+    line-height: 1.5;
+    margin: 0 auto;
+    max-width: 760px;
+    text-align: center;
+  }
+
+  /* Hook: regla del 1% */
+  .s6-hook {
+    text-align: center;
+    max-width: 880px;
+    margin: 0 auto;
+  }
+  .s6-hook-frase {
+    color: var(--text-primary);
+    font-size: 1.7rem;
+    line-height: 1.45;
+    margin: 0 0 var(--spacing-lg) 0;
+    text-align: center;
+  }
+  .s6-hook-frase .s6-hook-emphasis {
+    color: var(--accent);
+    font-weight: 700;
+    font-size: 2.4rem;
+  }
+  .s6-hook-foot {
+    color: var(--text-muted);
+    font-size: 1.1rem;
+    line-height: 1.55;
+    margin: 0;
+    text-align: center;
+    font-style: italic;
+  }
+
+  /* Flow vertical: qué hace */
+  .s6-flow {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--spacing-xs);
+    max-width: 720px;
+    margin: var(--spacing-lg) auto 0 auto;
+  }
+  .s6-flow-step {
+    background: var(--bg-secondary);
+    border-radius: 8px;
+    padding: var(--spacing-sm) var(--spacing-md);
+    width: 100%;
+    text-align: center;
+    color: var(--text-primary);
+    font-size: 1.1rem;
+    line-height: 1.45;
+    border-left: 3px solid var(--accent);
+  }
+  .s6-flow-step strong {
+    color: var(--accent);
+    display: block;
+    font-size: 0.85rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin-bottom: 4px;
+  }
+  .s6-flow-arrow {
+    color: var(--text-muted);
+    font-size: 1.3rem;
+    line-height: 1;
+  }
+
+  /* Comparison sí/no */
+  .s6-compare {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--spacing-md);
+    max-width: 1100px;
+    margin: var(--spacing-lg) auto 0 auto;
+  }
+  .s6-compare-card {
+    background: var(--bg-secondary);
+    border-radius: 8px;
+    padding: var(--spacing-md);
+    border-top: 3px solid var(--text-muted);
+  }
+  .s6-compare-card.is-yes {
+    border-top-color: var(--accent);
+  }
+  .s6-compare-card.is-no {
+    border-top-color: var(--accent-secondary);
+  }
+  .s6-compare-tag {
+    text-align: center;
+    font-family: var(--font-mono);
+    font-size: 0.9rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: var(--spacing-sm);
+  }
+  .s6-compare-card.is-yes .s6-compare-tag {
+    color: var(--accent);
+  }
+  .s6-compare-card.is-no .s6-compare-tag {
+    color: var(--accent-secondary);
+  }
+  .s6-compare-body {
+    color: var(--text-primary);
+    font-size: 1.1rem;
+    line-height: 1.55;
+    margin: 0;
+    text-align: left;
+  }
+
+  /* Card central (por qué importa, punto crítico) */
+  .s6-central {
+    max-width: 880px;
+    margin: var(--spacing-lg) auto 0 auto;
+  }
+  .s6-central-main {
+    background: var(--bg-secondary);
+    border-radius: 8px;
+    padding: var(--spacing-lg);
+    border-top: 4px solid var(--accent);
+    color: var(--text-primary);
+    font-size: 1.25rem;
+    line-height: 1.55;
+    text-align: center;
+  }
+  .s6-central-main strong {
+    color: var(--accent);
+  }
+  .s6-central-sub {
+    color: var(--text-muted);
+    font-size: 1.05rem;
+    line-height: 1.5;
+    text-align: center;
+    margin: var(--spacing-md) auto 0 auto;
+    max-width: 760px;
+    font-style: italic;
+  }
+
+  /* Artefacto + auto-review (split 2-col) */
+  .s6-split {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--spacing-md);
+    max-width: 1100px;
+    margin: var(--spacing-lg) auto 0 auto;
+  }
+  .s6-split-card {
+    background: var(--bg-secondary);
+    border-radius: 8px;
+    padding: var(--spacing-md);
+    border-top: 3px solid var(--accent);
+  }
+  .s6-split-card.is-secondary {
+    border-top-color: var(--accent-secondary);
+  }
+  .s6-split-tag {
+    font-family: var(--font-mono);
+    font-size: 0.85rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: var(--spacing-sm);
+    text-align: center;
+  }
+  .s6-split-card.is-secondary .s6-split-tag {
+    color: var(--accent-secondary);
+  }
+  .s6-split-body {
+    color: var(--text-primary);
+    font-size: 1.05rem;
+    line-height: 1.5;
+    margin: 0;
+  }
+  .s6-split-body code {
+    background: var(--bg-primary);
+    border-radius: 3px;
+    padding: 1px 6px;
+    font-size: 0.92em;
+    color: var(--accent-secondary);
+  }
+  .s6-split-body ul {
+    list-style: none;
+    padding: 0;
+    margin: var(--spacing-xs) 0 0 0;
+  }
+  .s6-split-body li {
+    padding-left: var(--spacing-md);
+    position: relative;
+    margin-bottom: 4px;
+  }
+  .s6-split-body li::before {
+    content: "›";
+    position: absolute;
+    left: 0;
+    color: var(--accent);
+    font-weight: 700;
+  }
+
+  /* Anti-patterns + captura */
+  .s6-anti {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: var(--spacing-sm);
+    max-width: 1100px;
+    margin: var(--spacing-lg) auto 0 auto;
+  }
+  .s6-anti-card {
+    background: var(--bg-secondary);
+    border-left: 4px solid var(--accent-secondary);
+    border-radius: 6px;
+    padding: var(--spacing-sm) var(--spacing-md);
+    color: var(--text-primary);
+    font-size: 1rem;
+    line-height: 1.45;
+  }
+  .s6-capture {
+    margin: var(--spacing-lg) auto 0 auto;
+    max-width: 920px;
+    text-align: center;
+  }
+  .s6-capture-placeholder {
+    background: var(--bg-secondary);
+    border: 1px dashed var(--text-muted);
+    border-radius: 8px;
+    padding: var(--spacing-lg);
+    color: var(--text-muted);
+    font-size: 1rem;
+    line-height: 1.5;
+    font-style: italic;
+  }
+  .s6-capture-caption {
+    color: var(--text-muted);
+    font-size: 0.95rem;
+    margin: var(--spacing-xs) 0 0 0;
+    text-align: center;
+  }
+</style>
+
+<!-- §6.1 — Opener: mini-roadmap iluminado en s6 + nombre de la skill -->
+<section>
+  <div class="pipe-grid s5-happy-path is-mini highlight-s6">
+    <!-- Row 1 -->
+    <div class="pipe-node" data-group="s6"><div class="pipe-icon">1</div><div class="pipe-label">brainstorming</div></div>
+    <div class="pipe-arrow"><svg width="20" height="12" viewBox="0 0 24 14"><path d="M2 7h16m0 0l-5-5m5 5l-5 5" stroke="var(--accent)" stroke-width="2" fill="none" stroke-linecap="round"/></svg></div>
+    <div class="pipe-node" data-group="s7"><div class="pipe-icon">2</div><div class="pipe-label">writing-plans</div></div>
+    <div class="pipe-arrow"><svg width="20" height="12" viewBox="0 0 24 14"><path d="M2 7h16m0 0l-5-5m5 5l-5 5" stroke="var(--accent)" stroke-width="2" fill="none" stroke-linecap="round"/></svg></div>
+    <div class="pipe-node" data-group="s8"><div class="pipe-icon">git</div><div class="pipe-label">GitHub Flow</div></div>
+    <div class="pipe-arrow"><svg width="20" height="12" viewBox="0 0 24 14"><path d="M2 7h16m0 0l-5-5m5 5l-5 5" stroke="var(--accent)" stroke-width="2" fill="none" stroke-linecap="round"/></svg></div>
+    <div class="pipe-node" data-group="s9"><div class="pipe-icon">3</div><div class="pipe-label">subagent-driven-development</div></div>
+    <!-- Row 2: bend -->
+    <div></div><div></div><div></div><div></div><div></div><div></div>
+    <div class="pipe-arrow" style="transform: rotate(90deg);"><svg width="20" height="12" viewBox="0 0 24 14"><path d="M2 7h16m0 0l-5-5m5 5l-5 5" stroke="var(--accent)" stroke-width="2" fill="none" stroke-linecap="round"/></svg></div>
+    <!-- Row 3 (markup L→R) -->
+    <div class="pipe-node" data-group="s13"><div class="pipe-icon">7</div><div class="pipe-label">finishing-a-development-branch</div></div>
+    <div class="pipe-arrow"><svg width="20" height="12" viewBox="0 0 24 14"><path d="M22 7H6m0 0l5-5M6 7l5 5" stroke="var(--accent)" stroke-width="2" fill="none" stroke-linecap="round"/></svg></div>
+    <div class="pipe-node" data-group="s12"><div class="pipe-icon">6</div><div class="pipe-label">verification-before-completion</div></div>
+    <div class="pipe-arrow"><svg width="20" height="12" viewBox="0 0 24 14"><path d="M22 7H6m0 0l5-5M6 7l5 5" stroke="var(--accent)" stroke-width="2" fill="none" stroke-linecap="round"/></svg></div>
+    <div class="pipe-node" data-group="s11"><div class="pipe-icon">5</div><div class="pipe-label">requesting-code-review</div></div>
+    <div class="pipe-arrow"><svg width="20" height="12" viewBox="0 0 24 14"><path d="M22 7H6m0 0l5-5M6 7l5 5" stroke="var(--accent)" stroke-width="2" fill="none" stroke-linecap="round"/></svg></div>
+    <div class="pipe-node" data-group="s10"><div class="pipe-icon">4</div><div class="pipe-label">test-driven-development</div></div>
+  </div>
+
+  <div class="s-skill-opener">
+    <p class="s-skill-opener-eyebrow">Skill 1 del happy-path</p>
+    <h2 class="s-skill-opener-name">brainstorming</h2>
+    <p class="s-skill-opener-tag">Convierte una idea cruda en un design spec a través de diálogo socrático.</p>
+  </div>
+
+  <aside class="notes">
+    <p><u>Opener de §6. Primera skill del happy-path; la pieza s6 del roadmap se ilumina mientras las otras quedan en gris. Slide-ancla visual: "estamos en el primer paso".</u></p>
+    <p><em>"Arrancamos con la primera skill del happy-path. Se llama brainstorming. La pieza encendida en el mapa es esta — las demás se van a ir iluminando una por una en las próximas siete secciones."</em></p>
+    <p><em>"Qué hace en una línea: convierte una idea cruda en un design spec a través de diálogo socrático. Esa frase tiene varias palabras importantes — vamos a abrirlas en las próximas slides."</em></p>
+  </aside>
+</section>
+
+<!-- §6.2 — Hook: regla del 1% -->
+<section>
+  <div class="s6-hook">
+    <p class="s6-hook-frase">
+      Si hay un <span class="s6-hook-emphasis">1 %</span> de probabilidad de que tu pedido implique construir algo,<br>
+      la skill se invoca.
+    </p>
+    <p class="s6-hook-foot">
+      Deliberadamente paranoica. Aplica a todo proyecto sin importar cuán simple parezca.
+    </p>
+  </div>
+
+  <aside class="notes">
+    <p><u>Hook contraintuitivo. La regla del 1% es la condición de invocación más agresiva del cinturón — es voluntaria, viene del propio frontmatter de la skill.</u></p>
+    <p><em>"La regla de invocación de brainstorming es deliberadamente paranoica. Si hay un 1% de probabilidad de que el pedido implique construir o cambiar algo, la skill se invoca. Eso incluye cosas que parecen triviales: un script de utilidad de una función, un cambio de configuración, una todo list."</em></p>
+    <p><em>"¿Por qué tan agresiva? Porque los proyectos 'simples' son justamente donde las suposiciones no examinadas hacen más daño. Si tu proyecto es chico, el costo de discutirlo dos minutos antes es chico; el costo de re-hacerlo porque el agente entendió mal también es chico, pero la frecuencia con la que te pasa es mucho más alta. La skill cobra el costo barato siempre, así nunca cobrás el caro."</em></p>
+  </aside>
+</section>
+
+<!-- §6.3 — Qué hace: flow vertical -->
+<section>
+  <h2 style="text-align: center; max-width: 900px; margin: 0 auto;">Qué hace</h2>
+
+  <div class="s6-flow">
+    <div class="s6-flow-step">
+      <strong>Entrada</strong>
+      Idea cruda — una frase tuya tipo "quiero hacer X".
+    </div>
+    <div class="s6-flow-arrow">↓</div>
+    <div class="s6-flow-step">
+      <strong>Exploración</strong>
+      Diálogo dirigido: una pregunta por vez sobre propósito, restricciones y criterios de éxito.
+    </div>
+    <div class="s6-flow-arrow">↓</div>
+    <div class="s6-flow-step">
+      <strong>Propuesta</strong>
+      Dos o tres approaches con sus trade-offs.
+    </div>
+    <div class="s6-flow-arrow">↓</div>
+    <div class="s6-flow-step">
+      <strong>Salida</strong>
+      Un design spec escrito y aprobado por vos — antes de tocar código.
+    </div>
+  </div>
+
+  <aside class="notes">
+    <p><u>El flujo concreto. Cuatro estaciones: idea cruda → exploración → propuesta → spec. Sin saltarse pasos.</u></p>
+    <p><em>"Cuatro estaciones. Vos entrás con una idea cruda. La skill explora el contexto del proyecto y empieza a hacer preguntas — una por vez, multiple-choice cuando se puede, sobre propósito, restricciones, criterios de éxito. Después propone dos o tres approaches con sus trade-offs. Y recién al final arma el spec escrito."</em></p>
+    <p><em>"El spec es lo que vas a aprobar antes de que se toque una sola línea de código. Eso es el contrato."</em></p>
+  </aside>
+</section>
+
+<!-- §6.4 — Cuándo se activa: comparison sí/no -->
+<section>
+  <h2 style="text-align: center; max-width: 900px; margin: 0 auto;">Cuándo se activa</h2>
+
+  <div class="s6-compare">
+    <div class="s6-compare-card is-yes">
+      <div class="s6-compare-tag">Sí se activa</div>
+      <p class="s6-compare-body">Features nuevas, componentes nuevos, agregar funcionalidad, modificar comportamiento existente. Incluye scripts de utilidad triviales y cambios de configuración.</p>
+    </div>
+    <div class="s6-compare-card is-no">
+      <div class="s6-compare-tag">No se activa</div>
+      <p class="s6-compare-body">Tareas exploratorias (leer código, explicar cómo funciona algo, debug) y correcciones mecánicas donde el diseño ya está fijado.</p>
+    </div>
+  </div>
+
+  <aside class="notes">
+    <p><u>Cuándo sí, cuándo no. Comparison directo para que el alumno se haga el mapa mental de cuándo va a aparecer la skill.</u></p>
+    <p><em>"Cuándo se activa: antes de cualquier trabajo creativo. Features nuevas, componentes nuevos, agregar funcionalidad, modificar comportamiento existente. La regla del 1% que vimos hace dos minutos hace que aplique incluso a cosas que parecen triviales."</em></p>
+    <p><em>"Cuándo no se activa: tareas exploratorias — leer código, explicar cómo funciona algo, debugging — y correcciones mecánicas donde el diseño ya está fijado. Si lo único que querés es 'cambiame este import' o 'arregla este typo', la skill no se mete."</em></p>
+  </aside>
+</section>
+
+<!-- §6.5 — Por qué importa -->
+<section>
+  <h2 style="text-align: center; max-width: 900px; margin: 0 auto;">Por qué importa</h2>
+
+  <div class="s6-central">
+    <div class="s6-central-main">
+      Sin esta skill, el agente arranca a codear con la <strong>primera interpretación plausible</strong> de tu pedido. Esa interpretación carga suposiciones no examinadas que recién se manifiestan cuando ya hay archivos, tests y commits.
+    </div>
+    <p class="s6-central-sub">
+      El trabajo desechado en los rebotes es el costo real que la skill ataca.
+    </p>
+  </div>
+
+  <aside class="notes">
+    <p><u>Por qué importa, en una sola idea. Es el problema diagnóstico de §4.3 aplicado a esta skill específica.</u></p>
+    <p><em>"Sin esta skill, el modelo arranca a codear con la primera interpretación plausible del pedido. Esa interpretación viene cargada de suposiciones no examinadas — del modelo y tuyas — que recién se manifiestan cuando ves el resultado y no es lo que querías. El trabajo desechado en esos rebotes es el costo real que la skill ataca."</em></p>
+    <p><em>"El otro problema que resuelve es el de scope: pedidos que en realidad son cinco proyectos disfrazados de uno. Si no detectás eso antes de empezar, terminás con un spec inejecutable o con un sistema que mezcla cinco responsabilidades en el mismo archivo."</em></p>
+  </aside>
+</section>
+
+<!-- §6.6 — Punto crítico: hard gate -->
+<section>
+  <h2 style="text-align: center; max-width: 900px; margin: 0 auto;">Punto crítico</h2>
+
+  <div class="s6-central">
+    <div class="s6-central-main">
+      <strong>Nunca implementar nada</strong> — ni un esqueleto del proyecto, ni un archivo vacío — antes de que vos hayas <strong>aprobado el diseño escrito</strong>.
+    </div>
+    <p class="s6-central-sub">
+      Aplica a todo proyecto sin importar cuán simple parezca.
+    </p>
+  </div>
+
+  <aside class="notes">
+    <p><u>La regla central no negociable. Hard gate sobre la implementación.</u></p>
+    <p><em>"Una pregunta por vez. Multiple choice cuando se puede. Nunca implementar nada — ni un esqueleto del proyecto, ni un archivo vacío — antes de que vos hayas aprobado el diseño escrito. Esto aplica a todo proyecto sin importar cuán simple parezca."</em></p>
+    <p><em>"Es la regla que más resistencia genera al principio porque uno tiene el reflejo de 'pero si esto es obvio, hagámoslo y listo'. La skill no se saltea por simplicidad aparente. Y la próxima slide muestra dónde queda anclado ese diseño aprobado."</em></p>
+  </aside>
+</section>
+
+<!-- §6.7 — Artefacto en disco + Spec Self-Review -->
+<section>
+  <h2 style="text-align: center; max-width: 900px; margin: 0 auto;">Dos cosas importantes del flujo</h2>
+
+  <div class="s6-split">
+    <div class="s6-split-card">
+      <div class="s6-split-tag">El spec en disco</div>
+      <p class="s6-split-body">El spec aprobado se persiste en:</p>
+      <pre style="margin: var(--spacing-xs) 0; background: var(--bg-primary); border-radius: 4px; padding: var(--spacing-xs) var(--spacing-sm); font-size: 0.9rem; color: var(--accent-secondary); overflow-x: auto;"><code>docs/superpowers/specs/
+  YYYY-MM-DD-&lt;topic&gt;-design.md</code></pre>
+      <p class="s6-split-body" style="margin-top: var(--spacing-xs);">No es chat que se pierde. Es archivo versionado. Las próximas skills lo leen desde ahí, no de la conversación.</p>
+    </div>
+    <div class="s6-split-card is-secondary">
+      <div class="s6-split-tag">Spec Self-Review</div>
+      <p class="s6-split-body">Antes de pedirte que revises, la skill chequea sola:</p>
+      <ul class="s6-split-body">
+        <li>Placeholders (<code>TBD</code>, <code>TODO</code>, secciones incompletas)</li>
+        <li>Contradicciones entre secciones</li>
+        <li>Scope: ¿esto es un spec o son cinco?</li>
+        <li>Ambigüedades de interpretación</li>
+      </ul>
+      <p class="s6-split-body" style="margin-top: var(--spacing-xs); font-style: italic;">Vos nunca deberías leer un &quot;TBD&quot; en tu propio spec.</p>
+    </div>
+  </div>
+
+  <aside class="notes">
+    <p><u>Dos detalles operativos importantes: dónde vive el spec + el self-review que corre antes de pasártelo.</u></p>
+    <p><em>"El spec aprobado se persiste en disco bajo docs/superpowers/specs, con un nombre que arranca con la fecha en formato ISO y termina con el topic. Se commitea al repo. No es un mensaje más de la conversación que se pierde cuando cerrás la sesión: es un archivo de primera clase, versionado igual que el código."</em></p>
+    <p><em>"Por qué importa: las próximas skills del happy-path — writing-plans, subagent-driven-development — leen el spec desde ese path, no de la conversación. Si querés cambiar el rumbo del feature, editás ese archivo y volvés a correr el flujo."</em></p>
+    <p><em>"Hay además un Spec Self-Review interno que corre antes de pasártelo a vos. Escanea placeholders, contradicciones entre secciones, scope creep, y ambigüedades. Lo arregla en el momento, sin pedirte input. Vos no deberías leer un TBD en tu propio spec."</em></p>
+  </aside>
+</section>
+
+<!-- §6.8 — Anti-patrones + captura del demo-repo S04 -->
+<section>
+  <h2 style="text-align: center; max-width: 900px; margin: 0 auto;">Anti-patrones a evitar</h2>
+
+  <div class="s6-anti">
+    <div class="s6-anti-card">
+      &laquo;Esto es muy simple, no necesita diseño.&raquo; Todo proyecto pasa por el flujo — los simples son donde las suposiciones no examinadas hacen más daño.
+    </div>
+    <div class="s6-anti-card">
+      Combinar varias preguntas en un solo mensaje. Si un tema necesita más exploración, se rompe en preguntas separadas.
+    </div>
+    <div class="s6-anti-card">
+      Invocar cualquier skill de implementación antes de que vos hayas aprobado el diseño escrito.
+    </div>
+  </div>
+
+  <div class="s6-capture">
+    <div class="s6-capture-placeholder">
+      [Captura: preguntas socráticas recibidas al pedir un feature al demo-repo de S04 + el archivo de spec resultante abierto en VS Code, mostrando el path <code>docs/superpowers/specs/YYYY-MM-DD-...-design.md</code>.]
+    </div>
+    <p class="s6-capture-caption">El flujo aplicado a un caso real, con el artefacto en disco.</p>
+  </div>
+
+  <aside class="notes">
+    <p><u>Cierre de §6: tres anti-patrones + captura placeholder del flujo aplicado al demo-repo de S04.</u></p>
+    <p><em>"Tres anti-patrones que vale tener en cabeza."</em></p>
+    <p><em>"Primero: 'esto es muy simple, no necesita diseño'. Ya lo dijimos — los proyectos simples son donde las suposiciones no examinadas hacen más daño. Sin excepciones."</em></p>
+    <p><em>"Segundo: combinar varias preguntas en un solo mensaje. La skill está diseñada para una pregunta por vez. Si un tema necesita más exploración, se rompe en preguntas separadas."</em></p>
+    <p><em>"Tercero: invocar cualquier skill de implementación — writing-plans incluida — antes de que vos hayas aprobado el diseño escrito. Ese es el hard gate."</em></p>
+    <p><em>"Para cerrar, miremos un caso real: este es el flujo aplicado al demo-repo de la clase pasada. A la izquierda, las preguntas socráticas que la skill me hizo cuando le pedí un feature. A la derecha, el archivo de spec que quedó al final, commiteado al repo."</em></p>
+  </aside>
+</section>
