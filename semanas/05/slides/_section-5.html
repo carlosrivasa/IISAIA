@@ -61,7 +61,7 @@
     color: var(--accent-secondary);
   }
 
-  /* Expected output */
+  /* Expected output — div (not pre/code) so spans render as styling instead of literal text */
   .s5-expected {
     background: var(--bg-primary);
     border-radius: 6px;
@@ -71,6 +71,8 @@
     font-size: 0.95rem;
     color: var(--text-muted);
     line-height: 1.6;
+    white-space: pre-wrap;
+    text-align: left;
   }
   .s5-expected .s5-expected-hit {
     color: var(--accent);
@@ -144,9 +146,9 @@
     <div class="s5-step">
       <span class="s5-step-tag">2. verificar</span>
       <div class="s5-step-cmd is-secondary">/plugin list</div>
-      <pre class="s5-expected"><code>$ /plugin list
+      <div class="s5-expected">$ /plugin list
 
-<span class="s5-expected-hit">superpowers</span>  v5.1.0  <span class="s5-expected-mkt">claude-plugins-official</span>  enabled</code></pre>
+<span class="s5-expected-hit">superpowers</span>  v5.1.0  <span class="s5-expected-mkt">claude-plugins-official</span>  enabled</div>
     </div>
 
     <!-- Plan B section -->
