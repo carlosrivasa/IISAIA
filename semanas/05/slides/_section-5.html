@@ -1,166 +1,179 @@
 <style>
-  /* §5 — Instalar Superpowers (soporte para demo en vivo) */
+  /* §5 — Instalar Superpowers — single slide (recreo + install autoservicio) */
 
-  /* Slide 1: el comando */
-  .s5-cmd-wrap {
-    text-align: center;
-    max-width: 900px;
+  .s5-install-wrap {
+    max-width: 1100px;
     margin: 0 auto;
   }
-  .s5-cmd-lead {
+
+  /* Eyebrow + h2 (the h2 lives in the section, this is its eyebrow) */
+  .s5-install-eyebrow {
     color: var(--text-muted);
     font-size: 0.95rem;
-    margin: 0 0 var(--spacing-md) 0;
+    margin: 0 0 var(--spacing-xs) 0;
     text-align: center;
     letter-spacing: 0.08em;
     text-transform: uppercase;
   }
-  .s5-cmd-block {
+
+  /* Primary command card — the most prominent */
+  .s5-step {
+    margin: var(--spacing-md) auto 0 auto;
+    max-width: 940px;
+  }
+  .s5-step-tag {
+    display: inline-block;
+    font-family: var(--font-mono);
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin: 0 0 var(--spacing-xs) 0;
+  }
+  .s5-step-cmd {
     background: var(--bg-secondary);
     border: 1px solid var(--accent);
     border-radius: 8px;
-    padding: var(--spacing-md) var(--spacing-lg);
-    margin: 0 auto var(--spacing-lg) auto;
+    padding: var(--spacing-sm) var(--spacing-md);
     font-family: var(--font-mono);
-    font-size: 1.5rem;
+    font-size: 1.4rem;
     color: var(--accent);
-    text-align: center;
+    text-align: left;
     line-height: 1.4;
+    overflow-x: auto;
   }
-  .s5-cmd-note {
+  .s5-step-cmd.is-secondary {
+    border-color: var(--accent-secondary);
+    color: var(--accent-secondary);
+    font-size: 1.3rem;
+  }
+  .s5-step-note {
     color: var(--text-primary);
-    font-size: 1.15rem;
-    line-height: 1.55;
-    margin: 0;
-    text-align: center;
+    font-size: 1rem;
+    line-height: 1.5;
+    margin: var(--spacing-xs) 0 0 0;
+    text-align: left;
   }
-  .s5-cmd-note code {
+  .s5-step-note code {
     background: var(--bg-secondary);
     border-radius: 3px;
     padding: 1px 6px;
     color: var(--accent-secondary);
   }
 
-  /* Slide 2: verify */
-  .s5-verify-cmd-block {
-    background: var(--bg-secondary);
-    border: 1px solid var(--accent-secondary);
-    border-radius: 8px;
-    padding: var(--spacing-md) var(--spacing-lg);
-    max-width: 600px;
-    margin: 0 auto var(--spacing-lg) auto;
-    font-family: var(--font-mono);
-    font-size: 1.5rem;
-    color: var(--accent-secondary);
-    text-align: center;
-  }
-  .s5-verify-expect {
-    background: var(--bg-secondary);
+  /* Expected output */
+  .s5-expected {
+    background: var(--bg-primary);
     border-radius: 6px;
     padding: var(--spacing-sm) var(--spacing-md);
-    max-width: 720px;
-    margin: 0 auto var(--spacing-md) auto;
+    margin: var(--spacing-xs) 0 0 0;
     font-family: var(--font-mono);
-    font-size: 1rem;
+    font-size: 0.95rem;
     color: var(--text-muted);
-    text-align: left;
     line-height: 1.6;
   }
-  .s5-verify-expect .s5-expect-hit {
+  .s5-expected .s5-expected-hit {
     color: var(--accent);
     font-weight: 700;
   }
-
-  /* Plan B card (used in demo slide notes-context) */
-  .s5-planb {
-    background: var(--bg-secondary);
-    border-left: 4px solid var(--text-muted);
-    border-radius: 6px;
-    padding: var(--spacing-md);
-    max-width: 880px;
-    margin: var(--spacing-md) auto 0 auto;
-    color: var(--text-primary);
-    font-size: 1.05rem;
-    line-height: 1.5;
+  .s5-expected .s5-expected-mkt {
+    color: var(--accent-secondary);
   }
-  .s5-planb-tag {
-    font-family: var(--font-mono);
-    font-size: 0.8rem;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    color: var(--text-muted);
-    margin-bottom: var(--spacing-xs);
+
+  /* Plan B (fallbacks) — visually de-emphasized */
+  .s5-planb {
+    margin: var(--spacing-lg) auto 0 auto;
+    max-width: 940px;
+    padding-top: var(--spacing-md);
+    border-top: 1px dashed var(--text-muted);
+  }
+  .s5-planb-header {
     text-align: center;
+    color: var(--text-muted);
+    font-size: 0.9rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin: 0 0 var(--spacing-md) 0;
+  }
+  .s5-planb-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--spacing-md);
+  }
+  .s5-planb-card {
+    background: var(--bg-secondary);
+    border-radius: 6px;
+    padding: var(--spacing-sm) var(--spacing-md);
+  }
+  .s5-planb-when {
+    color: var(--text-muted);
+    font-size: 0.95rem;
+    margin: 0 0 var(--spacing-xs) 0;
+    line-height: 1.45;
+  }
+  .s5-planb-when strong {
+    color: var(--text-primary);
+  }
+  .s5-planb-cmd {
+    background: var(--bg-primary);
+    border-radius: 4px;
+    padding: var(--spacing-xs) var(--spacing-sm);
+    font-family: var(--font-mono);
+    font-size: 0.95rem;
+    color: var(--accent-secondary);
+    line-height: 1.5;
+    overflow-x: auto;
+    margin: 0;
   }
 </style>
 
-<!-- §5.1 — El comando -->
+<!-- §5 — Instalar Superpowers (single slide para autoservicio + recreo) -->
 <section>
-  <div class="s5-cmd-wrap">
-    <p class="s5-cmd-lead">Un solo comando</p>
-    <div class="s5-cmd-block">/plugin install superpowers@claude-plugins-official</div>
-    <p class="s5-cmd-note">
-      El marketplace oficial viene <strong>pre-registrado</strong>. No hace falta <code>marketplace add</code> antes.
-    </p>
-  </div>
+  <p class="s5-install-eyebrow">Instalá Superpowers — un solo comando</p>
+  <h2 style="text-align: center; max-width: 900px; margin: 0 auto; font-size: 1.6em;">Las instrucciones, en una pantalla</h2>
 
-  <aside class="notes">
-    <p><strong>Slide soporte. El comando va a correr en vivo en el demo.</strong></p>
-    <p><u>Comando único contra el marketplace oficial.</u></p>
-    <p><em>"Un solo comando. Como el marketplace oficial viene pre-registrado, no hace falta agregar nada antes — abrís Claude Code en una terminal limpia y corrés esta línea."</em></p>
-    <p><em>"Esto baja el plugin a <code>~/.claude/plugins/cache/claude-plugins-official/superpowers/</code> y registra todas sus skills. Cuando termine, el flujo que vimos en el roadmap queda disponible de una. No hay que reiniciar Claude Code."</em></p>
-  </aside>
-</section>
+  <div class="s5-install-wrap">
 
-<!-- §5.2 — Verificar -->
-<section>
-  <h2 style="text-align: center; max-width: 900px; margin: 0 auto;">Verificar que cargó</h2>
+    <!-- Step 1: install -->
+    <div class="s5-step">
+      <span class="s5-step-tag">1. instalar</span>
+      <div class="s5-step-cmd">/plugin install superpowers@claude-plugins-official</div>
+      <p class="s5-step-note">El oficial viene pre-registrado. No hace falta <code>marketplace add</code> antes.</p>
+    </div>
 
-  <div class="s5-verify-cmd-block">/plugin list</div>
+    <!-- Step 2: verify -->
+    <div class="s5-step">
+      <span class="s5-step-tag">2. verificar</span>
+      <div class="s5-step-cmd is-secondary">/plugin list</div>
+      <pre class="s5-expected"><code>$ /plugin list
 
-  <p style="text-align: center; color: var(--text-muted); font-size: 1.05rem; margin: 0 0 var(--spacing-md) 0;">
-    Esperás ver algo así:
-  </p>
+<span class="s5-expected-hit">superpowers</span>  v5.1.0  <span class="s5-expected-mkt">claude-plugins-official</span>  enabled</code></pre>
+    </div>
 
-  <pre class="s5-verify-expect"><code>$ /plugin list
-
-<span class="s5-expect-hit">superpowers</span>  v5.1.0  <span style="color: var(--accent-secondary);">claude-plugins-official</span>  enabled</code></pre>
-
-  <aside class="notes">
-    <p><strong>Slide soporte. La salida real va a aparecer en el demo.</strong></p>
-    <p><u>Verificación post-install.</u></p>
-    <p><em>"Para confirmar que cargó, corrés <code>/plugin list</code>. Tiene que aparecer 'superpowers' con su versión y el marketplace 'claude-plugins-official' al costado, y el estado 'enabled'."</em></p>
-    <p><em>"Si no aparece, hay un comando de fallback que es <code>/reload-plugins</code> — refresca el registro de skills entre sesiones cuando algo quedó colgado. Lo mostramos solamente si hace falta."</em></p>
-  </aside>
-</section>
-
-<!-- §5.3 — Section divider: anuncia el demo -->
-<section class="section-divider">
-  <h2>Demo</h2>
-  <p style="color: var(--text-muted); margin-top: var(--spacing-sm); font-size: 1.05rem;">Superpowers cargado en vivo</p>
-</section>
-
-<!-- §5.4 — Plan B (referencia que vive en el slide para el profesor) -->
-<section>
-  <h2 style="text-align: center; max-width: 900px; margin: 0 auto;">Si algo no coopera</h2>
-
-  <div class="s5-planb">
-    <div class="s5-planb-tag">Plan B — marketplace alternativo</div>
-    <p style="margin: 0 0 var(--spacing-sm) 0;">Si el oficial no responde, existe un marketplace comunitario mantenido por el autor original. Sólo lo nombramos; no lo corremos en vivo.</p>
-    <pre style="margin: 0; background: var(--bg-primary); padding: var(--spacing-sm) var(--spacing-md); border-radius: 6px; font-size: 1rem; color: var(--accent-secondary);"><code>/plugin marketplace add obra/superpowers-marketplace
+    <!-- Plan B section -->
+    <div class="s5-planb">
+      <p class="s5-planb-header">Si algo no coopera</p>
+      <div class="s5-planb-grid">
+        <div class="s5-planb-card">
+          <p class="s5-planb-when"><strong>El marketplace oficial no responde.</strong> Usá el comunitario:</p>
+          <pre class="s5-planb-cmd"><code>/plugin marketplace add obra/superpowers-marketplace
 /plugin install superpowers@superpowers-marketplace</code></pre>
-  </div>
-
-  <div class="s5-planb" style="border-left-color: var(--accent-secondary);">
-    <div class="s5-planb-tag">Plan B — skills no aparecen en <code>/plugin list</code></div>
-    <p style="margin: 0;">El comando documentado para refrescar el registro entre sesiones es:</p>
-    <pre style="margin: var(--spacing-sm) 0 0 0; background: var(--bg-primary); padding: var(--spacing-sm) var(--spacing-md); border-radius: 6px; font-size: 1rem; color: var(--accent-secondary);"><code>/reload-plugins</code></pre>
+        </div>
+        <div class="s5-planb-card">
+          <p class="s5-planb-when"><strong>El install terminó pero las skills no figuran</strong> en <code style="background: var(--bg-primary); border-radius: 3px; padding: 1px 6px; color: var(--accent-secondary);">/plugin list</code>:</p>
+          <pre class="s5-planb-cmd"><code>/reload-plugins</code></pre>
+        </div>
+      </div>
+    </div>
   </div>
 
   <aside class="notes">
-    <p><strong>Slide reserva. Se muestra sólo si el demo principal falla.</strong></p>
-    <p><u>Dos planes B documentados: marketplace alternativo y reload-plugins.</u></p>
-    <p><em>"Dos contingencias documentadas. La primera, si el marketplace oficial está caído o el comando timeoutea: existe un marketplace comunitario alternativo de la comunidad, mantenido por el autor original del plugin. Lo nombramos, no lo corremos en vivo."</em></p>
-    <p><em>"La segunda, si el install termina sin errores pero las skills no figuran en /plugin list: ejecutás /reload-plugins. Es el procedimiento documentado en la doc oficial para cuando el registro de skills queda colgado entre sesiones."</em></p>
+    <p><strong>Esta es slide de pausa. Anuncio el recreo, dejo proyectada esta slide, los alumnos instalan a su ritmo.</strong></p>
+    <p><u>Slide auto-suficiente. Tiene todo lo que necesitan para instalar Superpowers, incluyendo dos fallbacks. Se queda en pantalla durante el recreo.</u></p>
+    <p><em>"Esta es la pausa de la clase. Hagan recreo. Mientras tanto, instalen Superpowers — la pantalla tiene todo lo que necesitan."</em></p>
+    <p><em>"Paso uno: el comando de install contra el marketplace oficial. Es el caso más común, anda con un solo comando."</em></p>
+    <p><em>"Paso dos: verifican con <code>/plugin list</code>. Tiene que aparecer 'superpowers' con su versión, el marketplace 'claude-plugins-official', y estado 'enabled'. Si ven esos cuatro datos, está instalado."</em></p>
+    <p><em>"Plan B si algo no responde — tienen dos contingencias en pantalla. Si el marketplace oficial está caído o timeoutea, hay un marketplace comunitario alternativo mantenido por el autor original; primero lo agregan, después instalan desde ahí. Si el install termina sin errores pero las skills no figuran en /plugin list, ejecutan /reload-plugins."</em></p>
+    <p><em>"Cualquier duda durante el recreo me preguntan. Cuando volvamos, arrancamos con la primera skill del happy-path: brainstorming."</em></p>
   </aside>
 </section>
