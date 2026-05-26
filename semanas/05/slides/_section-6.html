@@ -199,13 +199,24 @@
     font-weight: 700;
   }
 
-  /* Anti-patterns + captura */
+  /* Sub-section labels (used inside combined slide) */
+  .s6-sublabel {
+    text-align: center;
+    font-family: var(--font-mono);
+    font-size: 0.85rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin: var(--spacing-lg) 0 var(--spacing-sm) 0;
+  }
+
+  /* Anti-patterns grid */
   .s6-anti {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
     gap: var(--spacing-sm);
     max-width: 1100px;
-    margin: var(--spacing-lg) auto 0 auto;
+    margin: 0 auto;
   }
   .s6-anti-card {
     background: var(--bg-secondary);
@@ -216,25 +227,27 @@
     font-size: 1rem;
     line-height: 1.45;
   }
+
+  /* Captura (slide propio) */
   .s6-capture {
-    margin: var(--spacing-lg) auto 0 auto;
-    max-width: 920px;
+    margin: var(--spacing-md) auto 0 auto;
+    max-width: 1100px;
     text-align: center;
   }
   .s6-capture-placeholder {
     background: var(--bg-secondary);
     border: 1px dashed var(--text-muted);
     border-radius: 8px;
-    padding: var(--spacing-lg);
+    padding: 90px var(--spacing-lg);
     color: var(--text-muted);
-    font-size: 1rem;
-    line-height: 1.5;
+    font-size: 1.1rem;
+    line-height: 1.6;
     font-style: italic;
   }
   .s6-capture-caption {
     color: var(--text-muted);
-    font-size: 0.95rem;
-    margin: var(--spacing-xs) 0 0 0;
+    font-size: 1.05rem;
+    margin: var(--spacing-md) 0 0 0;
     text-align: center;
   }
 </style>
@@ -370,46 +383,35 @@
   </aside>
 </section>
 
-<!-- §6.6 — Artefacto en disco + Spec Self-Review -->
+<!-- §6.6 — Operativa: dos cosas del flujo + anti-patrones -->
 <section>
-  <h2 style="text-align: center; max-width: 900px; margin: 0 auto;">Dos cosas importantes del flujo</h2>
+  <h2 style="text-align: center; max-width: 900px; margin: 0 auto;">Detalles del flujo</h2>
 
+  <p class="s6-sublabel" style="margin-top: var(--spacing-md);">Dos cosas importantes</p>
   <div class="s6-split">
     <div class="s6-split-card">
       <div class="s6-split-tag">El spec en disco</div>
       <p class="s6-split-body">El spec aprobado se persiste en:</p>
       <pre style="margin: var(--spacing-xs) 0; background: var(--bg-primary); border-radius: 4px; padding: var(--spacing-xs) var(--spacing-sm); font-size: 0.9rem; color: var(--accent-secondary); overflow-x: auto;"><code>docs/superpowers/specs/
   YYYY-MM-DD-&lt;topic&gt;-design.md</code></pre>
-      <p class="s6-split-body" style="margin-top: var(--spacing-xs);">No es chat que se pierde. Es archivo versionado. Las próximas skills lo leen desde ahí, no de la conversación.</p>
+      <p class="s6-split-body" style="margin-top: var(--spacing-xs);">No es chat que se pierde. Es archivo versionado. Las próximas skills lo leen desde ahí.</p>
     </div>
     <div class="s6-split-card is-secondary">
       <div class="s6-split-tag">Spec Self-Review</div>
       <p class="s6-split-body">Antes de pedirte que revises, la skill chequea sola:</p>
       <ul class="s6-split-body">
-        <li>Placeholders (<code>TBD</code>, <code>TODO</code>, secciones incompletas)</li>
+        <li>Placeholders (<code>TBD</code>, <code>TODO</code>)</li>
         <li>Contradicciones entre secciones</li>
         <li>Scope: ¿esto es un spec o son cinco?</li>
         <li>Ambigüedades de interpretación</li>
       </ul>
-      <p class="s6-split-body" style="margin-top: var(--spacing-xs); font-style: italic;">Vos nunca deberías leer un &quot;TBD&quot; en tu propio spec.</p>
     </div>
   </div>
 
-  <aside class="notes">
-    <p><u>Dos detalles operativos importantes: dónde vive el spec + el self-review que corre antes de pasártelo.</u></p>
-    <p><em>"El spec aprobado se persiste en disco bajo docs/superpowers/specs, con un nombre que arranca con la fecha en formato ISO y termina con el topic. Se commitea al repo. No es un mensaje más de la conversación que se pierde cuando cerrás la sesión: es un archivo de primera clase, versionado igual que el código."</em></p>
-    <p><em>"Por qué importa: las próximas skills del happy-path — writing-plans, subagent-driven-development — leen el spec desde ese path, no de la conversación. Si querés cambiar el rumbo del feature, editás ese archivo y volvés a correr el flujo."</em></p>
-    <p><em>"Hay además un Spec Self-Review interno que corre antes de pasártelo a vos. Escanea placeholders, contradicciones entre secciones, scope creep, y ambigüedades. Lo arregla en el momento, sin pedirte input. Vos no deberías leer un TBD en tu propio spec."</em></p>
-  </aside>
-</section>
-
-<!-- §6.7 — Anti-patrones + captura del demo-repo S04 -->
-<section>
-  <h2 style="text-align: center; max-width: 900px; margin: 0 auto;">Anti-patrones a evitar</h2>
-
+  <p class="s6-sublabel">Tres anti-patrones a evitar</p>
   <div class="s6-anti">
     <div class="s6-anti-card">
-      &laquo;Esto es muy simple, no necesita diseño.&raquo; Todo proyecto pasa por el flujo — los simples son donde las suposiciones no examinadas hacen más daño.
+      &laquo;Esto es muy simple, no necesita diseño.&raquo; Los proyectos simples son donde las suposiciones no examinadas hacen más daño.
     </div>
     <div class="s6-anti-card">
       Combinar varias preguntas en un solo mensaje. Si un tema necesita más exploración, se rompe en preguntas separadas.
@@ -419,19 +421,31 @@
     </div>
   </div>
 
+  <aside class="notes">
+    <p><u>Slide denso: dos detalles operativos del flujo + tres anti-patrones a evitar. Vale dedicarle tiempo.</u></p>
+    <p><em>"Dos cosas importantes del flujo. La primera: el spec aprobado se persiste en disco bajo docs/superpowers/specs, con nombre que arranca con la fecha en formato ISO y termina con el topic. Se commitea al repo. No es un mensaje más de la conversación que se pierde cuando cerrás la sesión: es un archivo de primera clase, versionado igual que el código. Las próximas skills — writing-plans, subagent-driven-development — leen el spec desde ese path, no de la conversación. Si querés cambiar el rumbo del feature, editás ese archivo y volvés a correr el flujo."</em></p>
+    <p><em>"La segunda: hay un Spec Self-Review interno que corre antes de pasártelo a vos. Escanea placeholders, contradicciones entre secciones, scope creep, y ambigüedades. Lo arregla en el momento, sin pedirte input. Vos no deberías leer un TBD en tu propio spec."</em></p>
+    <p><em>"Y tres anti-patrones que vale tener en cabeza. Primero: 'esto es muy simple, no necesita diseño'. Ya lo dijimos — los simples son donde las suposiciones no examinadas hacen más daño. Sin excepciones."</em></p>
+    <p><em>"Segundo: combinar varias preguntas en un solo mensaje. La skill está diseñada para una pregunta por vez. Si un tema necesita más exploración, se rompe en preguntas separadas."</em></p>
+    <p><em>"Tercero: invocar cualquier skill de implementación — writing-plans incluida — antes de que vos hayas aprobado el diseño escrito. Ese es el hard gate."</em></p>
+  </aside>
+</section>
+
+<!-- §6.7 — Caso real: brainstorming aplicado al demo-repo S04 -->
+<section>
+  <h2 style="text-align: center; max-width: 1000px; margin: 0 auto;">Brainstorming sobre el demo-repo</h2>
+
   <div class="s6-capture">
     <div class="s6-capture-placeholder">
-      [Captura: las preguntas que la skill hizo al pedir un feature al demo-repo de S04 + el archivo de spec resultante abierto en VS Code, mostrando el path <code>docs/superpowers/specs/YYYY-MM-DD-...-design.md</code>.]
+      [Captura: las preguntas que la skill hizo al pedir un feature al demo-repo de S04 (izquierda) + el archivo de spec resultante abierto en VS Code, mostrando el path <code>docs/superpowers/specs/YYYY-MM-DD-...-design.md</code> (derecha).]
     </div>
-    <p class="s6-capture-caption">El flujo aplicado a un caso real, con el artefacto en disco.</p>
+    <p class="s6-capture-caption">El flujo aplicado a un caso real, con el artefacto final en disco.</p>
   </div>
 
   <aside class="notes">
-    <p><u>Cierre de §6: tres anti-patrones + captura placeholder del flujo aplicado al demo-repo de S04.</u></p>
-    <p><em>"Tres anti-patrones que vale tener en cabeza."</em></p>
-    <p><em>"Primero: 'esto es muy simple, no necesita diseño'. Ya lo dijimos — los proyectos simples son donde las suposiciones no examinadas hacen más daño. Sin excepciones."</em></p>
-    <p><em>"Segundo: combinar varias preguntas en un solo mensaje. La skill está diseñada para una pregunta por vez. Si un tema necesita más exploración, se rompe en preguntas separadas."</em></p>
-    <p><em>"Tercero: invocar cualquier skill de implementación — writing-plans incluida — antes de que vos hayas aprobado el diseño escrito. Ese es el hard gate."</em></p>
-    <p><em>"Para cerrar, miremos un caso real: este es el flujo aplicado al demo-repo de la clase pasada. A la izquierda, las preguntas que la skill me hizo cuando le pedí un feature. A la derecha, el archivo de spec que quedó al final, commiteado al repo."</em></p>
+    <p><strong>Slide dedicado a la captura — se queda en pantalla un par de minutos para que los alumnos lean el contenido del spec.</strong></p>
+    <p><u>Caso real del flujo aplicado al demo-repo de S04.</u></p>
+    <p><em>"Para cerrar la sección, miremos un caso real. Este es brainstorming aplicado al demo-repo de la clase pasada. A la izquierda, las preguntas que la skill me hizo cuando le pedí un feature — fíjense en que aparecen una por vez, multiple-choice cuando se podía. A la derecha, el archivo de spec que quedó al final, commiteado al repo bajo el path estándar de Superpowers."</em></p>
+    <p><em>"Si miran el contenido del spec, van a ver que arranca con propósito y criterios de éxito, sigue con los approaches que la skill propuso, y termina con la decisión que tomamos. No hay 'TBD' en ninguna sección — el Self-Review los cazó antes."</em></p>
   </aside>
 </section>
