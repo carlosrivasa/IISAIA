@@ -98,6 +98,24 @@
     margin: var(--spacing-xs) 0 0 0;
     font-style: italic;
   }
+  .s8-concept-cmd {
+    background: var(--bg-primary);
+    border-radius: 4px;
+    padding: var(--spacing-xs) var(--spacing-sm);
+    font-family: var(--font-mono);
+    font-size: 0.95rem;
+    color: var(--accent-secondary);
+    margin: var(--spacing-xs) 0 0 0;
+    line-height: 1.6;
+    white-space: pre-wrap;
+    overflow-x: auto;
+  }
+  .s8-concept-cmd-note {
+    color: var(--text-muted);
+    font-size: 0.95rem;
+    font-style: italic;
+    margin: var(--spacing-xs) 0 0 0;
+  }
 
   /* Flow paso a paso */
   .s8-flow {
@@ -277,16 +295,20 @@
     <div class="s8-concept fragment fade-in" data-fragment-index="0">
       <span class="s8-concept-tag">1</span><span class="s8-concept-name">commit</span>
       <p class="s8-concept-def">Una <strong>foto del repo en un momento</strong>. Guarda QUÉ cambió (el diff), QUIÉN lo hizo, CUÁNDO, y POR QUÉ (mensaje del commit).</p>
+      <div class="s8-concept-cmd">git add &lt;archivos&gt;
+git commit -m "tipo: descripción corta"</div>
       <p class="s8-concept-rule">Regla práctica: commits chicos y frecuentes. Si no se describe en una sola oración corta, probablemente sean dos.</p>
     </div>
     <div class="s8-concept fragment fade-in" data-fragment-index="1">
       <span class="s8-concept-tag">2</span><span class="s8-concept-name">branch</span>
       <p class="s8-concept-def">Una <strong>línea paralela de commits</strong>. <code>main</code> es la principal. Una branch propia (<code>feature/&lt;descripcion&gt;</code>) no contamina <code>main</code> mientras experimentás.</p>
+      <div class="s8-concept-cmd">git checkout -b feature/&lt;descripcion&gt;</div>
       <p class="s8-concept-rule">Mientras la branch está abierta podés romper, deshacer, reintentar — nadie más se entera.</p>
     </div>
     <div class="s8-concept fragment fade-in" data-fragment-index="2">
       <span class="s8-concept-tag">3</span><span class="s8-concept-name">pull request</span>
-      <p class="s8-concept-def">La <strong>propuesta de mergear</strong> tu branch a <code>main</code>. No es un comando — es un evento en GitHub. Tiene título, descripción, y queda visible para el equipo.</p>
+      <p class="s8-concept-def">La <strong>propuesta de mergear</strong> tu branch a <code>main</code>. Tiene título, descripción, y queda visible para el equipo.</p>
+      <p class="s8-concept-cmd-note">No es un comando local — se abre desde la UI de GitHub después del <code>git push</code>.</p>
       <p class="s8-concept-rule">Hasta que no se mergea, la branch existe pero <code>main</code> no tiene esos cambios.</p>
     </div>
   </div>
@@ -294,9 +316,9 @@
   <aside class="notes">
     <p><strong>Tres reveals — uno por concepto.</strong></p>
     <p><u>Refresher de los conceptos base. Suposición: el alumno los vio antes en S04 pero conviene retomarlos antes de las skills que operan sobre git.</u></p>
-    <p><em>"Tres conceptos mínimos. El primero: commit. Una foto del repo en un momento. Guarda qué cambió, quién, cuándo, y por qué — el mensaje del commit. La práctica es hacer commits chicos y frecuentes: si no se puede describir en una sola oración corta, probablemente sean dos commits."</em></p>
-    <p><em>"Segundo: branch. Una línea paralela de commits. Main es la línea principal del proyecto. Cuando arrancan algo nuevo, abren una branch propia con el formato feature barra descripcion. Mientras está abierta, pueden romper, deshacer, reintentar — nadie más se entera."</em></p>
-    <p><em>"Tercero: pull request. La propuesta de mergear tu branch a main. No es un comando: es un evento en GitHub. Lo abren desde la UI, le ponen título y descripción, y queda visible. Hasta que no se mergea, la branch existe pero main no tiene esos cambios."</em></p>
+    <p><em>"Tres conceptos mínimos. El primero: commit. Una foto del repo en un momento — guarda qué cambió, quién, cuándo, y por qué. Los dos comandos en pantalla: git add para marcar qué archivos van al snapshot, y git commit menos m con un mensaje corto que describe la idea. La práctica es hacer commits chicos y frecuentes — si no se puede describir en una sola oración corta, probablemente sean dos commits."</em></p>
+    <p><em>"Segundo: branch. Una línea paralela de commits. Main es la línea principal del proyecto. Cuando arrancan algo nuevo, abren una branch propia con git checkout menos b seguido del nombre, típicamente con el prefijo feature barra. Mientras está abierta, pueden romper, deshacer, reintentar — nadie más se entera."</em></p>
+    <p><em>"Tercero: pull request. La propuesta de mergear tu branch a main. Acá no hay un comando local — es un evento en GitHub, lo abren desde la UI después de hacer git push. Le ponen título, descripción, y queda visible para el equipo. Hasta que no se mergea, la branch existe pero main no tiene esos cambios."</em></p>
   </aside>
 </section>
 
