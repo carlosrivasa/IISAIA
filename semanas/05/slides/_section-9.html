@@ -149,13 +149,20 @@
     font-weight: 700;
   }
   .s9-review-order {
-    text-align: center;
+    display: block;
+    text-align: center !important;
     color: var(--text-muted);
     font-size: 1.05rem;
-    margin: var(--spacing-md) auto 0 auto;
-    max-width: 880px;
+    max-width: 1050px;
+    margin-left: auto !important;
+    margin-right: auto !important;
+    margin-top: var(--spacing-md);
+    margin-bottom: 0;
     line-height: 1.5;
     font-style: italic;
+  }
+  .s9-review-order + .s9-review-order {
+    margin-top: 4px;
   }
   .s9-review-order strong {
     color: var(--accent);
@@ -175,10 +182,15 @@
     border: 1px solid var(--text-muted);
   }
   .s9-cap-caption {
+    display: block;
+    text-align: center !important;
     color: var(--text-muted);
     font-size: 1.05rem;
-    margin: var(--spacing-sm) auto 0 auto;
-    max-width: 880px;
+    max-width: 1100px;
+    margin-left: auto !important;
+    margin-right: auto !important;
+    margin-top: var(--spacing-sm);
+    margin-bottom: 0;
     line-height: 1.5;
     font-style: italic;
   }
@@ -228,11 +240,15 @@
     color: var(--accent);
   }
   .s9-ctx-delta {
-    text-align: center;
+    display: block;
+    text-align: center !important;
     color: var(--text-primary);
     font-size: 1.15rem;
-    margin: var(--spacing-md) auto 0 auto;
-    max-width: 940px;
+    max-width: 1100px;
+    margin-left: auto !important;
+    margin-right: auto !important;
+    margin-top: var(--spacing-md);
+    margin-bottom: 0;
     line-height: 1.5;
   }
   .s9-ctx-delta strong {
@@ -371,9 +387,8 @@
     </div>
   </div>
 
-  <p class="s9-review-order">
-    El orden importa: <strong>primero el qué, después el cómo.</strong> Si el código es lindo pero no hace lo que el plan pedía, hay que arreglar el qué antes que el cómo.
-  </p>
+  <p class="s9-review-order">El orden importa: <strong>primero el qué, después el cómo.</strong></p>
+  <p class="s9-review-order">Si el código es lindo pero no hace lo que el plan pedía, hay que arreglar eso primero.</p>
 
   <aside class="notes">
     <p><u>Slide central de §9: la regla del two-stage review entre tareas.</u></p>
