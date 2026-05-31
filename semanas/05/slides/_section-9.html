@@ -464,7 +464,7 @@
   </aside>
 </section>
 
-<!-- §9.7 — El payoff: el contexto del coordinador no se llena -->
+<!-- §9.7 — La recompensa: el contexto del coordinador no se llena -->
 <section>
   <h2 style="text-align: center; max-width: 1000px; margin: 0 auto;">Por qué escala: el contexto del coordinador</h2>
 
@@ -486,8 +486,8 @@
   </p>
 
   <aside class="notes">
-    <p><u>Slide-payoff de §9. La comparación visual demuestra el beneficio principal del modo subagent-driven: el contexto del coordinador queda manejable a pesar de un feature completo.</u></p>
-    <p><em>"Y acá está el payoff. A la izquierda, el contexto del coordinador antes de empezar la implementación: 101k tokens, 10% de la ventana. A la derecha, después de las 11 tasks completas con todos los reviews: 194.6k tokens, 19%."</em></p>
+    <p><u>Slide-resultado de §9. La comparación visual demuestra el beneficio principal del modo subagent-driven: el contexto del coordinador queda manejable a pesar de un feature completo.</u></p>
+    <p><em>"Y acá está el resultado. A la izquierda, el contexto del coordinador antes de empezar la implementación: 101k tokens, 10% de la ventana. A la derecha, después de las 11 tasks completas con todos los reviews: 194.6k tokens, 19%."</em></p>
     <p><em>"El coordinador sumó sólo 93k tokens — porque nunca vio el código en detalle. Lo que vio fueron los resúmenes que cada subagent devolvió: 'Task 1 implementada, 8/8 tests pasan, commit 0519a26'. La pesada — leer archivos, escribir código, correr tests, debuggear — la hicieron los subagents en contextos efímeros que se descartaron."</em></p>
     <p><em>"Esto es lo que hace que el modo autónomo escale. Si toda la implementación ocurriera dentro del contexto del coordinador, después de la Task 3 ya estaríamos al 60% y la Task 6 fallaría por context rot. Acá la skill termina las 11 tasks y todavía tiene 80% de espacio libre."</em></p>
   </aside>
