@@ -2573,54 +2573,6 @@
     font-weight: 700;
   }
 
-  /* Meta-revelation slide */
-  .s7-meta {
-    max-width: 980px;
-    margin: 0 auto;
-    text-align: center;
-  }
-  .s7-meta-line {
-    color: var(--text-primary);
-    font-size: 1.5rem;
-    line-height: 1.5;
-    margin: 0 auto var(--spacing-lg) auto;
-    text-align: center;
-    font-weight: 600;
-  }
-  .s7-meta-files {
-    background: var(--bg-secondary);
-    border-radius: 8px;
-    padding: var(--spacing-md) var(--spacing-lg);
-    margin: 0 auto var(--spacing-lg) auto;
-    max-width: 880px;
-    text-align: left;
-  }
-  .s7-meta-file {
-    font-family: var(--font-mono);
-    color: var(--accent);
-    font-size: 1rem;
-    line-height: 1.6;
-    margin: 0;
-    overflow-x: auto;
-    word-break: break-all;
-  }
-  .s7-meta-file-tag {
-    color: var(--text-muted);
-    font-family: var(--font-mono);
-    font-size: 0.78rem;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    margin-right: var(--spacing-sm);
-  }
-  .s7-meta-close {
-    color: var(--text-muted);
-    font-size: 1.15rem;
-    line-height: 1.55;
-    margin: 0 auto;
-    max-width: 760px;
-    text-align: center;
-    font-style: italic;
-  }
 </style>
 <section>
 <!-- §7.1 — Opener: mini-roadmap iluminado en s7 -->
@@ -2886,30 +2838,6 @@
     <p><em>"Salida: el plan en disco, commiteado. Si abrís el archivo, vas a ver 11 tareas en TDD, una por archivo o componente del feature."</em></p>
     <p><em>"Acá están las 11 tareas en una vista resumen. Cada una tiene paths exactos, código completo, comandos de verificación al lado, y un commit chico al final. Las primeras tres son refactor previo necesario; de la cuatro en adelante van construyendo el feature pieza por pieza."</em></p>
     <p><em>"Y acá el Plan Self-Review: la skill encontró sola dos gaps en su primer draft del plan y los corrigió antes de pasármelo. El test que faltaba aparecía en la lista del spec pero no en ninguna tarea — spec coverage gap. Y el import de Literal estaba mal ubicado en Task 4 — un placeholder de organización. Los dos quedaron arreglados inline, sin pedirme input. Por eso digo que nunca debería leer un TBD en mi propio plan."</em></p>
-  </aside>
-</section>
-
-<!-- §7.8 — Meta-revelación: este deck también -->
-<section>
-  <div class="s7-meta">
-    <p class="s7-meta-line">
-      Este deck también se escribió con esta cadena.
-    </p>
-
-    <div class="s7-meta-files">
-      <p class="s7-meta-file"><span class="s7-meta-file-tag">spec</span>docs/superpowers/specs/2026-05-21-semana-05-source-material-design.md</p>
-      <p class="s7-meta-file" style="margin-top: var(--spacing-sm);"><span class="s7-meta-file-tag">plan</span>docs/superpowers/plans/2026-05-21-semana-05-source-material.md</p>
-    </div>
-
-    <p class="s7-meta-close">
-      Los dos archivos están commiteados al repo. La slide que están leyendo salió de ese plan.
-    </p>
-  </div>
-
-  <aside class="notes">
-    <p><u>Cierre meta-pedagógico del §7. Las dos rutas existen literal en este repo; el deck que están viendo se construyó con la misma cadena.</u></p>
-    <p><em>"Antes de cerrar la sección, una nota meta. La cadena que les estoy mostrando — brainstorming → writing-plans → subagent-driven-development — no es teoría. El propio deck que ustedes están viendo se armó así. El spec del rediseño del material del curso está commiteado en docs/superpowers/specs, con la fecha en que se generó. El plan que se ejecutó vive en docs/superpowers/plans, en paralelo. Si abrís el repo del curso, los dos archivos están ahí."</em></p>
-    <p><em>"La slide que están leyendo — esta misma — salió de una de las tareas del plan. No es una afirmación de marketing; es el archivo en disco. Eso es lo que hace Superpowers cuando funciona: deja un rastro auditable de cómo se llegó al código."</em></p>
   </aside>
 </section>
 </section>
