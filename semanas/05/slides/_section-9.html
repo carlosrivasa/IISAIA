@@ -324,11 +324,11 @@
     <div class="s6-compare">
       <div class="s6-compare-card is-yes">
         <div class="s6-compare-tag">subagent-driven (autónomo)</div>
-        <p class="s6-compare-body">Con un plan aprobado, cuando querés delegar una hora entera y volver. Corre continuo entre checkpoints — no te pide permiso entre tareas.</p>
+        <p class="s6-compare-body">Despacha un subagent fresco por cada tarea y revisa entre tareas <strong>sin pedirte permiso</strong>. Vos ves el resultado al final.</p>
       </div>
       <div class="s6-compare-card is-no">
         <div class="s6-compare-tag">executing-plans (conservador)</div>
-        <p class="s6-compare-body">Alternativa: batchea las tareas en una sesión paralela con checkpoints humanos por tarea. Más conservadora — para ver cada step antes de seguir.</p>
+        <p class="s6-compare-body">Ejecuta las tareas <strong>en la misma sesión</strong> y para a pedirte aprobación después de cada una. Vos ves cada step antes de seguir.</p>
       </div>
     </div>
   </div>
@@ -348,7 +348,7 @@
   <aside class="notes">
     <p><strong>Dos reveals — cuándo + por qué.</strong></p>
     <p><u>Cuándo se activa esta skill vs su alternativa más conservadora, y la razón por la que el reset de contexto importa.</u></p>
-    <p><em>"Cuándo se activa: con un plan aprobado en disco. Hay dos opciones para ejecutarlo. Esta skill, subagent-driven-development, es la autónoma: corre continuo entre checkpoints, sin pedirte permiso entre tareas. Si querés delegar una hora entera y volver a ver el resultado, esta es la skill. La alternativa, executing-plans, es más conservadora: batchea las tareas en una sesión paralela con checkpoints humanos por tarea. Más lenta pero te deja revisar a mano antes de seguir."</em></p>
+    <p><em>"Cuándo se activa: con un plan aprobado en disco, cuando querés delegar el trabajo entero. La diferencia entre las dos opciones del plugin es a quién le delegás. Subagent-driven-development es la autónoma: por cada tarea despacha un subagent fresco con contexto limpio, hace la implementación, corre el review automático entre tareas, y sigue. Vos no participás hasta que termina todo. La alternativa, executing-plans, es más conservadora: ejecuta cada tarea dentro de la sesión actual del coordinador y se para a pedirte aprobación entre cada una. Vos revisás cada step antes de avanzar — más lento, pero con control más fino."</em></p>
     <p><em>"Por qué importa: cada subagent arranca limpio, así no acumula context rot ni decisiones tácitas que se le filtraron en la Task 1 y le ensucian la Task 4. El coordinador es el único que mantiene la visión global — mira el plan, el spec y el estado del repo, y reparte tareas con foco quirúrgico. Y acá se cierra el callback a spec-driven development: el subagent no improvisa, lee plan y spec como contratos cerrados."</em></p>
   </aside>
 </section>
