@@ -304,7 +304,7 @@
     <p class="s6-sublabel">Por qué importa</p>
     <div class="s6-central" style="margin-top: 0;">
       <div class="s6-central-main">
-        Code review encuentra cosas <strong>distintas</strong> a las que encuentran los tests: dead code, mismatch entre spec y código, ergonomía pésima de API pública, archivos que crecieron demasiado, invariantes implícitos rotos.
+        Code review encuentra cosas <strong>distintas</strong> a las que encuentran los tests: dead code, mismatch entre spec y código, ergonomía pésima de API pública, archivos que crecieron demasiado, convenciones del proyecto rotas sin que los tests fallen.
       </div>
       <p class="s6-central-sub">
         Tests verifican comportamiento. Review verifica diseño.
@@ -316,7 +316,7 @@
     <p><strong>Dos reveals — cuándo + por qué.</strong></p>
     <p><u>Cuándo se invoca la skill + qué encuentra esta pasada que no encuentran los tests.</u></p>
     <p><em>"Cuándo se activa: cuando terminás de implementar el plan, después de que TDD pasó verde, antes de pasar a finishing-branch. También antes de mergear features grandes o cualquier cambio que toque más de un par de archivos. Y un caso menos obvio: si estás trabado y no sabés qué falta, también sirve — un agente fresco lee el trabajo y te marca lo que vos ya no ves."</em></p>
-    <p><em>"Por qué importa: code review encuentra cosas distintas a las que encuentran los tests. Dead code que quedó de una iteración anterior. Mismatch entre lo que dice el spec y lo que hace el código. Ergonomía pésima de la API pública. Archivos que crecieron demasiado. Decisiones que rompen invariantes implícitos del codebase. Los tests verifican comportamiento; el review verifica diseño. Son dos cosas distintas y se complementan."</em></p>
+    <p><em>"Por qué importa: code review encuentra cosas distintas a las que encuentran los tests. Dead code que quedó de una iteración anterior. Mismatch entre lo que dice el spec y lo que hace el código. Ergonomía pésima de la API pública. Archivos que crecieron demasiado. Convenciones no escritas del proyecto — por ejemplo cómo se manejan los errores o cómo se nombran los endpoints — que el código viola sin que los tests se enteren. Los tests verifican comportamiento; el review verifica diseño. Son dos cosas distintas y se complementan."</em></p>
   </aside>
 </section>
 
