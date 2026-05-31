@@ -71,12 +71,12 @@
     font-style: italic;
   }
   .s9-arch-note {
-    text-align: center;
+    text-align: center !important;
     color: var(--text-muted);
     font-size: 1rem;
     line-height: 1.5;
     margin: var(--spacing-md) auto 0 auto;
-    max-width: 760px;
+    max-width: 980px;
     font-style: italic;
   }
 
@@ -297,9 +297,8 @@
     </div>
   </div>
 
-  <p class="s9-arch-note">
-    Cada subagent arranca con <strong style="color: var(--accent); font-style: normal;">contexto limpio</strong> — no hereda la sesión del coordinador ni arrastra decisiones tácitas de tareas anteriores. Implementa, testea, commitea y devuelve un resumen.
-  </p>
+  <p class="s9-arch-note">Cada subagent arranca con <strong style="color: var(--accent); font-style: normal;">contexto limpio</strong> — no hereda la sesión del coordinador ni arrastra decisiones tácitas de tareas anteriores.</p>
+  <p class="s9-arch-note" style="margin-top: 4px;">Implementa, testea, commitea y devuelve un resumen.</p>
 
   <aside class="notes">
     <u>Diagrama central de §9. El coordinador delega tarea por tarea a subagents efímeros con contexto aislado. Los números de tokens son los reales del log.</u>
