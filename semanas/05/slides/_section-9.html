@@ -420,16 +420,16 @@
     <p class="s6-sublabel">Tres anti-patrones a evitar</p>
     <div class="s6-anti">
       <div class="s6-anti-card">
-        <strong style="color: var(--accent-secondary); display: block; margin-bottom: 4px;">Reusar el subagent</strong>
-        Pasarle Task 2 al mismo subagent que ya cerró Task 1. Arranca con su contexto cargado — decisiones tácitas, errores pasados, código viejo. El aislamiento que la skill garantiza desaparece.
+        <strong style="color: var(--accent-secondary); display: block; margin-bottom: 6px;">Reusar el subagent</strong>
+        <span style="font-family: var(--font-mono); color: var(--text-primary); font-size: 0.95rem;">&laquo;Que el mismo agente haga también la próxima tarea.&raquo;</span>
       </div>
       <div class="s6-anti-card">
-        <strong style="color: var(--accent-secondary); display: block; margin-bottom: 4px;">Saltearse el two-stage review</strong>
-        Marcar la tarea como hecha sin que el reviewer compare el diff contra el plan. Los errores de compliance se cuelan; dos tareas después estás debugueando algo que se atrapaba al toque.
+        <strong style="color: var(--accent-secondary); display: block; margin-bottom: 6px;">Saltearse el review</strong>
+        <span style="font-family: var(--font-mono); color: var(--text-primary); font-size: 0.95rem;">&laquo;Marcala como hecha y seguí a la próxima.&raquo;</span>
       </div>
       <div class="s6-anti-card">
-        <strong style="color: var(--accent-secondary); display: block; margin-bottom: 4px;">Intervenir demasiado pronto</strong>
-        Mandarle mensajes al coordinador mientras una tarea está en ejecución, para &laquo;ayudar&raquo;. La skill se diseñó para correr sola entre checkpoints — interrumpir rompe el loop autónomo y perdés la productividad del modo.
+        <strong style="color: var(--accent-secondary); display: block; margin-bottom: 6px;">Interrumpir mid-tarea</strong>
+        Cualquier mensaje al coordinador mientras un subagent está corriendo.
       </div>
     </div>
   </div>
