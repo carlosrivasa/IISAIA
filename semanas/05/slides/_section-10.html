@@ -203,7 +203,7 @@
     <div class="s10-step is-red">
       <span class="s10-step-num">1</span><span class="s10-step-name">RED</span>
       <span class="s10-step-status">✗ test fails</span>
-      <p class="s10-step-body">Escribís un test que describe el comportamiento deseado. Lo corrés. Lo ves fallar.</p>
+      <p class="s10-step-body">Escribís un test que describe lo que querés que haga el código. Lo corrés. Lo ves fallar.</p>
     </div>
     <div class="s10-cycle-arrow">→</div>
     <div class="s10-step is-green">
@@ -215,15 +215,15 @@
     <div class="s10-step is-refactor">
       <span class="s10-step-num">3</span><span class="s10-step-name">REFACTOR</span>
       <span class="s10-step-status">✓ aún pasa</span>
-      <p class="s10-step-body">Con los tests en verde, limpiás el código sin romper nada. Loop al siguiente comportamiento.</p>
+      <p class="s10-step-body">Con el test en verde, limpiás el código sin romper nada. Después, arrancás otra vuelta con el próximo test.</p>
     </div>
   </div>
 
-  <p class="s10-cycle-loop">El ciclo se repite por cada comportamiento nuevo. <strong>Código sin test previo se borra</strong> y se reescribe siguiendo el ciclo.</p>
+  <p class="s10-cycle-loop">Una vuelta por cada test. <strong>Código sin test previo se borra</strong> y se reescribe siguiendo el ciclo.</p>
 
   <aside class="notes">
     <p><u>El ciclo canónico de TDD, con los colores tradicionales. La regla de hierro al final es el delta vs. el TDD "casero": código de prod sin test previo no se "guarda como referencia" — se borra.</u></p>
-    <p><em>"El ciclo tiene tres estaciones. RED: escribís un test que describe el comportamiento que querés, lo corrés, lo ves fallar. GREEN: escribís el mínimo código necesario para que ese test pase. REFACTOR: con los tests en verde, limpiás el código sin romper nada. Y vuelta al siguiente comportamiento."</em></p>
+    <p><em>"El ciclo tiene tres estaciones. RED: escribís un test que describe lo que querés que haga el código, lo corrés, lo ves fallar. GREEN: escribís el mínimo código necesario para que ese test pase. REFACTOR: con el test en verde, limpiás el código sin romper nada. Y vuelta a empezar con el próximo test."</em></p>
     <p><em>"La regla de hierro: cualquier código de producción escrito antes de su test se borra y se reescribe siguiendo el ciclo. No se 'adapta', no se 'guarda como referencia' — se borra. Es disciplina, no perfeccionismo."</em></p>
   </aside>
 </section>
